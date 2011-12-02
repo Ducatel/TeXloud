@@ -1,18 +1,18 @@
 \documentclass[a4paper,12pt]{article}
 
-% paquets pour avoir les lettres accentu�s et la typographie fran�aise
+% paquets pour avoir les lettres accentués et la typographie française
 \usepackage{a4wide}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[frenchb]{babel}
 \usepackage[T1]{fontenc}%la police utilisee dans le document
 
-%trois package pour taper du texte math�mathiques
+%trois package pour taper du texte mathémathiques
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{mathrsfs}
 
-%pour ins�rer des styles de liste suppl�mentaire
+%pour insérer des styles de liste supplémentaire
 %\usepackage{enumerate}
 
 %pour l'insertion d'image
@@ -37,18 +37,18 @@
 \begin{titlepage}
 \begin{flushleft}
 \large{Universit\'e du Havre \\
-Master seconde ann\'ee \\
-Informatique sp\'ecialisation SIRES\\
+Master Matis \\
+Sp\'ecialisation SIRES\\
 }
 \end{flushleft}
 
 \setlength{\parskip}{96pt}
 
 \begin{center}
-\huge\textbf{TeXloud}
+\huge\textbf{TeXloud\\Des documents \LaTeX ~dans le Cloud}
 
 \setlength{\parskip}{18pt}
-\large\textsc{R�f�rent: Y. Pign�}
+\large\textsc{Référent: Y. Pigné}
 
 \setlength{\parskip}{70pt}
 
@@ -56,7 +56,7 @@ Informatique sp\'ecialisation SIRES\\
 
 \setlength{\parskip}{50pt}
 
-\large Adrien Bruy�re\\David Ducatel\\Meva Rakotondratsima\\Sidina Biha\\Zakaria Bouchakor
+\large Adrien Bruyère\\David Ducatel\\Meva Rakotondratsima\\Sidina Biha\\Zakaria Bouchakor
 \end{center}
 \setlength{\parskip}{50pt}
 \begin{flushleft}
@@ -76,49 +76,211 @@ Informatique sp\'ecialisation SIRES\\
 \newpage
 
 \section{Introduction}
-	
-D�crire bri�vement l'environnement dans lequel s'inscrit le projet (strat�gie, enjeux, domaine, etc.)
+\paragraph*{}
+LaTeX est un langage de composition de documents créé en 1983, dédié principalement à la rédaction
+ de documents scientifiques, dont les éléments sémantiques sont définis par des mots-clés 
+(définition de paragraphes, titres...). Il permet d'écrire simplement des formules scientifiques 
+(équations mathématiques), et l'organisation des documents est gérée automatiquement (pagination, 
+etc.).
+
+\paragraph*{}
+Le cloud computing repose sur le principe de délocalisation des traitements informatiques
+ traditionnellement localisés sur des serveurs locaux ou sur le poste client de l'utilisateur. Cela 
+permet une meilleure répartition des charges systèmes et des tâches.
 
 \section{Description de la demande}
 
-\subsection{Les objectifs}
- 	
-D�finir les r�sultats que le projet doit atteindre.
- 	
-M�thode : Un �nonc� d'objectif doit comporter un verbe d'action � l'infinitif et un objet.
- 	
-Exemple : Diffuser un corpus de connaissance assimilable par toute personne de niveau Bac + 4.
 \subsection{Produit du projet}
  	
-Proposer une description g�n�rale de ce produit.
+\paragraph*{} 
+Ce projet propose la création et la gestion collaborative de documents
+Latex. Le but est de proposer à des plateformes dépourvues de distribution
+Latex (tablettes, smartphones, desktops), de se connecter au Web et
+d’accéder à ces service de gestion et de compilation de documents.
+\paragraph*{} 
+Les utilisateurs seront authentifiés au service et bénéficieront d’un espace
+de stockage privé. L’application facilitera le partage de documents et le
+travail collaboratif entre utilisateurs du service.
+\paragraph*{} 
+Coté client, deux types d’applications seront développés :\\
+
+\begin{itemize}
+ \item Un service Web permettra l’accès au service à partir de n’importe
+quelle machine (desktop, tablette non-Androïd) pourvue d’un navigateur
+Web et d’une connexion internet
+
+ \item Une application Android, permettra une certaine autonomie avec le
+stockage temporaire d’une copie de travail des documents, permettant
+un mode d’édition non-connecté.
+\end{itemize}
+\newpage
 \subsection{Les fonctions du produit}
  	
-Lister et justifier les principales fonctionnalit�s du produit.
-\subsection{Crit�res d'acceptabilit� et de r�ception}
+Les fonctionnalités principales du produit sont les suivantes :\\
+
+\begin{itemize}
+ \item FP0 - \'Edition des documents Latex
+ \item FP1 - Accès à l'ensemble des projets
+ \item FP2 - Interface Web et Android
+ \item FP3 - Compilation Latex
+ \item FP4 - Création de compte
+ \item FP5 - Authentification
+ \item FP6 - Téléchargement des documents
+ \item FP7 - Synchronisation des documents
+ \item FP8 - Charte graphique
+\end{itemize}
+\bigskip
+Fonctionnalités complémentaires :\\
+\begin{itemize}
+ \item FC0 - Versioning (gestion de conflits, etc.)
+ \item FC1 - Gestion des groupes d'utilisateurs
+ \item FC2 - Gestion des erreurs
+ \item FC3 - Unification des interfaces
+ \item FC4 - Sauvegarde locale (travail offline)
+\end{itemize}
+
+\paragraph{FP0 - \'Edition des documents Latex\\}
+La fonctionnalité principale de l'interface (Android ou Web) est l'édition de documents Latex. 
+L'éditeur sera la zone principale de l'application, afin de pouvoir afficher le plus de texte 
+possible.
+
+\paragraph{FP1 - Accès à l'ensemble des projets\\}
+Lors de l'authentification, l'utilisateur récupère l'arborescence de ses projets (dossiers, 
+fichiers). Le fichier selectionné sera ensuite téléchargé, et l'utilisateur pourra travailler.
+
+\paragraph{FP2 - Interface Web et Android\\}
+L'utilisateur a deux possibilités pour se connecter à TeXloud, \emph{via} :\\
+\begin{itemize}
+ \item Interface web : on peut se connecter de n'importe quel poste (ordinateur personnal, cybercafé...)
+ \item Système Android : connexion à partir d'une tablette Android. L'utilisateur pourra alors 
+travailler par un réseau Wifi ou 3G, ou bien en local (offline).
+\end{itemize}
+
+\paragraph{FP3 - Compilation Latex\\}
+Lorsque l'utilisateur souhaite avoir un rendu PDF de son document Latex, il doit pouvoir demander 
+la compilation au serveur.
+
+\paragraph{FP4 - Création de compte\\}
+Pour qu'un utilisateur puisse utiliser le service TeXloud, une inscription est nécessaire. La 
+création de compte est faisable par l'application android ou l'application web. L'utilisateur doit
+fournir un nom, un mot de passe et une adresse mail.
+
+\paragraph{FP5 - Authentification\\}
+A chaque démarrage de l'application, l'utilisateur envoie son login et mot de passe. L'authentification
+est nécessaire pour pouvoir utiliser l'application TeXloud.
+
+\paragraph{FP6 - Téléchargement des documents\\}
+Le téléchargement des documents est une fonctionnalité capitale de l'application. Les documents 
+compilés (PDF) doivent pouvoir être envoyés à l'utilisateur, ainsi que les fichiers Latex, pour que 
+l'utilisateur travaille toujours sur la version la plus récente.
+
+\paragraph{FP7 - Synchronisation des documents\\}
+Un fichier Latex en cours de modification doit être régulièrement synchronisé avec le serveur.
+
+\paragraph{FP8 - Charte graphique\\}
+Définir une charte graphique.
+
+
+\paragraph{FC0 - Versioning (gestion de conflits, etc.)\\}
+L'application devra intégrer un gestionnaire de version, afin de permettre un meilleur travail de
+groupe.
+
+\paragraph{FC1 - Gestion des groupes d'utilisateurs\\}
+Plusieurs personnes peuvent travailler sur un même projet. Chaque projet a donc un ou plusieurs 
+utilisateurs qui ont le droit de modifier les fichiers. Le créateur du projet doit former le groupe.
+
+\paragraph{FC2 - Gestion des erreurs\\}
+Le client doit pouvoir voir les différentes erreurs, afin de les corriger. Par exemple : erreur 
+de compilation, conflit de version sur un fichier.
+
+\paragraph{FC3 - Unification des interfaces\\}
+L'interface des deux applications doit être similaire. L'utilisateur doit pouvoir retrouver ses
+repères rapidement, en passant d'une application à l'autre. Par exemple : position et ordre des 
+éléments, onglets, thème graphique.
+
+\paragraph{FC4 - Sauvegarde locale (travail offline)\\}
+Une tablette Android peut à tout moment perdre sa connexion Internet (voyage, zone non couverte). 
+Il est donc important de pouvoir travailler hors-ligne à partir d'un fichier temporaire.
+
+\subsection{Critères d'acceptabilité et de réception}
  	
-Formuler des indicateurs pr�cis qui permettent de mesurer si les objectifs de performance du produit sont atteints.
- 	
-Exemple : Le produit doit r�pondre � la norme XX0.
+Le projet pourra être considéré comme complet, si les critères ci-dessous sont remplis :
+\begin{itemize}
+ \item L'interface web est entièrement développée en HTML5 et validée par le W3C
+ \item Les services de compilation et de stockage de données sont distribués sur plusieurs machines
+ \item Les interfaces Android et Web sont unifiées
+ \item L'application est utilisable
+\end{itemize}
 
 
 \section{Contraintes}
 
-\subsection{Contrainte de d�lais}
- 	
-Sp�cifier la date de livraison du produit et les �ventuelles �ch�ances interm�diaires.
+\subsection{Contrainte de délais}
+
+Audits intermédiaires :
+\begin{itemize}
+ \item 09 Décembre 2011
+ \item 06 Janvier 2012
+ \item 13 Janvier 2012
+\end{itemize}
+
+Rendu de projet : Courant Fevrier 2012
+
 \subsection{Contraintes technique}
  	
-Sp�cifier les �ventuelles autres contraintes � prendre en compte dans le cadre du projet (normes techniques, clauses juridiques, etc.)
+Spécifier les éventuelles autres contraintes à prendre en compte dans le cadre du projet (normes techniques, clauses juridiques, etc.)
 
-\section{D�roulement du projet}
+\section{Déroulement du projet}
 
 \subsection{Planification}
- 	
-Repr�senter l'articulation des grandes phases du projet et des principaux jalons.
+\subsubsection{Diagramme de planification}
+\includegraphics[width=1\textwidth,angle=90]{mpm.pdf}
+\newpage
+\subsubsection{Definition de l'environnement de développement\\}
+
+\paragraph{Environnement materiel\\} 
+Nous avons besoin de 7 serveurs (virtualisation possible) et une tablette Android. Les serveurs sont :
+\begin{itemize}
+ \item Serveur Web, bases de données et mail
+ \item Serveur frontal de gestion de données
+ \item Deux serveurs de stockage des données
+ \item Serveur frontal de compilation
+ \item Deux serveurs de compilation
+\end{itemize}
+
+\bigskip
+
+\paragraph{Environnement logiciel\\}
+Voici les environnements logiciels utilisés :
+\begin{itemize}
+ \item Serveur http : Apache
+ \item SGBD : PostgreSQL
+ \item GIT et SVN pour le versioning et stockage de données
+ \item Interpreteur PHP 5  
+ \item Compilateur Latex
+ \item Serveur SMTP Postfix
+ \item Hyperviseur (si virtualisation)
+ \item Système d'exploitation Android
+\end{itemize}
+ 
+
+\paragraph{Langages de programmation\\}
+Liste des langages de programmation utilisés :
+\begin{itemize}
+ \item HTML 5, CSS 3
+ \item PHP 5
+ \item Javascript (jQuery)
+ \item Python
+ \item Java + XML (Android)
+ \item SQL
+\end{itemize}
+\newpage
+\subsubsection{Installation de serveurs\\}
+L'étape consiste à installer tout l'environnement logiciel cité précédemment. 
 
 \subsection{Ressources}
  	
-Lister les ressources humaines et mat�rielles que le client peut mettre � la disposition du prestataire.
+Ressources humaines : 5 étudiants. Ressources matérielles : Serveur, Tablette ??
 
 
 \end{document}
