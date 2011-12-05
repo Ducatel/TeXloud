@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.12.2)  3 DEC 2011 12:24
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.12.4)  5 DEC 2011 18:21
 entering extended mode
  %&-line parsing enabled.
 **cahierDesCharges.tex
@@ -477,25 +477,31 @@ Underfull \hbox (badness 10000) in paragraph at lines 152--153
  []
 
 [3] [4] [5]
+<./Diagramme/DiagrammeDeploiement.jpg, id=29, 1638.12pt x 904.37875pt>
+File: ./Diagramme/DiagrammeDeploiement.jpg Graphic file (type jpg)
 
-pdfTeX warning: /usr/bin/pdflatex (file ./mpm.pdf): PDF inclusion: found PDF ve
-rsion <1.5>, but at most version <1.4> allowed
-<mpm.pdf, id=29, 1070.72519pt x 542.65234pt>
-File: mpm.pdf Graphic file (type pdf)
- <use mpm.pdf> [6 <./mpm.pdf>]
-[7] [8] [9] (./cahierDesCharges.lof)
+<use ./Diagramme/DiagrammeDeploiement.jpg> [6 <./Diagramme/DiagrammeDeploiement
+.jpg>] [7]
+
+pdfTeX warning: /usr/bin/pdflatex (file ./Diagramme/mpm.pdf): PDF inclusion: fo
+und PDF version <1.5>, but at most version <1.4> allowed
+<./Diagramme/mpm.pdf, id=38, 1070.72519pt x 542.65234pt>
+File: ./Diagramme/mpm.pdf Graphic file (type pdf)
+
+<use ./Diagramme/mpm.pdf> [8 <./Diagramme/mpm.pdf>] [9] [10] [11]
+(./cahierDesCharges.lof)
 \tf@lof=\write5
 \openout5 = `cahierDesCharges.lof'.
 
- [10] (./cahierDesCharges.aux) ) 
+ [12] (./cahierDesCharges.aux) ) 
 Here is how much of TeX's memory you used:
- 3469 strings out of 495061
- 42546 string characters out of 1182621
- 100882 words of memory out of 3000000
- 6579 multiletter control sequences out of 15000+50000
+ 3477 strings out of 495061
+ 42810 string characters out of 1182621
+ 101890 words of memory out of 3000000
+ 6584 multiletter control sequences out of 15000+50000
  22899 words of font info for 68 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 27i,7n,24p,479b,275s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,7n,24p,479b,277s stack positions out of 5000i,500n,10000p,200000b,50000s
  </home/hannibal/.texmf-var/fonts/pk/ljfour/jkn
 appen/ec/eccc1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec
 /ecti1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx144
@@ -506,9 +512,9 @@ hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/hannibal
 var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/hannibal/.texmf-var/font
 s/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/hannibal/.texmf-var/fonts/pk/ljf
 our/jknappen/ec/ecrm1440.600pk>
-Output written on cahierDesCharges.pdf (11 pages, 131708 bytes).
+Output written on cahierDesCharges.pdf (13 pages, 246637 bytes).
 PDF statistics:
- 370 PDF objects out of 1000 (max. 8388607)
+ 377 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
