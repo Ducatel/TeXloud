@@ -99,14 +99,14 @@ Latex (tablettes, smartphones, desktops), de se connecter au Web et
 d’accéder à ces service de gestion et de compilation de documents.
 \paragraph*{} 
 Les utilisateurs seront authentifiés au service et bénéficieront d’un espace
-de stockage privé. L’application facilitera le partage de documents et le
+de stockage privé. L'applications facilitera le partage de documents et le
 travail collaboratif entre utilisateurs du service.
 \paragraph*{} 
-Coté client, deux types d’applications seront développés :\\
+Coté client, deux types d'applications seront développés :\\
 
 \begin{itemize}
  \item Un service Web permettra l’accès au service à partir de n’importe
-quelle machine (desktop, tablette non-Androïd) pourvue d’un navigateur
+quelle machine (desktop, tablette non-Android) pourvue d’un navigateur
 Web et d’une connexion internet
 
  \item Une application Android, permettra une certaine autonomie avec le
@@ -146,12 +146,12 @@ possible.
 
 \paragraph{FP1 - Accès à l'ensemble des projets\\}
 Lors de l'authentification, l'utilisateur récupère l'arborescence de ses projets (dossiers, 
-fichiers). Le fichier selectionné sera ensuite téléchargé, et l'utilisateur pourra travailler.
+fichiers). Le fichier sélectionné sera ensuite téléchargé, et l'utilisateur pourra travailler.
 
 \paragraph{FP2 - Interface Web et Android\\}
 L'utilisateur a deux possibilités pour se connecter à TeXloud, \emph{via} :\\
 \begin{itemize}
- \item Interface web : on peut se connecter de n'importe quel poste (ordinateur personnal, cybercafé...)
+ \item Interface web : on peut se connecter de n'importe quel poste (ordinateur personnel, cybercafé...)
  \item Système Android : connexion à partir d'une tablette Android. L'utilisateur pourra alors 
 travailler par un réseau Wifi ou 3G, ou bien en local (offline).
 \end{itemize}
@@ -224,21 +224,36 @@ Audits intermédiaires :
  \item 13 Janvier 2012
 \end{itemize}
 
-Rendu de projet : Courant Fevrier 2012
+Rendu de projet : Courant Février 2012
 
 \subsection{Contraintes technique}
  	
-Spécifier les éventuelles autres contraintes à prendre en compte dans le cadre du projet (normes techniques, clauses juridiques, etc.)
+\paragraph*{}
+Les données devront pouvoir être stocké sur un ou plusieurs serveurs avec un support de plusieurs logiciel de versioning (GIT,SVN).
+
+\paragraph*{}
+La compilation des documents latex devra être possible sur un ou plusieurs serveurs.
+
+\paragraph*{}
+La visualisation des documents PDF devra être effectué dans un canvas HTML5 (génération entièrement en javascript).
 
 \section{Déroulement du projet}
 
 \subsection{Planification}
-\subsubsection{Diagramme de planification}
-\includegraphics[width=1\textwidth,angle=90]{mpm.pdf}
 \newpage
-\subsubsection{Definition de l'environnement de développement\\}
+\subsubsection{Diagramme de planification}
+\begin{figure}[!ht]
+\begin {center}
+\includegraphics[width=1\textwidth,angle=90]{mpm.pdf}
+\end{center}
+\label{MPM}
+\caption{Diagramme de planification}
+\end{figure}
+\newpage
 
-\paragraph{Environnement materiel\\} 
+\subsubsection{Définition de l'environnement de développement}
+
+\paragraph*{Environnement matériel\\} 
 Nous avons besoin de 7 serveurs (virtualisation possible) et une tablette Android. Les serveurs sont :
 \begin{itemize}
  \item Serveur Web, bases de données et mail
@@ -248,15 +263,15 @@ Nous avons besoin de 7 serveurs (virtualisation possible) et une tablette Androi
  \item Deux serveurs de compilation
 \end{itemize}
 
-\bigskip
 
-\paragraph{Environnement logiciel\\}
+\paragraph*{Environnement logiciel\\}
+\label{envlogiciel}
 Voici les environnements logiciels utilisés :
 \begin{itemize}
  \item Serveur http : Apache
  \item SGBD : PostgreSQL
  \item GIT et SVN pour le versioning et stockage de données
- \item Interpreteur PHP 5  
+ \item Interpréteur PHP 5  
  \item Compilateur Latex
  \item Serveur SMTP Postfix
  \item Hyperviseur (si virtualisation)
@@ -264,23 +279,70 @@ Voici les environnements logiciels utilisés :
 \end{itemize}
  
 
-\paragraph{Langages de programmation\\}
-Liste des langages de programmation utilisés :
+\paragraph*{Langages de programmation\\}
+Liste des langages de programmation utilisés pour la partie Web:
 \begin{itemize}
  \item HTML 5, CSS 3
  \item PHP 5
  \item Javascript (jQuery)
- \item Python
- \item Java + XML (Android)
  \item SQL
 \end{itemize}
-\newpage
-\subsubsection{Installation de serveurs\\}
-L'étape consiste à installer tout l'environnement logiciel cité précédemment. 
+
+\paragraph*{}
+Langage de programmations utilisé pour le développement des frontales : \emph{python}
+
+\paragraph*{}
+Langage de programmations utilisé pour le développement de l'application Android : \emph{Java et XML }
+
+
+\subsubsection{Installation de serveurs}
+L'étape consiste à installer tout l'environnement logiciel cité précédemment (voir point \ref{envlogiciel} page \pageref{envlogiciel}). 
+
+\subsubsection{Conception de la base de données}
+L'étape consiste à concevoir les besoins de l'application au niveau du stockage relationnel. Cette conception sera réalisé à l'aide de la méthode de conception Merise.
+
+\subsubsection{Conception de l'application web}
+L'étape consiste à définir l'ensemble des actions possibles sur l'application web, les interactions entre ses actions et le déroulement de chacune de ses même actions. Cette conception sera réalisé à l'aide de la méthode de conception UML.
+
+\subsubsection{Conception de l'application Android}
+L'étape consiste à définir l'ensemble des actions possibles sur l'application Android (qui seront plus ou moins équivalent au action disponible sur la partie application web), les interactions entre ses actions et le déroulement de chacune de ses même actions. Cette conception sera réalisé à l'aide de la méthode de conception UML.
+
+\subsubsection{Conception des frontales}
+L'étape consiste à définir les transmissions possible entre les frontales, le serveur web et les serveurs du cloud (pour la compilation ou le stockage de données). Cette étape permettra aussi de définir le protocole de communication et d'encapsulation de données afin d'éliminé tout risque de conflit dans les communication réseau entre les différentes parties. Cette conception sera réalisé à l'aide de la méthode de conception UML.
+
+\subsubsection{Implémentation de la base de données}
+L'étape consiste à créer un script SQL permettant de d'implémenter la base de données en fonction de la conception de celle-ci.
+
+\subsubsection{Développement des frontales}
+L'étape consiste à développer un ensemble de script Python qui vont permettre les communication entre le serveur web et les serveurs du cloud (serveur de compilation ou de stockage de données).
+
+\subsubsection{Développement de l'application web}
+L'étape consiste à développer un ensemble de page HTML5/PHP permettant a l'utilisateur de travailler sur ces projets LaTeX et d’interagir avec les serveurs du cloud (serveur de compilation ou de stockage de données).
+
+\subsubsection{Développement de l'application Android}
+
+
+\subsubsection{Test du code}
+L'étape consiste à tester tous les modules de l'application (application Android, application web, frontale) ensemble afin de valider le fonctionnement global du projet. Cette étape permettra de trouver et corriger 
+les éventuels bug qui pourrais rester.
+
 
 \subsection{Ressources}
- 	
-Ressources humaines : 5 étudiants. Ressources matérielles : Serveur, Tablette ??
+\paragraph*{}
+Ressources humaines : 5 étudiants.
+\begin{itemize}
+ \item Adrien Bruyère: développement d'application Android
+ \item David Ducatel, Meva Rakotondratsima: développement des applications frontales
+ \item Sidina Biha, Zakaria Bouchakor: développement de l'application WEB
+\end{itemize}
 
+\paragraph*{}
+Ressources matérielles : Serveur, Tablette.
+
+
+\appendix
+\newpage
+\listoffigures
+\newpage
 
 \end{document}

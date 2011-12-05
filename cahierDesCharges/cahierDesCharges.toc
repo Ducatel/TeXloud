@@ -1,13 +1,38 @@
 \select@language {french}
 \contentsline {section}{\numberline {1}Introduction}{2}
 \contentsline {section}{\numberline {2}Description de la demande}{2}
-\contentsline {subsection}{\numberline {2.1}Les objectifs}{2}
-\contentsline {subsection}{\numberline {2.2}Produit du projet}{2}
-\contentsline {subsection}{\numberline {2.3}Les fonctions du produit}{2}
-\contentsline {subsection}{\numberline {2.4}Crit\`eres d'acceptabilit\'e et de r\'eception}{2}
-\contentsline {section}{\numberline {3}Contraintes}{2}
-\contentsline {subsection}{\numberline {3.1}Contrainte de d\'elais}{2}
-\contentsline {subsection}{\numberline {3.2}Contraintes technique}{2}
-\contentsline {section}{\numberline {4}D\'eroulement du projet}{3}
-\contentsline {subsection}{\numberline {4.1}Planification}{3}
-\contentsline {subsection}{\numberline {4.2}Ressources}{3}
+\contentsline {subsection}{\numberline {2.1}Produit du projet}{2}
+\contentsline {subsection}{\numberline {2.2}Les fonctions du produit}{3}
+\contentsline {paragraph}{FP0 - \'Edition des documents Latex\\}{3}
+\contentsline {paragraph}{FP1 - Acc\IeC {\`e}s \IeC {\`a} l'ensemble des projets\\}{3}
+\contentsline {paragraph}{FP2 - Interface Web et Android\\}{3}
+\contentsline {paragraph}{FP3 - Compilation Latex\\}{3}
+\contentsline {paragraph}{FP4 - Cr\IeC {\'e}ation de compte\\}{4}
+\contentsline {paragraph}{FP5 - Authentification\\}{4}
+\contentsline {paragraph}{FP6 - T\IeC {\'e}l\IeC {\'e}chargement des documents\\}{4}
+\contentsline {paragraph}{FP7 - Synchronisation des documents\\}{4}
+\contentsline {paragraph}{FP8 - Charte graphique\\}{4}
+\contentsline {paragraph}{FC0 - Versioning (gestion de conflits, etc.)\\}{4}
+\contentsline {paragraph}{FC1 - Gestion des groupes d'utilisateurs\\}{4}
+\contentsline {paragraph}{FC2 - Gestion des erreurs\\}{4}
+\contentsline {paragraph}{FC3 - Unification des interfaces\\}{4}
+\contentsline {paragraph}{FC4 - Sauvegarde locale (travail offline)\\}{5}
+\contentsline {subsection}{\numberline {2.3}Crit\IeC {\`e}res d'acceptabilit\IeC {\'e} et de r\IeC {\'e}ception}{5}
+\contentsline {section}{\numberline {3}Contraintes}{5}
+\contentsline {subsection}{\numberline {3.1}Contrainte de d\IeC {\'e}lais}{5}
+\contentsline {subsection}{\numberline {3.2}Contraintes technique}{5}
+\contentsline {section}{\numberline {4}D\IeC {\'e}roulement du projet}{5}
+\contentsline {subsection}{\numberline {4.1}Planification}{5}
+\contentsline {subsubsection}{\numberline {4.1.1}Diagramme de planification}{6}
+\contentsline {subsubsection}{\numberline {4.1.2}D\IeC {\'e}finition de l'environnement de d\IeC {\'e}veloppement}{7}
+\contentsline {subsubsection}{\numberline {4.1.3}Installation de serveurs}{7}
+\contentsline {subsubsection}{\numberline {4.1.4}Conception de la base de donn\IeC {\'e}es}{7}
+\contentsline {subsubsection}{\numberline {4.1.5}Conception de l'application web}{8}
+\contentsline {subsubsection}{\numberline {4.1.6}Conception de l'application Android}{8}
+\contentsline {subsubsection}{\numberline {4.1.7}Conception des frontales}{8}
+\contentsline {subsubsection}{\numberline {4.1.8}Impl\IeC {\'e}mentation de la base de donn\IeC {\'e}es}{8}
+\contentsline {subsubsection}{\numberline {4.1.9}D\IeC {\'e}veloppement des frontales}{8}
+\contentsline {subsubsection}{\numberline {4.1.10}D\IeC {\'e}veloppement de l'application web}{8}
+\contentsline {subsubsection}{\numberline {4.1.11}D\IeC {\'e}veloppement de l'application Android}{8}
+\contentsline {subsubsection}{\numberline {4.1.12}Test du code}{8}
+\contentsline {subsection}{\numberline {4.2}Ressources}{9}
