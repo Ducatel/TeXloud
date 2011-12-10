@@ -15,10 +15,11 @@ class Serveur(object):
     Son Numero de port
     Son Indice de charge maximale
     Son indice de charge actuelle
+    Son type (serveur de donnees ou serveur de compilation)
     '''
 
 
-    def __init__(self, adresseIP, port, chargeMax):
+    def __init__(self, adresseIP, port, chargeMax,type):
         '''
         Constructeur du serveur
         @param adresseIP: Adresse IP du serveur
@@ -29,22 +30,16 @@ class Serveur(object):
         regexAdresse="^[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}$"
         regexPort="^[0-9]{1,5}$"
         
-        if match(regexAdresse,adresseIP):
-            self._adresseIP = adresseIP
-            if match(regexPort,port):
+        if match(regexAdresse,adresseIP) and match(regexPort,str(port)) and isinstance(port, int) and isinstance(chargeMax, int) and (type=="compilation" or type=="data"):
+            if chargeMax > 0:
+                self._adresseIP = adresseIP
                 self._port = port
-                if isinstance(chargeMax, int):
-                    if chargeMax > 0:
-                        self._chargeMax = chargeMax
-                    else:
-                        raise ValueError
-                else:
-                    raise ValueError
+                self._chargeMax = chargeMax
+                self._type=type
             else:
                 raise ValueError
         else:
             raise ValueError
-                
         
         self._chargeActuelle = 0
       
@@ -52,7 +47,7 @@ class Serveur(object):
     ########################################################### METHODE D'AFFICHAGE ##################################################################
   
     def __repr__(self):
-        return "Adresse IP: {0} Port: {1} Charge maximale: {2} Charge actuelle: {3}".format(self._getAdresseIP(),self._getPort(),self._getChargeMax(),self._getChargeActuelle())
+        return "Adresse IP: {0}\tPort: {1}\tCharge maximale: {2}\tCharge actuelle: {3}\ttype: {4}".format(self._getAdresseIP(),self._getPort(),self._getChargeMax(),self._getChargeActuelle(),self._getType())
     
     def __str__(self):
         return self.__repr__()
@@ -119,13 +114,28 @@ class Serveur(object):
         @param chargeActuelle: Charge actuelle du serveur
         """
         raise NotImplementedError()
+    
+    def _getType(self):
+        """
+        Methode qui permet de recuperer le type de service sur le serveur
+        @return: retourne le type de service sur le serveur
+        """
+        return self._type
+    
+    def _setType(self,type):
+        """
+        Methode qui permet de fixer le type de service sur le serveur
+        @param type: type de service sur le serveur
+        """
+        raise NotImplementedError()
    
     #Attribut les methodes get et set 
     adresseIP = property(_getAdresseIP, _setAdresseIP)
     chargeMax=property(_getChargeMax, _setChargeMax)
     port=property(_getPort, _setPort)
     chargeActuelle=property(_getChargeActuelle, _setChargeActuelle)
-    
+    type=property(_getType, _setType)
+
     
     ############################################################ AUTRE METHODE ###########################################################################
 

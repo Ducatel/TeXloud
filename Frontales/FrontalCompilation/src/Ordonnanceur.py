@@ -8,6 +8,8 @@ Created on 8 dec. 2011
 '''
 from xml.dom.minidom import parse
 import Serveur
+import sys
+
 
 class Ordonnanceur(object):
     '''
@@ -37,17 +39,34 @@ class Ordonnanceur(object):
         # on va parcourir le fichier xml et generer un serveur
         for serveur in root.getElementsByTagName('serveur'):
             if serveur.nodeType == serveur.ELEMENT_NODE:
+                
                 adresse=serveur.getElementsByTagName('adresse')[0].childNodes[0].nodeValue
                 adresse=adresse.lstrip()
                 adresse=adresse.rstrip()
+                
                 port=serveur.getElementsByTagName('port')[0].childNodes[0].nodeValue
                 port=port.lstrip()
                 port=port.rstrip()
+                
                 charge=serveur.getElementsByTagName('charge')[0].childNodes[0].nodeValue
                 charge=charge.lstrip()
                 charge=charge.rstrip()
                 charge=int(charge)
-                serv=Serveur.Serveur(adresse, port, charge)
+                
+                type=serveur.getElementsByTagName('type')[0].childNodes[0].nodeValue
+                type=type.lstrip()
+                type=type.rstrip()
+                
+                try:
+                    serv=Serveur.Serveur(adresse, int(port), charge,type)
+                except ValueError:
+                    print("Erreur fatal: voir le fichier errorOrdonnaceur.log")
+                    fsock = open('errorOrdonnaceur.log', 'w')               
+                    sys.stderr = fsock    
+                    sys.stderr.write("Un serveur n'as pas plus etre créé:\n-->Le problème provient surement d'une erreur dans le fichier XML des serveur\n\n\n")
+                    raise Exception
+                    fsock.close()
+                    
                 self.listeServeur.append(serv)
                 self._nbServeur+=1  
       
@@ -79,8 +98,9 @@ class Ordonnanceur(object):
         aff+="Nombre de serveurs disponible: {0}\n".format(len(self.listeServeur))
 
         for i,serveur in enumerate(self.listeServeur):
-            aff+="Position dans l'ordonnanceur: {0}\tadresse IP: {1}\tnumero du port: {2}\tcharge maximal: {3}\tcharge actuelle: {4}\n".format(i,serveur.adresseIP,serveur.port,serveur.chargeMax,serveur.chargeActuelle)
-        
+            #aff+="Position dans l'ordonnanceur: {0}\tadresse IP: {1}\tnumero du port: {2}\tcharge maximal: {3}\tcharge actuelle: {4}\ttype: {5}\n".format(i,serveur.adresseIP,serveur.port,serveur.chargeMax,serveur.chargeActuelle,serveur.type)
+            aff+="Position dans l'ordonnanceur: {0}\t{1}\n".format(i,serveur)
+
         return aff
                 
     def __str__(self):
