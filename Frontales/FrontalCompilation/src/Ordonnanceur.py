@@ -70,35 +70,16 @@ class Ordonnanceur(object):
                 self.listeServeur.append(serv)
                 self._nbServeur+=1  
       
-    
-                
-    def getServeur(self):
-        """
-        Methode qui retourne un serveur disponible
-        @return serveur sous la forme d'un tuple (AdresseIP,port) si un serveur est disponible, sinon retourne None
-        """
-        if len(self.listeServeur)>0:
-            return self.listeServeur.pop(0)
-        else:
-            return None
-        
-    def setServeur(self,serveur):
-        """
-        Methode qui permet de remettre un serveur dans l'ordonnanceur
-        @param serveur: le serveur  a remettre dans l'ordinnanceur
-        """
-        self.listeServeur.append(serveur)
-       
+
                 
         
 ########################################################### METHODE D'AFFICHAGE ##################################################################
 
     def __repr__(self):
         aff="Nombre de serveurs gere l'ordonnanceur: {0}\n".format(self._getNbServeur())
-        aff+="Nombre de serveurs disponible: {0}\n".format(len(self.listeServeur))
+        aff+="Nombre de serveurs disponible: {0}\n".format(self.getNbServeurDispo())
 
         for i,serveur in enumerate(self.listeServeur):
-            #aff+="Position dans l'ordonnanceur: {0}\tadresse IP: {1}\tnumero du port: {2}\tcharge maximal: {3}\tcharge actuelle: {4}\ttype: {5}\n".format(i,serveur.adresseIP,serveur.port,serveur.chargeMax,serveur.chargeActuelle,serveur.type)
             aff+="Position dans l'ordonnanceur: {0}\t{1}\n".format(i,serveur)
 
         return aff
@@ -114,7 +95,12 @@ class Ordonnanceur(object):
         Methode qui retourne le nombre de serveur disponible
         @return: le nombre de serveur disponible
         """
-        return len(self.listeServeur)
+        nbServeurDipo=self._getNbServeur()
+        for serv in self.listeServeur:
+            if serv.chargeActuelle==serv.chargeMax:
+                nbServeurDipo-=1
+                
+        return nbServeurDipo
                 
     def _getNbServeur(self):
         """
@@ -135,11 +121,53 @@ class Ordonnanceur(object):
     # Attribut les methodes get et set pour l'attribut _nbServeur
     nbServeur = property(_getNbServeur, _setNbServeur)
     
-############################################################ AUTRE METHODE ###########################################################################
+
+############################################################ METHODE MAGIQUE ###########################################################################
 
     def __getattr__(self, nom):
         print("Il n'y a pas d'attribut {0} dans cette classe.".format(nom))
          
     def __delattr__(self, nom_attr):
         raise AttributeError("Vous ne pouvez supprimer aucun attribut de cette classe")
-     
+    
+    def __len__(self):
+        return self._getNbServeur()
+   
+   
+############################################################ AUTRE METHODE ###########################################################################
+    
+                
+    def getServeur(self):
+        """
+        Methode qui retourne un serveur disponible
+        @return retourne un serveur si un serveur est disponible, sinon retourne None
+        @raise StopIteration: Declenche une exception StopIteration si tous les serveur on atteint leurs capacités maximal 
+        """
+        if len(self.listeServeur)>0:
+            serveur=self.listeServeur.pop(0)
+            cpt=0
+            while not serveur.increaseCharge() and cpt<=len(self.listeServeur):
+                self.listeServeur.append(serveur)
+                serveur=self.listeServeur.pop(0)
+                cpt+=1
+
+
+            if  cpt>len(self.listeServeur):
+                raise StopIteration
+                
+            self.listeServeur.append(serveur)
+            return serveur
+        else:
+            return None
+        
+    def finTravail(self,serveur):
+        """
+        Méthode qui permet d'indiquer qu'un serveur a fini son travail
+        @param serveur: le serveur qui a fini son travail
+        """
+        for i,serv in enumerate(self.listeServeur):
+            if(serv==serveur):
+                serveur.decreaseCharge()
+                del self.listeServeur[i]
+                self.listeServeur.insert(i,serveur)
+                

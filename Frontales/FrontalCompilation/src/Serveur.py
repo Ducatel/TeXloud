@@ -136,14 +136,24 @@ class Serveur(object):
     chargeActuelle=property(_getChargeActuelle, _setChargeActuelle)
     type=property(_getType, _setType)
 
-    
-    ############################################################ AUTRE METHODE ###########################################################################
+    ############################################################ METHODE MAGIQUE ###########################################################################
+
 
     def __getattr__(self, nom):
         print("Il n'y a pas d'attribut {0} dans cette classe.".format(nom))
          
     def __delattr__(self, nom_attr):
         raise AttributeError("Vous ne pouvez supprimer aucun attribut de cette classe")
+    
+    def __eq__(self, serveur):
+        if serveur.adresseIP ==self._getAdresseIP() and serveur.port==self._getPort():
+            return True
+        else:
+            return False
+        
+        
+    ############################################################ AUTRE METHODE ###########################################################################
+
     
     def increaseCharge(self):
         """
@@ -166,3 +176,5 @@ class Serveur(object):
             return True
         else:
             return False
+        
+    
