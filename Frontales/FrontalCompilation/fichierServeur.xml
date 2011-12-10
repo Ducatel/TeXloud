@@ -6,6 +6,9 @@
 		<port>
 			4242
 		</port>
+		<charge>
+			5
+		</charge>
 	</serveur>
 	<serveur>
 		<adresse>
@@ -14,6 +17,9 @@
 		<port>
 			4343
 		</port>
+		<charge>
+			2
+		</charge>
 	</serveur>
 	<serveur>
 		<adresse>
@@ -22,5 +28,8 @@
 		<port>
 			4444
 		</port>
+		<charge>
+			4
+		</charge>
 	</serveur>
 </serveurs>

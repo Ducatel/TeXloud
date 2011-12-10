@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 # -*-coding:utf-8 -*
 
 '''
@@ -7,8 +6,8 @@ Created on 8 dec. 2011
 
 @author: David Ducatel
 '''
-from re import match
 from xml.dom.minidom import parse
+import Serveur
 
 class Ordonnanceur(object):
     '''
@@ -35,7 +34,7 @@ class Ordonnanceur(object):
         # On recupere la racine
         root=doc.documentElement
         
-        # on va parcourir le fichier
+        # on va parcourir le fichier xml et generer un serveur
         for serveur in root.getElementsByTagName('serveur'):
             if serveur.nodeType == serveur.ELEMENT_NODE:
                 adresse=serveur.getElementsByTagName('adresse')[0].childNodes[0].nodeValue
@@ -44,7 +43,12 @@ class Ordonnanceur(object):
                 port=serveur.getElementsByTagName('port')[0].childNodes[0].nodeValue
                 port=port.lstrip()
                 port=port.rstrip()
-                self.listeServeur.append((adresse,port))
+                charge=serveur.getElementsByTagName('charge')[0].childNodes[0].nodeValue
+                charge=charge.lstrip()
+                charge=charge.rstrip()
+                charge=int(charge)
+                serv=Serveur.Serveur(adresse, port, charge)
+                self.listeServeur.append(serv)
                 self._nbServeur+=1  
       
     
@@ -59,21 +63,13 @@ class Ordonnanceur(object):
         else:
             return None
         
-    def setServeur(self,adresse,port):
+    def setServeur(self,serveur):
         """
         Methode qui permet de remettre un serveur dans l'ordonnanceur
-        @param adresse: adresse IP du serveur
-        @param port: numero du port du serveur  
-        @return retourne true si l'ajout est effectue, sinon retourne false
+        @param serveur: le serveur  a remettre dans l'ordinnanceur
         """
-        regexAdresse="^[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}$"
-        regexPort="^[0-9]{1,5}$"
-        if match(regexAdresse,adresse):
-            if match(regexPort,port):
-                serveur=(adresse,port)
-                self.listeServeur.append(serveur)
-                return True
-        return False
+        self.listeServeur.append(serveur)
+       
                 
         
 ########################################################### METHODE D'AFFICHAGE ##################################################################
@@ -83,7 +79,7 @@ class Ordonnanceur(object):
         aff+="Nombre de serveurs disponible: {0}\n".format(len(self.listeServeur))
 
         for i,serveur in enumerate(self.listeServeur):
-            aff+="Position dans l'ordonnanceur: {0}\tadresse IP: {1}\tnumero du port: {2}\n".format(i,serveur[0],serveur[1])
+            aff+="Position dans l'ordonnanceur: {0}\tadresse IP: {1}\tnumero du port: {2}\tcharge maximal: {3}\tcharge actuelle: {4}\n".format(i,serveur.adresseIP,serveur.port,serveur.chargeMax,serveur.chargeActuelle)
         
         return aff
                 
@@ -118,3 +114,12 @@ class Ordonnanceur(object):
     
     # Attribut les methodes get et set pour l'attribut _nbServeur
     nbServeur = property(_getNbServeur, _setNbServeur)
+    
+############################################################ AUTRE METHODE ###########################################################################
+
+    def __getattr__(self, nom):
+        print("Il n'y a pas d'attribut {0} dans cette classe.".format(nom))
+         
+    def __delattr__(self, nom_attr):
+        raise AttributeError("Vous ne pouvez supprimer aucun attribut de cette classe")
+     
