@@ -7,6 +7,8 @@ Created on 8 dec. 2011
 '''
 
 
+##################################### TEST DE L'ORDONNANCEUR #####################################################
+"""
 # main du programme
 import Ordonnanceur
 
@@ -30,7 +32,23 @@ print (ordo)
 # en cas de surcharge (trop de damande de travail et tous les serveurs occupé), une exception est leve
 for i in range(1,100):
     serveur=ordo.getServeur()
-    print(ordo)
+    print(ordo)"""
+
+
+
+##################################### TEST DU SERVEUR #####################################################
+
+import threading
+import FrontalServeur
+
+def lanceServeur():
+    f=FrontalServeur.FrontalServeur('127.0.0.1',12800)
+    f.lanceServeur()
+
+
+thread=threading.Thread(group=None, target=lanceServeur, name=None, args=(), kwargs={})
+thread.start()
+
 
 
 
