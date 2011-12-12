@@ -65,16 +65,18 @@ class FrontalServeur(object):
         Methode qui va recupere la demande du serveur web
         et la traiter
         """
-       
-        message=client.recv(1024)
-        msg="{0}\nenvoyé depuis serveur {1}".format(json.loads(message.decode()),addr)
-        print (msg)
-        if not message: #arrive si la connexion est coupée
-            return None
+        taille=1
+        messageComplet=""
+        while taille>0:
+            message=client.recv(1024)
+            message=message.decode()
+            messageComplet+=message
+            taille=len(message)
       
+
         client.close()
         clientData=FrontalClientData.FrontalClientData(self._adresseFrontData, self._portFrontData)
-        archiveProjet,fichierMaitre=clientData.getData(message);
+        archiveProjet,fichierMaitre=clientData.getData(messageComplet);
         del clientData
          
         serveur=self._ordonnanceur.getServeur()

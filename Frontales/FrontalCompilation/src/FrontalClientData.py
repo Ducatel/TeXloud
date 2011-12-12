@@ -48,15 +48,29 @@ class FrontalClientData(object):
         self._sock.connect((self._adresse, self._port))
         self._sock.send(nomProjet)
         
-        archive=self._sock.recv(1024)
         
-        
+        # recuperation de l'archive des fichiers
+        taille=1
+        archive=""
+        while taille>0:
+            msg=self._sock.recv(1024)
+            archive+=msg
+            taille=len(msg)
+                
+        # envoi d'un accusé de reception
         message={"message":"recv ok"}
         messageJson=json.dumps(message)
         messageJson=messageJson.encode()
         self._sock.send(messageJson)
         
-        fichierMaitre=self._sock.recv(1024)        
+        
+        # recuperation du nom du fichier maitre
+        taille=1
+        fichierMaitre=""
+        while taille>0:
+            msg=self._sock.recv(1024)
+            fichierMaitre+=msg
+            taille=len(msg)       
         
         #TODO pour test
         print ("receiption du fichier: {0}\nle fichier maitre est : {1}".format(archive,fichierMaitre))
