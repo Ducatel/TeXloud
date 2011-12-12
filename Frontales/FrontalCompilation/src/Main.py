@@ -42,14 +42,14 @@ import threading
 import FrontalServeur
 
 def lanceServeur():
-    f=FrontalServeur.FrontalServeur('127.0.0.1',12800)
+    f=FrontalServeur.FrontalServeur('127.0.0.1',12800,'127.0.0.1',12801)
     f.lanceServeur()
 
 
 thread=threading.Thread(group=None, target=lanceServeur, name=None, args=(), kwargs={})
 thread.start()
 
-
+print("server start on 12800")
 
 
 

@@ -1,24 +1,27 @@
+#!/usr/bin/python
+# -*-coding:utf-8 -*
 '''
-Created on 10 dÈc. 2011
+Created on 10 dec. 2011
 
 @author: David Ducatel
 '''
 from re import match
+import socket
+import json
 
 class FrontalClientData(object):
     '''
-    class qui gere le client (socket) qui va ce connectÈ au frontales des donnÈes grace a
+    class qui gere le client (socket) qui va ce connect√© au frontales des donn√©es grace a
     Son adresse IP
     Son numero de port d'ecoute
     Son socket
     '''
 
-
     def __init__(self,adresse,port):
         '''
-        Constructeur du client qui va communiquÈ avec le frontale des donnÈes
-        @param adresse: Adresse IP du serveur
-        @param port: NumÈro du port d'ecoute
+        Constructeur du client qui va communiqu√© avec le frontale des donnÔøΩes
+        @param adresse: Adresse IP du serveur distant
+        @param port: Num√©ro du port d'ecoute distant
         @raise ValueError: Declencher si le port ou l'adresse est incorrect
         '''
         
@@ -33,4 +36,32 @@ class FrontalClientData(object):
         else:
             raise ValueError
         
+    
+    def getData(self,nomProjet):
+        """
+        Methode qui permet de recup√©r√© les donn√©es demand√©
+        @param nomProjet: nom du projet latex a recupere
+        @return une archive zip contenant toutes les donn√©es utile a la compilation
+        @return le nom du fichier maitre (celui sur lequelle on lance la compialtion) 
+        """
+        self._sock=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._sock.connect((self._adresse, self._port))
+        self._sock.send(nomProjet)
         
+        archive=self._sock.recv(1024)
+        
+        
+        message={"message":"recv ok"}
+        messageJson=json.dumps(message)
+        messageJson=messageJson.encode()
+        self._sock.send(messageJson)
+        
+        fichierMaitre=self._sock.recv(1024)        
+        
+        #TODO pour test
+        print ("receiption du fichier: {0}\nle fichier maitre est : {1}".format(archive,fichierMaitre))
+        
+        return archive,fichierMaitre
+    
+    def __del__(self):
+        self._sock.close()
