@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="layout_texloud.svg">
+   sodipodi:docname="layout_texloud.svg"
+   inkscape:export-filename="/home/hannibal/Bureau/layout_texloud_login.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -24,14 +27,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="353.54861"
-     inkscape:cy="500.24738"
+     inkscape:zoom="0.50000001"
+     inkscape:cx="635.3654"
+     inkscape:cy="423.19293"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer8"
      showgrid="false"
-     inkscape:window-width="1366"
-     inkscape:window-height="713"
+     inkscape:window-width="1280"
+     inkscape:window-height="745"
      inkscape:window-x="0"
      inkscape:window-y="26"
      inkscape:window-maximized="1" />
@@ -43,14 +46,29 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      inkscape:groupmode="layer"
+     id="layer8"
+     inkscape:label="Calque#4"
+     style="display:inline">
+    <rect
+       style="fill:#ffffff"
+       id="rect3233"
+       width="1470"
+       height="804"
+       x="-14"
+       y="-13.999979" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
      id="layer3"
-     inkscape:label="Calque#1">
+     inkscape:label="Calque#1"
+     style="display:inline"
+     sodipodi:insensitive="true">
     <rect
        style="fill:#699838;fill-opacity:1;fill-rule:nonzero;stroke:#512f1c;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect6220"
@@ -63,7 +81,9 @@
   <g
      inkscape:groupmode="layer"
      id="layer2"
-     inkscape:label="Calque">
+     inkscape:label="Calque"
+     sodipodi:insensitive="true"
+     style="display:none">
     <rect
        style="fill:#f7f7f7;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="rect3783"
@@ -334,19 +354,9 @@
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-284.36218)">
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
-       x="1016.2451"
-       y="317.78061"
-       id="text3759"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3761"
-         x="1016.2451"
-         y="317.78061"
-         style="font-size:20px;fill:#ffffff;fill-opacity:1">Synchroniser      Compilation PDF</tspan></text>
+     transform="translate(0,-284.36218)"
+     style="display:none"
+     sodipodi:insensitive="true">
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -594,30 +604,11 @@
          y="1060.6095"
          id="tspan4119"
          style="font-size:12px" /></text>
-    <rect
-       style="fill:#512f1c;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect6224"
-       width="169.42857"
-       height="7.1428571"
-       x="997.89282"
-       y="329.86218" />
     <path
        style="fill:#512f1c;fill-opacity:1;stroke:#000000;stroke-width:0.99978161px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 216.875,337.85303 0,714.68777"
        id="path6247"
        inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="17"
-       y="321.36218"
-       id="text6249"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan6251"
-         x="17"
-         y="321.36218"
-         style="font-size:30px;fill:#ffffff;fill-opacity:1">TeXloud</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -1100,5 +1091,268 @@
            id="tspan8388-9"
            sodipodi:role="line">Projet</tspan></text>
     </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="Calque#3"
+     style="display:inline"
+     sodipodi:insensitive="true">
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+       x="13.855342"
+       y="36.565365"
+       id="text6249"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6251"
+         x="13.855342"
+         y="36.565365"
+         style="font-size:30px;fill:#ffffff;fill-opacity:1">TeXloud</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer7"
+     inkscape:label="presentation"
+     style="display:inline">
+    <text
+       xml:space="preserve"
+       style="font-size:10.67097378px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="48.636608"
+       y="280.11304"
+       id="text3313"
+       sodipodi:linespacing="125%"
+       transform="scale(0.88924782,1.1245459)"><tspan
+         sodipodi:role="line"
+         id="tspan3315"
+         x="48.636608"
+         y="280.11304"
+         style="font-size:14.22796535px;text-align:start;text-anchor:start">Maecenas convallis lacus in libero sagittis ut tempus ipsum luctus. Sed at metus purus,</tspan><tspan
+         sodipodi:role="line"
+         x="48.636608"
+         y="297.89798"
+         id="tspan3317"
+         style="font-size:14.22796535px;text-align:start;text-anchor:start"> ac malesuada massa. Morbi feugiat feugiat molestie. Nulla sed metus ut sem ullamcorper </tspan><tspan
+         sodipodi:role="line"
+         x="48.636608"
+         y="315.68295"
+         id="tspan3319"
+         style="font-size:14.22796535px;text-align:start;text-anchor:start">placerat. Sed egestas augue non arcu euismod convallis. Suspendisse eu quam congue </tspan><tspan
+         sodipodi:role="line"
+         x="48.636608"
+         y="333.4679"
+         id="tspan3321"
+         style="font-size:14.22796535px;text-align:start;text-anchor:start">ante rhoncus dignissim sed eget magna. Morbi mollis sagittis elit, in venenatis nisi pellent</tspan><tspan
+         sodipodi:role="line"
+         x="48.636608"
+         y="351.25287"
+         id="tspan3323"
+         style="font-size:14.22796535px;text-align:start;text-anchor:start">esque et. Quisque odio mauris, molestie id porttitor id, mollis sit amet elit. Ut nec quam quam, </tspan><tspan
+         sodipodi:role="line"
+         x="48.636608"
+         y="369.03781"
+         id="tspan3325"
+         style="font-size:14.22796535px;text-align:start;text-anchor:start">sit amet euismod justo. Vestibulum vitae nisi quis enim consectetur dapibus. Integer quis quam</tspan><tspan
+         sodipodi:role="line"
+         x="48.636608"
+         y="386.82278"
+         id="tspan3327"
+         style="font-size:14.22796535px;text-align:start;text-anchor:start"> quis nisi aliquam lobortis ac eget tortor. Duis dictum, velit eget facilisis auctor, quam urna faucibus</tspan><tspan
+         sodipodi:role="line"
+         x="48.636608"
+         y="404.60773"
+         id="tspan3329"
+         style="font-size:14.22796535px;text-align:start;text-anchor:start"> libero, sagittis iaculis elit purus id nulla. Morbi eget mauris metus. Maecenas et ultrices neque. Etiam </tspan><tspan
+         sodipodi:role="line"
+         x="48.636608"
+         y="422.3927"
+         id="tspan3331"
+         style="font-size:14.22796535px;text-align:start;text-anchor:start">pharetra libero a tortor dictum id egestas nisi volutpat. Nullam rutrum dui sapien, at pretium odio.</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#512f1c;stroke-width:0.82168853;stroke-opacity:1"
+       id="rect3335"
+       width="568"
+       height="253.86469"
+       x="766"
+       y="259" />
+    <rect
+       style="fill:#699838;fill-opacity:1;stroke:#512f1c;stroke-width:1.01570714;stroke-opacity:1"
+       id="rect4105"
+       width="567.42181"
+       height="33.046791"
+       x="766.07037"
+       y="259.44537" />
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="778.5"
+       y="282"
+       id="text4107"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4109"
+         x="778.5"
+         y="282"
+         style="font-size:18px;fill:#ffffff">Authentification</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="797"
+       y="374"
+       id="text4111"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4113"
+         x="797"
+         y="374"
+         style="font-size:16px">Identifiant: </tspan><tspan
+         sodipodi:role="line"
+         x="797"
+         y="394"
+         style="font-size:16px"
+         id="tspan4116" /><tspan
+         sodipodi:role="line"
+         x="797"
+         y="414"
+         style="font-size:16px"
+         id="tspan4118">Mot de passe: </tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#666666;stroke-width:1.10209727;stroke-opacity:1"
+       id="rect4120"
+       width="230.8979"
+       height="19.147903"
+       x="927.80103"
+       y="358.30106" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#666666;stroke-width:1.10209727;stroke-opacity:1"
+       id="rect4120-2"
+       width="230.8979"
+       height="19.147903"
+       x="927.92151"
+       y="400.87167" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#699838;stroke-width:0.95499998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect4150"
+       width="101.5446"
+       height="22.544598"
+       x="1059.4901"
+       y="446.07083"
+       ry="5.40131" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#36570f;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="1067.7625"
+       y="462.55023"
+       id="text4144"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4146"
+         x="1067.7625"
+         y="462.55023"
+         style="font-size:16px;font-weight:normal;fill:#36570f;fill-opacity:1;-inkscape-font-specification:Sans">Connexion</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="940.09998"
+       y="461.90005"
+       id="text4172"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4174"
+         x="940.09998"
+         y="461.90005"
+         style="font-size:10px;fill:#333333">Mot de passe oublié</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#699838;stroke-width:0.95499998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect4150-3"
+       width="101.5446"
+       height="22.544598"
+       x="1059.2277"
+       y="475.47769"
+       ry="5.40131" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#36570f;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="1068"
+       y="491.95709"
+       id="text4144-1"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4146-6"
+         x="1068"
+         y="491.95709"
+         style="font-size:16px;font-weight:normal;fill:#36570f;fill-opacity:1;-inkscape-font-specification:Sans">Inscription</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="btn standard"
+     style="display:none"
+     sodipodi:insensitive="true">
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+       x="862.01758"
+       y="33.517578"
+       id="text3759"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3761"
+         x="862.01758"
+         y="33.517578"
+         style="font-size:20px;fill:#ffffff;fill-opacity:1">Télécharger      Synchroniser      Compilation PDF</tspan></text>
+    <rect
+       style="fill:#512f1c;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect6224"
+       width="169.42857"
+       height="7.1428571"
+       x="996.28571"
+       y="45.42857" />
+  </g>
+  <g
+     inkscape:label="btn project"
+     id="g3197"
+     inkscape:groupmode="layer"
+     style="display:none"
+     sodipodi:insensitive="true">
+    <text
+       sodipodi:linespacing="125%"
+       id="text3199"
+       y="32.517578"
+       x="738.01758"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-size:20px;fill:#ffffff;fill-opacity:1"
+         y="32.517578"
+         x="738.01758"
+         id="tspan3201"
+         sodipodi:role="line">Nouveau      Editer      Partager      Télécharger      Supprimer</tspan></text>
+    <rect
+       style="fill:#512f1c;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       id="rect6224-7"
+       width="169.42857"
+       height="7.1428571"
+       x="1061.5358"
+       y="45.42857" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="Calque#2"
+     sodipodi:insensitive="true"
+     style="display:none">
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#f9f9f9;fill-opacity:1;stroke:none;font-family:Sans"
+       x="144.46487"
+       y="36.042892"
+       id="text3240"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3242"
+         x="144.46487"
+         y="36.042892"
+         style="font-size:10px;font-style:normal;fill:#f9f9f9;-inkscape-font-specification:Sans">david@ducatel.com | deconnexion | mon compte</tspan></text>
   </g>
 </svg>
