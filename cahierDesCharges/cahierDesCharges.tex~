@@ -4,6 +4,12 @@
 \usepackage{a4wide}
 \usepackage[utf8]{inputenc}
 \usepackage[frenchb]{babel}
+
+\usepackage{glossaries}
+
+
+
+\usepackage[colorlinks=true,linkcolor=black]{hyperref}
 \usepackage[T1]{fontenc}%la police utilisee dans le document
 
 %trois package pour taper du texte mathémathiques
@@ -215,6 +221,8 @@ Il est donc important de pouvoir travailler hors-ligne à partir d'un fichier te
 \newpage
 
 
+
+
 %\subsection{Critères d'acceptabilité et de réception}
  	
 %Le projet pourra être considéré comme complet, si les critères ci-dessous sont remplis :
@@ -352,10 +360,245 @@ Ressources humaines : 5 étudiants.
 \paragraph*{}
 Ressources matérielles : Serveur, Tablette.
 
+\subsection{Scénario}
+\subsubsection{Diagramme de cas d'utilisation}
+\paragraph{}
+
+\newpage
+\subsection{Charte graphique}
+\subsubsection{Page d'authentification}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{../layout/layout_texloud_login.png}
+\end{center}
+  \caption{Page d'authentification}
+  \label{useCases}
+\end{figure}
+
+\newpage
+\subsubsection{Interface de projet}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{../layout/layout_texloud_project.png}
+\end{center}
+  \caption{Inteface de projet}
+  \label{useCases}
+\end{figure}
+
+\newpage
+\subsubsection{Interface d'édition}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{../layout/layout_texloud_std.png}
+\end{center}
+  \caption{Interface d'édition}
+  \label{useCases}
+\end{figure}
 
 \appendix
 \newpage
 \listoffigures
 \newpage
+
+\section{Diagramme de cas d'utilisation}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./Diagramme/diaUseCase.jpg}
+\end{center}
+  \caption{Diagramme de cas d'utilisation}
+  \label{useCases}
+\end{figure}
+
+\newpage
+\section{Diagramme de séquences de l'interface web}
+\subsubsection{Inscription}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/CompteInscription.jpg}
+\end{center}
+  \caption{Scénario d'inscription}
+  \label{register}
+\end{figure}
+
+\newpage
+\subsubsection{Suppression de compte}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/CompteSuppression.jpg}
+\end{center}
+  \caption{Scénario de suppression de compte}
+  \label{deleteAccount}
+\end{figure}
+
+\newpage
+\subsubsection{Création d'un projet}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/CreationProjet.jpg}
+\end{center}
+  \caption{Scénario de création d'un projet}
+  \label{createProject}
+\end{figure}
+
+\newpage
+\subsubsection{Compilation de documents}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/DemandeCompilation.jpg}
+\end{center}
+  \caption{Scénario de compilation de document}
+  \label{compile}
+\end{figure}
+
+\newpage
+\subsubsection{Téléchargement de fichiers}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/FichierLatexTelechargement.jpg}
+\end{center}
+  \caption{Scénario de téléchargement de document}
+  \label{download}
+\end{figure}
+
+\newpage
+\subsubsection{Partage de projet}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/PartageProjet.png}
+\end{center}
+  \caption{Scénario de partage d'un projet}
+  \label{share}
+\end{figure}
+
+\newpage
+\subsubsection{Synchronisation de documents}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/data_sync.pdf}
+\end{center}
+  \caption{Scénario de synchronisation de documents}
+  \label{share}
+\end{figure}
+
+\newpage
+\subsubsection{Visualisation d'un projet}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/project_visu.pdf}
+\end{center}
+  \caption{Scénario de visualisation d'un projet}
+  \label{share}
+\end{figure}
+
+\newpage
+\subsubsection{Suppression d'un projet}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/SuppressionProjetViaWeb.jpg}
+\end{center}
+  \caption{Scénario de suppression d'un projet}
+  \label{share}
+\end{figure}
+
+\newpage
+\subsubsection{Téléchargement d'un projet}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/telechargementRenduProjet.jpg}
+\end{center}
+  \caption{Scénario de téléchargement d'un projet}
+  \label{share}
+\end{figure}
+
+\section{Diagramme de séquences de l'application Android}
+\subsubsection{Inscription}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/CompteInscription.jpg}
+\end{center}
+  \caption{Scénario d'inscription}
+  \label{register}
+\end{figure}
+
+\newpage
+\subsubsection{Suppression de compte}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/CompteSuppression.jpg}
+\end{center}
+  \caption{Scénario de suppression de compte}
+  \label{register}
+\end{figure}
+
+\newpage
+\subsubsection{Création de projet}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/CreationProjet.jpg}
+\end{center}
+  \caption{Scénario de Création de projet}
+  \label{register}
+\end{figure}
+
+\newpage
+\subsubsection{Compilation de documents}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/DemandeCompilation.jpg}
+\end{center}
+  \caption{Scénario de compilation de documents}
+  \label{register}
+\end{figure}
+
+\newpage
+\subsubsection{Téléchargement de documents}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/FichierLatexTelechargement.jpg}
+\end{center}
+  \caption{Scénario de téléchargement de documents}
+  \label{register}
+\end{figure}
+
+\newpage
+\subsubsection{Suppression d'un projet}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/SuppressionProjetViaAndroid.jpeg}
+\end{center}
+  \caption{Scénario de suppression d'un projet}
+  \label{register}
+\end{figure}
+
+\newpage
+\subsubsection{Téléchargement d'un projet}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/telechargementRenduProjet.jpg}
+\end{center}
+  \caption{Scénario de téléchargement d'un projet}
+  \label{register}
+\end{figure}
 
 \end{document}

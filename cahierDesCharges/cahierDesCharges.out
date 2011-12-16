@@ -1,0 +1,49 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}
+\BOOKMARK [1][-]{section.2}{Description de la demande}{}
+\BOOKMARK [2][-]{subsection.2.1}{Produit du projet}{section.2}
+\BOOKMARK [2][-]{subsection.2.2}{Les fonctions du produit}{section.2}
+\BOOKMARK [2][-]{subsection.2.3}{Infrastructure physique}{section.2}
+\BOOKMARK [1][-]{section.3}{Contraintes}{}
+\BOOKMARK [2][-]{subsection.3.1}{Contrainte de d\351lais}{section.3}
+\BOOKMARK [2][-]{subsection.3.2}{Contraintes technique}{section.3}
+\BOOKMARK [1][-]{section.4}{D\351roulement du projet}{}
+\BOOKMARK [2][-]{subsection.4.1}{Planification}{section.4}
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Diagramme de planification}{subsection.4.1}
+\BOOKMARK [3][-]{subsubsection.4.1.2}{D\351finition de l'environnement de d\351veloppement}{subsection.4.1}
+\BOOKMARK [3][-]{subsubsection.4.1.3}{Installation de serveurs}{subsection.4.1}
+\BOOKMARK [3][-]{subsubsection.4.1.4}{Conception de la base de donn\351es}{subsection.4.1}
+\BOOKMARK [3][-]{subsubsection.4.1.5}{Conception de l'application web}{subsection.4.1}
+\BOOKMARK [3][-]{subsubsection.4.1.6}{Conception de l'application Android}{subsection.4.1}
+\BOOKMARK [3][-]{subsubsection.4.1.7}{Conception des frontales}{subsection.4.1}
+\BOOKMARK [3][-]{subsubsection.4.1.8}{Impl\351mentation de la base de donn\351es}{subsection.4.1}
+\BOOKMARK [3][-]{subsubsection.4.1.9}{D\351veloppement des frontales}{subsection.4.1}
+\BOOKMARK [3][-]{subsubsection.4.1.10}{D\351veloppement de l'application web}{subsection.4.1}
+\BOOKMARK [3][-]{subsubsection.4.1.11}{D\351veloppement de l'application Android}{subsection.4.1}
+\BOOKMARK [3][-]{subsubsection.4.1.12}{Test du code}{subsection.4.1}
+\BOOKMARK [2][-]{subsection.4.2}{Ressources}{section.4}
+\BOOKMARK [2][-]{subsection.4.3}{Sc\351nario}{section.4}
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Diagramme de cas d'utilisation}{subsection.4.3}
+\BOOKMARK [2][-]{subsection.4.4}{Charte graphique}{section.4}
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Page d'authentification}{subsection.4.4}
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Interface de projet}{subsection.4.4}
+\BOOKMARK [3][-]{subsubsection.4.4.3}{Interface d'\351dition}{subsection.4.4}
+\BOOKMARK [1][-]{appendix.A}{Diagramme de cas d'utilisation}{}
+\BOOKMARK [1][-]{appendix.B}{Diagramme de s\351quences de l'interface web}{}
+\BOOKMARK [2][-]{subsubsection.B.0.4}{Inscription}{appendix.B}
+\BOOKMARK [3][-]{subsubsection.B.0.5}{Suppression de compte}{subsubsection.B.0.4}
+\BOOKMARK [3][-]{subsubsection.B.0.6}{Cr\351ation d'un projet}{subsubsection.B.0.4}
+\BOOKMARK [3][-]{subsubsection.B.0.7}{Compilation de documents}{subsubsection.B.0.4}
+\BOOKMARK [3][-]{subsubsection.B.0.8}{T\351l\351chargement de fichiers}{subsubsection.B.0.4}
+\BOOKMARK [3][-]{subsubsection.B.0.9}{Partage de projet}{subsubsection.B.0.4}
+\BOOKMARK [3][-]{subsubsection.B.0.10}{Synchronisation de documents}{subsubsection.B.0.4}
+\BOOKMARK [3][-]{subsubsection.B.0.11}{Visualisation d'un projet}{subsubsection.B.0.4}
+\BOOKMARK [3][-]{subsubsection.B.0.12}{Suppression d'un projet}{subsubsection.B.0.4}
+\BOOKMARK [3][-]{subsubsection.B.0.13}{T\351l\351chargement d'un projet}{subsubsection.B.0.4}
+\BOOKMARK [1][-]{appendix.C}{Diagramme de s\351quences de l'application Android}{}
+\BOOKMARK [2][-]{subsubsection.C.0.14}{Inscription}{appendix.C}
+\BOOKMARK [3][-]{subsubsection.C.0.15}{Suppression de compte}{subsubsection.C.0.14}
+\BOOKMARK [3][-]{subsubsection.C.0.16}{Cr\351ation de projet}{subsubsection.C.0.14}
+\BOOKMARK [3][-]{subsubsection.C.0.17}{Compilation de documents}{subsubsection.C.0.14}
+\BOOKMARK [3][-]{subsubsection.C.0.18}{T\351l\351chargement de documents}{subsubsection.C.0.14}
+\BOOKMARK [3][-]{subsubsection.C.0.19}{Suppression d'un projet}{subsubsection.C.0.14}
+\BOOKMARK [3][-]{subsubsection.C.0.20}{T\351l\351chargement d'un projet}{subsubsection.C.0.14}
