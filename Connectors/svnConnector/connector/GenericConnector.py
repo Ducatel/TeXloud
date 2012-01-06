@@ -7,20 +7,24 @@ Created on 18 déc. 2011
 
 class GenericConnector(object):
     '''
-    classdocs
+    Classe mère de connecteur à un serveur de version
     '''
 
     def __init__(self, url, login = '', passwd = ''):
         '''
         url prend l'adresse du serveur svn
+        login et passwd sont optionnelle mais permette de fournir des informations
+        d'authentification à la conexion au serveur
         '''
+        
+        ''' wc_dir -> working copy directory '''
         self.wc_dir = '/tmp/'
         self.url = url;
         
         if(not self.url.endswith('/')):
             self.url += '/'
                     
-        self.login = login;
+        self.login = login
         self.passwd = passwd
 
     def get_wc_dir(self):
