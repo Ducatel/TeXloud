@@ -97,7 +97,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		lineCount.setLineSpacing(5, 1);
 		lineCount.setText("1");
 		
-		arbo.setOnTouchListener(new OnTouchListener() {
+		/*arbo.setOnTouchListener(new OnTouchListener() {
 			
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
@@ -115,15 +115,18 @@ public class MainActivity extends Activity implements ScrollViewListener{
 				}
 				return true;
 			}
-		});
+		});*/
 		
 		/*
 		 * Partie Arborescence
 		 */
 		
 		mtm = new MyTreeManager(this, "Dossier racine");
-		mtm.addNode("Dossier", "Dossier racine", Node.FOLDER);
-		mtm.addNode("fichier.tex", "Dossier racine", Node.LEAF);
+		mtm.addNode("Dossier1", "Dossier racine", Node.FOLDER);
+		mtm.addNode("monFichier.tex", "Dossier1", Node.LEAF);
+		mtm.addNode("fichier2.tex", "Dossier1", Node.LEAF);
+		mtm.addNode("fichier3.tex", "Dossier1", Node.LEAF);
+		mtm.addNode("Dossier2", "Dossier racine", Node.FOLDER);
 		mtm.printTree();
 	}
 
