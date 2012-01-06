@@ -1,0 +1,12 @@
+$(function(){
+  
+   $('module_connexion').draggable({ containment: 'parent' });
+  
+  $('formulaire').click(function () {
+    
+    
+    
+    
+  });
+  
+});

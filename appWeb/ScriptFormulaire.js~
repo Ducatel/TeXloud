@@ -1,0 +1,12 @@
+$(function(){
+  
+
+  
+  $('#formulaire').click(function () {
+    
+    alert('effe');
+    
+    
+  });
+  
+});
