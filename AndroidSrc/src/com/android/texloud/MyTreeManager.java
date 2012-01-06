@@ -93,7 +93,15 @@ public class MyTreeManager {
 		for(Node j : tree){
 			if(j.parent_id == v.getId()){
 				View tmp = (View) (act.findViewById(j.getId()));
-				tmp.setVisibility(View.GONE);
+				if(tmp.getVisibility() == View.VISIBLE){
+					Log.i("1","1");
+					tmp.setVisibility(View.GONE);
+				}
+				else if(tmp.getVisibility() == View.GONE){
+					Log.i("0","0");
+					tmp.setVisibility(View.VISIBLE);
+				}
+				
 			}
 				
 		}
