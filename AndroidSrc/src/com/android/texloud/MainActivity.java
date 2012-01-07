@@ -123,10 +123,14 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		
 		mtm = new MyTreeManager(this, "Dossier racine");
 		mtm.addNode("Dossier1", "Dossier racine", Node.FOLDER);
+		mtm.addNode("Dossier2", "Dossier racine", Node.FOLDER);
 		mtm.addNode("monFichier.tex", "Dossier1", Node.LEAF);
 		mtm.addNode("fichier2.tex", "Dossier1", Node.LEAF);
-		mtm.addNode("fichier3.tex", "Dossier1", Node.LEAF);
-		mtm.addNode("Dossier2", "Dossier racine", Node.FOLDER);
+		mtm.addNode("fichier3.tex", "Dossier2", Node.LEAF);
+		mtm.addNode("Dossier3", "Dossier racine", Node.FOLDER);
+		mtm.addNode("fichier4.tex", "Dossier racine", Node.LEAF);
+		mtm.addNode("Dossier5", "Dossier1", Node.FOLDER);
+		mtm.addNode("fichier5.tex", "Dossier5", Node.LEAF);
 		mtm.printTree();
 	}
 
