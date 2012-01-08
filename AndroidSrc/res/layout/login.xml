@@ -5,8 +5,6 @@
     android:background="#FFFFFF"
     android:orientation="vertical" >
 
-   
-
     <LinearLayout
         android:id="@+id/layout_Top"
         android:layout_width="fill_parent"
@@ -64,14 +62,18 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
-			<LinearLayout android:focusable="true"
-                android:focusableInTouchMode="true" android:layout_width="0px"
-                android:layout_height="0px" />
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="0px"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
+
             <LinearLayout
                 android:id="@+id/login_fields"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:gravity="center"
+                android:gravity="center|right"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -92,8 +94,7 @@
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginRight="80dp"
-                         />
+                        android:layout_marginRight="80dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -115,8 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="80dp"
-                        android:password="true"
-                         />
+                        android:password="true" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -124,17 +124,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="right" >
-                    
-					<Button
-					    android:id="@+id/tv_forgot"
-					    android:text="Mot de passe oublié ?"
-					    android:layout_width="wrap_content"
-					    android:layout_height="wrap_content"
-					    android:layout_marginRight="80dp"
-					    android:textColor="#699838"
-					    android:background="#EDEDED"
-					    />
-					
+
+                    <Button
+                        android:id="@+id/tv_forgot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="80dp"
+                        android:background="#EDEDED"
+                        android:text="Mot de passe oublié ?"
+                        android:textColor="#699838" />
+
                     <Button
                         android:id="@+id/button_connect"
                         android:layout_width="wrap_content"
@@ -145,6 +144,16 @@
                         android:textColor="#699838"
                         android:textSize="20dp" />
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/button_inscription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#EDEDED"
+                    android:paddingRight="80dp"
+                    android:text="Inscription"
+                    android:textColor="#699838"
+                    android:textSize="20dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

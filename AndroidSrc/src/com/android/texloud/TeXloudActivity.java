@@ -1,24 +1,24 @@
 package com.android.texloud;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 public class TeXloudActivity extends Activity {
 
 	private EditText login, passwd;
-	private Button connect, forgot;
+	private Button connect, forgot, sign_in;
 	private static final int MON_DIALOG_ID = 1;
-	private Dialog dialog;
+	private Dialog dialog, signin_dialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,34 +54,6 @@ public class TeXloudActivity extends Activity {
 				});
 
 				
-
-				/*final AlertDialog.Builder adb = new AlertDialog.Builder(TeXloudActivity.this);
-				adb.setView(alertDialogView);
-
-				adb.setTitle("Mot de passe oublié");
-
-				adb.setPositiveButton("OK",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-
-								EditText et = (EditText) alertDialogView
-										.findViewById(R.id.email_edittext);
-
-							}
-						});
-
-				adb.setNegativeButton("Annuler",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// Lorsque l'on cliquera sur annuler on quittera
-								// l'application
-								adb.setView(null);
-							}
-						});
-
-				adb.show();*/
 			}
 		});
 
@@ -94,6 +66,24 @@ public class TeXloudActivity extends Activity {
 
 				startActivity(intent);
 				finish();
+			}
+		});
+		
+		sign_in = (Button) (findViewById(R.id.button_inscription));
+		sign_in.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				signin_dialog = new Dialog(TeXloudActivity.this, R.style.noBorder);
+				signin_dialog.setContentView(R.layout.signindialog);
+				
+				Spinner s = (Spinner) signin_dialog.findViewById(R.id.spinner);
+			    ArrayAdapter adapter = ArrayAdapter.createFromResource(
+			            TeXloudActivity.this, R.array.months, android.R.layout.simple_spinner_item);
+			    
+			    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			    s.setAdapter(adapter);
+				
+				signin_dialog.show();
 			}
 		});
 
