@@ -408,6 +408,9 @@ Ressources matérielles : Serveur, Tablette.
   \label{uiEdit}
 \end{figure}
 
+\newpage
+\section{Matrice de ....}
+
 \appendix
 \newpage
 
@@ -608,7 +611,7 @@ Ressources matérielles : Serveur, Tablette.
   \caption{Scénario de téléchargement d'un projet}
   \label{androidDownloadProject}
 \end{figure}
-\newpage
 
+\newpage
 \listoffigures
 \end{document}
