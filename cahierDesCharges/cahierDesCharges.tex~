@@ -5,7 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[frenchb]{babel}
 
-\usepackage{glossaries}
+%\usepackage{glossaries}
 
 
 
@@ -347,6 +347,16 @@ L'étape consiste à développer un ensemble de page HTML5/PHP permettant a l'ut
 L'étape consiste à tester tous les modules de l'application (application Android, application web, frontale) ensemble afin de valider le fonctionnement global du projet. Cette étape permettra de trouver et corriger 
 les éventuels bug qui pourrais rester.
 
+\newpage
+\section{Macro-planning}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1.2\textwidth, angle=90]{./Ressources/macroPlanning.pdf}
+\end{center}
+  \caption{Macro planning}
+  \label{uiProject}
+\end{figure}
 
 \subsection{Ressources}
 \paragraph*{}
@@ -373,7 +383,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{../layout/layout_texloud_login.png}
 \end{center}
   \caption{Page d'authentification}
-  \label{useCases}
+  \label{uiAuth}
 \end{figure}
 
 \newpage
@@ -384,7 +394,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{../layout/layout_texloud_project.png}
 \end{center}
   \caption{Inteface de projet}
-  \label{useCases}
+  \label{uiProject}
 \end{figure}
 
 \newpage
@@ -395,12 +405,10 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{../layout/layout_texloud_std.png}
 \end{center}
   \caption{Interface d'édition}
-  \label{useCases}
+  \label{uiEdit}
 \end{figure}
 
 \appendix
-\newpage
-\listoffigures
 \newpage
 
 \section{Diagramme de cas d'utilisation}
@@ -488,7 +496,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/data_sync.pdf}
 \end{center}
   \caption{Scénario de synchronisation de documents}
-  \label{share}
+  \label{sync}
 \end{figure}
 
 \newpage
@@ -499,7 +507,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/project_visu.pdf}
 \end{center}
   \caption{Scénario de visualisation d'un projet}
-  \label{share}
+  \label{view}
 \end{figure}
 
 \newpage
@@ -510,7 +518,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/SuppressionProjetViaWeb.jpg}
 \end{center}
   \caption{Scénario de suppression d'un projet}
-  \label{share}
+  \label{deleteProject}
 \end{figure}
 
 \newpage
@@ -521,7 +529,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/telechargementRenduProjet.jpg}
 \end{center}
   \caption{Scénario de téléchargement d'un projet}
-  \label{share}
+  \label{downloadProject}
 \end{figure}
 
 \section{Diagramme de séquences de l'application Android}
@@ -532,7 +540,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/CompteInscription.jpg}
 \end{center}
   \caption{Scénario d'inscription}
-  \label{register}
+  \label{androidRegister}
 \end{figure}
 
 \newpage
@@ -543,7 +551,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/CompteSuppression.jpg}
 \end{center}
   \caption{Scénario de suppression de compte}
-  \label{register}
+  \label{androidDeleteAccount}
 \end{figure}
 
 \newpage
@@ -554,7 +562,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/CreationProjet.jpg}
 \end{center}
   \caption{Scénario de Création de projet}
-  \label{register}
+  \label{androidCreateProject}
 \end{figure}
 
 \newpage
@@ -565,7 +573,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/DemandeCompilation.jpg}
 \end{center}
   \caption{Scénario de compilation de documents}
-  \label{register}
+  \label{androidCompile}
 \end{figure}
 
 \newpage
@@ -576,7 +584,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/FichierLatexTelechargement.jpg}
 \end{center}
   \caption{Scénario de téléchargement de documents}
-  \label{register}
+  \label{androidDownload}
 \end{figure}
 
 \newpage
@@ -587,7 +595,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/SuppressionProjetViaAndroid.jpeg}
 \end{center}
   \caption{Scénario de suppression d'un projet}
-  \label{register}
+  \label{androidDel}
 \end{figure}
 
 \newpage
@@ -598,7 +606,9 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/telechargementRenduProjet.jpg}
 \end{center}
   \caption{Scénario de téléchargement d'un projet}
-  \label{register}
+  \label{androidDownloadProject}
 \end{figure}
+\newpage
 
+\listoffigures
 \end{document}

@@ -20,13 +20,14 @@
 \BOOKMARK [3][-]{subsubsection.4.1.10}{D\351veloppement de l'application web}{subsection.4.1}
 \BOOKMARK [3][-]{subsubsection.4.1.11}{D\351veloppement de l'application Android}{subsection.4.1}
 \BOOKMARK [3][-]{subsubsection.4.1.12}{Test du code}{subsection.4.1}
-\BOOKMARK [2][-]{subsection.4.2}{Ressources}{section.4}
-\BOOKMARK [2][-]{subsection.4.3}{Sc\351nario}{section.4}
-\BOOKMARK [3][-]{subsubsection.4.3.1}{Diagramme de cas d'utilisation}{subsection.4.3}
-\BOOKMARK [2][-]{subsection.4.4}{Charte graphique}{section.4}
-\BOOKMARK [3][-]{subsubsection.4.4.1}{Page d'authentification}{subsection.4.4}
-\BOOKMARK [3][-]{subsubsection.4.4.2}{Interface de projet}{subsection.4.4}
-\BOOKMARK [3][-]{subsubsection.4.4.3}{Interface d'\351dition}{subsection.4.4}
+\BOOKMARK [1][-]{section.5}{Macro-planning}{}
+\BOOKMARK [2][-]{subsection.5.1}{Ressources}{section.5}
+\BOOKMARK [2][-]{subsection.5.2}{Sc\351nario}{section.5}
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Diagramme de cas d'utilisation}{subsection.5.2}
+\BOOKMARK [2][-]{subsection.5.3}{Charte graphique}{section.5}
+\BOOKMARK [3][-]{subsubsection.5.3.1}{Page d'authentification}{subsection.5.3}
+\BOOKMARK [3][-]{subsubsection.5.3.2}{Interface de projet}{subsection.5.3}
+\BOOKMARK [3][-]{subsubsection.5.3.3}{Interface d'\351dition}{subsection.5.3}
 \BOOKMARK [1][-]{appendix.A}{Diagramme de cas d'utilisation}{}
 \BOOKMARK [1][-]{appendix.B}{Diagramme de s\351quences de l'interface web}{}
 \BOOKMARK [2][-]{subsubsection.B.0.4}{Inscription}{appendix.B}
