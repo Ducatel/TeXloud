@@ -1,0 +1,7 @@
+
+	<?php
+echo "Envoi email...";
+mail("bouchakor_zakaria@hotmail.fr", "Test d’email",
+"Ceci est un test d’email");
+?>
+

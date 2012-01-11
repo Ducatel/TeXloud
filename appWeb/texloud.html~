@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="style.css" />
+    
+        <title>TeXloud</title>
+    </head>
+    
+  <body>
+        <div id="bloc_page">
+            <header>
+              <hgroup id="titre_principal" >
+                
+                    <h1>TeXloud</h1>
+                    
+                </hgroup>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#" title="compiler">Compiler</a></li>
+                        <li><a href="#" title="telecharger">Télécharger Projet</a></li>
+                        <li><a href="#" title="contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </header>
+            
+        
+            <article>
+                <section>
+		    <form name= "latex">
+			<textarea></textarea> 
+		    </form>
+                </section>
+                <section id="projet" class='coteprojet'>
+		      		 
+			    <h4>Projet</h4>
+				<span id='listeProjet'></span>
+		      
+		 <section>
+                
+            </article>
+            
+            <footer>
+                <div id="resultat">
+		<p></p>
+                </div>
+            
+           
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

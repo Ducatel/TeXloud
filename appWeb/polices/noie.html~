@@ -1,0 +1,33 @@
+#content {
+	float: left;
+	padding: 10px 2% 10px 2%;
+	margin: 0px;
+	border: 0px;
+	background: #666;
+	width: 50%; /* ie5win fudge begins */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	width: 46%;
+	}
+html>body #content {
+	width: 46%; /* ie5win fudge ends */
+	}
+
+#content2 {
+	float: right; /* Opera5.02 will show a 
+	space at right when there is no scroll bar */
+	padding: 10px 2% 10px 2%;
+	margin: 0px;
+	border: 0px;
+	background: #666;
+	width: 50%; /* ie5win fudge begins */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	width: 46%;
+	}
+html>body #content2 {
+	width: 46%; /* ie5win fudge ends */
+	} /* Opera5.02 shows a 2px gap between. 
+	N6.01Win sometimes does. Depends on amount of 
+	fill and window size and wind direction. */
+
