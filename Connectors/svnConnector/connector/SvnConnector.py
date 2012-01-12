@@ -129,6 +129,9 @@ class SvnConnector(GenericConnector):
         
         for path in paths:
             self.client.remove(path)
+            
+    def cat(self, path):
+        return self.client.cat(self.get_wc_dir() + '/' + path)
         
     client = property(get_client, set_client, del_client, "client's docstring")
     wc_dir = property(get_wc_dir, set_wc_dir, del_wc_dir, "wc_dir's docstring")

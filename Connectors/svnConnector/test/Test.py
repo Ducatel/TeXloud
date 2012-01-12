@@ -20,7 +20,9 @@ if __name__ == '__main__':
     #     print i
     
     #print conn.revert('un_chameau')
-    #conn.revertVersion('un_dromadaire')
+    
+    print conn.cat('un_dromadaire')
+    
     #print 'get infos'
     
     #conflicts = conn.list_conflicts()
