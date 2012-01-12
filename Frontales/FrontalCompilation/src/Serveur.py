@@ -19,7 +19,7 @@ class Serveur(object):
     '''
 
 
-    def __init__(self, adresseIP, port, chargeMax,type):
+    def __init__(self, adresseIP, port, chargeMax,typ):
         '''
         Constructeur du serveur
         @param adresseIP: Adresse IP du serveur
@@ -35,7 +35,7 @@ class Serveur(object):
                 self._adresseIP = adresseIP
                 self._port = port
                 self._chargeMax = chargeMax
-                self._type=type
+                self._type=typ
             else:
                 raise ValueError
         else:
@@ -122,10 +122,10 @@ class Serveur(object):
         """
         return self._type
     
-    def _setType(self,type):
+    def _setType(self,typ):
         """
         Methode qui permet de fixer le type de service sur le serveur
-        @param type: type de service sur le serveur
+        @param typ: type de service sur le serveur
         """
         raise NotImplementedError()
    
@@ -134,7 +134,7 @@ class Serveur(object):
     chargeMax=property(_getChargeMax, _setChargeMax)
     port=property(_getPort, _setPort)
     chargeActuelle=property(_getChargeActuelle, _setChargeActuelle)
-    type=property(_getType, _setType)
+    typ=property(_getType, _setType)
 
     ############################################################ METHODE MAGIQUE ###########################################################################
 
