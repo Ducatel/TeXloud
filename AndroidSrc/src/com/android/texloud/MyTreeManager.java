@@ -1,7 +1,6 @@
 package com.android.texloud;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -23,12 +22,14 @@ public class MyTreeManager {
 	private Activity act;
 	private int current_id = 1;
 	private final int PADDING_GAP = 22;
-	private Dialog folder_dialog;
+	private Dialog click_dialog;
 	private ListView listview_folderdialog;
 
-	private final String[] folderDialogItems = {"Add File...", "Add Folder...", "Rename Folder", "Delete Folder" };
+	private final String[] folderDialogItems = {"Add File...", "Add Folder...", "Rename Folder", "Delete Folder"};
+	private final String[] rootDialogItems = {"Add File...", "Add Folder...", "Delete Project"};
+	private final String[] leafDialogItems = {"Rename Project", "Rename File", "Delete File"};
 	
-	protected class Node extends View {
+	protected class Node extends View{
 		private String name;
 		private int parent_id;
 		private int padding;
@@ -40,7 +41,6 @@ public class MyTreeManager {
 		protected static final int LEAF = 2;
 		private int id;
 		private boolean open = true;
-		
 
 		private Node(Context context, String name, int type, int id, int padding){
 			super(context);
@@ -170,14 +170,26 @@ public class MyTreeManager {
 	}
 
 	
-	public void popFolderClickDialog(){
-		folder_dialog = new Dialog(act, R.style.noBorder);
-		folder_dialog.setContentView(R.layout.folderdialoglayout);
-				
-		listview_folderdialog = (ListView) (folder_dialog.findViewById(R.id.listview_folderdialog));
-		listview_folderdialog.setAdapter(new ArrayAdapter<String>(act, R.layout.itemlayout, R.id.folder_list_content,folderDialogItems));
+	public void popClickDialog(String s){
+		click_dialog = new Dialog(act, R.style.noBorder);
+		click_dialog.setContentView(R.layout.folderdialoglayout);
+		listview_folderdialog = (ListView) (click_dialog.findViewById(R.id.listview_folderdialog));
 		
-		folder_dialog.show();
+		if(s == "Root"){
+			listview_folderdialog.setAdapter(new ArrayAdapter<String>(act, R.layout.itemlayout, R.id.folder_list_content,rootDialogItems));
+			click_dialog.show();
+		}
+		else if(s == "Folder"){
+			listview_folderdialog.setAdapter(new ArrayAdapter<String>(act, R.layout.itemlayout, R.id.folder_list_content,folderDialogItems));
+			click_dialog.show();
+		}
+		else if(s == "Leaf"){
+			listview_folderdialog.setAdapter(new ArrayAdapter<String>(act, R.layout.itemlayout, R.id.folder_list_content,leafDialogItems));
+			click_dialog.show();
+		}
+		else{
+			Log.e("popClickDialog", "Error");
+		}
 	}
 	
 	public void printTree(){
@@ -207,9 +219,8 @@ public class MyTreeManager {
 				});
 
 				v.setOnLongClickListener(new OnLongClickListener() {
-
 					public boolean onLongClick(View v) {
-						Log.i("LongClick", "clic root");
+						popClickDialog("Root");
 						return false;
 					}
 				});
@@ -233,7 +244,7 @@ public class MyTreeManager {
 				v.setOnLongClickListener(new OnLongClickListener() {
 
 					public boolean onLongClick(View v) {
-						popFolderClickDialog();
+						popClickDialog("Folder");
 						return false;
 					}
 				});
@@ -251,7 +262,7 @@ public class MyTreeManager {
 				v.setOnLongClickListener(new OnLongClickListener() {
 
 					public boolean onLongClick(View v) {
-						Log.i("LongClick", "clic fichier");
+						popClickDialog("Leaf");
 						return false;
 					}
 				});
