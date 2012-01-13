@@ -97,7 +97,9 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		lineCount.setLineSpacing(5, 1);
 		lineCount.setText("1");
 		
-		/*arbo.setOnTouchListener(new OnTouchListener() {
+		/* Resize la partie arbo
+		  
+			arbo.setOnTouchListener(new OnTouchListener() {
 			
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
@@ -131,6 +133,9 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		mtm.addNode("fichier4.tex", "Dossier racine", Node.LEAF);
 		mtm.addNode("Dossier5", "Dossier1", Node.FOLDER);
 		mtm.addNode("fichier5.tex", "Dossier5", Node.LEAF);
+		mtm.addNode("fichier6.tex", "Dossier3", Node.LEAF);
+		mtm.addNode("fichier7.tex", "Dossier3", Node.LEAF);
+		
 		mtm.printTree();
 	}
 
