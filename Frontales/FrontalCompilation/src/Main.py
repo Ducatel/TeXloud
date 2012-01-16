@@ -39,10 +39,10 @@ for i in range(1,100):
 ##################################### TEST DU SERVEUR #####################################################
 
 import threading
-import FrontalServeur
+import Frontal
 
 def lanceServeur():
-    f=FrontalServeur.FrontalServeur('127.0.0.1',12800,'127.0.0.1',12801)
+    f=Frontal.Frontal('127.0.0.1',12800)
     f.lanceServeur()
 
 

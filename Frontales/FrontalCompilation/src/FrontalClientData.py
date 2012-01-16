@@ -11,7 +11,7 @@ import json
 
 class FrontalClientData(object):
     '''
-    class qui gere le client (socket) qui va ce connecté au frontales des données grace a
+    class qui gere le client (socket) qui va ce connecté aux serveurs de données grace a
     Son adresse IP
     Son numero de port d'ecoute
     Son socket
@@ -19,7 +19,7 @@ class FrontalClientData(object):
 
     def __init__(self,adresse,port):
         '''
-        Constructeur du client qui va communiqué avec le frontale des donn�es
+        Constructeur du client qui va communiqué avec le frontale des donnees
         @param adresse: Adresse IP du serveur distant
         @param port: Numéro du port d'ecoute distant
         @raise ValueError: Declencher si le port ou l'adresse est incorrect

@@ -5,7 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[frenchb]{babel}
 
-\usepackage{glossaries}
+%\usepackage{glossaries}
 
 
 
@@ -347,7 +347,6 @@ L'étape consiste à développer un ensemble de page HTML5/PHP permettant a l'ut
 L'étape consiste à tester tous les modules de l'application (application Android, application web, frontale) ensemble afin de valider le fonctionnement global du projet. Cette étape permettra de trouver et corriger 
 les éventuels bug qui pourrais rester.
 
-
 \subsection{Ressources}
 \paragraph*{}
 Ressources humaines : 5 étudiants.
@@ -360,11 +359,80 @@ Ressources humaines : 5 étudiants.
 \paragraph*{}
 Ressources matérielles : Serveur, Tablette.
 
+\subsection{Norme des trames de communication}
+\paragraph*{}
+Les trames de communication seront tous formaté en JSON. Ils auront tous un
+attribut Label qui correspondra à la tache a effectuer avec cette trame.
+Ci-dessous se trouve la liste exhaustive des trames:
+
+\paragraph{Trame entre le serveur HTTP et le serveur frontal:}
+\begin{itemize}
+ \item label:create,username,projectName
+ \item label:getProject,path,servDataIp,servDataPort
+ \item label:compile,rootFile,path,servDataIp,servDataPort
+ \item label:getFile,path,servDataIp,servDataPort
+ \item label:deleteFile,path,servDataIp,servDataPort
+ \item label:deleteProject,path,servDataIp,servDataPort
+ \item label:sync,path,servDataIp,servDataPort,currentFile
+\end{itemize}
+
+\paragraph{Trame entre le serveur frontal et un serveur de données:}
+\begin{itemize}
+ \item label:create,username,projectName
+ \item label:getProject,path
+ \item label:compile,rootFile,path,servCompileIp,servCompilePort
+ \item label:getFile,path
+ \item label:deleteFile,path
+ \item label:deleteProject,path
+ \item label:sync,path,currentFile
+\end{itemize}
+
+
 \subsection{Scénario}
 \subsubsection{Diagramme de cas d'utilisation}
-\paragraph{}
+Voir annexe \ref{useCases} page \ref{useCases}.
 
-\newpage
+\subsubsection{Diagramme de séquence de l'interface web}
+
+\paragraph{Inscription:\\}
+Voir annexe \ref{register} page \ref{register}.
+
+\paragraph{Suppression de compte:\\}
+Voir annexe \ref{deleteAccount} page \ref{deleteAccount}.
+
+\paragraph{Création d'un projet:\\}
+Voir annexe \ref{createProject} page \ref{createProject}.
+
+\paragraph{Compilation de documents:\\}
+Voir annexe \ref{compile} page \ref{compile}.
+
+\paragraph{Téléchargement de fichier:\\}
+Voir annexe \ref{download} page \ref{download}.
+
+\paragraph{Partage de projet:\\}
+Voir annexe \ref{share} page \ref{share}.
+
+\paragraph{Synchronisation de documents:\\}
+Voir annexe \ref{sync} page \ref{sync}.
+
+\paragraph{Visualisation d'un projet:\\}
+Voir annexe \ref{view} page \ref{view}.
+
+\paragraph{Suppression d'un projet:\\}
+Voir annexe \ref{deleteAccount} page \ref{deleteAccount}.
+
+\paragraph{Téléchargement d'un projet:\\}
+Voir annexe \ref{downloadProject} page \ref{downloadProject}.
+
+\subsubsection{Diagramme de séquence de l'application Android}
+
+\paragraph{Inscription:\\}
+Voir annexe \ref{androidRegister} page \ref{androidRegister}.
+
+\paragraph{Suppression de compte:\\}
+Voir annexe \ref{androidDeleteAccount} page \ref{androidDeleteAccount}.
+
+
 \subsection{Charte graphique}
 \subsubsection{Page d'authentification}
 \paragraph{}
@@ -373,7 +441,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{../layout/layout_texloud_login.png}
 \end{center}
   \caption{Page d'authentification}
-  \label{useCases}
+  \label{uiAuth}
 \end{figure}
 
 \newpage
@@ -384,7 +452,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{../layout/layout_texloud_project.png}
 \end{center}
   \caption{Inteface de projet}
-  \label{useCases}
+  \label{uiProject}
 \end{figure}
 
 \newpage
@@ -395,12 +463,27 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{../layout/layout_texloud_std.png}
 \end{center}
   \caption{Interface d'édition}
-  \label{useCases}
+  \label{uiEdit}
 \end{figure}
 
-\appendix
 \newpage
-\listoffigures
+\section{Macro-planning}
+\paragraph{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1.1\textwidth,
+angle=90]{./Ressources/macroPlanning.pdf}
+\end{center}
+  \caption{Macro planning}
+  \label{uiProject}
+\end{figure}
+
+\newpage
+\section{Matrice de Traçabilité}
+
+
+
+\appendix
 \newpage
 
 \section{Diagramme de cas d'utilisation}
@@ -488,7 +571,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/data_sync.pdf}
 \end{center}
   \caption{Scénario de synchronisation de documents}
-  \label{share}
+  \label{sync}
 \end{figure}
 
 \newpage
@@ -499,7 +582,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/project_visu.pdf}
 \end{center}
   \caption{Scénario de visualisation d'un projet}
-  \label{share}
+  \label{view}
 \end{figure}
 
 \newpage
@@ -510,7 +593,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/SuppressionProjetViaWeb.jpg}
 \end{center}
   \caption{Scénario de suppression d'un projet}
-  \label{share}
+  \label{deleteProject}
 \end{figure}
 
 \newpage
@@ -521,7 +604,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/telechargementRenduProjet.jpg}
 \end{center}
   \caption{Scénario de téléchargement d'un projet}
-  \label{share}
+  \label{downloadProject}
 \end{figure}
 
 \section{Diagramme de séquences de l'application Android}
@@ -532,7 +615,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/CompteInscription.jpg}
 \end{center}
   \caption{Scénario d'inscription}
-  \label{register}
+  \label{androidRegister}
 \end{figure}
 
 \newpage
@@ -543,7 +626,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/CompteSuppression.jpg}
 \end{center}
   \caption{Scénario de suppression de compte}
-  \label{register}
+  \label{androidDeleteAccount}
 \end{figure}
 
 \newpage
@@ -554,7 +637,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/CreationProjet.jpg}
 \end{center}
   \caption{Scénario de Création de projet}
-  \label{register}
+  \label{androidCreateProject}
 \end{figure}
 
 \newpage
@@ -565,7 +648,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/DemandeCompilation.jpg}
 \end{center}
   \caption{Scénario de compilation de documents}
-  \label{register}
+  \label{androidCompile}
 \end{figure}
 
 \newpage
@@ -576,7 +659,7 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/FichierLatexTelechargement.jpg}
 \end{center}
   \caption{Scénario de téléchargement de documents}
-  \label{register}
+  \label{androidDownload}
 \end{figure}
 
 \newpage
@@ -584,10 +667,11 @@ Ressources matérielles : Serveur, Tablette.
 \paragraph{}
 \begin{figure}[!ht]
 \begin{center}
-  \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/SuppressionProjetViaAndroid.jpeg}
+\includegraphics[width=1\textwidth,angle=90]{
+./Diagramme/Android/SuppressionProjetViaAndroid.jpg}
 \end{center}
   \caption{Scénario de suppression d'un projet}
-  \label{register}
+  \label{androidDel}
 \end{figure}
 
 \newpage
@@ -598,7 +682,9 @@ Ressources matérielles : Serveur, Tablette.
   \includegraphics[width=1\textwidth, angle=90]{./Diagramme/Android/telechargementRenduProjet.jpg}
 \end{center}
   \caption{Scénario de téléchargement d'un projet}
-  \label{register}
+  \label{androidDownloadProject}
 \end{figure}
 
+\newpage
+\listoffigures
 \end{document}

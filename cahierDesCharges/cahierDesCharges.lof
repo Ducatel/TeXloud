@@ -1,24 +1,25 @@
 \select@language {french}
 \contentsline {figure}{\numberline {1}{\ignorespaces Diagramme de d\IeC {\'e}ploiement}}{7}{figure.1}
 \contentsline {figure}{\numberline {2}{\ignorespaces Diagramme de planification}}{9}{figure.2}
-\contentsline {figure}{\numberline {3}{\ignorespaces Page d'authentification}}{13}{figure.3}
-\contentsline {figure}{\numberline {4}{\ignorespaces Inteface de projet}}{14}{figure.4}
-\contentsline {figure}{\numberline {5}{\ignorespaces Interface d'\IeC {\'e}dition}}{15}{figure.5}
-\contentsline {figure}{\numberline {6}{\ignorespaces Diagramme de cas d'utilisation}}{17}{figure.6}
-\contentsline {figure}{\numberline {7}{\ignorespaces Sc\IeC {\'e}nario d'inscription}}{18}{figure.7}
-\contentsline {figure}{\numberline {8}{\ignorespaces Sc\IeC {\'e}nario de suppression de compte}}{19}{figure.8}
-\contentsline {figure}{\numberline {9}{\ignorespaces Sc\IeC {\'e}nario de cr\IeC {\'e}ation d'un projet}}{20}{figure.9}
-\contentsline {figure}{\numberline {10}{\ignorespaces Sc\IeC {\'e}nario de compilation de document}}{21}{figure.10}
-\contentsline {figure}{\numberline {11}{\ignorespaces Sc\IeC {\'e}nario de t\IeC {\'e}l\IeC {\'e}chargement de document}}{22}{figure.11}
-\contentsline {figure}{\numberline {12}{\ignorespaces Sc\IeC {\'e}nario de partage d'un projet}}{23}{figure.12}
-\contentsline {figure}{\numberline {13}{\ignorespaces Sc\IeC {\'e}nario de synchronisation de documents}}{24}{figure.13}
-\contentsline {figure}{\numberline {14}{\ignorespaces Sc\IeC {\'e}nario de visualisation d'un projet}}{25}{figure.14}
-\contentsline {figure}{\numberline {15}{\ignorespaces Sc\IeC {\'e}nario de suppression d'un projet}}{26}{figure.15}
-\contentsline {figure}{\numberline {16}{\ignorespaces Sc\IeC {\'e}nario de t\IeC {\'e}l\IeC {\'e}chargement d'un projet}}{27}{figure.16}
-\contentsline {figure}{\numberline {17}{\ignorespaces Sc\IeC {\'e}nario d'inscription}}{28}{figure.17}
-\contentsline {figure}{\numberline {18}{\ignorespaces Sc\IeC {\'e}nario de suppression de compte}}{29}{figure.18}
-\contentsline {figure}{\numberline {19}{\ignorespaces Sc\IeC {\'e}nario de Cr\IeC {\'e}ation de projet}}{30}{figure.19}
-\contentsline {figure}{\numberline {20}{\ignorespaces Sc\IeC {\'e}nario de compilation de documents}}{31}{figure.20}
-\contentsline {figure}{\numberline {21}{\ignorespaces Sc\IeC {\'e}nario de t\IeC {\'e}l\IeC {\'e}chargement de documents}}{32}{figure.21}
-\contentsline {figure}{\numberline {22}{\ignorespaces Sc\IeC {\'e}nario de suppression d'un projet}}{33}{figure.22}
-\contentsline {figure}{\numberline {23}{\ignorespaces Sc\IeC {\'e}nario de t\IeC {\'e}l\IeC {\'e}chargement d'un projet}}{34}{figure.23}
+\contentsline {figure}{\numberline {3}{\ignorespaces Page d'authentification}}{15}{figure.3}
+\contentsline {figure}{\numberline {4}{\ignorespaces Inteface de projet}}{16}{figure.4}
+\contentsline {figure}{\numberline {5}{\ignorespaces Interface d'\IeC {\'e}dition}}{17}{figure.5}
+\contentsline {figure}{\numberline {6}{\ignorespaces Macro planning}}{18}{figure.6}
+\contentsline {figure}{\numberline {7}{\ignorespaces Diagramme de cas d'utilisation}}{19}{figure.7}
+\contentsline {figure}{\numberline {8}{\ignorespaces Sc\IeC {\'e}nario d'inscription}}{20}{figure.8}
+\contentsline {figure}{\numberline {9}{\ignorespaces Sc\IeC {\'e}nario de suppression de compte}}{21}{figure.9}
+\contentsline {figure}{\numberline {10}{\ignorespaces Sc\IeC {\'e}nario de cr\IeC {\'e}ation d'un projet}}{22}{figure.10}
+\contentsline {figure}{\numberline {11}{\ignorespaces Sc\IeC {\'e}nario de compilation de document}}{23}{figure.11}
+\contentsline {figure}{\numberline {12}{\ignorespaces Sc\IeC {\'e}nario de t\IeC {\'e}l\IeC {\'e}chargement de document}}{24}{figure.12}
+\contentsline {figure}{\numberline {13}{\ignorespaces Sc\IeC {\'e}nario de partage d'un projet}}{25}{figure.13}
+\contentsline {figure}{\numberline {14}{\ignorespaces Sc\IeC {\'e}nario de synchronisation de documents}}{26}{figure.14}
+\contentsline {figure}{\numberline {15}{\ignorespaces Sc\IeC {\'e}nario de visualisation d'un projet}}{27}{figure.15}
+\contentsline {figure}{\numberline {16}{\ignorespaces Sc\IeC {\'e}nario de suppression d'un projet}}{28}{figure.16}
+\contentsline {figure}{\numberline {17}{\ignorespaces Sc\IeC {\'e}nario de t\IeC {\'e}l\IeC {\'e}chargement d'un projet}}{29}{figure.17}
+\contentsline {figure}{\numberline {18}{\ignorespaces Sc\IeC {\'e}nario d'inscription}}{30}{figure.18}
+\contentsline {figure}{\numberline {19}{\ignorespaces Sc\IeC {\'e}nario de suppression de compte}}{31}{figure.19}
+\contentsline {figure}{\numberline {20}{\ignorespaces Sc\IeC {\'e}nario de Cr\IeC {\'e}ation de projet}}{32}{figure.20}
+\contentsline {figure}{\numberline {21}{\ignorespaces Sc\IeC {\'e}nario de compilation de documents}}{33}{figure.21}
+\contentsline {figure}{\numberline {22}{\ignorespaces Sc\IeC {\'e}nario de t\IeC {\'e}l\IeC {\'e}chargement de documents}}{34}{figure.22}
+\contentsline {figure}{\numberline {23}{\ignorespaces Sc\IeC {\'e}nario de suppression d'un projet}}{35}{figure.23}
+\contentsline {figure}{\numberline {24}{\ignorespaces Sc\IeC {\'e}nario de t\IeC {\'e}l\IeC {\'e}chargement d'un projet}}{36}{figure.24}
