@@ -49,11 +49,11 @@ function deleteData($db, $Id, &$i = 0)
 {
 	// to check that whether child exists
 	$sql = sprintf('SELECT
-				 		Id, slave, position, ownerEl, utilisateur_id
+				 		Id, slave, position, ownerEl
 					FROM '
 						. TREE_TABLE_PREFIX . '_elements
 					WHERE 
-						ownerEl = %d AND utilisateur_id='.$login.'',
+						ownerEl = %d',
 					$Id);
 	$row = NULL;
 	$i++;		
@@ -77,11 +77,11 @@ function deleteData($db, $Id, &$i = 0)
 	if ($i == 0) 
 	{
 		$sql = sprintf('SELECT 
-							position, ownerEl,utilisateur_id
+							position, ownerEl,
 						FROM '
 							. TREE_TABLE_PREFIX . '_elements
 						WHERE
-							Id = %d AND utilisateur_id='.$login.'',
+							Id = %d ',
 						$Id);
 
 					
@@ -96,9 +96,9 @@ function deleteData($db, $Id, &$i = 0)
 								WHERE 
 									ownerEl = %d
 									AND
-									position > %d
-									AND 
-									utilisateur_id='.$login.'',
+									position > %d',
+									
+									
 								$row->ownerEl, $row->position);
 				$db->query($sql);
 			}	
@@ -109,9 +109,9 @@ function deleteData($db, $Id, &$i = 0)
 	$sql = sprintf('DELETE FROM '
 						. TREE_TABLE_PREFIX .'_elements
 	        		WHERE 
-			        	ownerEl = %d 
+			        	(ownerEl = %d 
 			        	OR
-			        	Id = %d ',
+			        	Id = %d) ',
 					$Id, $Id);
 	
 	if (!$db->query($sql)) {

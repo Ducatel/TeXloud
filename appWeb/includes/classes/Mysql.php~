@@ -16,7 +16,7 @@ class MySQL
 	private $dbLink;
 	private $dbHost;
 	private $dbUsername;
-    private $dbPassword;
+	private $dbPassword;
 	private $dbName;
 	public  $queryCount;
 	

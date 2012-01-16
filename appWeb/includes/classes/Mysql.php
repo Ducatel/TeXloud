@@ -64,7 +64,7 @@ class MySQL
 	function ShowError()
 	{
 		$error = mysql_error();
-		//echo $error;		
+		echo $error;		
 	}	
 	/****************************
 	 * Method to run SQL queries

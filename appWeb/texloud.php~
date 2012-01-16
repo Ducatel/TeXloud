@@ -1,9 +1,10 @@
 <?php		
 
-	
+		
 	    //ini_set('session.gc_maxlifetime', 3); 
 	    session_start();
 	    $session_timeout=300;
+
 	    if(!isset($_SESSION['last_access']) || !isset($_SESSION['ipaddr']))
 		{
 		  $_SESSION=array();
@@ -27,6 +28,7 @@
 		  die();
 		}
 		$_SESSION['last_access']=time(); 
+	
 	/********************************************
 *
 *	Filename:	index.php
@@ -37,9 +39,10 @@
 *********************************************/
 
 define("IN_PHP", true);
-
 require_once("common.php");
+//require_once("ScriptFormulaire.js");
 
+$var="zak";
 $rootName = "Root";
 $treeElements = $treeManager->getElementList(null, "manageStructure.php");
 ?>
@@ -50,7 +53,7 @@ $treeElements = $treeManager->getElementList(null, "manageStructure.php");
 	<meta name="keywords"  content="" />
 	<meta name="description" content="" />
 
-
+	<link href="jquery-linedtextarea/jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
 	<link rel="stylesheet" href="Css/texloud2.css" />
 	<link rel="stylesheet" href="js/jquery/plugins/simpleTree/style.css" />
 	<link rel="stylesheet" href="Css/styletexloud.css" />
@@ -60,10 +63,9 @@ $treeElements = $treeManager->getElementList(null, "manageStructure.php");
 	<script src="js/langManager.js" ></script>
 	<script src="js/treeOperations.js"></script>
 	<script src="js/init.js"></script>
-     
 	<script src="jquery-linedtextarea/jquery-linedtextarea.js"></script>
 	<script src="texloud.js"></script>
-	<link href="jquery-linedtextarea/jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
+	<script src="ScriptFormulaire.js"></script>
         <title>TeXloud</title>
     </head>
     
@@ -93,7 +95,13 @@ $treeElements = $treeManager->getElementList(null, "manageStructure.php");
             
         
                <section>
-               
+	    <?php
+		//$identifiant = (!empty($_SESSION["identifiant"])) ? $_SESSION["identifiant"] : "";
+		$identifiant = $_SESSION["identifiant"];
+	      ?>
+	    <script type="text/javascript">
+		var identifiant = '<?php echo $identifiant; ?>';
+	    </script>
                 <div id="projet" class='coteprojet'>
 		      		 
 			<div class="contextMenu" id="myMenu1">	
@@ -128,7 +136,7 @@ $treeElements = $treeManager->getElementList(null, "manageStructure.php");
 	 <div id="editeur">
 
 	   
-		  <textarea class="lined" rows="38" cols="161">
+		  <textarea class="lined" rows="38" cols="160">
 		  \documentclass{article}
 		  \begin{document}
 		  Bonjour, j'\'edite en \LaTeX!

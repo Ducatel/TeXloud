@@ -23,7 +23,7 @@ if (!defined("IN_PHP"))
  *  database is supposed to be mysql
  */
 define ("DATABASE_PLATFORM", 0); // Don't edit
-define ("FILE_SYSTEM_PLATFORM", 1); // Don't edit
+//define ("FILE_SYSTEM_PLATFORM", 1); // Don't edit
 
 
 /** 
@@ -32,7 +32,7 @@ define ("FILE_SYSTEM_PLATFORM", 1); // Don't edit
  */
 define ("TARGET_PLATFORM", DATABASE_PLATFORM);
 
-
+/*
 if (TARGET_PLATFORM == FILE_SYSTEM_PLATFORM)
 {
 	/**
@@ -40,8 +40,8 @@ if (TARGET_PLATFORM == FILE_SYSTEM_PLATFORM)
  	* then assign root folder adress to FILE_ROOT macro
  	*/ 
 	//define("FILE_ROOT", "/home/mekya/public_html/test"); 
-}
-else if (TARGET_PLATFORM == DATABASE_PLATFORM)
+/*}*/
+ if (TARGET_PLATFORM == DATABASE_PLATFORM)
 {
 	/**
 	 * if DATABASE_PLATFORM is selected as TARGET_PLATFORM,

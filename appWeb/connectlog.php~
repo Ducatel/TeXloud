@@ -28,7 +28,7 @@
 	  // mot de passe ou identifiant n'existe pas
 	  if($nbligne == 0){
 	      if(strlen($_POST["motpasse"] == 0) OR strlen($_POST["identifiant"] == 0)){
-			  $error = TRUE;echo '<script> alert("Un ou plusieurs champs ne sont pas remplis."); </script>';
+			  $error = TRUE;
 			  $errorMSG = "Tout les champs doivent être remplis !";
 			  $motpasse = NULL;
 
@@ -90,7 +90,7 @@
       $_SESSION['ipaddr']=$_SERVER['REMOTE_ADDR'];
       
          
-      header('Location: texloud.php'); 
+      header('Location: texloud.html'); 
 
    }
 

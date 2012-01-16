@@ -9,10 +9,10 @@
  ***************************************/ 
 
 require_once('ITreeManager.php');
-$login=$_SESSION["identifiant"];
+//$login=$_SESSION["identifiant"];
 class DemoTreeManager implements ITreeManager
 {	
- 	public function insertElement($name, $ownerEl, $slave)
+ 	public function insertElement($name, $ownerEl, $slave,$login)
 	{
  		$insertId = rand(0, 10000);				
 		$out =  '({ "elementId":"'.$insertId.'", "elementName":"'.$name.'", "slave":"'.$slave.'","utilisateur_id":"'.$login.'"})';
@@ -21,7 +21,7 @@ class DemoTreeManager implements ITreeManager
  	 	
  	
 	
- 	public function getElementList($ownerEl, $pageName) {
+ 	public function getElementList($ownerEl, $pageName,$identifiant) {
  		if ($ownerEl == null) 
 		{
  			$out = "<li class='text' id='4'>"

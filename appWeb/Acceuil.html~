@@ -11,7 +11,8 @@
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet"/>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-	<script src="ScriptFormulaire.js"></script>
+	<script src="js/treeOperations.js"></script>
+
 	
         
     </head>
@@ -20,7 +21,7 @@
         <div id="bloc_page">
             <header id="titre_principal">
 		               
-                    <h1 id='titre'>TeXloud</h1>
+                    <h1 id='titretexloud'>TeXloud</h1>
          
             </header>
             

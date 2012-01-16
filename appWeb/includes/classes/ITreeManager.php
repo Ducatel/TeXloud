@@ -21,7 +21,7 @@
  	*  @returns
  	*		String, if string equal to FAILED macro, it means operation failed.
  	*/
- 	public function insertElement($name, $ownerEl, $slave);
+ 	public function insertElement($name, $ownerEl, $slave, $log);
  	
  	
  	

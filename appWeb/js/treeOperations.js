@@ -15,6 +15,39 @@ var simpleTree;
 var structureManagerURL = "manageStructure.php";
 var dragOperation = true;
 var operationFailed = -1;
+   
+   
+   
+   // var prenom = '<?=$prenom;?>';
+ /*   
+$(document).ready( function() {
+  // détection de la saisie dans le champ de recherche
+
+ 
+
+      // on envoie la valeur recherché en GET au fichier de traitement
+     /* $.ajax({
+  	type : 'GET', // envoi des données en GET ou POST
+	url : 'texloud.php' , // url du fichier de traitement
+	data : 'identifiant='+$(this).val() , // données à envoyer en  GET ou POST
+	
+	success : function(identifiant){ // traitements JS à faire APRES le retour d'ajax-search.php
+		console.log(identifiant);
+	}
+      });*/
+    
+   /* var login=$("#identifiant").val();
+    	//alert(login);	
+	sauvegardelog(login);
+ 
+});*/
+/*
+function sauvegardelog(log){
+  
+  alert("dede"+log);
+  
+}*/
+
 
 function TreeOperations()
 {
@@ -31,7 +64,7 @@ function TreeOperations()
 	this.inputId = '#inputText';
 //*******************************************************	
 	for (var n in arguments[0]) 
-	{ 
+	{ //
 		this[n] = arguments[0][n]; 
 	}
 //*******************************************************
@@ -115,6 +148,7 @@ function TreeOperations()
 //**********************************************************
 	this.trAddElement = function(result)
 	{
+	    alert("entre2"+identifiant);
 		//treeOps.treeBusy = false; ajax makes it false
 		var info;
 		if (typeof(result) == "undefined")
@@ -123,8 +157,10 @@ function TreeOperations()
 			info.name = "undefined";
 		}
 		else {
+			//alert(result);
+			//result='({ "elementId":"3", "elementName":"dez", "slave":"0", "utilisateur_id":"1"})';
+			//alert(result);
 			info = eval("(" + result + ")");
-			//alert(info.elementName);
 		}	
 		$('#inputText').parent().attr('id', info.elementId);
 		$('#inputText').replaceWith("<span>"+info.elementName+"</span>");
@@ -140,7 +176,7 @@ function TreeOperations()
 	this.addElementReq = function(folder)
 	{    // Menu de yeni eleman ekle se�enegi tiklandiginda ilk bura �agrilir 
 		 // ve yeni bir yazi alani eklenir.
-		
+		alert("entr1");
 		if ( treeOps.isTreeBusy() == true ||  
 			 treeOps.trGetSelectedWithAlert() == null
 			) 
@@ -204,9 +240,12 @@ function TreeOperations()
 			 {												
 				if (evt.keyCode == 13) // when pressed enter 
 				{	
-				    var name = $('#inputText').attr('value');										
+				    var name = $('#inputText').attr('value');	
+				    //var identifian="1";
+					alert(identifiant);
 					var ownerEl = $('#inputText').parent().parent().parent().attr('id');
-					var params = encodeURI("action=insertElement"+"&name="+name+"&ownerEl="+ownerEl+"&slave="+slave);
+					var params = encodeURI("action=insertElement"+"&name="+name+"&ownerEl="+ownerEl+"&slave="+slave+"&identifiant="+identifiant);
+					
 					treeOps.ajaxReq(params, structureManagerURL, treeOps.trAddElement);
 					dragOperation = true;
 				}
@@ -231,6 +270,7 @@ function TreeOperations()
 ********************************************************/
 	this.trDeleteElement = function(result)
 	{
+		alert("sup");
 		if (result != operationFailed)	{		
 			simpleTree.get(0).delNode();				
 		}
@@ -240,7 +280,7 @@ function TreeOperations()
 	}
 	/////////////////////////////////////////////////////
 	this.deleteElementReq = function()
-	{	
+	{	alert("sup2");
 		if ( treeOps.isTreeBusy() == true ||  
 			 treeOps.trGetSelectedWithAlert() == null
 			) 
@@ -262,8 +302,8 @@ function TreeOperations()
 /*******************************************************	
 	ELEMANIN ISMINI DEGISTIRME FONKSIYONLARI
 *******************************************************/
-	this.trUpdateElementName = function(result)
-	{
+	/*this.trUpdateElementName = function(result)
+	{alert("update");
 		var info = eval('('+result +')');
 		var tmp_node = "<span>"+info.elementName+"</span>";
 		$('#inputText').parent().attr('id', info.elementId);
@@ -274,10 +314,10 @@ function TreeOperations()
 		
 		$('ul.ajax>li.doc-last', '#' + elementId).attr('id', info.elementId).html("{url:"+ structureManagerURL +"?action=getElementList&ownerEl="+ info.elementId +"}");
 		simpleTree.get(0).setTreeNodes2($('#' + elementId));
-	}
+	}*/
 
 	this.updateElementNameReq = function()
-	{
+	{	alert("update2");
 		if ( treeOps.isTreeBusy() == true ||  
 			 treeOps.trGetSelectedWithAlert() == null
 			) 
@@ -297,6 +337,7 @@ function TreeOperations()
 									 if (evt.keyCode == 13) { //pressed enter
 										var name = $('#inputText').attr('value'); 	
 										var ownerEl = $('#inputText').parent().parent().parent().attr('id');
+										alert("dede");
 									 	var params = "action=updateElementName&name="+name+"&elementId="+elementId+"&ownerEl="+ownerEl;
 									 	
 										treeOps.ajaxReq (params, structureManagerURL, treeOps.trUpdateElementName);										
@@ -314,7 +355,7 @@ function TreeOperations()
  * Expand All
 ***********************************/	 
 	this.expandAll = function (obj)
-	    {
+	    {   alert("expand");
 			var folder = $('.folder-close, .folder-close-last',obj);				
 			
 			$(folder).each(function(){
@@ -355,9 +396,8 @@ function TreeOperations()
 	this.ajaxReq = function(params, url, callback, overrideSuccessFunc)
 	{
 		if (treeOps.ajaxActive == true)
-		{
+		{		
 			var successFunction = function(result){	
-						
 							treeOps.treeBusy = false;
 							treeOps.showInProcessInfo(false);
 							
@@ -379,8 +419,10 @@ function TreeOperations()
 			};
 			
 			if (typeof overrideSuccessFunc == 'function') {
+				
 				successFunction = overrideSuccessFunc;	
 			}
+			
 		 	$.ajax({
    					type: 'POST',
 					url: url,

@@ -7,6 +7,8 @@
 *	Begin:		Sunday, July 6, 2008  20:21
 *
 *********************************************/
+/*session_start();
+$login = $_SESSION["identifiant"];*/
 
 if (isset($_REQUEST['action']) && !empty($_REQUEST['action'])) 
 {
@@ -36,9 +38,12 @@ switch($action)
 		{				
 			$ownerEl = checkVariable($_POST['ownerEl']);
 			$slave = (int) checkVariable($_POST['slave']);
-			$name = checkVariable($_POST['name']);			
-		  
-			$out = $treeManager->insertElement($name, $ownerEl, $slave);						
+			$name = checkVariable($_POST['name']);
+			$log=  $_POST['identifiant'];
+	    
+			//$log="1";
+			
+			$out = $treeManager->insertElement($name, $ownerEl, $slave, $log);			
 		}
 		else {
 			$out = FAILED; 
@@ -46,7 +51,8 @@ switch($action)
 	}
 	break;	
 	case  "getElementList":  
-	{
+	{	$var="1";
+	    var_dump($_SESSION['identifiant']);
 		/**
 		 * getting element list
 		 */

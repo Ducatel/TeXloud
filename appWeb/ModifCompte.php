@@ -5,8 +5,9 @@
   
 	  $login=$_SESSION["identifiant"];
 		//  echo $login.'</br>';
-	   
-
+	   		
+	    
+	    
 	    $reponse = $bdd->prepare('SELECT prenom,nom,sex,datenaissance,adresse,codepostal,ville,pays FROM utilisateur WHERE identifiant = ?');
 	    $reponse->execute(array($login));
 	    $affichage=$reponse->fetch(PDO::FETCH_OBJ);

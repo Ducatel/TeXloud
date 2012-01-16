@@ -7,7 +7,7 @@
      Email:  koroglu.ozan@gmail.com
      		 ahmetmermerkaya@hotmail.com
  ***************************************/ 
-
+session_start();
 require_once("ITreeManager.php");
 
 class FileTreeManager implements ITreeManager 
@@ -33,7 +33,7 @@ class FileTreeManager implements ITreeManager
 		
 	}
 	
-	public function insertElement($name, $ownerEl, $slave) 
+	public function insertElement($name, $ownerEl, $slave,$login) 
 	{		
 		$realOwnerEl = str_replace(self::FOLDER_SEPARATOR, self::DEFAULT_FOLDER_SEPARATOR, $ownerEl);
 		$fullPath = $this->getFullPath($realOwnerEl. self::DEFAULT_FOLDER_SEPARATOR . $name);
@@ -45,12 +45,12 @@ class FileTreeManager implements ITreeManager
 		else {
 			if ($slave == 1) {
 				if (touch($fullPath) === true) {							
-					$out = '({ "elementId":"'. $ownerEl . self::FOLDER_SEPARATOR . $name . '", "elementName":"'.$name.'", "slave":"'.$slave.'"})';
+					$out = '({ "elementId":"'. $ownerEl . self::FOLDER_SEPARATOR . $name . '", "elementName":"'.$name.'", "slave":"'.$slave.'","utilisateur_id":"'.$login.'"})';
 				}			
 			}
 			else{
 				if (mkdir($fullPath, 0755)) {
-					$out = '({ "elementId":"'. $ownerEl . self::FOLDER_SEPARATOR . $name .'", "elementName":"'.$name.'", "slave":"'.$slave.'"})';
+					$out = '({ "elementId":"'. $ownerEl . self::FOLDER_SEPARATOR . $name .'", "elementName":"'.$name.'", "slave":"'.$slave.'","utilisateur_id":"'.$login.'"})';
 				}
 			}
 		}
