@@ -11,6 +11,7 @@ from re import match
 import threading
 import os
 import zipfile
+import subprocess
 
 class ServiceCompilation(object):
     '''
@@ -61,7 +62,7 @@ class ServiceCompilation(object):
         nomFichier,adresseArchive=self.getDataforCompilation(client,addr)
         
         # On compile le projet
-        msgCompile,addrFichierPdf=self.latexCompilation(addr, nomFichier, adresseArchive)
+        msgCompile,addrFichierPdf=self.latexCompilation(nomFichier, adresseArchive)
 
             
     def getDataforCompilation(self,client,addr):
@@ -95,16 +96,46 @@ class ServiceCompilation(object):
         return nomFichier,"/tmp/{0}.zip".format(str(uniqueId))
                     
             
-    def latexCompilation(self,addr,nomFichier,adresseArchive):
+    def latexCompilation(self,nomFichier,adresseArchive):
         '''
             Méthode qui va compiler le projet latex
-            @param addr: tuple (adresse,port) du serveur de données
             @param nomFichier: nom du fichier maitre (sert a lancer la compilation)
             @param adresseArchive: adresse de l'archive qui contient le projet a compiler (/tmp/riuhgf.zip)
             @return: Le message de compilation (message d'erreur de compilation, ou message standard)
-            @return: L'adresse du fichier PDF compiler (peut etre null si erreur de compilation) 
-        '''   
+            @return: L'adresse du fichier PDF compiler (peut etre None si erreur de compilation) 
+        '''
         
+        nomArchive=adresseArchive.split('/tmp/')[1]
+        pathDir='/tmp/'+nomArchive[0:len(nomArchive)-4]+"/"
+
+        #Décompression de l'archive
+        self.decompresse(adresseArchive,pathDir)
+        
+        # on change de repertoire de travail
+        os.chdir(pathDir)
+        
+        # Appel au script latexmk pour la compilation
+        valSortie=subprocess.call(["latexmk","-bibtex","-pdf","-quiet",nomFichier])
+        
+        # Si la sortie du script est egal a 0, il n'y a aucun probleme lors de la compilation
+        if valSortie==0:
+            # Ici la compilation est ok
+            logFile=pathDir+nomFichier[0:len(nomFichier)-3]+"log"
+
+            # on recupere une ligne du log en temps que message de retour 
+            for line in open(logFile):
+                if "Output written on" in line:
+                    messageRetour=line
+            
+            #TODO recuperer le contenue binaire du fichier pdf
+            pdfFileContent=""
+            
+            #TODO supprimer le dossier
+        else:
+            print('fichier non compiler, erreur')
+        
+        
+        return messageRetour,pdfFileContent
 
     def decompresse(self,filezip, pathdst = ''):
         """
