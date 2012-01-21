@@ -1,6 +1,7 @@
 package com.android.texloud;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -13,6 +14,7 @@ import android.view.View.OnLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 public class MyTreeManager {
@@ -23,12 +25,12 @@ public class MyTreeManager {
 	private int current_id = 1;
 	private final int PADDING_GAP = 22;
 	private Dialog click_dialog;
-	private ListView listview_folderdialog;
+	private ListView listview_dialog;
 
-	private final String[] folderDialogItems = {"Add File...", "Add Folder...", "Rename Folder", "Delete Folder"};
-	private final String[] rootDialogItems = {"Add File...", "Add Folder...", "Delete Project"};
-	private final String[] leafDialogItems = {"Rename Project", "Rename File", "Delete File"};
-	
+	private final String[] folderDialogItems = {"Add File", "Add Folder", "Rename Folder", "Delete Folder"};
+	private final String[] rootDialogItems = {"Add File", "Add Folder", "Delete Project"};
+	private final String[] leafDialogItems = {"Add File", "Rename File", "Delete File"};
+
 	protected class Node extends View{
 		private String name;
 		private int parent_id;
@@ -81,8 +83,6 @@ public class MyTreeManager {
 		public void setOpen(boolean open) {
 			this.open = open;
 		}
-
-
 
 	}
 
@@ -169,29 +169,102 @@ public class MyTreeManager {
 
 	}
 
-	
+
 	public void popClickDialog(String s){
+		ArrayList<HashMap<String, String>> listitem;
+
+		listitem = new ArrayList<HashMap<String,String>>();
+		HashMap<String,String> map;
+
 		click_dialog = new Dialog(act, R.style.noBorder);
-		click_dialog.setContentView(R.layout.folderdialoglayout);
-		listview_folderdialog = (ListView) (click_dialog.findViewById(R.id.listview_folderdialog));
-		
+
 		if(s == "Root"){
-			listview_folderdialog.setAdapter(new ArrayAdapter<String>(act, R.layout.itemlayout, R.id.folder_list_content,rootDialogItems));
+
+			map = new HashMap<String, String>();
+			map.put("titre", "Add File");
+			map.put("img", String.valueOf(R.drawable.add_document));
+			listitem.add(map);
+
+			map = new HashMap<String, String>();
+			map.put("titre", "Add Folder");
+			map.put("img", String.valueOf(R.drawable.folder_add2));
+			listitem.add(map);
+
+			map = new HashMap<String, String>();
+			map.put("titre", "Delete Project");
+			map.put("img", String.valueOf(R.drawable.trash_icon));
+			listitem.add(map);
+
+			SimpleAdapter mSchedule = new SimpleAdapter (act, listitem, R.layout.itemlayout, 
+					new String[] {"img", "titre"}, new int[] {R.id.img, R.id.name_item});
+
+
+			click_dialog.setContentView(R.layout.clickdialoglayout);
+			listview_dialog = (ListView) (click_dialog.findViewById(R.id.listview_dialog));
+			listview_dialog.setAdapter(mSchedule);
 			click_dialog.show();
 		}
 		else if(s == "Folder"){
-			listview_folderdialog.setAdapter(new ArrayAdapter<String>(act, R.layout.itemlayout, R.id.folder_list_content,folderDialogItems));
+
+			map = new HashMap<String, String>();
+			map.put("titre", "Add File");
+			map.put("img", String.valueOf(R.drawable.add_document));
+			listitem.add(map);
+
+			map = new HashMap<String, String>();
+			map.put("titre", "Add Folder");
+			map.put("img", String.valueOf(R.drawable.folder_add2));
+			listitem.add(map);
+
+			map = new HashMap<String, String>();
+			map.put("titre", "Rename Folder");
+			map.put("img", String.valueOf(R.drawable.rename_icon));
+			listitem.add(map);
+
+			map = new HashMap<String, String>();
+			map.put("titre", "Delete Folder");
+			map.put("img", String.valueOf(R.drawable.folder_delete2));
+			listitem.add(map);
+
+			SimpleAdapter mSchedule = new SimpleAdapter (act, listitem, R.layout.itemlayout, 
+					new String[] {"img", "titre"}, new int[] {R.id.img, R.id.name_item});
+
+
+			click_dialog.setContentView(R.layout.clickdialoglayout);
+			listview_dialog = (ListView) (click_dialog.findViewById(R.id.listview_dialog));
+			listview_dialog.setAdapter(mSchedule);
 			click_dialog.show();
 		}
 		else if(s == "Leaf"){
-			listview_folderdialog.setAdapter(new ArrayAdapter<String>(act, R.layout.itemlayout, R.id.folder_list_content,leafDialogItems));
+
+			map = new HashMap<String, String>();
+			map.put("titre", "Add File");
+			map.put("img", String.valueOf(R.drawable.add_document));
+			listitem.add(map);
+
+			map = new HashMap<String, String>();
+			map.put("titre", "Rename File");
+			map.put("img", String.valueOf(R.drawable.rename_icon));
+			listitem.add(map);
+
+			map = new HashMap<String, String>();
+			map.put("titre", "Delete File");
+			map.put("img", String.valueOf(R.drawable.document_delete));
+			listitem.add(map);
+
+			SimpleAdapter mSchedule = new SimpleAdapter (act, listitem, R.layout.itemlayout, 
+					new String[] {"img", "titre"}, new int[] {R.id.img, R.id.name_item});
+
+			click_dialog.setContentView(R.layout.clickdialoglayout);
+			listview_dialog = (ListView) (click_dialog.findViewById(R.id.listview_dialog));
+			listview_dialog.setAdapter(mSchedule);
 			click_dialog.show();
 		}
 		else{
 			Log.e("popClickDialog", "Error");
 		}
 	}
-	
+
 	public void printTree(){
 		tree = sortList();
 		LinearLayout layout_arbo;
