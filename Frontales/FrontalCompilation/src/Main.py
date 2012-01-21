@@ -38,8 +38,8 @@ for i in range(1,100):
 
 ##################################### TEST DU SERVEUR #####################################################
 
-import threading
 import Frontal
+import threading
 
 def lanceServeur():
     f=Frontal.Frontal('127.0.0.1',12800)

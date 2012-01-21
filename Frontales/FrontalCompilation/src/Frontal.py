@@ -7,7 +7,6 @@ Created on 10 dec. 2011
 '''
 import socket
 from re import match
-import FrontalClientData
 import threading
 import json
 import Ordonnanceur
@@ -28,8 +27,6 @@ class Frontal(object):
         Constructeur du serveur de la frontale
         @param adresse: Adresse IP du serveur
         @param port: Numéro du port d'ecoute
-        @param adresseFrontData: adresse IP du serveur frontal de données
-        @param portFrontData: Numero du port d'ecoute du serveur frontal de données
         @raise ValueError: Declencher si le port ou l'adresse est incorrect
         '''
         regexAdresse="^[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}$"

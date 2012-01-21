@@ -5,6 +5,8 @@ Created on 18 déc. 2011
 @author: meva
 '''
 
+import socket
+
 class GenericConnector(object):
     '''
     Classe mère de connecteur à un serveur de version
@@ -20,16 +22,31 @@ class GenericConnector(object):
         ''' wc_dir -> working copy directory '''
         self.wc_dir = '/tmp/'
         self.url = url;
+        self._messageSeparator = '+==\sep==+'
         
         if(not self.url.endswith('/')):
             self.url += '/'
                     
         self.login = login
         self.passwd = passwd
+        
+    def sendCompilationFile(self, fileInfos, clientAddr, clientPort, path):
+        ''' Envoi d'un fichier binaire à un client '''
+        f = open(path, 'rb')
+        data = f.read()
+        f.close()
+        
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect((clientAddr, clientPort))
+
+        sock.sendall(fileInfos)
+        sock.send(self._messageSeparator)
+        sock.sendall(data)
+        
+        sock.close()
 
     def get_wc_dir(self):
         return self.__wc_dir
-
 
     def get_url(self):
         return self.__url
