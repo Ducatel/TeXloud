@@ -17,11 +17,8 @@ var langManager = new languageManager();
 langManager.load("en");  
 
 var treeOps = new TreeOperations();
-
-
 $(document).ready(function() {
 	
-	//alert("init "+identifiant);
 	// binding menu functions
 	$('#myMenu1 .addDoc').click(function()  {  treeOps.addElementReq(); });									   						    
 	$('#myMenu1 .addFolder').click(function()  {  treeOps.addElementReq(true); });	
@@ -39,6 +36,7 @@ $(document).ready(function() {
 	$('#myMenu1 .expandAll').append(langManager.expandAll);
 	$('#myMenu1 .collapseAll').append(langManager.collapseAll);
 	
+		
 	// initialization of tree
 	simpleTree = $('.simpleTree').simpleTree({
 		autoclose: false,
@@ -50,21 +48,18 @@ $(document).ready(function() {
 		/**
 		 * Callback function is called when one item is clicked
 		 */	
-		afterClick:function(){
+		afterClick:function(node){
 				//alert($('span:first', node).text() + " clicked");
 				//alert($('span:first',node).parent().attr('id'));
-				alert($('.doc-last').text() + "filehhhhh");
 		},
 		/**
 		 * Callback function is called when one item is double-clicked
 		 */	
-		
 		afterDblClick:function(node){
-			
-			alert($('span:first',node).text() + " double clicked");		
+			alert($('span:first',node).text() + " double clickedfile");		
 		},
 		afterMove:function(destination, source, pos) {
-			//alert("destination-"+destination.attr('id')+" source-"+source.attr('id')+" pos-"+pos);	
+		//	alert("destination-"+destination.attr('id')+" source-"+source.attr('id')+" pos-"+pos);	
 			if (dragOperation == true) 
 			{				
 				

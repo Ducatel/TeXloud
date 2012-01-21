@@ -19,7 +19,8 @@
     	$this->db = $dbc;
     } 
 	
-	public function getIdutilisateur(){
+	public function getIdutilisateur()
+	{
 
 	        $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 		$bdd = new PDO('mysql:host=localhost;dbname=Texloud', 'root', 'debouz1990', $pdo_options);
@@ -117,16 +118,18 @@
  	}
  	
  	
- 	public function updateElementName($name, $elementId, $ownerEl)
+ 	public function updateElementName($name, $elementId, $ownerEl, $log)
 	{
 		$elementId = (int) $elementId;
+		$login=$this->getIdutilisateur();
+		//var_dump($login);
  		$sql = sprintf('UPDATE ' 
         						. TREE_TABLE_PREFIX.'_elements 
 							SET 
 								name = \'%s\'
 					    	WHERE 
-					    		Id = %d  ',
-        					$name, $elementId);
+					    		Id = %d AND utilisateur_id= %d  ',
+        					$name, $elementId, $login);
 		$out = FAILED;					
 		if ($this->db->query($sql) == true) {
 				$out = '({"elementName":"'.$name.'", "elementId":"'.$elementId.'"})';

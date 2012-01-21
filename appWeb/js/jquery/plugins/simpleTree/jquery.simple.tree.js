@@ -67,7 +67,7 @@ $.fn.simpleTree = function(opt){
 			return $('span.active', this).parent();
 		}});
 		TREE.closeNearby = function(obj)
-		{
+		{	
 			$(obj).siblings().filter('.folder-open, .folder-open-last').each(function(){
 				var childUl = $('>ul',this);
 				var className = this.className;
@@ -145,7 +145,7 @@ $.fn.simpleTree = function(opt){
 			}
 		};
 		TREE.setTreeNodes = function(obj, useParent, updateMode){
-			
+			//alert("hhh");
 			obj = useParent? obj.parent():obj;
 			//$('li>span', obj) // changed by mekya, before, the line below starts like that
 			

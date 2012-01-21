@@ -4,7 +4,7 @@
 	    //ini_set('session.gc_maxlifetime', 3); 
 	    session_start();
 	    $session_timeout=300;
-
+   
 	    if(!isset($_SESSION['last_access']) || !isset($_SESSION['ipaddr']))
 		{
 		  $_SESSION=array();
@@ -28,6 +28,7 @@
 		  die();
 		}
 		$_SESSION['last_access']=time(); 
+		
 	
 	/********************************************
 *

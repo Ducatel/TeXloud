@@ -77,7 +77,8 @@ switch($action)
 			$name = checkVariable($_POST['name']);
 			$elementId = checkVariable($_POST['elementId']); 			
 			$ownerEl = checkVariable($_POST['ownerEl']);
-			$out = $treeManager->updateElementName($name, $elementId, $ownerEl);
+			$log=  $_POST['identifiant'];
+			$out = $treeManager->updateElementName($name, $elementId, $ownerEl, $log);
 		}                         
 		else {
 			$out = FAILED;	

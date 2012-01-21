@@ -38,6 +38,7 @@ class FileTreeManager implements ITreeManager
 		$realOwnerEl = str_replace(self::FOLDER_SEPARATOR, self::DEFAULT_FOLDER_SEPARATOR, $ownerEl);
 		$fullPath = $this->getFullPath($realOwnerEl. self::DEFAULT_FOLDER_SEPARATOR . $name);
 		
+		var_dump("le fichier "+$login);
 		$out = FAILED;
 		if (file_exists($fullPath) === true) {
 			$out = FAILED_FILE_WITH_SAME_NAME_EXIST;

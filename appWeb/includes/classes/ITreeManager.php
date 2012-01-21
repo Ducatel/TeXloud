@@ -46,7 +46,7 @@
  	* @returns
  	*		String, if string equal to FAILED macro, it means operation failed.				
  	*/
- 	public function updateElementName($name, $elementId, $ownerEl);
+ 	public function updateElementName($name, $elementId, $ownerEl, $log);
  	
  	
  	
