@@ -19,6 +19,22 @@ langManager.load("en");
 var treeOps = new TreeOperations();
 $(document).ready(function() {
 	
+	  
+	
+
+
+            // Save Form
+          /*  $(window).keypress(function(event) {
+                if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) return true;
+                $("#container form").submit();
+                event.preventDefault();
+                return false;
+            });*/
+
+   
+    
+
+		
 	// binding menu functions
 	$('#myMenu1 .addDoc').click(function()  {  treeOps.addElementReq(); });									   						    
 	$('#myMenu1 .addFolder').click(function()  {  treeOps.addElementReq(true); });	
@@ -39,6 +55,8 @@ $(document).ready(function() {
 		
 	// initialization of tree
 	simpleTree = $('.simpleTree').simpleTree({
+	  
+	   
 		autoclose: false,
 		/**
 		 * restore tree state according the cookies it stored.
@@ -49,14 +67,25 @@ $(document).ready(function() {
 		 * Callback function is called when one item is clicked
 		 */	
 		afterClick:function(node){
-				//alert($('span:first', node).text() + " clicked");
-				//alert($('span:first',node).parent().attr('id'));
+				var temp=$('span:first', node).parent().attr('id');
+				/*$("#save").click(function(){
+				  
+				  saveFile(temp);
+				    });*/
+				  shortcut.add("Ctrl+S",function() {
+				       saveFile(temp);
+				    });
+				//nameFile(temp);
+				readFile(temp);
+				//alert($('span:first',node).parent().attr('id').toggleClass('doc'));
+				
 		},
 		/**
 		 * Callback function is called when one item is double-clicked
 		 */	
 		afterDblClick:function(node){
-			alert($('span:first',node).text() + " double clickedfile");		
+			//alert($('span:first',node).text() + " double clickedfile");	
+			
 		},
 		afterMove:function(destination, source, pos) {
 		//	alert("destination-"+destination.attr('id')+" source-"+source.attr('id')+" pos-"+pos);	
@@ -118,4 +147,52 @@ $(document).ready(function() {
 		animate:true
 		//,docToFolderConvert:true		
 	});		
+	
+	/*function nameFile(temp){
+	  
+	  var temp2=temp;
+	  console.log("nom"+temp2);
+	  return temp2;
+	  
+	}*/
+	
+	function saveFile(temp){
+	  
+	//var temp=nameFile(temp);
+	
+	//alert("voila voila "+temp);
+	$.ajax({
+	type: "POST",
+	url:"FichierSave.php",
+	data: "fichier="+temp,
+	success: function(requester) {
+	  //document.forms.fff.codelatex.value = document.forms.fff.dmc.value
+	  //$('#codelatex').val()=requester; 
+	  alert("resultar"+requester);
+	  //$('#codelatex').attr('value', requester);
+	  
+
+	}
+	
+      });
+	  
+	  
+	}
+	function readFile(temp){
+	  //console.log("here"+temp);
+	
+	$.ajax({
+	type: "POST",
+	url:"Fichier.php",
+	data: "fichier="+temp,
+	success: function(requester) {
+	  //document.forms.fff.codelatex.value = document.forms.fff.dmc.value
+	  //$('#codelatex').val()=requester; 
+	  $('#codelatex').attr('value', requester);
+	  
+
+	}
+	
+      });
+	}
 });

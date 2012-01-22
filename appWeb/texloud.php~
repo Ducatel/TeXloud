@@ -44,7 +44,7 @@ require_once("common.php");
 //require_once("ScriptFormulaire.js");
 
 $var="zak";
-$rootName = "Root";
+$rootName = "Workspace";
 $treeElements = $treeManager->getElementList(null, "manageStructure.php");
 ?>
 <!DOCTYPE html>
@@ -66,6 +66,7 @@ $treeElements = $treeManager->getElementList(null, "manageStructure.php");
 	<script src="js/init.js"></script>
 	<script src="jquery-linedtextarea/jquery-linedtextarea.js"></script>
 	<script src="texloud.js"></script>
+	<script src="shortcut.js"></script>
 	<script src="ScriptFormulaire.js"></script>
         <title>TeXloud</title>
     </head>
@@ -96,13 +97,13 @@ $treeElements = $treeManager->getElementList(null, "manageStructure.php");
             
         
                <section>
-	    <?php
+	 <!--   <?php
 		//$identifiant = (!empty($_SESSION["identifiant"])) ? $_SESSION["identifiant"] : "";
 		$identifiant = $_SESSION["identifiant"];
 	      ?>
 	    <script type="text/javascript">
 		var identifiant = '<?php echo $identifiant; ?>';
-	    </script>
+	    </script>-->
                 <div id="projet" class='coteprojet'>
 		      		 
 			<div class="contextMenu" id="myMenu1">	
@@ -136,8 +137,8 @@ $treeElements = $treeManager->getElementList(null, "manageStructure.php");
            
 	 <div id="editeur">
 
-	   
-		  <textarea class="lined" rows="38" cols="160">
+		  <input type="button" id="save" value="Sauvegarder"/>
+		  <textarea id="codelatex" class="lined" rows="38" cols="162">
 		  \documentclass{article}
 		  \begin{document}
 		  Bonjour, j'\'edite en \LaTeX!

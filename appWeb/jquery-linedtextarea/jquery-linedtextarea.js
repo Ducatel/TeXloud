@@ -27,7 +27,7 @@
  *   - 2010.01.06: Initial Release
  *
  */
-(function($) {
+ $(function() {
 
 	$.fn.linedtextarea = function(options) {
 		
@@ -123,4 +123,4 @@
   	selectedLine: -1,
   	selectedClass: 'lineselect'
   };
-})(jQuery);
+});

@@ -17,13 +17,26 @@ var langManager = new languageManager();
 langManager.load("en");  
 
 var treeOps = new TreeOperations();
-
-
 $(document).ready(function() {
 	
-	//alert("init "+identifiant);
+	  
+	
+
+
+            // Save Form
+          /*  $(window).keypress(function(event) {
+                if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) return true;
+                $("#container form").submit();
+                event.preventDefault();
+                return false;
+            });*/
+
+   
+    
+
+		
 	// binding menu functions
-	$('#myMenu1 .addDoc').click(function()  { treeOps.addElementReq(); });									   						    
+	$('#myMenu1 .addDoc').click(function()  {  treeOps.addElementReq(); });									   						    
 	$('#myMenu1 .addFolder').click(function()  {  treeOps.addElementReq(true); });	
 	$('#myMenu1 .edit, #myMenu2 .edit').click(function() {  treeOps.updateElementNameReq(); });
 	$('#myMenu1 .delete, #myMenu2 .delete').click(function() {  treeOps.deleteElementReq(); });
@@ -39,8 +52,11 @@ $(document).ready(function() {
 	$('#myMenu1 .expandAll').append(langManager.expandAll);
 	$('#myMenu1 .collapseAll').append(langManager.collapseAll);
 	
+		
 	// initialization of tree
 	simpleTree = $('.simpleTree').simpleTree({
+	  
+	   
 		autoclose: false,
 		/**
 		 * restore tree state according the cookies it stored.
@@ -50,21 +66,29 @@ $(document).ready(function() {
 		/**
 		 * Callback function is called when one item is clicked
 		 */	
-		afterClick:function(){
-				//alert($('span:first', node).text() + " clicked");
-				//alert($('span:first',node).parent().attr('id'));
-				alert($('.doc-last').text() + "filehhhhh");
+		afterClick:function(node){
+				var temp=$('span:first', node).parent().attr('id');
+				/*$("#save").click(function(){
+				  
+				  saveFile(temp);
+				    });*/
+				  shortcut.add("Ctrl+S",function() {
+				       saveFile(temp);
+				    });
+				//nameFile(temp);
+				readFile(temp);
+				//alert($('span:first',node).parent().attr('id').toggleClass('doc'));
+				
 		},
 		/**
 		 * Callback function is called when one item is double-clicked
 		 */	
-		
 		afterDblClick:function(node){
+			//alert($('span:first',node).text() + " double clickedfile");	
 			
-			alert($('span:first',node).text() + " double clicked");		
 		},
 		afterMove:function(destination, source, pos) {
-			//alert("destination-"+destination.attr('id')+" source-"+source.attr('id')+" pos-"+pos);	
+		//	alert("destination-"+destination.attr('id')+" source-"+source.attr('id')+" pos-"+pos);	
 			if (dragOperation == true) 
 			{				
 				
@@ -123,4 +147,52 @@ $(document).ready(function() {
 		animate:true
 		//,docToFolderConvert:true		
 	});		
+	
+	/*function nameFile(temp){
+	  
+	  var temp2=temp;
+	  console.log("nom"+temp2);
+	  return temp2;
+	  
+	}*/
+	
+	function saveFile(temp){
+	  
+	//var temp=nameFile(temp);
+	
+	//alert("voila voila "+temp);
+	$.ajax({
+	type: "POST",
+	url:"FichierSave.php",
+	data: "fichier="+temp,
+	success: function(requester) {
+	  //document.forms.fff.codelatex.value = document.forms.fff.dmc.value
+	  //$('#codelatex').val()=requester; 
+	  alert("nom fichier"+requester);
+	  //$('#codelatex').attr('value', requester);
+	  
+
+	}
+	
+      });
+	  
+	  
+	}
+	function readFile(temp){
+	  //console.log("here"+temp);
+	
+	$.ajax({
+	type: "POST",
+	url:"Fichier.php",
+	data: "fichier="+temp,
+	success: function(requester) {
+	  //document.forms.fff.codelatex.value = document.forms.fff.dmc.value
+	  //$('#codelatex').val()=requester; 
+	  $('#codelatex').attr('value', requester);
+	  
+
+	}
+	
+      });
+	}
 });

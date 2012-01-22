@@ -1,20 +1,38 @@
 $(document).ready( function() {
-  // détection de la saisie dans le champ de recherche
+  
 
- 
-
-      // on envoie la valeur recherché en GET au fichier de traitement
-     /* $.ajax({
-  	type : 'GET', // envoi des données en GET ou POST
-	url : 'texloud.php' , // url du fichier de traitement
-	data : 'identifiant='+$(this).val() , // données à envoyer en  GET ou POST
+  //$('#editeur').hide();
+  
+  $('#pdfTree li').click(function(){
+			
+			$('#editeur').show();
+			});
+	/*simpleTree = $('.simpleTree').simpleTree({
+		autoclose: false,
+		/**
+		 * restore tree state according the cookies it stored.
+		 */
+	//	restoreTreeState: true,
+		
+		/**
+		 * Callback function is called when one item is clicked
+		 */	
+	//	afterClick:function(node){
+				/*alert($('span:first', node).text() + " clicked");
+				alert($('span:first',node).parent().attr('id'));*/
+				
+	//	},
+		/**
+		 * Callback function is called when one item is double-clicked
+		 */	
+		/*afterDblClick:function(node){
+			alert($('span:first',node).text() + " double clickedfile");	
+			
+		},
 	
-	success : function(identifiant){ // traitements JS à faire APRES le retour d'ajax-search.php
-		console.log(identifiant);
-	}
-      });*/
-    
- //var nom = '<?php echo $_SESSION['identifiant']; ?>';
-   // alert(nom);
+		
+	});*/
+  
+  var codelatex=$("#codelatex").val();
  
 });
