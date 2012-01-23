@@ -29,16 +29,17 @@ class Serveur(object):
         '''
         regexAdresse="^[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}$"
         regexPort="^[0-9]{1,5}$"
-        
-        if match(regexAdresse,adresseIP) and match(regexPort,str(port)) and isinstance(port, int) and isinstance(chargeMax, int) and (type=="compilation" or type=="data"):
+        if match(regexAdresse,adresseIP) and match(regexPort,str(port)) and isinstance(port, int) and isinstance(chargeMax, int) and (typ=="compilation" or typ=="data"):
             if chargeMax > 0:
                 self._adresseIP = adresseIP
                 self._port = port
                 self._chargeMax = chargeMax
                 self._type=typ
             else:
+                print("chargeMaxError")
                 raise ValueError
         else:
+            print("other")
             raise ValueError
         
         self._chargeActuelle = 0

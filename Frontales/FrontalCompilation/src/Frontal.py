@@ -40,8 +40,8 @@ class Frontal(object):
         else:
             raise ValueError
         
-        self._ordonnanceurData=Ordonnanceur.Ordonnanceur("./../fichierServeur.xml")
-        self._ordonnanceurCompilation=Ordonnanceur.Ordonnanceur("./../fichierServeur.xml")
+        self._ordonnanceurData=Ordonnanceur.Ordonnanceur("./../fichierServeur.xml","data")
+        self._ordonnanceurCompilation=Ordonnanceur.Ordonnanceur("./../fichierServeur.xml","compilation")
 
         
     def lanceServeur(self):
@@ -55,10 +55,10 @@ class Frontal(object):
         
         while 1:
             client, addr=self._sock.accept()
-            threading.Thread(target=self.gestionTravail,args=(client,addr)).start()
+            threading.Thread(target=self.getTrameOfHTTPServer,args=(client,addr)).start()
         
 
-    def gestionTravail(self,client,addr):
+    def getTrameOfHTTPServer(self,client,addr):
         """
         Methode qui va recupere la demande du serveur web
         et la traiter
@@ -72,16 +72,124 @@ class Frontal(object):
             taille=len(message)
       
         client.close()
-        """clientData=FrontalClientData.FrontalClientData(self._adresseFrontData, self._portFrontData)
-        archiveProjet,fichierMaitre=clientData.getData(messageComplet);
-        del clientData
-         
-        serveur=self._ordonnanceur.getServeur()"""
+        
+        self.examineRequete(messageComplet)
+        
+    def routeRequest(self,requeteJSON):
+        '''
+        Méthode qui va router la requete vers le bon traitement afin de reformater la requete
+        puis qui va renvoyé au bon serveur de données 
+        @param requeteJSON: la requete a examiner (au format json)
+        '''
+        
+        requete=json.loads(requeteJSON)
+        
+        if requete['label']=="create":
+            adresseIP,port,req=self.requestCreateNewUserDataSpace(requete)
+        elif requete['label']=="getProject":
+            adresseIP,port,req=self.requestGetProject(requete)
+        elif requete['label']=="compile":
+            adresseIP,port,req=self.requestCompile(requete)
+        elif requete['label']=="getFile":
+            adresseIP,port,req=self.requestGetFile(requete)    
+        elif requete['label']=="deleteFile": 
+            adresseIP,port,req=self.requestDeleteFile(requete) 
+        elif requete['label']=="deleteProject":
+            adresseIP,port,req=self.requestDeleteProject(requete)
+        elif requete['label']=="sync":    
+            adresseIP,port,req=self.requestSync(requete)
+  
+        s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((adresseIP,port))
+        s.send(json.dumps(req))
+        s.send(self._messageEnd)
+        s.close()
+            
     
-    def requestCreateNewUserDataSpace(self):
+    def requestCreateNewUserDataSpace(self,requete):
         """
         Méthode qui va demande au serveur de donnée de créer un nouvel 
         espace de stockage pour l'utilisateur
+        @param requete: requete a reformater et a router (dico python)
+        @return: l'adresse IP du serveur de données
+        @return: le port de connexion sur le serveur de données
+        @return: la requete (dico)
         """
+        
+        # Obtention d'un serveur de données
         serveur=self._ordonnanceurData.getServeur()
+        
+        return serveur.adresseIP,serveur.port,requete
+        
+    def requestGetProject(self,requete):
+        """
+        Méthode qui va demande au serveur de donnée de renvoyer un projet 
+        @param requete: requete a reformater et a router (dico python)
+        """
+        
+        adresseIP=requete.pop('servDataIp')
+        port=requete.pop('servDataPort')
+        
+        return adresseIP,port,requete
+
+    def requestCompile(self,requete):
+        """
+        Méthode qui va demande au serveur de donnée de lancer une compilation
+        via un serveur de compilation
+        @param requete: requete a reformater et a router (dico python)
+        """
+        adresseIP=requete.pop('servDataIp')
+        port=requete.pop('servDataPort')
+        
+        serveur=self._ordonnanceurCompilation.getServeur()
+
+        requete['servCompileIP']=serveur.adresseIP
+        requete['servCompilePort']=serveur.port
+        
+        return adresseIP,port,requete
+        
+        
+    def requestGetFile(self,requete):
+        """
+        Méthode qui va demande au serveur de donnée de renvoyer un fichier
+        @param requete: requete a reformater et a router (dico python)
+        """
+        adresseIP=requete.pop('servDataIp')
+        port=requete.pop('servDataPort')
+        
+        return adresseIP,port,requete
+        
+        
+    def requestDeleteFile(self,requete):
+        """
+        Méthode qui va demande au serveur de donnée de supprimer un fichier
+        @param requete: requete a reformater et a router (dico python)
+        """
+        
+        adresseIP=requete.pop('servDataIp')
+        port=requete.pop('servDataPort')
+        
+        return adresseIP,port,requete
+        
+    def requestDeleteProject(self,requete):
+        """
+        Méthode qui va demande au serveur de donnée de supprimer un projet
+        @param requete: requete a reformater et a router (dico python)
+        """
+        
+        adresseIP=requete.pop('servDataIp')
+        port=requete.pop('servDataPort')
+        
+        return adresseIP,port,requete   
+        
+    def requestSync(self,requete):
+        """
+        Méthode qui va demande au serveur de donnée de faire une synchro
+        @param requete: requete a reformater et a router (dico python)
+        """
+        
+        adresseIP=requete.pop('servDataIp')
+        port=requete.pop('servDataPort')
+        
+        return adresseIP,port,requete
         

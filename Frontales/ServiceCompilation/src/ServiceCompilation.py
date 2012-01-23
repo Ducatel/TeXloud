@@ -275,3 +275,4 @@ class ServiceCompilation(object):
         s.send(self._messageSeparator)
         s.send(pdf)
         s.send(self._messageEnd)
+        s.close()

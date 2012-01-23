@@ -6,53 +6,32 @@ Created on 8 dec. 2011
 @author: David Ducatel
 '''
 
+'''
+import Frontal
 
-##################################### TEST DE L'ORDONNANCEUR #####################################################
-"""
-# main du programme
+f=Frontal.Frontal('127.0.0.1',12800)
+f.lanceServeur()'''
+
+
+'''
+import json
+
+dico=dict()
+dico['label']='unLabel'
+dico['test']='chaineDeTest'
+jsonDico=json.dumps(dico)
+
+print(jsonDico)
+t=json.loads(jsonDico)
+
+print(t['label'])
+print(t['test'])
+'''
+
+
 import Ordonnanceur
 
-
-# Creation de l'ordonnanceur
-ordo=Ordonnanceur.Ordonnanceur('./../fichierServeur.xml')
-
-# Affichage de l'ordonnanceur
-print (ordo)
-
-# recuperation d'un serveur
-serveur=ordo.getServeur()
-print(ordo)
-
-# on indique que le serveur a fini son travail
-ordo.finTravail(serveur)
-print (ordo)
-
-
-
-# en cas de surcharge (trop de damande de travail et tous les serveurs occupé), une exception est leve
-for i in range(1,100):
-    serveur=ordo.getServeur()
-    print(ordo)"""
-
-
-
-##################################### TEST DU SERVEUR #####################################################
-
-import Frontal
-import threading
-
-def lanceServeur():
-    f=Frontal.Frontal('127.0.0.1',12800)
-    f.lanceServeur()
-
-
-thread=threading.Thread(group=None, target=lanceServeur, name=None, args=(), kwargs={})
-thread.start()
-
-print("server start on 12800")
-
-
-
-
-
-
+o=Ordonnanceur.Ordonnanceur("./../fichierServeur.xml","data")
+serveur=o.getServeur()
+print serveur.adresseIP
+print serveur.port

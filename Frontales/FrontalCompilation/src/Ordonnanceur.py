@@ -17,10 +17,11 @@ class Ordonnanceur(object):
     des serveurs (compilation ou donnees)
     '''
 
-    def __init__(self,chemin):
+    def __init__(self,chemin,typeServeur):
         '''
         Constructeur de l'ordonnanceur
         @param chemin: chemin jusqu'au fichier XML des serveurs
+        @param typeServeur: type de serveur gérer par l'ordonnanceur
         '''
         
         # On initialise la liste des serveur
@@ -30,6 +31,7 @@ class Ordonnanceur(object):
         self._nbServeur=0
 
         ########## RECUPERATION DE LA LISTE DES SERVEURS #############
+        
         # On parse le document
         doc=parse(chemin)
         
@@ -40,35 +42,38 @@ class Ordonnanceur(object):
         for serveur in root.getElementsByTagName('serveur'):
             if serveur.nodeType == serveur.ELEMENT_NODE:
                 
-                adresse=serveur.getElementsByTagName('adresse')[0].childNodes[0].nodeValue
-                adresse=adresse.lstrip()
-                adresse=adresse.rstrip()
+                typeNode=serveur.getElementsByTagName('type')[0].childNodes[0].nodeValue
+                typeNode=typeNode.lstrip()
+                typeNode=typeNode.rstrip()
                 
-                port=serveur.getElementsByTagName('port')[0].childNodes[0].nodeValue
-                port=port.lstrip()
-                port=port.rstrip()
+                # si serveur en cour de traitement est du meme type que le type de serveur demander
+                if typeNode==typeServeur:
                 
-                charge=serveur.getElementsByTagName('charge')[0].childNodes[0].nodeValue
-                charge=charge.lstrip()
-                charge=charge.rstrip()
-                charge=int(charge)
-                
-                type=serveur.getElementsByTagName('type')[0].childNodes[0].nodeValue
-                type=type.lstrip()
-                type=type.rstrip()
-                
-                try:
-                    serv=Serveur.Serveur(adresse, int(port), charge,type)
-                except ValueError:
-                    print("Erreur fatal: voir le fichier errorOrdonnaceur.log")
-                    fsock = open('errorOrdonnaceur.log', 'w')               
-                    sys.stderr = fsock    
-                    sys.stderr.write("Un serveur n'as pas plus etre créé:\n-->Le problème provient surement d'une erreur dans le fichier XML des serveur\n\n\n")
-                    raise Exception
-                    fsock.close()
+                    adresse=serveur.getElementsByTagName('adresse')[0].childNodes[0].nodeValue
+                    adresse=adresse.lstrip()
+                    adresse=adresse.rstrip()
                     
-                self.listeServeur.append(serv)
-                self._nbServeur+=1  
+                    port=serveur.getElementsByTagName('port')[0].childNodes[0].nodeValue
+                    port=port.lstrip()
+                    port=port.rstrip()
+                    
+                    charge=serveur.getElementsByTagName('charge')[0].childNodes[0].nodeValue
+                    charge=charge.lstrip()
+                    charge=charge.rstrip()
+                    charge=int(charge)
+                
+                    try:
+                        serv=Serveur.Serveur(adresse, int(port), int(charge),typeServeur)
+                    except ValueError:
+                        print("Erreur fatal: voir le fichier errorOrdonnaceur.log")
+                        fsock = open('errorOrdonnaceur.log', 'w')               
+                        sys.stderr = fsock    
+                        sys.stderr.write("Un serveur n'as pas plus etre créé:\n-->Le problème provient surement d'une erreur dans le fichier XML des serveur\n\n\n")
+                        raise Exception
+                        fsock.close()
+                        
+                    self.listeServeur.append(serv)
+                    self._nbServeur+=1
       
 
                 
