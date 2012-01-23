@@ -13,7 +13,7 @@ class SvnConnector(GenericConnector):
     '''
     Classe de connexion à un serveur SVN 
     '''   
-    def __init__(self, url, login = '', passwd = '', wc_path = '', createWorkingCopy = True):
+    def __init__(self, url, login = '', passwd = '', wc_path = '', checkout = True):
         super(self.__class__,self).__init__(url, login, passwd)
         
         now = datetime.datetime.now()
@@ -39,8 +39,11 @@ class SvnConnector(GenericConnector):
         else:
             self.wc_dir += dir_name
             
-        ''' Lance la copie avec les paramètres '''
-        self.client.checkout(self.url, self.wc_dir)
+        if(checkout):
+            ''' Lance la copie avec les paramètres '''
+            self.client.checkout(self.url, self.wc_dir)
+            
+        print 'copie locale enregistrée dans ' + self.wc_dir
 
     ''' Revient sur les changement locaux (non utilisé pour l'instant) '''
     def revert(self, path):
@@ -85,6 +88,7 @@ class SvnConnector(GenericConnector):
     def commit(self):
         try:
             self.client.checkin(self.get_wc_dir(), 'TeXloud Sync')
+            print 'committed'
         except Exception, e:
             print 'erreur de commit: ' + str(e)
      
@@ -108,6 +112,9 @@ class SvnConnector(GenericConnector):
             conflict_list.append(self.client.info(path))
             
         return conflict_list
+    
+    def remove_file(self, path):
+        self.client.remove(self.wc_dir + '/' + path)
         
     def resolve_all(self):
         changes = self.client.status(self.get_wc_dir())
@@ -116,6 +123,12 @@ class SvnConnector(GenericConnector):
         
         for path in paths:
             self.client.resolved(path)
+        
+    def full_commit(self):
+        self.add_all()
+        self.commit()
+        self.resolve_all()
+        self.commit()
         
     def add_all(self):
         changes = self.client.status(self.get_wc_dir())
