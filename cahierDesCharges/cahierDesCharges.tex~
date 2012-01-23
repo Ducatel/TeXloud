@@ -387,6 +387,10 @@ Ci-dessous se trouve la liste exhaustive des trames:
  \item label:sync,path,currentFile
 \end{itemize}
 
+\paragraph{Trame entre le serveur frontal et un serveur de compilation:}
+\begin{itemize}
+ \item label:create,username,projectName
+\end{itemize}
 
 \subsection{Scénario}
 \subsubsection{Diagramme de cas d'utilisation}
@@ -431,6 +435,21 @@ Voir annexe \ref{androidRegister} page \ref{androidRegister}.
 
 \paragraph{Suppression de compte:\\}
 Voir annexe \ref{androidDeleteAccount} page \ref{androidDeleteAccount}.
+
+\paragraph{Création de projet:\\}
+Voir annexe \ref{androidCreateProject} page \ref{androidCreateProject}.
+
+\paragraph{Compilation de documents:\\}
+Voir annexe \ref{androidCompile} page \ref{androidCompile}.
+
+\paragraph{Téléchargement de documents :\\}
+Voir annexe \ref{androidDownload} page \ref{androidDownload}.
+
+\paragraph{Suppression d'un projet:\\}
+Voir annexe \ref{androidDel} page \ref{androidDel}.
+
+\paragraph{Téléchargement d'un projet:\\}
+Voir annexe \ref{androidDownloadProject} page \ref{androidDownloadProject}.
 
 
 \subsection{Charte graphique}

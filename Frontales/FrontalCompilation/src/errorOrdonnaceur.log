@@ -1,0 +1,18 @@
+Un serveur n'as pas plus etre créé:
+-->Le problème provient surement d'une erreur dans le fichier XML des serveur
+
+
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/threading.py", line 552, in __bootstrap_inner
+    self.run()
+  File "/usr/lib/python2.7/threading.py", line 505, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "/home/meva/Dev/TeXloud/Frontales/FrontalCompilation/src/Main.py", line 45, in lanceServeur
+    f=Frontal.Frontal('127.0.0.1',12800)
+  File "/home/meva/Dev/TeXloud/Frontales/FrontalCompilation/src/Frontal.py", line 46, in __init__
+    self._ordonnanceurData=Ordonnanceur.Ordonnanceur("./../fichierServeur.xml")
+  File "/home/meva/Dev/TeXloud/Frontales/FrontalCompilation/src/Ordonnanceur.py", line 67, in __init__
+    raise Exception
+Exception
+

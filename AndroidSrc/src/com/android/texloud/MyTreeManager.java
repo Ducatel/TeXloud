@@ -274,7 +274,7 @@ public class MyTreeManager {
 		TextView tv;
 
 		for(Node n : tree){
-			System.out.println(n.getParentId() + " " + n.getName() + " " + n.getNodeId());
+			//System.out.println(n.getParentId() + " " + n.getName() + " " + n.getNodeId());
 			switch(n.type){
 
 			case Node.ROOT:
