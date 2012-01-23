@@ -126,7 +126,7 @@ class SvnConnector(GenericConnector):
         
     def full_commit(self):
         self.add_all()
-        self.commit()
+        self.client.checkout(self.url, self.wc_dir)
         self.resolve_all()
         self.commit()
         

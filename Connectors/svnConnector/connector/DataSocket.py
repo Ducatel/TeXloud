@@ -69,7 +69,9 @@ class DataSocket(object):
                 
                 #récupère les informations sur la requete
                 requestInfo = json.loads(messageArray[0])
-                print requestInfo
+                
+                print 'chaine json -> ' + str(requestInfo)
+                
                 label = requestInfo['label']
         
                 if(label=='create'):
@@ -95,13 +97,21 @@ class DataSocket(object):
                     print 'deleteProject'
                     self.deleteProject(requestInfo['path'], client)
                 elif(label=='sync'):
-                    print 'sync'
-                    self.sync(requestInfo['path'], requestInfo['currentFile'], client)
+                    print 'sync -> ' + str(requestInfo['files'])
+                    self.sync(requestInfo['path'], requestInfo['currentFile'], requestInfo['files'], client)
                 else:
                     print 'failed to retrieve action'
                     
                 completeMessage = ""
       
+    def sync(self, path, currentFile, files, client):
+        if not '..' in path:
+            for fdata in files:
+                print 'fdata -> ' + str(fdata)
+                if not '..' in fdata['filename']:
+                    f = open(self.wc_dir + path + '/' + fdata['filename'], 'w')
+                    f.write(fdata['content'])
+                    f.close()
         #client.close()
             
     def cleanRequest(self, request):
@@ -149,7 +159,15 @@ class DataSocket(object):
             f = open(self.wc_dir + path + '/' + filename, 'w')
             f.write(file_content)
             f.close()
-            
-    @abstractmethod
-    def sync(self, path, currentFile, client):
-        return NotImplemented
+
+    ''' Connexion à la socket serveur pour le test
+        getProject: sock.send('{"label":"getProject","path":"53d4ad39451eac91f7a983fd2d4ab34c"}')
+        deleteProject: sock.send('{"label":"deleteProject","path":"53d4ad39451eac91f7a983fd2d4ab34c"}')
+        sync: sock.send('{"label" : "sync", "path" : "53d4ad39451eac91f7a983fd2d4ab34c", "files" : [{"filename" : "bouh/bouhbouh.txt", "content" : "blahblah commit"}], "currentFile" : "rien"}')
+       
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect(('127.0.0.1', 31346))
+        sock.send('{"label" : "sync", "path" : "53d4ad39451eac91f7a983fd2d4ab34c", "files" : [["pdfgsbvslop", "contenu"],["hdufk","gfyig"]], "currentFile" : "rien"}')
+        sock.send('+==\endTrame==+')
+        sock.close()
+    '''

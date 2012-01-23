@@ -9,7 +9,7 @@ Created on 8 dec. 2011
 import json
 from connector import SvnDataSocket
 
-dsock = SvnDataSocket.SvnDataSocket('127.0.0.1', 32346)
+dsock = SvnDataSocket.SvnDataSocket('127.0.0.1', 31346)
 dsock.launch()
 
 

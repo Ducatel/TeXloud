@@ -55,6 +55,10 @@ class SvnDataSocket(DataSocket):
         connection.full_commit()
         print 'file commited'
     
-    @abstractmethod
-    def sync(self, path, currentFile, client):
-        return NotImplemented
+    def sync(self, path, currentFile, files, client):
+        super(SvnDataSocket, self).sync(path, currentFile, files, client)
+        
+        if not '..' in path:
+            connection = SvnConnector.SvnConnector('svn://87.98.144.200/test_svn', 'meva', 'plop', path, False)
+            connection.full_commit()
+            print 'files commited'
