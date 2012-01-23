@@ -15,41 +15,18 @@ public final class R {
     }
     public static final class drawable {
         public static final int add_document=0x7f020000;
-        public static final int arrow_refresh=0x7f020001;
-        public static final int collapsable=0x7f020002;
-        public static final int collapsablelast=0x7f020003;
-        public static final int collapse=0x7f020004;
-        public static final int cross=0x7f020005;
-        public static final int disk=0x7f020006;
-        public static final int document_delete=0x7f020007;
-        public static final int expand=0x7f020008;
-        public static final int expandable=0x7f020009;
-        public static final int expandablelast=0x7f02000a;
-        public static final int file=0x7f02000b;
-        public static final int folder=0x7f02000c;
-        public static final int folder_add=0x7f02000d;
-        public static final int folder_add2=0x7f02000e;
-        public static final int folder_delete=0x7f02000f;
-        public static final int folder_delete2=0x7f020010;
-        public static final int folder_edit=0x7f020011;
-        public static final int ic_launcher=0x7f020012;
-        public static final int leaf=0x7f020013;
-        public static final int leaflast=0x7f020014;
-        public static final int line_bg=0x7f020015;
-        public static final int line_bg_over=0x7f020016;
-        public static final int line_bg_over_last=0x7f020017;
-        public static final int minus=0x7f020018;
-        public static final int my_border=0x7f020019;
-        public static final int page_add=0x7f02001a;
-        public static final int page_delete=0x7f02001b;
-        public static final int page_edit=0x7f02001c;
-        public static final int plus=0x7f02001d;
-        public static final int rename_icon=0x7f02001e;
-        public static final int root=0x7f02001f;
-        public static final int spacer=0x7f020020;
-        public static final int spinner=0x7f020021;
-        public static final int trash_icon=0x7f020022;
-        public static final int tree_line=0x7f020023;
+        public static final int document_delete=0x7f020001;
+        public static final int file=0x7f020002;
+        public static final int folder=0x7f020003;
+        public static final int folder_add=0x7f020004;
+        public static final int folder_add2=0x7f020005;
+        public static final int folder_delete2=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
+        public static final int my_border=0x7f020008;
+        public static final int rename_icon=0x7f020009;
+        public static final int root=0x7f02000a;
+        public static final int spinner=0x7f02000b;
+        public static final int trash_icon=0x7f02000c;
     }
     public static final class id {
         public static final int EditText_id=0x7f080012;
