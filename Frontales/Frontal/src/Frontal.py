@@ -55,10 +55,10 @@ class Frontal(object):
         
         while 1:
             client, addr=self._sock.accept()
-            threading.Thread(target=self.getTrameOfHTTPServer,args=(client,addr)).start()
+            threading.Thread(target=self.getRequestOfHTTPServer,args=(client,addr)).start()
         
 
-    def getTrameOfHTTPServer(self,client,addr):
+    def getRequestOfHTTPServer(self,client,addr):
         """
         Methode qui va recupere la demande du serveur web
         et la traiter
@@ -73,7 +73,7 @@ class Frontal(object):
       
         client.close()
         
-        self.examineRequete(messageComplet)
+        self.routeRequest(messageComplet)
         
     def routeRequest(self,requeteJSON):
         '''
@@ -99,12 +99,22 @@ class Frontal(object):
         elif requete['label']=="sync":    
             adresseIP,port,req=self.requestSync(requete)
   
+        print "addr: {0}\nport: {1}\nreq: {2}\n".format(adresseIP,port,req)
+        #TODO a decomenté pour le passage en prod
+        #self.sendRequestOfDataServer(adresseIP, port, req)
+        
+    def sendRequestOfDataServer(self,adresseIP,port,req):
+        '''
+        Méthode qui envoie la requete reformaté vers le serveur de données
+        @param adresseIP: L'adresse IP du serveur de données
+        @param port: Le port de connexion sur le serveur de données
+        @param req: la requete a envoyer (format JSON)
+        '''
         s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((adresseIP,port))
         s.send(json.dumps(req))
         s.send(self._messageEnd)
         s.close()
-            
     
     def requestCreateNewUserDataSpace(self,requete):
         """

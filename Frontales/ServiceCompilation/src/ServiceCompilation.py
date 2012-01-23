@@ -40,6 +40,10 @@ class ServiceCompilation(object):
         
         self._messageSeparator='+==\sep==+'
         self._messageEnd='+==\endTrame==+'
+        
+        self._ipFrontal="127.0.0.1"
+        self._portFrontal=12800
+
 
         
     def lanceServeur(self):
@@ -69,6 +73,9 @@ class ServiceCompilation(object):
         
         # On renvoie le pdf et les infos
         self.backToSender(msgCompile, contenuFichierPdf, addr)
+        
+        # On renvoi un message de fin compilation au serveur frontal
+        
             
     def getDataforCompilation(self,client,addr):
         """
@@ -275,4 +282,17 @@ class ServiceCompilation(object):
         s.send(self._messageSeparator)
         s.send(pdf)
         s.send(self._messageEnd)
+        s.close()
+
+    def confirmEndCompilation(self):
+        """
+        Méthode qui envoie a la frontal un message de fin de compilation
+        """
+        trame=dict()
+        trame['label']='endCompilation'
+
+        s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((self._adresse,self._portFrontal))
+        
+        s.send(message)
         s.close()
