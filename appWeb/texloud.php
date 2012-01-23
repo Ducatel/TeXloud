@@ -41,9 +41,7 @@
 
 define("IN_PHP", true);
 require_once("common.php");
-//require_once("ScriptFormulaire.js");
 
-$var="zak";
 $rootName = "Workspace";
 $treeElements = $treeManager->getElementList(null, "manageStructure.php");
 ?>
@@ -139,10 +137,7 @@ $treeElements = $treeManager->getElementList(null, "manageStructure.php");
 
 	
 		  <textarea id="codelatex" class="lined" rows="38" cols="162">
-		  \documentclass{article}
-		  \begin{document}
-		  Bonjour, j'\'edite en \LaTeX!
-		  \end{document}
+		 
 		  </textarea>
 	    
 	  </div>

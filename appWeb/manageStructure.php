@@ -51,8 +51,8 @@ switch($action)
 	}
 	break;	
 	case  "getElementList":  
-	{	$var="1";
-	    var_dump($_SESSION['identifiant']);
+	{	
+	    //var_dump($_SESSION['identifiant']);
 		/**
 		 * getting element list
 		 */
