@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class TeXloudActivity extends Activity {
 
@@ -33,7 +34,8 @@ public class TeXloudActivity extends Activity {
 
 		forgot = (Button) (findViewById(R.id.tv_forgot));
 
-
+		login = (EditText)(findViewById(R.id.EditText_id));
+		passwd = (EditText)(findViewById(R.id.EditText_passwd));
 
 		forgot.setOnClickListener(new OnClickListener() {
 
@@ -43,7 +45,7 @@ public class TeXloudActivity extends Activity {
 				dialog = new Dialog(TeXloudActivity.this, R.style.noBorder);
 				dialog.setContentView(R.layout.alertdialog);
 				dialog.setTitle("Mot de passe oublié");
-				
+
 				dialog.show();
 
 				Button button = (Button) dialog.findViewById(R.id.button_cancel);
@@ -52,8 +54,6 @@ public class TeXloudActivity extends Activity {
 						dismissDialog();
 					}
 				});
-
-				
 			}
 		});
 
@@ -61,34 +61,59 @@ public class TeXloudActivity extends Activity {
 		connect.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View arg0) {
-				Intent intent = new Intent(TeXloudActivity.this,
-						MainActivity.class);
 
-				startActivity(intent);
-				finish();
+				Comm c = new Comm();
+				Comm.statement st;
+
+				st = c.getAuth(login.getText(),passwd.getText());
+
+				switch(st){
+				case SUCCESS:
+					Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
+					startActivity(intent);
+					finish();
+					
+					setErrorTextViewVisibility(View.INVISIBLE);
+					break;
+					
+				case WRONG:
+					setErrorTextViewVisibility(View.VISIBLE);
+					break;
+					
+				case ERROR:
+					
+					break;
+				}
+
+
 			}
 		});
-		
+
 		sign_in = (Button) (findViewById(R.id.button_inscription));
 		sign_in.setOnClickListener(new OnClickListener() {
-			
+
 			public void onClick(View v) {
 				signin_dialog = new Dialog(TeXloudActivity.this, R.style.noBorder);
 				signin_dialog.setContentView(R.layout.signindialog);
-				
+
 				Spinner s = (Spinner) signin_dialog.findViewById(R.id.spinner);
-			    ArrayAdapter adapter = ArrayAdapter.createFromResource(
-			            TeXloudActivity.this, R.array.months, android.R.layout.simple_spinner_item);
-			    
-			    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			    s.setAdapter(adapter);
-				
+				ArrayAdapter adapter = ArrayAdapter.createFromResource(
+						TeXloudActivity.this, R.array.months, android.R.layout.simple_spinner_item);
+
+				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				s.setAdapter(adapter);
+
 				signin_dialog.show();
 			}
 		});
 
 	}
 
+	public void setErrorTextViewVisibility(int status){
+		TextView tv_error = (TextView)(findViewById(R.id.tv_error));
+		tv_error.setVisibility(status);
+	}
+	
 	public void dismissDialog(){
 		dialog.dismiss();
 	}
