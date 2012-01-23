@@ -10,6 +10,7 @@ from re import match
 import threading
 import json
 import Ordonnanceur
+import Serveur
 
 class Frontal(object):
     '''
@@ -97,6 +98,8 @@ class Frontal(object):
         elif requete['label']=="deleteProject":
             adresseIP,port,req=self.requestDeleteProject(requete)
         elif requete['label']=="sync":    
+            adresseIP,port,req=self.requestSync(requete)
+        elif requete['label']=="endCompilation":    
             adresseIP,port,req=self.requestSync(requete)
   
         print "addr: {0}\nport: {1}\nreq: {2}\n".format(adresseIP,port,req)
@@ -202,4 +205,12 @@ class Frontal(object):
         port=requete.pop('servDataPort')
         
         return adresseIP,port,requete
+    
+    def requestEndCompilation(self,requete):
+        """
+        Méthode qui dit a l'ordonnanceur que un serveur de compilation
+        a terminer
+        @param requete: requete qui contient le serveur a donné a l'ordonnanceur (dico python)
+        """
+        self._ordonnanceurCompilation.finTravail(Serveur.Serveur(requete['servCompileIp'],int(requete['servCompilePort'])))
         

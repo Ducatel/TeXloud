@@ -13,6 +13,7 @@ import os
 import zipfile
 import subprocess
 import shutil
+import json
 
 class ServiceCompilation(object):
     '''
@@ -290,9 +291,10 @@ class ServiceCompilation(object):
         """
         trame=dict()
         trame['label']='endCompilation'
+        trame['servCompileIp']=self._adresse
+        trame['servCompilePort']=self._port
 
         s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((self._adresse,self._portFrontal))
-        
-        s.send(message)
+        s.send(json.dumps(trame))
         s.close()

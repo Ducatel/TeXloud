@@ -19,7 +19,7 @@ class Serveur(object):
     '''
 
 
-    def __init__(self, adresseIP, port, chargeMax,typ):
+    def __init__(self, adresseIP, port, chargeMax=1,typ="data"):
         '''
         Constructeur du serveur
         @param adresseIP: Adresse IP du serveur
