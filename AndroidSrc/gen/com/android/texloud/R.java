@@ -22,11 +22,12 @@ public final class R {
         public static final int folder_add2=0x7f020005;
         public static final int folder_delete2=0x7f020006;
         public static final int ic_launcher=0x7f020007;
-        public static final int my_border=0x7f020008;
-        public static final int rename_icon=0x7f020009;
-        public static final int root=0x7f02000a;
-        public static final int spinner=0x7f02000b;
-        public static final int trash_icon=0x7f02000c;
+        public static final int loading=0x7f020008;
+        public static final int my_border=0x7f020009;
+        public static final int rename_icon=0x7f02000a;
+        public static final int root=0x7f02000b;
+        public static final int spinner=0x7f02000c;
+        public static final int trash_icon=0x7f02000d;
     }
     public static final class id {
         public static final int EditText_id=0x7f080013;
@@ -91,10 +92,11 @@ public final class R {
         public static final int folderlayout=0x7f030003;
         public static final int itemlayout=0x7f030004;
         public static final int leaflayout=0x7f030005;
-        public static final int login=0x7f030006;
-        public static final int main=0x7f030007;
-        public static final int rootlayout=0x7f030008;
-        public static final int signindialog=0x7f030009;
+        public static final int loadingdialog=0x7f030006;
+        public static final int login=0x7f030007;
+        public static final int main=0x7f030008;
+        public static final int rootlayout=0x7f030009;
+        public static final int signindialog=0x7f03000a;
     }
     public static final class string {
         public static final int app_name=0x7f070001;

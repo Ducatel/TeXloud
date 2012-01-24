@@ -185,6 +185,10 @@ public class MainActivity extends Activity implements ScrollViewListener{
         }
 		
 	}
+	
+	public void setText(String s){
+		text.setText(s);
+	}
 
 	
 }

@@ -21,7 +21,7 @@ public class MyTreeManager {
 
 	private Node root;
 	private ArrayList<Node> tree;
-	private Activity act;
+	private MainActivity act;
 	private int current_id = 1;
 	private final int PADDING_GAP = 22;
 	private Dialog click_dialog;
@@ -86,7 +86,7 @@ public class MyTreeManager {
 
 	}
 
-	public MyTreeManager(Activity act, String root_name){
+	public MyTreeManager(MainActivity act, String root_name){
 		this.act = act;
 		root = new Node(act, root_name, Node.ROOT, current_id++, 5);
 		tree = new ArrayList<Node>();
@@ -332,8 +332,13 @@ public class MyTreeManager {
 				tv.setText(n.getName());
 				v.setPadding(n.getPadding(), 0, 0, 0);
 
-				v.setOnLongClickListener(new OnLongClickListener() {
+				v.setOnClickListener(new OnClickListener() {
+					public void onClick(View arg0) {
+						printFile(arg0);
+					}
+				});
 
+				v.setOnLongClickListener(new OnLongClickListener() {
 					public boolean onLongClick(View v) {
 						popClickDialog("Leaf");
 						return false;
@@ -346,5 +351,12 @@ public class MyTreeManager {
 			default: Log.e("Error Tree Manager", "Erreur printTree");
 			}
 		}
+	}
+
+	public void printFile(View v){
+		Comm c = new Comm();
+		String s = c.getFile();
+		
+		act.setText(s);
 	}
 }

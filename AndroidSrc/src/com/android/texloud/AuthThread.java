@@ -10,57 +10,31 @@ import java.util.ArrayList;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-public class Comm extends Activity{
+public class AuthThread extends Thread{
 
 	public static final String URLauth = "http://192.168.1.11/texloud/login.php";
+	private Comm comm;
+	private CharSequence login, password;
 
-	public enum statement{SUCCESS, WRONG, ERROR};
-	public ProgressDialog loading_dialog;
-
-	public TeXloudActivity tex;
-
-	public final Handler mHandler = new Handler(){
-		public void handleMessage(Message msg){
-			switch(msg.what){
-			case 0: tex.toggleLoadingDialog(false);
-			break;
-
-			case 1: tex.wrongLogin();
-			break;
-
-			case 2: tex.wrongLogin();
-			break;
-			}
-
-		}
-	};
-
-
-	public Comm(TeXloudActivity tex){
-		this.tex = tex;
-
-	}
-	
-	public Comm(){
+	public AuthThread(Comm comm, CharSequence login, CharSequence password){
+		this.comm = comm;
+		this.login = login;
+		this.password = password;
 		
 	}
 
-
-	public Comm.statement getAuth(CharSequence login, CharSequence password){
-
+	public void run() {
+		Message msg = null;
+		// TODO Auto-generated method stub
 		InputStream is = null;
 		String result = "";
 
@@ -108,17 +82,17 @@ public class Comm extends Activity{
 
 			if(result.equals("ok")){
 				Log.i("ok", result);
-
-				//msg = comm.mHandler.obtainMessage(0);
-				//comm.mHandler.sendMessage(msg);
-				return Comm.statement.SUCCESS;
+				
+				msg = comm.mHandler.obtainMessage(0);
+				comm.mHandler.sendMessage(msg);
+				//return Comm.statement.SUCCESS;
 
 			}
 			else{ 
 				Log.i("pas ok", result);
-				//msg = comm.mHandler.obtainMessage(1);
-				//comm.mHandler.sendMessage(msg);
-				return Comm.statement.WRONG;
+				msg = comm.mHandler.obtainMessage(1);
+				comm.mHandler.sendMessage(msg);
+				//return Comm.statement.WRONG;
 			}
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -127,42 +101,9 @@ public class Comm extends Activity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//msg = comm.mHandler.obtainMessage(2);
-		//comm.mHandler.sendMessage(msg);
-		return Comm.statement.ERROR;
+		msg = comm.mHandler.obtainMessage(2);
+		comm.mHandler.sendMessage(msg);
+		//return Comm.statement.ERROR;
 	}
 
-	public String getFile(){
-		String result = "";
-
-		InputStream is = null;
-		try{
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost("http://192.168.1.11/texloud/getTexFile.php");
-			HttpResponse response = httpclient.execute(httppost);
-			HttpEntity entity = response.getEntity();
-			is = entity.getContent();
-
-		}catch(Exception e){
-			Log.e("log_tag", "Error in http connection " + e.toString());
-		}
-
-		BufferedReader reader;
-		try {
-			reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),30);
-			StringBuilder sb = new StringBuilder();
-			String line = null;
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n");
-			}
-			is.close();
-			result=sb.toString().trim();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
 }
