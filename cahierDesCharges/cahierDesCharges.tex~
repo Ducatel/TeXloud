@@ -379,7 +379,7 @@ Ci-dessous se trouve la liste exhaustive des trames:
 \paragraph{Trame entre le serveur frontal et un serveur de données:}
 \begin{itemize}
  \item label:create,username,projectName
- \item label:getProject,path
+ \item label:getProject,path, username, client
  \item label:compile,rootFile,path,servCompileIp,servCompilePort
  \item label:getFile,path
  \item label:deleteFile,path
@@ -389,7 +389,7 @@ Ci-dessous se trouve la liste exhaustive des trames:
 
 \paragraph{Trame entre le serveur frontal et un serveur de compilation:}
 \begin{itemize}
- \item label:create,username,projectName
+ \item label:endCompilation,servCompileIp,servCompilePort
 \end{itemize}
 
 \subsection{Scénario}
