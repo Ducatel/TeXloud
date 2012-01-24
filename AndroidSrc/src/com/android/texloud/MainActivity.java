@@ -25,104 +25,78 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements ScrollViewListener{
 	/** Called when the activity is first created. */
 
-	private EditText text;
-	private TextView lineCount;
-	private String default_text;
+	private EditText main_text;
+	private String text;
 	private MyScrollView sv1, sv2;
 	private View arbo, layout_touch;
-	private LinearLayout layout_left, layout_arbo;
+	private LinearLayout layout_left, layout_arbo, layout_lineCount;
 	private Button deconnect;
 	private SimpleAdapter adapter;
 	private ListView myListView;
-	
+
 	private float down_X; // Elargissement de la View arborescence
-	
+
 	private MyTreeManager mtm;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+
 		setContentView(R.layout.main);
-		
+
+
+		layout_lineCount = (LinearLayout) (findViewById(R.id.layout_lineCount));
 		sv1 = (MyScrollView) (findViewById(R.id.scroll1));
 		sv2 = (MyScrollView) (findViewById(R.id.scroll2));
 		arbo = (View) (findViewById(R.id.layout_arbo));
-		//layout_touch = (View) (findViewById(R.id.layout_touch));
-		
+
+
 		deconnect = (Button) (findViewById(R.id.deco));
-		
+
 		deconnect.setOnClickListener(new OnClickListener() {
-			
+
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(MainActivity.this, TeXloudActivity.class);
 				startActivity(intent);
 				finish();
 			}
 		});
-		
+
 		sv1.setScrollViewListener(this);
+		
 		sv1.setVerticalScrollBarEnabled(false);
 		sv2.setScrollViewListener(this);
-		
-		text = (EditText) (findViewById(R.id.main_editText));
+
+		main_text = (EditText) (findViewById(R.id.main_editText));
 		layout_left = (LinearLayout) (findViewById(R.id.layout_left));
-		
-		createDefaultText();
-		
-		text.addTextChangedListener(new TextWatcher(){
+
+
+
+		main_text.addTextChangedListener(new TextWatcher(){
 
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				updateLineCount(text.getLineCount());
+				//updateLineCount(main_text.getLineCount());
 			}
 
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
-				updateLineCount(text.getLineCount());
+				//updateLineCount(main_text.getLineCount());
 			}
 
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
-				updateLineCount(text.getLineCount());
+				//updateLineCount(main_text.getLineCount());
 			}
-			
+
 		});
-		
-		lineCount = (TextView) (findViewById(R.id.layout_lineCount));
-		lineCount.setLineSpacing(5, 1);
-		lineCount.setText("1");
-		
-		/* Resize la partie arbo
-		  
-			arbo.setOnTouchListener(new OnTouchListener() {
-			
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				
-				Log.i("coucou", Float.toString(event.getX()));
-				
-				if(event.getAction() == MotionEvent.ACTION_DOWN){
-					down_X = event.getX();
-				}
-				else if(event.getAction() == MotionEvent.ACTION_MOVE){
-					if(event.getX() < down_X && event.getX() > 150) // deplacement vers la gauche
-						layout_left.setLayoutParams(new LinearLayout.LayoutParams((int) (event.getX()), layout_left.getHeight()));
-					else if(event.getX() > down_X && event.getX() < 500 )
-						layout_left.setLayoutParams(new LinearLayout.LayoutParams((int) (event.getX()), layout_left.getHeight()));
-				}
-				return true;
-			}
-		});*/
-		
+
+
+
 		/*
 		 * Partie Arborescence
 		 */
-		
+
 		mtm = new MyTreeManager(this, "Dossier racine");
 		mtm.addNode("Dossier1", "Dossier racine", Node.FOLDER);
 		mtm.addNode("Dossier2", "Dossier racine", Node.FOLDER);
@@ -135,60 +109,49 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		mtm.addNode("fichier5.tex", "Dossier5", Node.LEAF);
 		mtm.addNode("fichier6.tex", "Dossier3", Node.LEAF);
 		mtm.addNode("fichier7.tex", "Dossier3", Node.LEAF);
-		
+
 		mtm.printTree();
+
+		updateLineCount(0);
 	}
 
-	public void createDefaultText(){
-		default_text = "";
-    	/*default_text = "\\documentclass[a4paper,10pt]{article}\n" +
-								"%\\documentclass[a4paper,10pt]{scrartcl}\n\n" +
-								
-								"\\usepackage[utf8x]{inputenc}\n\n" +
-								
-								"\\title{}\n" +
-								"\\author{}\n" +
-								"\\date{}\n\n" +
-								
-								"\\pdfinfo{%\n"+
-								  "/Title    ()\n"+
-								  "/Author   ()\n"+
-								  	"/Creator  ()\n"+
-								  "/Producer ()\n"+
-								  "/Subject  ()\n"+
-								  "/Keywords ()\n"+
-								"}\n\n"+
-								
-								"\\begin{document}\n"+
-								"\\maketitle\n\n"+
-								
-								"\\end{document}";*/
-		
-		
-		
-    	text.setText(default_text);
-    }
+	public void setText(String s){
+		text = s;
+	}
+
+	public void updateText(){
+		main_text.setText(text);
+	}
 
 	public void updateLineCount(int nbLines){
-		lineCount.setText("");
-		for(int i=1; i<=nbLines; i++){
+		/*lineCount.setText("");
+		for(int i=1; i<=40 + nbLines; i++){
 			lineCount.setText(lineCount.getText()+""+i+"\n");
+		}*/
+
+		TextView v;
+
+		for(int i=1; i<2000; i++){
+			v = (TextView) (LayoutInflater.from(this).inflate(R.layout.linenumberlayout, null));
+			v.setText(i + "");
+			layout_lineCount.addView(v);
 		}
 	}
 
-	public void onScrollChanged(MyScrollView scrollView, int x, int y,
-			int oldx, int oldy) {
+	public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
 		if(scrollView == sv1) {
-            sv2.scrollTo(x, y);
-        } else if(scrollView == sv2) {
-            sv1.scrollTo(x, y);
-        }
-		
-	}
-	
-	public void setText(String s){
-		text.setText(s);
+			sv2.scrollTo(x, y);
+		} else if(scrollView == sv2) {
+			sv1.scrollTo(x, y);
+		}
+
+		//Log.i("scroll", y + " " + y/18 + " ");
+
+		//updateLineCount(y/18);
+
 	}
 
-	
+
+
+
 }

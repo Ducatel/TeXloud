@@ -149,7 +149,7 @@ public class Comm extends Activity{
 
 		BufferedReader reader;
 		try {
-			reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),30);
+			reader = new BufferedReader(new InputStreamReader(is,"UTF8"),30);
 			StringBuilder sb = new StringBuilder();
 			String line = null;
 			while ((line = reader.readLine()) != null) {

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class MyTreeManager {
 	private final int PADDING_GAP = 22;
 	private Dialog click_dialog;
 	private ListView listview_dialog;
+	private View current_italic_view = null;
 
 	private final String[] folderDialogItems = {"Add File", "Add Folder", "Rename Folder", "Delete Folder"};
 	private final String[] rootDialogItems = {"Add File", "Add Folder", "Delete Project"};
@@ -94,7 +96,7 @@ public class MyTreeManager {
 	}
 
 	public void addNode(String node_name, String parent_name, int type){
-		tree.add(new Node(act, node_name, getNodeId(parent_name), type, current_id++, (getNode(getNodeId(parent_name)).getPadding())+PADDING_GAP)); // AJOUTER PADDING
+		tree.add(new Node(act, node_name, getNodeId(parent_name), type, current_id++, (getNode(getNodeId(parent_name)).getPadding())+PADDING_GAP));
 	}
 
 	protected int getNodeId(String parent_name){
@@ -330,11 +332,13 @@ public class MyTreeManager {
 				v.setId(n.getNodeId());
 				tv = (TextView) (v.findViewById(R.id.tv_leaf));
 				tv.setText(n.getName());
+
 				v.setPadding(n.getPadding(), 0, 0, 0);
 
 				v.setOnClickListener(new OnClickListener() {
 					public void onClick(View arg0) {
-						printFile(arg0);
+						getFile(arg0);
+						changeTextStyle(arg0);
 					}
 				});
 
@@ -353,10 +357,26 @@ public class MyTreeManager {
 		}
 	}
 
-	public void printFile(View v){
+	public void getFile(View v){
 		Comm c = new Comm();
 		String s = c.getFile();
-		
+
 		act.setText(s);
+		act.updateText();
+	}
+
+	public void changeTextStyle(View v){
+
+		if(current_italic_view != v){
+			TextView tv = (TextView) (v.findViewById(R.id.tv_leaf));
+			tv.setTypeface(Typeface.DEFAULT, Typeface.ITALIC);
+
+			if(current_italic_view != null){
+				tv = (TextView) (current_italic_view.findViewById(R.id.tv_leaf));
+				tv.setTypeface(Typeface.DEFAULT, Typeface.NORMAL);
+			}
+
+			current_italic_view = v;
+		}
 	}
 }

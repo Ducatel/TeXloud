@@ -30,16 +30,11 @@ public class TeXloudActivity extends Activity {
 		setContentView(R.layout.login);
 
 
-		// Création de l'AlertDialog
-
 		forgot = (Button) (findViewById(R.id.tv_forgot));
 
 		login = (EditText)(findViewById(R.id.EditText_id));
 		passwd = (EditText)(findViewById(R.id.EditText_passwd));
-
-		//loading_dialog = new ProgressDialog(this);
-		//loading_dialog.setMessage("Authentification...");
-
+		
 		forgot.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -64,8 +59,6 @@ public class TeXloudActivity extends Activity {
 		connect.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View arg0) {
-
-				
 				Comm c = new Comm(TeXloudActivity.this);
 				Comm.statement st;
 
@@ -78,12 +71,10 @@ public class TeXloudActivity extends Activity {
 					finish();
 
 					setErrorTextViewVisibility(View.INVISIBLE);
-					//loading_dialog.dismiss();
 					break;
 
 				case WRONG:
 					setErrorTextViewVisibility(View.VISIBLE);
-					//loading_dialog.dismiss();
 					break;
 
 				case ERROR:
