@@ -381,10 +381,10 @@ Ci-dessous se trouve la liste exhaustive des trames:
  \item label:create,username,projectName
  \item label:getProject,path, username, client
  \item label:compile,rootFile,path,servCompileIp,servCompilePort
- \item label:getFile,path
- \item label:deleteFile,path
+ \item label:getFile,path, username, password
+ \item label:deleteFile,path, username, password
  \item label:deleteProject,path
- \item label:sync,path,currentFile
+ \item label:sync,path,currentFile, username, password
 \end{itemize}
 
 \paragraph{Trame entre le serveur frontal et un serveur de compilation:}
