@@ -59,7 +59,7 @@ public class TeXloudActivity extends Activity {
 		connect.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View arg0) {
-				Comm c = new Comm(TeXloudActivity.this);
+				Comm c = new Comm();
 				Comm.statement st;
 
 				st = c.getAuth(login.getText(),passwd.getText());

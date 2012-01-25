@@ -1,10 +1,25 @@
 package com.android.texloud;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import com.android.texloud.MyTreeManager.Node;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -37,6 +52,11 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	private float down_X; // Elargissement de la View arborescence
 
 	private MyTreeManager mtm;
+	private ProgressDialog loading_dialog;
+
+
+	private static final int LOAD_OK = 0;
+	private static final int LOAD_ERR = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +84,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		});
 
 		sv1.setScrollViewListener(this);
-		
+
 		sv1.setVerticalScrollBarEnabled(false);
 		sv2.setScrollViewListener(this);
 
@@ -151,7 +171,35 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 	}
 
+	public void fileClicked(){
+		loading_dialog = ProgressDialog.show(this, "Chargement", "Chargement du fichier...", true);
 
 
+		new Thread(new Runnable(){
+
+			public void run() {
+				Comm c = new Comm();
+				String result = c.getFile();
+
+				Message msg = mHandler.obtainMessage(LOAD_OK, result);
+				mHandler.sendMessage(msg);
+			}
+
+		}).start();
+	}
+
+	final Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+
+			switch(msg.what){
+			case LOAD_OK:
+				setText((String)(msg.obj));
+				updateText();
+				loading_dialog.dismiss();
+				break;
+			}
+
+		}
+	};
 
 }

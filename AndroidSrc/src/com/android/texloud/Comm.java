@@ -23,36 +23,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-public class Comm extends Activity{
+public class Comm{
 
 	public static final String URLauth = "http://192.168.1.11/texloud/login.php";
 
 	public enum statement{SUCCESS, WRONG, ERROR};
-	public ProgressDialog loading_dialog;
+	
 
-	public TeXloudActivity tex;
-
-	public final Handler mHandler = new Handler(){
-		public void handleMessage(Message msg){
-			switch(msg.what){
-			case 0: tex.toggleLoadingDialog(false);
-			break;
-
-			case 1: tex.wrongLogin();
-			break;
-
-			case 2: tex.wrongLogin();
-			break;
-			}
-
-		}
-	};
-
-
-	public Comm(TeXloudActivity tex){
-		this.tex = tex;
-
-	}
 	
 	public Comm(){
 		

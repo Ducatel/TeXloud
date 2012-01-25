@@ -3,16 +3,17 @@ package com.android.texloud;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -28,10 +29,12 @@ public class MyTreeManager {
 	private Dialog click_dialog;
 	private ListView listview_dialog;
 	private View current_italic_view = null;
+	private ProgressDialog loading_dialog;
 
 	private final String[] folderDialogItems = {"Add File", "Add Folder", "Rename Folder", "Delete Folder"};
 	private final String[] rootDialogItems = {"Add File", "Add Folder", "Delete Project"};
 	private final String[] leafDialogItems = {"Add File", "Rename File", "Delete File"};
+
 
 	protected class Node extends View{
 		private String name;
@@ -337,7 +340,7 @@ public class MyTreeManager {
 
 				v.setOnClickListener(new OnClickListener() {
 					public void onClick(View arg0) {
-						getFile(arg0);
+						act.fileClicked();
 						changeTextStyle(arg0);
 					}
 				});
@@ -358,11 +361,8 @@ public class MyTreeManager {
 	}
 
 	public void getFile(View v){
-		Comm c = new Comm();
-		String s = c.getFile();
 
-		act.setText(s);
-		act.updateText();
+		
 	}
 
 	public void changeTextStyle(View v){
@@ -379,4 +379,6 @@ public class MyTreeManager {
 			current_italic_view = v;
 		}
 	}
+
+	
 }
