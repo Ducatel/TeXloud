@@ -361,7 +361,6 @@ public class MyTreeManager {
 	}
 
 	public void getFile(View v){
-
 		
 	}
 
