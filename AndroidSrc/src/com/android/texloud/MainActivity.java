@@ -1,41 +1,27 @@
 package com.android.texloud;
 
-import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import com.android.texloud.MyTreeManager.Node;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import com.android.texloud.MyTreeManager.Node;
 
 public class MainActivity extends Activity implements ScrollViewListener{
 	/** Called when the activity is first created. */
@@ -43,13 +29,10 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	private EditText main_text;
 	private String text;
 	private MyScrollView sv1, sv2;
-	private View arbo, layout_touch;
-	private LinearLayout layout_left, layout_arbo, layout_lineCount;
-	private Button deconnect;
-	private SimpleAdapter adapter;
-	private ListView myListView;
+	private LinearLayout layout_lineCount;
+	private Button deconnect, save_file;
 
-	private float down_X; // Elargissement de la View arborescence
+	private Dialog dialog_fileSaved;
 
 	private MyTreeManager mtm;
 	private ProgressDialog loading_dialog;
@@ -69,7 +52,6 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		layout_lineCount = (LinearLayout) (findViewById(R.id.layout_lineCount));
 		sv1 = (MyScrollView) (findViewById(R.id.scroll1));
 		sv2 = (MyScrollView) (findViewById(R.id.scroll2));
-		arbo = (View) (findViewById(R.id.layout_arbo));
 
 
 		deconnect = (Button) (findViewById(R.id.deco));
@@ -83,34 +65,23 @@ public class MainActivity extends Activity implements ScrollViewListener{
 			}
 		});
 
-		sv1.setScrollViewListener(this);
 
-		sv1.setVerticalScrollBarEnabled(false);
-		sv2.setScrollViewListener(this);
+		save_file = (Button) (findViewById(R.id.bouton_dl));
+		save_file.setOnClickListener(new OnClickListener(){
 
-		main_text = (EditText) (findViewById(R.id.main_editText));
-		layout_left = (LinearLayout) (findViewById(R.id.layout_left));
-
-
-
-		main_text.addTextChangedListener(new TextWatcher(){
-
-			public void afterTextChanged(Editable s) {
-				//updateLineCount(main_text.getLineCount());
-			}
-
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				//updateLineCount(main_text.getLineCount());
-			}
-
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				//updateLineCount(main_text.getLineCount());
+			public void onClick(View arg0) {
+				//saveFile(main_text.getText().toString(), "/mnt/sdcard/TeXloudDocs/cahierDesCharges.tex");		
+				saveFile(main_text.getText().toString(), "cahierDesCharges.tex");
 			}
 
 		});
 
+
+		sv1.setScrollViewListener(this);
+		sv1.setVerticalScrollBarEnabled(false);
+		sv2.setScrollViewListener(this);
+
+		main_text = (EditText) (findViewById(R.id.main_editText));
 
 
 		/*
@@ -165,9 +136,6 @@ public class MainActivity extends Activity implements ScrollViewListener{
 			sv1.scrollTo(x, y);
 		}
 
-		//Log.i("scroll", y + " " + y/18 + " ");
-
-		//updateLineCount(y/18);
 
 	}
 
@@ -188,6 +156,43 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		}).start();
 	}
 
+	public void saveFile(String file_content, String file_name){
+
+		File file = new File(Environment.getExternalStorageDirectory() + "/TeXloudDocs", file_name);
+
+		try {
+			file.createNewFile();
+			FileWriter filewriter = new FileWriter(file,false);
+			filewriter.write(file_content);
+			filewriter.close();
+			popDialogFileSaved();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void popDialogFileSaved(){
+		dialog_fileSaved = new Dialog(this, R.style.noBorder);
+		dialog_fileSaved.setContentView(R.layout.filesaveddialoglayout);
+		Button b = (Button) (dialog_fileSaved.findViewById(R.id.button_ok_filesaved));
+		dialog_fileSaved.show();
+		
+		b.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dismissDialogFileSaved();
+			}
+		});
+
+	}
+
+	public void dismissDialogFileSaved(){
+		dialog_fileSaved.dismiss();
+	}
+
 	final Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 
@@ -196,6 +201,9 @@ public class MainActivity extends Activity implements ScrollViewListener{
 				setText((String)(msg.obj));
 				updateText();
 				loading_dialog.dismiss();
+				break;
+
+			case LOAD_ERR:
 				break;
 			}
 

@@ -2,8 +2,11 @@ package com.android.texloud;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -21,6 +24,8 @@ public class TeXloudActivity extends Activity {
 
 	//private ProgressDialog loading_dialog;
 	private Dialog loading_dialog;
+	
+	private ProgressDialog connect_dialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,28 +64,40 @@ public class TeXloudActivity extends Activity {
 		connect.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View arg0) {
-				Comm c = new Comm();
-				Comm.statement st;
+				
+				connect_dialog = ProgressDialog.show(TeXloudActivity.this, "Authentification", "Authentification en cours...", true);
+				
+				new Thread(new Runnable(){
 
-				st = c.getAuth(login.getText(),passwd.getText());
+					public void run() {
+						Comm c = new Comm();
+						Comm.statement st;
 
-				switch(st){
-				case SUCCESS:
-					Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
-					startActivity(intent);
-					finish();
+						st = c.getAuth(login.getText(),passwd.getText());
 
-					setErrorTextViewVisibility(View.INVISIBLE);
-					break;
+						switch(st){
+						case SUCCESS:
+							Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
+							startActivity(intent);
+							finish();
 
-				case WRONG:
-					setErrorTextViewVisibility(View.VISIBLE);
-					break;
+							setErrorTextViewVisibility(View.INVISIBLE);
+							break;
 
-				case ERROR:
+						case WRONG:
+							setErrorTextViewVisibility(View.VISIBLE);
+							break;
 
-					break;
-				}
+						case ERROR:
+
+							break;
+						}
+						Message msg = mHandler.obtainMessage(0);
+						mHandler.sendMessage(msg);
+					}
+					
+				}).start();
+				
 			}
 
 		});
@@ -120,8 +137,14 @@ public class TeXloudActivity extends Activity {
 		dialog.dismiss();
 	}
 	
-	public void toggleLoadingDialog(boolean b){
-		loading_dialog.dismiss();
+	public void dismissLoadingDialog(){
+		connect_dialog.dismiss();
 	}
+	
+	final Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			dismissLoadingDialog();
+		}
+	};
 
 }
