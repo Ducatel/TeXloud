@@ -43,6 +43,7 @@ class Frontal(object):
         
         self._ordonnanceurData=Ordonnanceur.Ordonnanceur("./../fichierServeur.xml","data")
         self._ordonnanceurCompilation=Ordonnanceur.Ordonnanceur("./../fichierServeur.xml","compilation")
+        self._messageEnd='+==\endTrame==+'
 
         
     def lanceServeur(self):
@@ -85,26 +86,25 @@ class Frontal(object):
         
         requete=json.loads(requeteJSON)
         
-        if requete['label']=="create":
-            adresseIP,port,req=self.requestCreateNewUserDataSpace(requete)
-        elif requete['label']=="getProject":
-            adresseIP,port,req=self.requestGetProject(requete)
-        elif requete['label']=="compile":
-            adresseIP,port,req=self.requestCompile(requete)
-        elif requete['label']=="getFile":
-            adresseIP,port,req=self.requestGetFile(requete)    
-        elif requete['label']=="deleteFile": 
-            adresseIP,port,req=self.requestDeleteFile(requete) 
-        elif requete['label']=="deleteProject":
-            adresseIP,port,req=self.requestDeleteProject(requete)
-        elif requete['label']=="sync":    
-            adresseIP,port,req=self.requestSync(requete)
-        elif requete['label']=="endCompilation":    
-            adresseIP,port,req=self.requestSync(requete)
-  
-        print "addr: {0}\nport: {1}\nreq: {2}\n".format(adresseIP,port,req)
-        #TODO a decomenté pour le passage en prod
-        #self.sendRequestOfDataServer(adresseIP, port, req)
+        if requete['label']=="endCompilation":    
+            adresseIP,port,req=self.requestEndCompilation(requete)
+        else :
+            if requete['label']=="create":
+                adresseIP,port,req=self.requestCreateNewUserDataSpace(requete)
+            elif requete['label']=="getProject":
+                adresseIP,port,req=self.requestGetProject(requete)
+            elif requete['label']=="compile":
+                adresseIP,port,req=self.requestCompile(requete)
+            elif requete['label']=="getFile":
+                adresseIP,port,req=self.requestGetFile(requete)    
+            elif requete['label']=="deleteFile": 
+                adresseIP,port,req=self.requestDeleteFile(requete) 
+            elif requete['label']=="deleteProject":
+                adresseIP,port,req=self.requestDeleteProject(requete)
+            elif requete['label']=="sync":    
+                adresseIP,port,req=self.requestSync(requete)
+            
+            self.sendRequestOfDataServer(adresseIP, port, req)
         
     def sendRequestOfDataServer(self,adresseIP,port,req):
         '''

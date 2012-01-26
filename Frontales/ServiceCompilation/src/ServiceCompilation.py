@@ -6,8 +6,8 @@ Created on 19 janv. 2012
 @author: David Ducatel
 '''
 
-import socket
 from re import match
+import socket
 import threading
 import os
 import zipfile
@@ -76,7 +76,7 @@ class ServiceCompilation(object):
         self.backToSender(msgCompile, contenuFichierPdf, addr)
         
         # On renvoi un message de fin compilation au serveur frontal
-        
+        self.confirmEndCompilation()
             
     def getDataforCompilation(self,client,addr):
         """
@@ -115,7 +115,7 @@ class ServiceCompilation(object):
             @param nomFichier: nom du fichier maitre (sert a lancer la compilation)
             @param adresseArchive: adresse de l'archive qui contient le projet a compiler (/tmp/riuhgf.zip)
             @return: Le message de compilation (message d'erreur de compilation, ou message standard)
-            @return: Le contenu (binaire) du fichier PDF (peut etre None si erreur de compilation) 
+            @return: Le contenu (binaire) du fichier PDF (peut etre 0 si erreur de compilation) 
         '''
         
         nomArchive=adresseArchive.split('/tmp/')[1]
@@ -138,11 +138,6 @@ class ServiceCompilation(object):
             
             pdfFileAdresse=pathDir+nomFichier[0:len(nomFichier)-3]+"pdf"
             
-            # on recupere une ligne du log en temps que message de retour 
-            for line in open(logFile):
-                if "Output written on" in line:
-                    messageRetour="<log><success>"+line+"</success></log>"
-            
             #Recuperation du contenue binaire du fichier pdf
             f = open(pdfFileAdresse, 'rb')
             pdfFileContent = f.read()
@@ -150,10 +145,10 @@ class ServiceCompilation(object):
             
         else:
             # Ici la compilation a echouer
-            # On parse le fichier de log
-            messageRetour=self.errorLogParser(logFile)
-            pdfFileContent=None
+            pdfFileContent=0
         
+        # On parse le fichier de log
+        messageRetour=self.errorLogParser(logFile)
         
         #Suppression du dossier 
         os.chdir('/tmp/')

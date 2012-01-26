@@ -29,27 +29,13 @@
 	</serveur>
 	<serveur>
 		<adresse>
-			192.168.1.4
+			172.16.21.185
 		</adresse>
 		<port>
-			4444
+			6666
 		</port>
 		<charge>
-			4
-		</charge>
-		<type>
-			data
-		</type>
-	</serveur>
-	<serveur>
-		<adresse>
-			192.168.1.5
-		</adresse>
-		<port>
-			5555
-		</port>
-		<charge>
-			6
+			1000
 		</charge>
 		<type>
 			data
@@ -67,34 +53,6 @@
 		</charge>
 		<type>
 			compilation
-		</type>
-	</serveur>
-	<serveur>
-		<adresse>
-			192.168.1.7
-		</adresse>
-		<port>
-			7777
-		</port>
-		<charge>
-			1
-		</charge>
-		<type>
-			data
-		</type>
-	</serveur>
-	<serveur>
-		<adresse>
-			192.168.1.8
-		</adresse>
-		<port>
-			8888
-		</port>
-		<charge>
-			7
-		</charge>
-		<type>
-			data
 		</type>
 	</serveur>
 	<serveur>
