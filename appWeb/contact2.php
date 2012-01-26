@@ -1,5 +1,5 @@
 <?
-	require "/var/www/PHPMailer_v5.1/class.phpmailer.php";
+	/*require "/var/www/PHPMailer_v5.1/class.phpmailer.php";
 	$mail = new PHPmailer();
 	$mail->IsSMTP();
 	$mail->Host='smtp.gmail.com';
@@ -17,5 +17,6 @@
 	  echo 'Mail envoyé avec succès';
 	}
 	$mail->SmtpClose();
-	unset($mail);
+	unset($mail);*/
+echo $_SERVER['PHP_SELF'];
 ?>

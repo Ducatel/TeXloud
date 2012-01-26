@@ -7,9 +7,11 @@
      Email:  koroglu.ozan@gmail.com
      		 ahmetmermerkaya@hotmail.com
  ***************************************/ 
- 
- require_once('ITreeManager.php');
- 
+  session_start();
+  
+  require_once('ITreeManager.php');
+  include('Sender.php');
+  
  class DBTreeManager implements ITreeManager
  {
  	private $db;
@@ -18,21 +20,57 @@
     	$this->db = $dbc;
     } 
 	
- 	public function insertElement($name, $ownerEl, $slave)
+	public function getIdutilisateur()
 	{
+
+	        $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+		$bdd = new PDO('mysql:host=localhost;dbname=Texloud', 'root', 'debouz1990', $pdo_options);
+		$sql = $bdd->prepare('SELECT idutilisateur FROM utilisateur WHERE  identifiant= ?');
+	        $sql->execute(array($_SESSION['identifiant']));
+		 $login=$sql->fetch(PDO::FETCH_OBJ);
+		 $loginn=$login->idutilisateur;
+	
+	      return $loginn;
+	}
+		public function setSocket(){
+			
+				$frontalAddress = "127.0.0.1";
+				$frontalPort = 12800;
+			$requete=array(
+				'label'=>'create',
+				'username'=>'ocuocu',
+				'projectName'=>'couocuouc',
+			);
+			
+			// Méthode 1
+			$sender= new Sender($frontalAddress,$frontalPort);
+			$sender->setRequest($requete);
+			$sender->sendRequest();
+			unset($sender);
+		
+		
+	}
+ 	public function insertElement($name, $ownerEl, $slave, $log)
+	{
+		  //print_r($reslogin);
 		$ownerEl = (int) $ownerEl;
+		$log= (string) $log;
+	  
+		$login=$this->getIdutilisateur();
+
 		$sql = sprintf('INSERT INTO ' 
-								. TREE_TABLE_PREFIX . '_elements(name, position, ownerEl, slave)
+								. TREE_TABLE_PREFIX . '_elements(name, position, ownerEl, slave, utilisateur_id)
 							SELECT 
-								\'%s\', ifnull(max(el.position)+1, 0), %d, %d 
+								\'%s\', ifnull(max(el.position)+1, 0), %d, %d, %d
 							FROM '
 								. TREE_TABLE_PREFIX . '_elements el 
 							WHERE 
 								el.ownerEl = %d ',
-							$name , $ownerEl, $slave, $ownerEl);
+							$name , $ownerEl, $slave,$login,$ownerEl);
 		$out = FAILED;
+		$this->setSocket();
 		if ($this->db->query($sql) == true) {
-				$out = '({ "elementId":"'.$this->db->lastInsertId().'", "elementName":"'.$name.'", "slave":"'.$slave.'"})';
+				$out = '({ "elementId":"'.$this->db->lastInsertId().'", "elementName":"'.$name.'", "slave":"'.$slave.'", "utilisateur_id":"'.$login.'"})';
 		}
 		
 		return $out; 	
@@ -48,16 +86,18 @@
 		else {
 			$ownerEl = (int) $ownerEl;
 		}
+		
+		$login=$this->getIdutilisateur();
 		$sql = sprintf("SELECT 
-        					Id, name, slave 
+        					Id, name, slave,utilisateur_id
         				FROM " 
         					. TREE_TABLE_PREFIX . "_elements
 		      			WHERE
-		      				ownerEl = %d  
+		      				ownerEl = %d  AND utilisateur_id= %d
 		      			ORDER BY
 		      				position ",
-        				$ownerEl);
-						
+        				$ownerEl, $login);
+			//var_dump($sql);			
 		$str = FAILED;
         $result = $this->db->query($sql);
         if ($result !== false)
@@ -96,16 +136,18 @@
  	}
  	
  	
- 	public function updateElementName($name, $elementId, $ownerEl)
+ 	public function updateElementName($name, $elementId, $ownerEl, $log)
 	{
 		$elementId = (int) $elementId;
+		$login=$this->getIdutilisateur();
+		//var_dump($login);
  		$sql = sprintf('UPDATE ' 
         						. TREE_TABLE_PREFIX.'_elements 
 							SET 
 								name = \'%s\'
 					    	WHERE 
-					    		Id = %d ',
-        					$name, $elementId);
+					    		Id = %d AND utilisateur_id= %d  ',
+        					$name, $elementId, $login);
 		$out = FAILED;					
 		if ($this->db->query($sql) == true) {
 				$out = '({"elementName":"'.$name.'", "elementId":"'.$elementId.'"})';
@@ -175,9 +217,9 @@
          $sql = sprintf('DELETE FROM '
          					.TREE_TABLE_PREFIX.'_elements
      	        		WHERE 
-     			        	ownerEl = %d 
+     			        	(ownerEl = %d 
      			        	OR
-     			        	Id = %d ',  $elementId, $elementId);
+     			        	Id = %d) ',  $elementId, $elementId);
      
 	 	 $out = FAILED;
          if ($this->db->query($sql) == true)
@@ -190,11 +232,11 @@
  	public function changeOrder($elementId, $oldOwnerEl, $destOwnerEl, $destPosition)
 	{
 		$sql = sprintf('SELECT
-						 		ownerEl, position 
+						 		ownerEl, position
 							FROM '
 								. TREE_TABLE_PREFIX . '_elements 
 							WHERE 
-								Id = %d
+								Id = %d 
 							LIMIT 1',
 							$elementId);
 		$out = FAILED;					
@@ -219,7 +261,7 @@
 									 WHERE
 							 			 position >= %d 
 									   	 AND
-									   	 ownerEl = %d ',
+									   	 ownerEl = %d',
 									 $destPosition, $destOwnerEl);
 							   
 					$sql3 = sprintf('UPDATE '

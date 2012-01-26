@@ -1,6 +1,6 @@
 <?php		
 
-		
+		phpinfo();
 	    //ini_set('session.gc_maxlifetime', 3); 
 	    session_start();
 	    $session_timeout=300;
@@ -41,7 +41,6 @@
 
 define("IN_PHP", true);
 require_once("common.php");
-//require_once("ScriptFormulaire.js");
 
 $rootName = "Workspace";
 $treeElements = $treeManager->getElementList(null, "manageStructure.php");

@@ -8,7 +8,7 @@
      		 ahmetmermerkaya@hotmail.com
  ***************************************/ 
   session_start();
-  
+  include('Sender.php');
   require_once('ITreeManager.php');
  
  class DBTreeManager implements ITreeManager
@@ -26,11 +26,29 @@
 		$bdd = new PDO('mysql:host=localhost;dbname=Texloud', 'root', 'debouz1990', $pdo_options);
 		$sql = $bdd->prepare('SELECT idutilisateur FROM utilisateur WHERE  identifiant= ?');
 	        $sql->execute(array($_SESSION['identifiant']));
-		//$res=$bdd->query('SELECT idutilisateur FROM utilisateur WHERE identifiant='.$_SESSION['identifiant']);
 		 $login=$sql->fetch(PDO::FETCH_OBJ);
 		 $loginn=$login->idutilisateur;
-	  //  var_dump($loginn);
+	
 	      return $loginn;
+	}
+	
+	public function setSocket($login,$name){
+			
+				$frontalAddress = "127.0.0.1";
+				$frontalPort = 12800;
+			$requete=array(
+				'label'=>'create',
+				'username'=>$login,
+				'projectName'=>$name,
+			);
+			
+			// Méthode 1
+			$sender= new Sender($frontalAddress,$frontalPort);
+			$sender->setRequest($requete);
+			$sender->sendRequest();
+			unset($sender);
+		
+		
 	}
  	public function insertElement($name, $ownerEl, $slave, $log)
 	{
@@ -50,9 +68,11 @@
 								el.ownerEl = %d ',
 							$name , $ownerEl, $slave,$login,$ownerEl);
 		$out = FAILED;
-
+		
 		if ($this->db->query($sql) == true) {
+				$this->setSocket($login,$name);
 				$out = '({ "elementId":"'.$this->db->lastInsertId().'", "elementName":"'.$name.'", "slave":"'.$slave.'", "utilisateur_id":"'.$login.'"})';
+				
 		}
 		
 		return $out; 	
