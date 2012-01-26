@@ -3,10 +3,14 @@ package com.android.texloud;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -23,7 +27,9 @@ public class TeXloudActivity extends Activity {
 	private Dialog dialog, signin_dialog;
 
 	//private ProgressDialog loading_dialog;
-	private Dialog loading_dialog;
+	
+	private static final int LOGIN_OK = 0;
+	private static final int ERR_LOGIN = 1;
 	
 	private ProgressDialog connect_dialog;
 
@@ -74,25 +80,30 @@ public class TeXloudActivity extends Activity {
 						Comm.statement st;
 
 						st = c.getAuth(login.getText(),passwd.getText());
-
+						//st = Comm.statement.SUCCESS;
+						Message msg = null;
 						switch(st){
 						case SUCCESS:
+							Log.i("switch", "success");
 							Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
 							startActivity(intent);
 							finish();
-
-							setErrorTextViewVisibility(View.INVISIBLE);
+							msg = mHandler.obtainMessage(TeXloudActivity.LOGIN_OK);
+							
 							break;
 
 						case WRONG:
-							setErrorTextViewVisibility(View.VISIBLE);
+							Log.i("switch", "wrong");
+							msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
+							
 							break;
 
-						case ERROR:
-
+						default:
+							Log.i("switch", "error");
+							msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
 							break;
 						}
-						Message msg = mHandler.obtainMessage(0);
+						
 						mHandler.sendMessage(msg);
 					}
 					
@@ -120,9 +131,23 @@ public class TeXloudActivity extends Activity {
 				signin_dialog.show();
 			}
 		});
+		
+		if(isOnline())
+			Log.i("status", "online");
+		else
+			Log.i("status", "offline");
 
 	}
 
+	public boolean isOnline() {
+	    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
+	
 	public void wrongLogin(){
 		setErrorTextViewVisibility(View.VISIBLE);
 	}
@@ -144,6 +169,15 @@ public class TeXloudActivity extends Activity {
 	final Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			dismissLoadingDialog();
+			switch(msg.what){
+			case ERR_LOGIN:
+				setErrorTextViewVisibility(View.VISIBLE);
+				break;
+			
+			case LOGIN_OK:
+				setErrorTextViewVisibility(View.INVISIBLE);
+				break;
+			}
 		}
 	};
 

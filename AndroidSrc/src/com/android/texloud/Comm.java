@@ -25,17 +25,23 @@ import android.util.Log;
 
 public class Comm{
 
-	public static final String URLauth = "http://192.168.1.11/texloud/login.php";
-
-	public enum statement{SUCCESS, WRONG, ERROR};
 	
+	public static final String IP = "192.168.0.5";
+	//public static final String IP = "192.168.1.11";
+	//public static final String IP = "172.16.21.183";
+	
+	public static final String URLauth = "http://"+IP+"/texloud/login.php";
+	public static final String URLgetFile = "http://"+IP+"/texloud/getTexFile.php";
 
+	
+	
+	public enum statement{SUCCESS, WRONG, ERROR};
 	
 	public Comm(){
 		
 	}
 
-
+	
 	public Comm.statement getAuth(CharSequence login, CharSequence password){
 
 		InputStream is = null;
@@ -107,6 +113,7 @@ public class Comm{
 		//msg = comm.mHandler.obtainMessage(2);
 		//comm.mHandler.sendMessage(msg);
 		return Comm.statement.ERROR;
+		
 	}
 
 	public String getFile(){
@@ -115,7 +122,7 @@ public class Comm{
 		InputStream is = null;
 		try{
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost("http://192.168.1.11/texloud/getTexFile.php");
+			HttpPost httppost = new HttpPost(URLgetFile);
 			HttpResponse response = httpclient.execute(httppost);
 			HttpEntity entity = response.getEntity();
 			is = entity.getContent();

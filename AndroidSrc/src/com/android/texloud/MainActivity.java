@@ -7,7 +7,10 @@ import java.io.IOException;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -139,6 +142,15 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 	}
 
+	public boolean isOnline() {
+	    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
+	
 	public void fileClicked(){
 		loading_dialog = ProgressDialog.show(this, "Chargement", "Chargement du fichier...", true);
 
@@ -209,5 +221,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 		}
 	};
+	
+	
 
 }
