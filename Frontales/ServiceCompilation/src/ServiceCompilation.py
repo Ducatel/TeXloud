@@ -7,13 +7,15 @@ Created on 19 janv. 2012
 '''
 
 from re import match
-import socket
-import threading
-import os
-import zipfile
-import subprocess
-import shutil
+import datetime
 import json
+import md5
+import os
+import shutil
+import socket
+import subprocess
+import threading
+import zipfile
 
 class ServiceCompilation(object):
     '''
@@ -76,7 +78,7 @@ class ServiceCompilation(object):
         self.backToSender(msgCompile, contenuFichierPdf, addr)
         
         # On renvoi un message de fin compilation au serveur frontal
-        self.confirmEndCompilation()
+        # self.confirmEndCompilation()
             
     def getDataforCompilation(self,client,addr):
         """
@@ -85,28 +87,26 @@ class ServiceCompilation(object):
             @return: le nom du fichier maitre
             @return: l'adresse de l'archive
         """
-        nomFichier=""
-        taille=1
         messageComplet=""
         
-        while taille>0:
+        while not messageComplet.endswith(self._messageEnd):
             message=client.recv(1024)
             messageComplet+=message
-            taille=len(message)
-            if messageComplet.endswith(self._messageSeparator):
-                tabTmp=messageComplet.split(self._messageSeparator)
-                nomFichier=tabTmp[0]
-                messageComplet=tabTmp[1]
                 
+       
+        tabTmp=messageComplet.split(self._messageSeparator)
+        nomFichier=json.loads(tabTmp[0])
+        messageComplet=tabTmp[1]    
+             
         client.close()
     
         os.chdir("/tmp")
         
-        uniqueId=os.urandom(10)
-        with open(str(uniqueId)+'.zip', 'wb') as fichier:
+        uniqueId=str(md5.new(str(datetime.datetime.now())).hexdigest())
+        with open(uniqueId+'.zip', 'wb') as fichier:
             fichier.write(messageComplet)
         
-        return nomFichier,"/tmp/{0}.zip".format(str(uniqueId))
+        return nomFichier['rootFile'],"/tmp/{0}.zip".format(uniqueId)
                     
             
     def latexCompilation(self,nomFichier,adresseArchive):
@@ -272,9 +272,13 @@ class ServiceCompilation(object):
         @param pdf: contenu binaire du fichier pdf
         @param addr: tuple (adresse,port) du serveur de données    
         '''
-        s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        request=dict()
+        request['label']='backCompile'
+        request['log']=message
+        
+        s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         s.connect(addr)
-        s.send(message)
+        s.send(request)
         s.send(self._messageSeparator)
         s.send(pdf)
         s.send(self._messageEnd)
