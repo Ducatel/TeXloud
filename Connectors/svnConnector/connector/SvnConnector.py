@@ -20,6 +20,9 @@ class SvnConnector(GenericConnector):
         
         '''Génération d'un nom théoriquement unique pour la copie locale'''
         dir_name = md5.new(str(now)).hexdigest()
+        
+        self.__public_dir_name = dir_name
+        
         #self.wc_dir += dir_name
         
         self.client = pysvn.Client()
@@ -44,6 +47,9 @@ class SvnConnector(GenericConnector):
             self.client.checkout(self.url, self.wc_dir)
             
         print 'copie locale enregistrée dans ' + self.wc_dir
+
+    def get_public_dir_name(self):
+        return self.__public_dir_name
 
     ''' Revient sur les changement locaux (non utilisé pour l'instant) '''
     def revert(self, path):
@@ -114,6 +120,7 @@ class SvnConnector(GenericConnector):
         return conflict_list
     
     def remove_file(self, path):
+        print self.wc_dir + '/' + path
         self.client.remove(self.wc_dir + '/' + path)
         
     def resolve_all(self):
@@ -148,5 +155,6 @@ class SvnConnector(GenericConnector):
         
     client = property(get_client, set_client, del_client, "client's docstring")
     wc_dir = property(get_wc_dir, set_wc_dir, del_wc_dir, "wc_dir's docstring")
+    public_dir_name = property(get_public_dir_name, None, None, None)
         
     

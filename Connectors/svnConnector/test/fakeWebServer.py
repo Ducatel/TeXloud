@@ -8,7 +8,7 @@ Created on 12 janv. 2012
 import socket
 
 sock=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(('127.0.0.1', 6666))
+sock.bind(('127.0.0.1', 6667))
 sock.listen(5)
 
 while 1:
