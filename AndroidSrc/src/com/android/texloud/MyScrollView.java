@@ -2,11 +2,13 @@ package com.android.texloud;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ScrollView;
 
 public class MyScrollView extends ScrollView {
 	private ScrollViewListener scrollViewListener = null;
-
+	
+	
 	public MyScrollView(Context context) {
 		super(context);
 	}
@@ -30,5 +32,6 @@ public class MyScrollView extends ScrollView {
 		if (scrollViewListener != null) {
 			scrollViewListener.onScrollChanged(this, x, y, oldx, oldy);
 		}
+		
 	}
 }

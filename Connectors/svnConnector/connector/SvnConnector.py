@@ -13,13 +13,16 @@ class SvnConnector(GenericConnector):
     '''
     Classe de connexion à un serveur SVN 
     '''   
-    def __init__(self, url, login = '', passwd = '', wc_path = '', createWorkingCopy = True):
+    def __init__(self, url, login = '', passwd = '', wc_path = '', checkout = True):
         super(self.__class__,self).__init__(url, login, passwd)
         
         now = datetime.datetime.now()
         
         '''Génération d'un nom théoriquement unique pour la copie locale'''
         dir_name = md5.new(str(now)).hexdigest()
+        
+        self.__public_dir_name = dir_name
+        
         #self.wc_dir += dir_name
         
         self.client = pysvn.Client()
@@ -39,8 +42,14 @@ class SvnConnector(GenericConnector):
         else:
             self.wc_dir += dir_name
             
-        ''' Lance la copie avec les paramètres '''
-        self.client.checkout(self.url, self.wc_dir)
+        if(checkout):
+            ''' Lance la copie avec les paramètres '''
+            self.client.checkout(self.url, self.wc_dir)
+            
+        print 'copie locale enregistrée dans ' + self.wc_dir
+
+    def get_public_dir_name(self):
+        return self.__public_dir_name
 
     ''' Revient sur les changement locaux (non utilisé pour l'instant) '''
     def revert(self, path):
@@ -85,6 +94,7 @@ class SvnConnector(GenericConnector):
     def commit(self):
         try:
             self.client.checkin(self.get_wc_dir(), 'TeXloud Sync')
+            print 'committed'
         except Exception, e:
             print 'erreur de commit: ' + str(e)
      
@@ -108,6 +118,10 @@ class SvnConnector(GenericConnector):
             conflict_list.append(self.client.info(path))
             
         return conflict_list
+    
+    def remove_file(self, path):
+        print self.wc_dir + '/' + path
+        self.client.remove(self.wc_dir + '/' + path)
         
     def resolve_all(self):
         changes = self.client.status(self.get_wc_dir())
@@ -116,6 +130,12 @@ class SvnConnector(GenericConnector):
         
         for path in paths:
             self.client.resolved(path)
+        
+    def full_commit(self):
+        self.add_all()
+        self.client.checkout(self.url, self.wc_dir)
+        self.resolve_all()
+        self.commit()
         
     def add_all(self):
         changes = self.client.status(self.get_wc_dir())
@@ -135,5 +155,6 @@ class SvnConnector(GenericConnector):
         
     client = property(get_client, set_client, del_client, "client's docstring")
     wc_dir = property(get_wc_dir, set_wc_dir, del_wc_dir, "wc_dir's docstring")
+    public_dir_name = property(get_public_dir_name, None, None, None)
         
     

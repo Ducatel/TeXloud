@@ -2,9 +2,11 @@ package com.android.texloud;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -18,8 +20,12 @@ public class TeXloudActivity extends Activity {
 
 	private EditText login, passwd;
 	private Button connect, forgot, sign_in;
-	private static final int MON_DIALOG_ID = 1;
 	private Dialog dialog, signin_dialog;
+
+	//private ProgressDialog loading_dialog;
+	private Dialog loading_dialog;
+	
+	private ProgressDialog connect_dialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,15 +34,12 @@ public class TeXloudActivity extends Activity {
 
 		setContentView(R.layout.login);
 
-		LayoutInflater factory = LayoutInflater.from(this);
-
-		// Création de l'AlertDialog
 
 		forgot = (Button) (findViewById(R.id.tv_forgot));
 
 		login = (EditText)(findViewById(R.id.EditText_id));
 		passwd = (EditText)(findViewById(R.id.EditText_passwd));
-
+		
 		forgot.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -61,33 +64,44 @@ public class TeXloudActivity extends Activity {
 		connect.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View arg0) {
+				
+				connect_dialog = ProgressDialog.show(TeXloudActivity.this, "Authentification", "Authentification en cours...", true);
+				
+				new Thread(new Runnable(){
 
-				Comm c = new Comm();
-				Comm.statement st;
+					public void run() {
+						Comm c = new Comm();
+						Comm.statement st;
 
-				st = c.getAuth(login.getText(),passwd.getText());
+						st = c.getAuth(login.getText(),passwd.getText());
 
-				switch(st){
-				case SUCCESS:
-					Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
-					startActivity(intent);
-					finish();
+						switch(st){
+						case SUCCESS:
+							Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
+							startActivity(intent);
+							finish();
+
+							setErrorTextViewVisibility(View.INVISIBLE);
+							break;
+
+						case WRONG:
+							setErrorTextViewVisibility(View.VISIBLE);
+							break;
+
+						case ERROR:
+
+							break;
+						}
+						Message msg = mHandler.obtainMessage(0);
+						mHandler.sendMessage(msg);
+					}
 					
-					setErrorTextViewVisibility(View.INVISIBLE);
-					break;
-					
-				case WRONG:
-					setErrorTextViewVisibility(View.VISIBLE);
-					break;
-					
-				case ERROR:
-					
-					break;
-				}
-
-
+				}).start();
+				
 			}
+
 		});
+
 
 		sign_in = (Button) (findViewById(R.id.button_inscription));
 		sign_in.setOnClickListener(new OnClickListener() {
@@ -97,7 +111,7 @@ public class TeXloudActivity extends Activity {
 				signin_dialog.setContentView(R.layout.signindialog);
 
 				Spinner s = (Spinner) signin_dialog.findViewById(R.id.spinner);
-				ArrayAdapter adapter = ArrayAdapter.createFromResource(
+				ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
 						TeXloudActivity.this, R.array.months, android.R.layout.simple_spinner_item);
 
 				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -109,13 +123,28 @@ public class TeXloudActivity extends Activity {
 
 	}
 
+	public void wrongLogin(){
+		setErrorTextViewVisibility(View.VISIBLE);
+	}
+	
+	
 	public void setErrorTextViewVisibility(int status){
 		TextView tv_error = (TextView)(findViewById(R.id.tv_error));
 		tv_error.setVisibility(status);
 	}
-	
+
 	public void dismissDialog(){
 		dialog.dismiss();
 	}
+	
+	public void dismissLoadingDialog(){
+		connect_dialog.dismiss();
+	}
+	
+	final Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			dismissLoadingDialog();
+		}
+	};
 
 }

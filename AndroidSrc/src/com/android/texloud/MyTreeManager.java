@@ -3,15 +3,17 @@ package com.android.texloud;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -21,15 +23,18 @@ public class MyTreeManager {
 
 	private Node root;
 	private ArrayList<Node> tree;
-	private Activity act;
+	private MainActivity act;
 	private int current_id = 1;
 	private final int PADDING_GAP = 22;
 	private Dialog click_dialog;
 	private ListView listview_dialog;
+	private View current_italic_view = null;
+	private ProgressDialog loading_dialog;
 
 	private final String[] folderDialogItems = {"Add File", "Add Folder", "Rename Folder", "Delete Folder"};
 	private final String[] rootDialogItems = {"Add File", "Add Folder", "Delete Project"};
 	private final String[] leafDialogItems = {"Add File", "Rename File", "Delete File"};
+
 
 	protected class Node extends View{
 		private String name;
@@ -86,7 +91,7 @@ public class MyTreeManager {
 
 	}
 
-	public MyTreeManager(Activity act, String root_name){
+	public MyTreeManager(MainActivity act, String root_name){
 		this.act = act;
 		root = new Node(act, root_name, Node.ROOT, current_id++, 5);
 		tree = new ArrayList<Node>();
@@ -94,7 +99,7 @@ public class MyTreeManager {
 	}
 
 	public void addNode(String node_name, String parent_name, int type){
-		tree.add(new Node(act, node_name, getNodeId(parent_name), type, current_id++, (getNode(getNodeId(parent_name)).getPadding())+PADDING_GAP)); // AJOUTER PADDING
+		tree.add(new Node(act, node_name, getNodeId(parent_name), type, current_id++, (getNode(getNodeId(parent_name)).getPadding())+PADDING_GAP));
 	}
 
 	protected int getNodeId(String parent_name){
@@ -330,10 +335,17 @@ public class MyTreeManager {
 				v.setId(n.getNodeId());
 				tv = (TextView) (v.findViewById(R.id.tv_leaf));
 				tv.setText(n.getName());
+
 				v.setPadding(n.getPadding(), 0, 0, 0);
 
-				v.setOnLongClickListener(new OnLongClickListener() {
+				v.setOnClickListener(new OnClickListener() {
+					public void onClick(View arg0) {
+						act.fileClicked();
+						changeTextStyle(arg0);
+					}
+				});
 
+				v.setOnLongClickListener(new OnLongClickListener() {
 					public boolean onLongClick(View v) {
 						popClickDialog("Leaf");
 						return false;
@@ -347,4 +359,25 @@ public class MyTreeManager {
 			}
 		}
 	}
+
+	public void getFile(View v){
+		
+	}
+
+	public void changeTextStyle(View v){
+
+		if(current_italic_view != v){
+			TextView tv = (TextView) (v.findViewById(R.id.tv_leaf));
+			tv.setTypeface(Typeface.DEFAULT, Typeface.ITALIC);
+
+			if(current_italic_view != null){
+				tv = (TextView) (current_italic_view.findViewById(R.id.tv_leaf));
+				tv.setTypeface(Typeface.DEFAULT, Typeface.NORMAL);
+			}
+
+			current_italic_view = v;
+		}
+	}
+
+	
 }

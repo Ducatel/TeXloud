@@ -120,19 +120,21 @@
 
         <com.android.texloud.MyScrollView
             android:id="@+id/scroll1"
-            android:layout_width="25dp"
+            android:layout_width="33dp"
             android:layout_height="match_parent"
             android:background="#F7F7F7"
             fillViewPortView="true" >
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/layout_lineCount"
-                android:layout_width="25dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
-                android:background="#F7F7F7"
-                android:textColor="#000000" >
-            </TextView>
+                android:orientation="vertical"
+                android:gravity="right"
+                android:paddingTop="2px" >
+
+                
+            </LinearLayout>
         </com.android.texloud.MyScrollView>
 
         <com.android.texloud.MyScrollView

@@ -18,9 +18,15 @@ langManager.load("en");
 
 var treeOps = new TreeOperations();
 $(document).ready(function() {
-	
+	var temp = null;
+  
+	shortcut.add("Ctrl+S",function() {
+				       saveFile(temp);
+				    });
 	  
-	
+	$("#codelatex").keydown( function() {
+	   saveFile(temp);
+	});
 
 
             // Save Form
@@ -67,14 +73,13 @@ $(document).ready(function() {
 		 * Callback function is called when one item is clicked
 		 */	
 		afterClick:function(node){
-				var temp=$('span:first', node).parent().attr('id');
+		    var currentPage = $('span:first', node).parent().attr('id');
+				temp = currentPage;
 				/*$("#save").click(function(){
 				  
 				  saveFile(temp);
 				    });*/
-				  shortcut.add("Ctrl+S",function() {
-				       saveFile(temp);
-				    });
+				//saveLocal(temp); 
 				//nameFile(temp);
 				readFile(temp);
 				//alert($('span:first',node).parent().attr('id').toggleClass('doc'));
@@ -155,26 +160,34 @@ $(document).ready(function() {
 	  return temp2;
 	  
 	}*/
-	
+	/*function saveLocal(temp){
+	  
+	  
+	  
+	  
+	}*/
 	function saveFile(temp){
 	  
 	//var temp=nameFile(temp);
 	
 	//alert("voila voila "+temp);
-	$.ajax({
-	type: "POST",
-	url:"FichierSave.php",
-	data: "fichier="+temp,
-	success: function(requester) {
-	  //document.forms.fff.codelatex.value = document.forms.fff.dmc.value
-	  //$('#codelatex').val()=requester; 
-	  alert("resultar"+requester);
-	  //$('#codelatex').attr('value', requester);
-	  
-
-	}
+	//var q=$("#codelatex").val();
+	var contenu=$("#codelatex").val();
+	//alert("contenuvoilavoila"+contenu);
 	
-      });
+	$.ajax({
+	  type: "POST",
+	  url:"FichierSave.php",
+	  data: "fichier="+temp+"&contenu="+contenu,
+	  success: function(requester) {
+	    //document.forms.fff.codelatex.value = document.forms.fff.dmc.value
+	    //$('#codelatex').val()=requester; 
+	   // alert("resultar"+requester);
+	    //$('#codelatex').attr('value', requester);
+	    
+	  }
+	
+	});
 	  
 	  
 	}

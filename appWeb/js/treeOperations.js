@@ -105,7 +105,7 @@ function TreeOperations()
 	{
 		var selectedNode = treeOps.trGetSelected();
 		if (selectedNode.html() == null){
-			alert("Alert "+langManager.selectNode2MakeOperation);
+			//alert("Alert "+langManager.selectNode2MakeOperation);
 			return null;
 		}
 		return selectedNode;
@@ -115,7 +115,7 @@ function TreeOperations()
 //**********************************************************
 	this.trAddElement = function(result)
 	{
-		alert("2");
+		//alert("2");
 		//treeOps.treeBusy = false; ajax makes it false
 		var info;
 		if (typeof(result) == "undefined")
@@ -142,7 +142,7 @@ function TreeOperations()
 	this.addElementReq = function(folder)
 	{    // Menu de yeni eleman ekle se�enegi tiklandiginda ilk bura �agrilir 
 		 // ve yeni bir yazi alani eklenir.
-		alert("entr1"+folder);
+		//alert("entr1"+folder);
 		if ( treeOps.isTreeBusy() == true ||  
 			 treeOps.trGetSelectedWithAlert() == null
 			) 

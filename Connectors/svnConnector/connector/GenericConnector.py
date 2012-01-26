@@ -29,21 +29,6 @@ class GenericConnector(object):
                     
         self.login = login
         self.passwd = passwd
-        
-    def sendCompilationFile(self, fileInfos, clientAddr, clientPort, path):
-        ''' Envoi d'un fichier binaire à un client '''
-        f = open(path, 'rb')
-        data = f.read()
-        f.close()
-        
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.connect((clientAddr, clientPort))
-
-        sock.sendall(fileInfos)
-        sock.send(self._messageSeparator)
-        sock.sendall(data)
-        
-        sock.close()
 
     def get_wc_dir(self):
         return self.__wc_dir
