@@ -30,6 +30,7 @@ class DataSocket(object):
         self._webserver_port = 6667
         self.wc_dir = '/tmp/'
         self.working_copy_user_index = '/tmp/texloud/users.conf'
+        self._repo_dir = '/tmp/texloud/repos/'
         
     def getUserProperty(self, wc_dir, prop):
         f = open(self.working_copy_user_index, 'r')
@@ -114,10 +115,11 @@ class DataSocket(object):
         
         return filezip
         
-    def compile(self, rootFile, servCompileIp, servCompilePort, path, client):
+    def compile(self, rootFile, servCompileIp, servCompilePort, path, httpPort, client):
         ''' Envoi d'un fichier binaire à un client '''
         if not '..' in path:
-            rootFileJSON = '{"rootFile" : "' + rootFile + '"}';
+            rootFileJSON = '{"label" : "compile", "rootFile" : "' + rootFile + '", "returnIp" : "' + self._address \
+                            + '", "returnPort" : "' + str(self._port) + '", "httpPort":"' +httpPort + '"}';
             
             fname = self.zip_dir(self.wc_dir + path);
             
@@ -130,12 +132,30 @@ class DataSocket(object):
     
             sock.sendall(rootFileJSON)
             sock.send(self._messageSeparator)
-            sock.sendall(data)
+            sock.send(data)
+            sock.send(self._trameEnd)
             
             sock.close()
             
             os.unlink(fname)
             #os.system('rm ' + fname)
+        
+    def sendPdfToWebServer(self, log, pdf, httpPort):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect((self._webserver_ip, int(httpPort)))
+
+        sock.send('{"log" : "' + log + '"}' + self._messageSeparator + pdf)
+        sock.send(pdf)
+        
+        sock.close()
+        #sock.send(self._messageSeparator)
+        #sock.sendall(data)
+        
+    def sendAsciiMessage(self, request, ip, port):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect((ip, int(port)))
+        sock.send(request)
+        sock.close()
         
     def launch(self):
         self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -158,7 +178,7 @@ class DataSocket(object):
             
             completeMessage+=message
             taille=len(message)
-            
+        
             if((completeMessage.endswith(self._trameEnd) and len(completeMessage)>0) or (taille==0 and len(completeMessage)>0)):
                 completeMessage = self.cleanRequest(completeMessage)
                 messageArray = completeMessage.split(self._messageSeparator)
@@ -174,35 +194,38 @@ class DataSocket(object):
         
                 if(label=='create'):
                     print 'create'
-                    self.createProject(requestInfo['projectName'], requestInfo['username'], client)
+                    self.createProject(requestInfo['projectName'], requestInfo['httpPort'], client)
                 #tested - work
                 elif(label=='getProject'):
                     print 'getProject'
-                    self.getProject(requestInfo['path'], requestInfo['username'], requestInfo['password'],client)
+                    self.getProject(requestInfo['path'], requestInfo['username'], requestInfo['password'], requestInfo['httpPort'], client)
                 elif(label=='compile'):
                     print 'compile'
                     self.compile(requestInfo['rootFile'], requestInfo['servCompileIp'],
-                                requestInfo['servCompilePort'], requestInfo['path'], client)
+                                requestInfo['servCompilePort'], requestInfo['path'], requestInfo['httpPort'], client)
                 #tested - work
                 elif(label=='getFile'):
                     print 'getFile'
-                    self.getFile(requestInfo['path'], requestInfo['filename'], client)
+                    self.getFile(requestInfo['path'], requestInfo['filename'], requestInfo['httpPort'], client)
                 #tested - work
                 elif(label=='deleteFile'):
                     print 'deleteFile'
-                    self.deleteFile(requestInfo['path'], requestInfo['filename'], client)
+                    self.deleteFile(requestInfo['path'], requestInfo['filename'], requestInfo['httpPort'], client)
                 #tested - work
                 elif(label=='createFile'):
                     print 'createFile'
-                    self.createFile(requestInfo['path'], requestInfo['filename'], messageArray[1], client)
+                    self.createFile(requestInfo['path'], requestInfo['filename'], messageArray[1], requestInfo['httpPort'], client)
                 #tested - work
                 elif(label=='deleteProject'):
                     print 'deleteProject'
-                    self.deleteProject(requestInfo['path'], client)
+                    self.deleteProject(requestInfo['path'], requestInfo['httpPort'], client)
                 #tested - work
                 elif(label=='sync'):
                     print 'sync -> ' + str(requestInfo['files'])
-                    self.sync(requestInfo['path'], requestInfo['currentFile'], requestInfo['files'], client)
+                    self.sync(requestInfo['path'], requestInfo['currentFile'], requestInfo['files'], requestInfo['httpPort'], client)
+                elif(label=="backCompile"):
+                    print 'send compiled file to server'
+                    self.sendPdfToWebServer(requestInfo['log'], messageArray[1], requestInfo['httpPort'])
                 else:
                     print 'failed to retrieve action'
                     
@@ -212,11 +235,17 @@ class DataSocket(object):
                 
       
     ''' synchronise plusieurs fichiers sur la copie locale puis commit '''
-    def sync(self, path, currentFile, files, client):
+    def sync(self, path, currentFile, files, httpPort, client):
         if not '..' in path:
             for fdata in files:
                 print 'fdata -> ' + str(fdata)
                 if not '..' in fdata['filename']:
+                    fparts = fdata['filename'].split(os.sep)
+                    filePath = '/' + fdata['filename'][:-len(fparts[-1])]
+                    
+                    if not os.path.isdir(self.wc_dir + path + filePath):
+                        os.system("mkdir -p " + self.wc_dir + path + filePath )
+                        
                     f = open(self.wc_dir + path + '/' + fdata['filename'], 'w')
                     f.write(fdata['content'])
                     f.close()
@@ -227,26 +256,27 @@ class DataSocket(object):
             return request[:-len(self._trameEnd)]
         
         return request
+    
     @abstractmethod        
-    def getProject(self, path, username, password, client):
+    def getProject(self, path, username, password, httpPort, client):
         return NotImplemented
         
-    @abstractmethod
-    def createProject(self, projectName, username, client):
-        print projectName + ' ' + username
+    def createProject(self, projectName, httpPort, client):
+        print 'nom du dépot' + projectName
+        
+        if not '..' in projectName:
+            os.system('svnadmin create ' + self._repo_dir + projectName)
+            print 'repo addr -> ' + "file://" + self._repo_dir + projectName
+            self.getProject("file://" + self._repo_dir + projectName, '', '', httpPort, client)
     
-    @abstractmethod
-    def compileProject(self, rootFile, path, compilerServerIp, compilerServerPort, client):
-        return NotImplemented
-    
-    def getFile(self, path, filename, client):
+    def getFile(self, path, filename, httpPort, client):
         if not '..' in path and not '..' in filename:
             f = open(self.wc_dir + path + '/' + filename, 'rb')
             data = f.read()
             f.close()
             
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.connect((self._webserver_ip, self._webserver_port))
+            sock.connect((self._webserver_ip, int(httpPort)))
             sock.send(data)
             sock.close()
     
@@ -256,20 +286,27 @@ class DataSocket(object):
             os.system('rm -rf ' + self.wc_dir + path + '/' + filename)
     
     @abstractmethod
-    def deleteProject(self, path, client):
+    def deleteProject(self, path, httpPort, client):
         if not '..' in path:
             self.remove_user_prop(path)
             os.system('rm -rf ' + self.wc_dir + path)
     
     ''' Crée un fichier donc le contenu est passé dans file_content (prend les fichiers binaires) '''
-    def createFile(self, path, filename, file_content, client):
+    def createFile(self, path, filename, file_content, httpPort, client):
         if not '..' in path and not '..' in filename:
+            fparts = filename.split(os.sep)
+            filePath = '/' + filename[:-len(fparts[-1])]
+                    
+            if not os.path.isdir(self.wc_dir + path + filePath):
+                os.system("mkdir -p " + self.wc_dir + path + filePath )
+                
             f = open(self.wc_dir + path + '/' + filename, 'w')
             f.write(file_content)
             f.close()
 
     ''' Connexion à la socket serveur pour le test
-        getProject: sock.send('{"label":"getProject","path":"53d4ad39451eac91f7a983fd2d4ab34c"}')
+        depot de test: file:///home/meva/test_repo/, file:///tmp/texloud/repos/plop/
+        getProject: sock.send('{"label":"getProject","path":"file:///home/meva/test_repo/"}')
         deleteProject: sock.send('{"label":"deleteProject","path":"53d4ad39451eac91f7a983fd2d4ab34c"}')
         sync: sock.send('{"label" : "sync", "path" : "53d4ad39451eac91f7a983fd2d4ab34c", "files" : [{"filename" : "bouh/bouhbouh.txt", "content" : "blahblah commit"}], "currentFile" : "rien"}')
         compile: {"label":"compile","path":"65a3c9a8fa66596de53bec9377a89aef", "rootFile" : "rapport.tex", "servCompileIp" : "127.0.0.1","servCompilePort":"6667"}

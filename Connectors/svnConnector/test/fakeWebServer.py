@@ -21,6 +21,8 @@ while 1:
         message=client.recv(1024)
         completeMessage+=message
         taille=len(message)
+    
+    print 'plop'
         
     f = open('/tmp/testFile', 'w')
     f.write(completeMessage)
