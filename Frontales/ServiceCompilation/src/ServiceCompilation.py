@@ -69,13 +69,13 @@ class ServiceCompilation(object):
         '''
         
         # On recupere les données
-        nomFichier,adresseArchive=self.getDataforCompilation(client,addr)
+        trame,adresseArchive=self.getDataforCompilation(client,addr)
         
         # On compile le projet
-        msgCompile,contenuFichierPdf=self.latexCompilation(nomFichier, adresseArchive)
+        msgCompile,contenuFichierPdf=self.latexCompilation(trame['rootFile'], adresseArchive)
         
         # On renvoie le pdf et les infos
-        self.backToSender(msgCompile, contenuFichierPdf, addr)
+        self.backToSender(msgCompile, contenuFichierPdf, (trame['returnIp'],int(trame['returnPort'])),trame['httpPort'])
         
         # On renvoi un message de fin compilation au serveur frontal
         # self.confirmEndCompilation()
@@ -84,7 +84,7 @@ class ServiceCompilation(object):
         """
             Methode qui permet de recuperer le nom du fichier maitre et
             l'archive du projet a compiler 
-            @return: le nom du fichier maitre
+            @return: la trame envoyé par le serveur de donnée (dico python)
             @return: l'adresse de l'archive
         """
         messageComplet=""
@@ -95,7 +95,7 @@ class ServiceCompilation(object):
                 
        
         tabTmp=messageComplet.split(self._messageSeparator)
-        nomFichier=json.loads(tabTmp[0])
+        trame=json.loads(tabTmp[0])
         messageComplet=tabTmp[1]    
              
         client.close()
@@ -105,8 +105,8 @@ class ServiceCompilation(object):
         uniqueId=str(md5.new(str(datetime.datetime.now())).hexdigest())
         with open(uniqueId+'.zip', 'wb') as fichier:
             fichier.write(messageComplet)
-        
-        return nomFichier['rootFile'],"/tmp/{0}.zip".format(uniqueId)
+            
+        return trame,"/tmp/{0}.zip".format(uniqueId)
                     
             
     def latexCompilation(self,nomFichier,adresseArchive):
@@ -145,7 +145,7 @@ class ServiceCompilation(object):
             
         else:
             # Ici la compilation a echouer
-            pdfFileContent=0
+            pdfFileContent='0'
         
         # On parse le fichier de log
         messageRetour=self.errorLogParser(logFile)
@@ -246,39 +246,41 @@ class ServiceCompilation(object):
         @param filezip: Archive a decompresser
         @param pathdst: Chemin d'extraction 
         """
-        if pathdst == '': pathdst = os.getcwd()  ## on dezippe dans le repertoire locale
+        if pathdst == '': pathdst = os.getcwd()
         zfile = zipfile.ZipFile(filezip, 'r')
-        for i in zfile.namelist():  ## On parcourt l'ensemble des fichiers de l'archive
-            if os.path.isdir(i):   ## S'il s'agit d'un repertoire, on se contente de creer le dossier
+        for i in zfile.namelist(): 
+            if os.path.isdir(i):   
                 try: os.makedirs(pathdst + os.sep + i)
                 except: pass
             else:
                 try: os.makedirs(pathdst + os.sep + os.path.dirname(i))
                 except: pass
-                data = zfile.read(i)                   ## lecture du fichier compresse
-                fp = open(pathdst + os.sep + i, "wb")  ## creation en local du nouveau fichier
-                fp.write(data)                         ## ajout des donnees du fichier compresse dans le fichier local
+                data = zfile.read(i)                   
+                fp = open(pathdst + os.sep + i, "wb")  
+                fp.write(data)                         
                 fp.close()
         zfile.close()
         
         #Suppression de l'archive
         os.remove(filezip)
-
-    def backToSender(self,message,pdf,addr):
+        
+    def backToSender(self,message,pdf,addr,httpPort):
         '''
         Methode qui permet de renvoyer au serveur de données
         les infos sur la compilation et le pdf
         @param message: message  resultant de la compilation
         @param pdf: contenu binaire du fichier pdf
-        @param addr: tuple (adresse,port) du serveur de données    
+        @param addr: tuple (adresse,port) du serveur de données
+        @param httpPort: port de retour sur le serveur HTTP 
         '''
         request=dict()
         request['label']='backCompile'
         request['log']=message
+        request['httpPort']=httpPort
         
         s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         s.connect(addr)
-        s.send(request)
+        s.send(json.dumps(request))
         s.send(self._messageSeparator)
         s.send(pdf)
         s.send(self._messageEnd)

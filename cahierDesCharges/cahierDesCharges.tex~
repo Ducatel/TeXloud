@@ -367,29 +367,35 @@ Ci-dessous se trouve la liste exhaustive des trames:
 
 \paragraph{Trame entre le serveur HTTP et le serveur frontal:}
 \begin{itemize}
- \item label:create,username,projectName
- \item label:getProject,path,servDataIp,servDataPort
- \item label:compile,rootFile,path,servDataIp,servDataPort
- \item label:getFile,path,servDataIp,servDataPort
- \item label:deleteFile,path,servDataIp,servDataPort
- \item label:deleteProject,path,servDataIp,servDataPort
- \item label:sync,path,servDataIp,servDataPort,currentFile
+ \item label:create,username,projectName,httpIp,httpPort
+ \item label:getProject,path,servDataIp,servDataPort,httpIp,httpPort
+ \item label:compile,rootFile,path,servDataIp,servDataPort,httpIp,httpPort
+ \item label:getFile,path,servDataIp,servDataPort,httpIp,httpPort
+ \item label:deleteFile,path,servDataIp,servDataPort,httpIp,httpPort
+ \item label:deleteProject,path,servDataIp,servDataPort,httpIp,httpPort
+ \item label:sync,path,servDataIp,servDataPort,currentFile,httpIp,httpPort
 \end{itemize}
 
 \paragraph{Trame entre le serveur frontal et un serveur de données:}
 \begin{itemize}
- \item label:create,username,projectName
- \item label:getProject,path, username, client
- \item label:compile,rootFile,path,servCompileIp,servCompilePort
- \item label:getFile,path
- \item label:deleteFile,path
- \item label:deleteProject,path
- \item label:sync,path,currentFile
+ \item label:create,username,projectName,httpIp,httpPort
+ \item label:getProject,path, username, client,httpIp,httpPort
+ \item label:compile,rootFile,path,servCompileIp,servCompilePort,httpIp,httpPort
+ \item label:getFile,path,httpIp,httpPort
+ \item label:deleteFile,path,httpIp,httpPort
+ \item label:deleteProject,path,httpIp,httpPort
+ \item label:sync,path,currentFile,httpIp,httpPort
 \end{itemize}
 
 \paragraph{Trame entre le serveur frontal et un serveur de compilation:}
 \begin{itemize}
  \item label:endCompilation,servCompileIp,servCompilePort
+\end{itemize}
+
+\paragraph{Trame entre le serveur de données et un serveur de compilation:}
+\begin{itemize}
+ \item label:backCompile,log,httpIp,httpPort
+ \item label:compile,rootFile,returnIp,returnPort,httpIp,httpPort
 \end{itemize}
 
 \subsection{Scénario}
