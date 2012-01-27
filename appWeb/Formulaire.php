@@ -46,8 +46,8 @@
 		    
 		    <p>
 			<label class="form_label_nostyle">&nbsp;</label>
-			<input type="submit" name="submit" />
-			<input type="reset" name="del" />
+			<input type="submit" name="submit" value="Valider" />
+			<input type="reset" name="del" value="Annuler"/>
 		    </p>
 		</form>
 

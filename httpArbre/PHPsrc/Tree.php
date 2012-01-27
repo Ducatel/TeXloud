@@ -105,7 +105,7 @@ class Tree{
 	public function toString(){
 		$s="Root: <br/>";
 		$s.=$this->root->toString();
-	
+		
 		$s.="<br/><br/>Other:<br/>";
 		foreach($this->arrayOfNode as $node){
 			if($this->root!=$node)
@@ -116,12 +116,39 @@ class Tree{
 	
 	public function toStringHTML(){
 		$s="<ul>";
-		$s.="<li>".$this->root->getName()."</li>";
+		
+		$s.=$this->_toStringHTML($this->root,0);
 		
 		$s.="</ul>";
 		return $s;
 	}
-	
+
+	private function _toStringHTML($currentNode,$dec){
+		if($currentNode->getId()== $this->root->getId()){
+		    $s="<li class='root' style='margin-left:".$dec."px;'>".$currentNode->getName()."</li>";
+  
+	      }
+		else{
+		$s="<li class='folder' style='margin-left:".$dec."px;'>".$currentNode->getName()."</li>";
+		}
+		$dec+=20;
+		foreach($this->arrayOfNode as $node){
+		    
+		     if($currentNode->getId() == $node->getParentId()){
+			 if($node->isFolder()){
+			      $s.=$this->_toStringHTML($node,$dec);
+			  }
+			  else{
+			  $s.="<li class='file' style='margin-left:".$dec."px;' >".$node->getName()."</li>";
+			  }
+			  
+		      }
+  
+		}
+
+	      
+		return $s;
+	}
 	
 	/************************************************/
 	/*					 GET & SET				    */

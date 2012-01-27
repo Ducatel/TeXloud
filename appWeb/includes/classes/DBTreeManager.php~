@@ -8,10 +8,9 @@
      		 ahmetmermerkaya@hotmail.com
  ***************************************/ 
   session_start();
-  
-  require_once('ITreeManager.php');
   include('Sender.php');
-  
+  require_once('ITreeManager.php');
+ 
  class DBTreeManager implements ITreeManager
  {
  	private $db;
@@ -24,22 +23,23 @@
 	{
 
 	        $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-		$bdd = new PDO('mysql:host=localhost;dbname=Texloud', 'root', 'debouz1990', $pdo_options);
-		$sql = $bdd->prepare('SELECT idutilisateur FROM utilisateur WHERE  identifiant= ?');
+		$bdd = new PDO('mysql:host=localhost;dbname=TeXloud', 'root', 'debouz1990', $pdo_options);
+		$sql = $bdd->prepare('SELECT username FROM utilisateur WHERE  id= ?');
 	        $sql->execute(array($_SESSION['identifiant']));
 		 $login=$sql->fetch(PDO::FETCH_OBJ);
-		 $loginn=$login->idutilisateur;
+		 $loginn=$login->username;
 	
 	      return $loginn;
 	}
-		public function setSocket(){
+	
+	public function setSocket($login,$name){
 			
 				$frontalAddress = "127.0.0.1";
 				$frontalPort = 12800;
 			$requete=array(
 				'label'=>'create',
-				'username'=>'ocuocu',
-				'projectName'=>'couocuouc',
+				'username'=>$login,
+				'projectName'=>$name,
 			);
 			
 			// Méthode 1
@@ -59,7 +59,7 @@
 		$login=$this->getIdutilisateur();
 
 		$sql = sprintf('INSERT INTO ' 
-								. TREE_TABLE_PREFIX . '_elements(name, position, ownerEl, slave, utilisateur_id)
+								. TREE_TABLE_PREFIX . '_elements(name, position, ownerEl, slave, id)
 							SELECT 
 								\'%s\', ifnull(max(el.position)+1, 0), %d, %d, %d
 							FROM '
@@ -68,9 +68,11 @@
 								el.ownerEl = %d ',
 							$name , $ownerEl, $slave,$login,$ownerEl);
 		$out = FAILED;
-		$this->setSocket();
+		
 		if ($this->db->query($sql) == true) {
+				$this->setSocket($login,$name);
 				$out = '({ "elementId":"'.$this->db->lastInsertId().'", "elementName":"'.$name.'", "slave":"'.$slave.'", "utilisateur_id":"'.$login.'"})';
+				
 		}
 		
 		return $out; 	

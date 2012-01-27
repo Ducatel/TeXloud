@@ -1,4 +1,4 @@
-<?
+<?php
 	/*require "/var/www/PHPMailer_v5.1/class.phpmailer.php";
 	$mail = new PHPmailer();
 	$mail->IsSMTP();
@@ -18,5 +18,13 @@
 	}
 	$mail->SmtpClose();
 	unset($mail);*/
-echo $_SERVER['PHP_SELF'];
+include_once('geshi/geshi.php'); // Inclure la librairie GeSHi
+ 
+// Mettre la source dans la variable $source
+ 
+ 
+$source = '$mavariable = "fichier.php";
+include($mavariable);';
+ 
+geshi_highlight($source, 'php', $path);
 ?>
