@@ -79,8 +79,9 @@ public class TeXloudActivity extends Activity {
 						Comm c = new Comm();
 						Comm.statement st;
 
-						st = c.getAuth(login.getText(),passwd.getText());
-						//st = Comm.statement.SUCCESS;
+						//st = c.getAuth(login.getText(),passwd.getText());
+						st = Comm.statement.SUCCESS;
+						
 						Message msg = null;
 						switch(st){
 						case SUCCESS:
@@ -132,11 +133,30 @@ public class TeXloudActivity extends Activity {
 			}
 		});
 		
-		if(isOnline())
+		// Test connectivité
+		//testConnectivite();
+	}
+	
+	public void testConnectivite(){
+		if(isOnline()){
 			Log.i("status", "online");
-		else
-			Log.i("status", "offline");
+			Dialog d = new Dialog(this, R.style.noBorder);
+			d.setContentView(R.layout.dialogstatusconnect);
+			d.show();
 
+			TextView tv = (TextView) (d.findViewById(R.id.tv_dialogStatus));
+			tv.setText("online");
+		}
+		else{
+			Log.i("status", "offline");
+			Dialog d = new Dialog(this, R.style.noBorder);
+			d.setContentView(R.layout.dialogstatusconnect);
+			d.show();
+			
+			TextView tv = (TextView) (d.findViewById(R.id.tv_dialogStatus));
+			tv.setText("offline");
+			
+		}
 	}
 
 	public boolean isOnline() {
