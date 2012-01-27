@@ -1,0 +1,95 @@
+#!/usr/bin/python
+# -*-coding:utf-8 -*
+'''
+Created on 19 janv. 2012
+
+@author: David Ducatel
+'''
+'''
+import ServiceCompilation
+
+ServiceCompilation=ServiceCompilation.ServiceCompilation('172.16.21.186',12800)
+ServiceCompilation.lanceServeur()
+'''
+
+def errorLogParser(logFile):
+    '''
+    Methode qui parse le fichier de log
+    @param logFile: adresse du fichier de log
+    @return: les erreurs au format XML
+    '''
+    msg="<log>\n"
+    
+    # boolean permetttant de savoir si il faut obligatoirement prendre la ligne suivante
+    # n'est utiliser que pour les erreurs undefined control sequence
+    finErrorUndefinedControlSequence=False
+    
+    finErrorMissingBoolean=False
+    finErrorMissing=3
+    
+    # Pour chaque ligne du fichier du log
+    for line in open(logFile):
+        line=line.lower().lstrip().rstrip()
+        if "overfull" in line:
+            linesNumber=line.split('lines')[1].lstrip().rstrip()
+            tabLineNumber=linesNumber.split('--')
+            msg+="<warning>\n"\
+                    "<type>overfull</type>\n"\
+                    "<message>{0}</message>\n"\
+                    "<ligne>{1}</ligne>\n"\
+                "</warning>\n".format(line,lineNumber)
+                
+        elif "underfull" in line:
+            lineNumber=line.split('lines')[1].lstrip().rstrip()
+            msg+="<warning>\n"\
+                    "<type>underfull</type>\n"\
+                    "<message>{0}</message>\n"\
+                    "<ligne>{1}</ligne>\n"\
+                "</warning>\n".format(line,lineNumber)
+                
+        elif "badbox" in line:
+            lineNumber=line.split('lines')[1].lstrip().rstrip()
+            msg+="<warning>\n"\
+                    "<type>badbox</type>\n"\
+                    "<message>{0}</message>\n"\
+                    "<ligne>{1}</ligne>\n"\
+                "</warning>\n".format(line,lineNumber)
+                
+        elif "! undefined control sequence" in line:
+            msg+="<error>\n"\
+                "<type>undefined control sequence</type>\n"\
+                "<message>\n{0}\n".format(line)
+            finErrorUndefinedControlSequence=True
+            
+        elif finErrorUndefinedControlSequence:
+            lineNumber=line.split(' ')[0]
+            lineNumber=lineNumber[2:len(lineNumber)].lstrip().rstrip()
+            msg+="{0}\n</message>\n"\
+                "<ligne>{1}</ligne>"\
+                "</error>\n".format(line,lineNumber)
+            finErrorUndefinedControlSequence=False
+            
+        elif "! missing" in line:
+            msg+="<error>\n{0}".format(line)
+            finErrorMissingBoolean=True
+            
+        elif finErrorMissingBoolean:
+            msg+=line+"\n"
+            finErrorMissing-=1
+            if finErrorMissing==0:
+                msg+="</error>\n"
+                finErrorMissing=3
+                finErrorMissingBoolean=False
+
+    msg+="</log>"
+    print(msg)
+    
+###############################################
+logFile="/tmp/rapport/rapport.log"
+
+errorLogParser(logFile)
+
+
+
+
+

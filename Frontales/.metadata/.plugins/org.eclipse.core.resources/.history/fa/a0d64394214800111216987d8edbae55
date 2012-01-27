@@ -1,0 +1,300 @@
+#!/usr/bin/python
+# -*-coding:utf-8 -*
+'''
+Created on 19 janv. 2012
+
+@author: David Ducatel
+'''
+
+from re import match
+import datetime
+import json
+import md5
+import os
+import shutil
+import socket
+import subprocess
+import threading
+import zipfile
+
+class ServiceCompilation(object):
+    '''
+        Classe qui gere les demandes de compilations
+    '''
+    
+    def __init__(self,adresse,port):
+        '''
+        Constructeur du service de gestion des compilation
+        @param adresse: Adresse IP du serveur
+        @param port: Numéro du port d'ecoute
+        @raise ValueError: Declencher si le port ou l'adresse est incorrect
+        '''
+        
+        regexAdresse="^[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}$"
+        regexPort="^[0-9]{1,5}$"
+        if match(regexAdresse,adresse) and match(regexPort,str(port)):
+            if isinstance(port, int):
+                self._adresse = adresse
+                self._port = port
+            else:
+                raise ValueError
+        else:
+            raise ValueError
+        
+        self._messageSeparator='+==\sep==+'
+        self._messageEnd='+==\endTrame==+'
+        
+        self._ipFrontal="127.0.0.1"
+        self._portFrontal=12800
+
+
+        
+    def lanceServeur(self):
+        """
+        Methode qui lance la socket en ecoute
+        Puis qui accepte les connexions et appelle pour chacune d'elle la methode 
+        De gestion des compilation dans un nouveau thread
+        """
+        self._sock=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._sock.bind((self._adresse, self._port))
+        self._sock.listen(5)
+        
+        while 1:
+            client, addr=self._sock.accept()
+            threading.Thread(target=self.compilationManager,args=(client,addr)).start()
+            
+    def compilationManager(self,client,addr):
+        '''
+            Méthode qui gere tout le processus de compilation
+        '''
+        
+        # On recupere les données
+        nomFichier,adresseArchive,returnAddr=self.getDataforCompilation(client,addr)
+        
+        # On compile le projet
+        msgCompile,contenuFichierPdf=self.latexCompilation(nomFichier, adresseArchive)
+        
+        # On renvoie le pdf et les infos
+        self.backToSender(msgCompile, contenuFichierPdf, returnAddr)
+        
+        # On renvoi un message de fin compilation au serveur frontal
+        # self.confirmEndCompilation()
+            
+    def getDataforCompilation(self,client,addr):
+        """
+            Methode qui permet de recuperer le nom du fichier maitre et
+            l'archive du projet a compiler 
+            @return: le nom du fichier maitre
+            @return: l'adresse de l'archive
+            @return: un tuple (addIp,port) pour le retour de la compilation
+        """
+        messageComplet=""
+        
+        while not messageComplet.endswith(self._messageEnd):
+            message=client.recv(1024)
+            messageComplet+=message
+                
+       
+        tabTmp=messageComplet.split(self._messageSeparator)
+        trame=json.loads(tabTmp[0])
+        messageComplet=tabTmp[1]    
+             
+        client.close()
+    
+        os.chdir("/tmp")
+        
+        uniqueId=str(md5.new(str(datetime.datetime.now())).hexdigest())
+        with open(uniqueId+'.zip', 'wb') as fichier:
+            fichier.write(messageComplet)
+        
+        return trame['rootFile'],"/tmp/{0}.zip".format(uniqueId),(trame['returnIp'],int(trame['returnPort']))
+                    
+            
+    def latexCompilation(self,nomFichier,adresseArchive):
+        '''
+            Méthode qui va compiler le projet latex
+            @param nomFichier: nom du fichier maitre (sert a lancer la compilation)
+            @param adresseArchive: adresse de l'archive qui contient le projet a compiler (/tmp/riuhgf.zip)
+            @return: Le message de compilation (message d'erreur de compilation, ou message standard)
+            @return: Le contenu (binaire) du fichier PDF (peut etre 0 si erreur de compilation) 
+        '''
+        
+        nomArchive=adresseArchive.split('/tmp/')[1]
+        pathDir='/tmp/'+nomArchive[0:len(nomArchive)-4]+"/"
+
+        #Décompression de l'archive
+        self.decompresse(adresseArchive,pathDir)
+        
+        # on change de repertoire de travail
+        os.chdir(pathDir)
+        
+        # Appel au script latexmk pour la compilation
+        valSortie=subprocess.call(["latexmk","-bibtex","-pdf","-quiet",nomFichier])
+        
+        logFile=pathDir+nomFichier[0:len(nomFichier)-3]+"log"
+        
+        # Si la sortie du script est egal a 0, il n'y a aucun probleme lors de la compilation
+        if valSortie==0:
+            # Ici la compilation est ok
+            
+            pdfFileAdresse=pathDir+nomFichier[0:len(nomFichier)-3]+"pdf"
+            
+            #Recuperation du contenue binaire du fichier pdf
+            f = open(pdfFileAdresse, 'rb')
+            pdfFileContent = f.read()
+            f.close()
+            
+        else:
+            # Ici la compilation a echouer
+            pdfFileContent='0'
+        
+        # On parse le fichier de log
+        messageRetour=self.errorLogParser(logFile)
+        
+        #Suppression du dossier 
+        os.chdir('/tmp/')
+        shutil.rmtree(pathDir)
+            
+        return messageRetour,pdfFileContent
+    
+    def errorLogParser(self,logFile):
+        '''
+        Methode qui parse le fichier de log
+        @param logFile: adresse du fichier de log
+        @return: les erreurs au format XML
+        '''
+        msg="<log>\n"
+    
+        # boolean permetttant de savoir si il faut obligatoirement prendre la ligne suivante
+        # n'est utiliser que pour les erreurs undefined control sequence
+        finErrorUndefinedControlSequence=False
+        
+        finErrorMissingBoolean=False
+        finErrorMissing=3
+        
+        # Pour chaque ligne du fichier du log
+        for line in open(logFile):
+            line=line.lower().lstrip().rstrip()
+            if "overfull" in line:
+                linesNumber=line.split('lines')[1].lstrip().rstrip()
+                tabLineNumber=linesNumber.split('--')
+                msg+="<warning>\n"\
+                        "<type>overfull</type>\n"\
+                        "<message>{0}</message>\n"\
+                        "<line>{1}</line>\n"\
+                        "<line>{2}</line>\n"\
+                    "</warning>\n".format(line,tabLineNumber[0],tabLineNumber[1])
+                    
+            elif "underfull" in line:
+                linesNumber=line.split('lines')[1].lstrip().rstrip()
+                tabLineNumber=linesNumber.split('--')
+                msg+="<warning>\n"\
+                        "<type>underfull</type>\n"\
+                        "<message>{0}</message>\n"\
+                        "<line>{1}</line>\n"\
+                        "<line>{2}</line>\n"\
+                    "</warning>\n".format(line,tabLineNumber[0],tabLineNumber[1])
+                    
+            elif "badbox" in line:
+                linesNumber=line.split('lines')[1].lstrip().rstrip()
+                tabLineNumber=linesNumber.split('--')
+                msg+="<warning>\n"\
+                        "<type>badbox</type>\n"\
+                        "<message>{0}</message>\n"\
+                        "<line>{1}</line>\n"\
+                        "<line>{2}</line>\n"\
+                    "</warning>\n".format(line,tabLineNumber[0],tabLineNumber[1])
+                    
+            elif "! undefined control sequence" in line:
+                msg+="<error>\n"\
+                    "<type>undefined control sequence</type>\n"\
+                    "<message>\n{0}\n".format(line)
+                finErrorUndefinedControlSequence=True
+                
+            elif finErrorUndefinedControlSequence:
+                lineNumber=line.split(' ')[0]
+                lineNumber=lineNumber[2:len(lineNumber)].lstrip().rstrip()
+                msg+="{0}\n</message>\n"\
+                    "<line>\n{1}\n</line>\n"\
+                    "</error>\n".format(line,lineNumber)
+                finErrorUndefinedControlSequence=False
+                
+            elif "! missing" in line:
+                msg+="<error>\n<message>\n{0}\n".format(line)
+                finErrorMissingBoolean=True
+                
+            elif finErrorMissingBoolean:
+                if finErrorMissing==1:
+                    lineNumber="\n<line>\n{0}\n</line>".format(line[2:len(line)])
+                
+                msg+=line+"\n"
+                    
+                finErrorMissing-=1
+                if finErrorMissing==0:
+                    msg+="</message>{0}\n</error>\n".format(lineNumber)
+                    finErrorMissing=3
+                    finErrorMissingBoolean=False
+        
+        msg+="</log>"
+        return msg
+        
+
+    def decompresse(self,filezip, pathdst = ''):
+        """
+        Fonction qui permet de decompresser une archive
+        Supprime l'archive a la fin de la décompresion
+        Exemple d'utilisation: decompresse('/home/david/Bureau/TeXloud.zip', '/home/david/Bureau/TeXloudExtract')
+        @param filezip: Archive a decompresser
+        @param pathdst: Chemin d'extraction 
+        """
+        if pathdst == '': pathdst = os.getcwd()  ## on dezippe dans le repertoire locale
+        zfile = zipfile.ZipFile(filezip, 'r')
+        for i in zfile.namelist():  ## On parcourt l'ensemble des fichiers de l'archive
+            if os.path.isdir(i):   ## S'il s'agit d'un repertoire, on se contente de creer le dossier
+                try: os.makedirs(pathdst + os.sep + i)
+                except: pass
+            else:
+                try: os.makedirs(pathdst + os.sep + os.path.dirname(i))
+                except: pass
+                data = zfile.read(i)                   ## lecture du fichier compresse
+                fp = open(pathdst + os.sep + i, "wb")  ## creation en local du nouveau fichier
+                fp.write(data)                         ## ajout des donnees du fichier compresse dans le fichier local
+                fp.close()
+        zfile.close()
+        
+        #Suppression de l'archive
+        os.remove(filezip)
+
+    def backToSender(self,message,pdf,addr):
+        '''
+        Methode qui permet de renvoyer au serveur de données
+        les infos sur la compilation et le pdf
+        @param message: message  resultant de la compilation
+        @param pdf: contenu binaire du fichier pdf
+        @param addr: tuple (adresse,port) du serveur de données    
+        '''
+        request=dict()
+        request['label']='backCompile'
+        request['log']=message
+        
+        s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        s.connect(addr)
+        s.send(json.dumps(request))
+        s.send(self._messageSeparator)
+        s.send(pdf)
+        s.send(self._messageEnd)
+        s.close()
+
+    def confirmEndCompilation(self):
+        """
+        Méthode qui envoie a la frontal un message de fin de compilation
+        """
+        trame=dict()
+        trame['label']='endCompilation'
+        trame['servCompileIp']=self._adresse
+        trame['servCompilePort']=self._port
+
+        s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((self._adresse,self._portFrontal))
+        s.send(json.dumps(trame))
+        s.close()

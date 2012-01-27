@@ -1,0 +1,13 @@
+#!/usr/bin/python
+# -*-coding:utf-8 -*
+'''
+Created on 8 dec. 2011
+
+@author: David Ducatel
+'''
+
+import Frontal
+
+print 'test'
+f=Frontal.Frontal('127.0.0.1',12800)
+f.lanceServeur()
