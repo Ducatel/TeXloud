@@ -115,30 +115,36 @@ class Tree{
 	}
 	
 	public function toStringHTML(){
-		$s="<ul>";
+		$s="\n<ul>\n";
 		
 		$s.=$this->_toStringHTML($this->root,0);
 		
-		$s.="</ul>";
+		$s.="</ul>\n";
 		return $s;
 	}
 
 	private function _toStringHTML($currentNode,$dec){
 		if($currentNode->getId()== $this->root->getId())
-			$s="<li class='root' style='margin-left:".$dec."px;'>".$currentNode->getName()."</li>";
+			$s="<li class='root' style='margin-left:".$dec."px;'>".$currentNode->getName()."</li>\n<ul class='ulArbre'>\n";
 		else
-			$s="<li class='folder' style='margin-left:".$dec."px;'>".$currentNode->getName()."</li>";
+			$s="<li class='folder' style='margin-left:".$dec."px;'>".$currentNode->getName()."</li>\n<ul class='ulArbre'>\n";
 		
 		$dec+=20;
 		
 		foreach($this->arrayOfNode as $node){
 			if($currentNode->getId() == $node->getParentId()){
-			 if($node->isFolder())
+			 if($node->isFolder()){
 			 	$s.=$this->_toStringHTML($node,$dec);
+			 	$s.="</ul>\n";
+			 		
+			 }
 			 else
-			  $s.="<li class='file' style='margin-left:".$dec."px;' >".$node->getName()."</li>";		 	
+			  $s.="<li class='file' style='margin-left:".$dec."px;' >".$node->getName()."</li>\n";		 	
 			}
 		}
+		if($currentNode->getId()== $this->root->getId())
+			$s.="</ul>\n";
+		
 		return $s;
 	}
 	

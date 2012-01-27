@@ -1,22 +1,29 @@
-.root{
-    list-style-image: url("./../img/rootIcon.png");
-
-  
-  
-  
+.root {
+	list-style-image: url("./../img/rootIcon.png");
 }
 
-.folder{
-  list-style-image: url("./../img/folderIcon.png");
-
-  
-  
+.folder {
+	list-style-image: url("./../img/folderIcon.png");
+	cursor:pointer;
+	
+	user-select:none;
+	-ms-user-select:none;
+	-moz-user-select:none;
+	-webkit-user-select:none;
 }
 
+.file {
+	list-style-image: url("./../img/fileIcon.png");
+	cursor:pointer;
+	
+	user-select:none;
+	-ms-user-select:none;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	
+}
 
-.file{
-    list-style-image: url("./../img/fileIcon.png");
-
-  
-  
+.ulArbre{
+	margin:0;
+	padding:0;
 }
