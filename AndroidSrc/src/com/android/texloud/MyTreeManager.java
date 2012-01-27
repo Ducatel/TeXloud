@@ -31,15 +31,9 @@ public class MyTreeManager{
 	private Dialog click_dialog;
 	private ListView listview_dialog;
 	private View current_italic_view = null;
-	private ProgressDialog loading_dialog;
 	
 	private Node current_parent;
 	private Dialog modifItem_dialog;
-
-	private final String[] folderDialogItems = {"Add File", "Add Folder", "Rename Folder", "Delete Folder"};
-	private final String[] rootDialogItems = {"Add File", "Add Folder", "Delete Project"};
-	private final String[] leafDialogItems = {"Add File", "Rename File", "Delete File"};
-
 
 	protected class Node extends View{
 		private String name;

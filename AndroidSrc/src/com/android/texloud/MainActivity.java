@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,6 +44,9 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 	private static final int LOAD_OK = 0;
 	private static final int LOAD_ERR = 1;
+	
+	protected Mode currentMode;
+	protected enum Mode{ONLINE, OFFLINE};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,11 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		setContentView(R.layout.main);
 
 
+		Bundle b = getIntent().getExtras();
+		boolean bl = b.getBoolean("isOnline");
+		
+		currentMode = (bl) ? Mode.ONLINE : Mode.OFFLINE;
+		
 		layout_lineCount = (LinearLayout) (findViewById(R.id.layout_lineCount));
 		sv1 = (MyScrollView) (findViewById(R.id.scroll1));
 		sv2 = (MyScrollView) (findViewById(R.id.scroll2));
@@ -73,7 +82,6 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		save_file.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
-				//saveFile(main_text.getText().toString(), "/mnt/sdcard/TeXloudDocs/cahierDesCharges.tex");		
 				saveFile(main_text.getText().toString(), "cahierDesCharges.tex");
 			}
 
@@ -118,11 +126,6 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	}
 
 	public void updateLineCount(int nbLines){
-		/*lineCount.setText("");
-		for(int i=1; i<=40 + nbLines; i++){
-			lineCount.setText(lineCount.getText()+""+i+"\n");
-		}*/
-
 		TextView v;
 
 		for(int i=1; i<2000; i++){
@@ -138,8 +141,6 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		} else if(scrollView == sv2) {
 			sv1.scrollTo(x, y);
 		}
-
-
 	}
 
 	public boolean isOnline() {
@@ -179,7 +180,6 @@ public class MainActivity extends Activity implements ScrollViewListener{
 			filewriter.close();
 			popDialogFileSaved();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -194,7 +194,6 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		b.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				dismissDialogFileSaved();
 			}
 		});
