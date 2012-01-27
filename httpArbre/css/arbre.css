@@ -1,0 +1,22 @@
+.root{
+    list-style-image: url("./../img/rootIcon.png");
+
+  
+  
+  
+}
+
+.folder{
+  list-style-image: url("./../img/folderIcon.png");
+
+  
+  
+}
+
+
+.file{
+    list-style-image: url("./../img/fileIcon.png");
+
+  
+  
+}
