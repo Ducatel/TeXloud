@@ -3,7 +3,7 @@
 /**
  * 
  * Classe qui represente les noeuds de l'arbre
- * @author D.Ducatel
+ * @author David Ducatel, Zakaria Bouchakor
  *
  */
 class Node{
