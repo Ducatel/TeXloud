@@ -7,19 +7,21 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-public class MyTreeManager {
+public class MyTreeManager{
 
 	private Node root;
 	private ArrayList<Node> tree;
@@ -30,6 +32,9 @@ public class MyTreeManager {
 	private ListView listview_dialog;
 	private View current_italic_view = null;
 	private ProgressDialog loading_dialog;
+	
+	private Node current_parent;
+	private Dialog modifItem_dialog;
 
 	private final String[] folderDialogItems = {"Add File", "Add Folder", "Rename Folder", "Delete Folder"};
 	private final String[] rootDialogItems = {"Add File", "Add Folder", "Delete Project"};
@@ -65,6 +70,10 @@ public class MyTreeManager {
 			this.id = id;
 			this.padding = padding;
 		}
+		
+		protected int getType(){
+			return type;
+		}
 
 		protected int getPadding(){
 			return padding;
@@ -72,6 +81,10 @@ public class MyTreeManager {
 
 		protected String getName(){
 			return name;
+		}
+		
+		protected void setName(String s){
+			this.name = s;
 		}
 
 		protected int getParentId(){
@@ -175,7 +188,8 @@ public class MyTreeManager {
 	}
 
 
-	public void popClickDialog(String s){
+	public void popClickDialog(String s, Node n){
+		Log.i("ID node", n.getNodeId()+"");
 		ArrayList<HashMap<String, String>> listitem;
 
 		listitem = new ArrayList<HashMap<String,String>>();
@@ -187,47 +201,73 @@ public class MyTreeManager {
 
 			map = new HashMap<String, String>();
 			map.put("titre", "Add File");
+			map.put("id", n.getNodeId()+"");
 			map.put("img", String.valueOf(R.drawable.add_document));
 			listitem.add(map);
 
 			map = new HashMap<String, String>();
 			map.put("titre", "Add Folder");
+			map.put("id", n.getNodeId()+"");
 			map.put("img", String.valueOf(R.drawable.folder_add2));
 			listitem.add(map);
 
 			map = new HashMap<String, String>();
 			map.put("titre", "Delete Project");
+			map.put("id", n.getNodeId()+"");
 			map.put("img", String.valueOf(R.drawable.trash_icon));
 			listitem.add(map);
-
+			
 			SimpleAdapter mSchedule = new SimpleAdapter (act, listitem, R.layout.itemlayout, 
 					new String[] {"img", "titre"}, new int[] {R.id.img, R.id.name_item});
-
 
 			click_dialog.setContentView(R.layout.clickdialoglayout);
 			listview_dialog = (ListView) (click_dialog.findViewById(R.id.listview_dialog));
 			listview_dialog.setAdapter(mSchedule);
+			
+			listview_dialog.setOnItemClickListener(new OnItemClickListener(){
+
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					
+					HashMap<String, String> itemAtPosition = (HashMap<String, String>) listview_dialog.getItemAtPosition(arg2);
+					
+					if(itemAtPosition.get("titre") == "Add File"){
+						Log.i("id", itemAtPosition.get("id"));
+						addLeaf(getNode(Integer.parseInt(itemAtPosition.get("id"))));
+					}
+					else if(itemAtPosition.get("titre") == "Add Folder"){
+						Log.i("id", itemAtPosition.get("id"));
+						addFolder(getNode(Integer.parseInt(itemAtPosition.get("id"))));
+					}
+					click_dialog.dismiss();
+				}
+				
+			});
 			click_dialog.show();
 		}
 		else if(s == "Folder"){
 
 			map = new HashMap<String, String>();
 			map.put("titre", "Add File");
+			map.put("id", n.getNodeId()+"");
 			map.put("img", String.valueOf(R.drawable.add_document));
 			listitem.add(map);
 
 			map = new HashMap<String, String>();
 			map.put("titre", "Add Folder");
+			map.put("id", n.getNodeId()+"");
 			map.put("img", String.valueOf(R.drawable.folder_add2));
 			listitem.add(map);
 
 			map = new HashMap<String, String>();
 			map.put("titre", "Rename Folder");
+			map.put("id", n.getNodeId()+"");
 			map.put("img", String.valueOf(R.drawable.rename_icon));
 			listitem.add(map);
 
 			map = new HashMap<String, String>();
 			map.put("titre", "Delete Folder");
+			map.put("id", n.getNodeId()+"");
 			map.put("img", String.valueOf(R.drawable.folder_delete2));
 			listitem.add(map);
 
@@ -238,22 +278,52 @@ public class MyTreeManager {
 			click_dialog.setContentView(R.layout.clickdialoglayout);
 			listview_dialog = (ListView) (click_dialog.findViewById(R.id.listview_dialog));
 			listview_dialog.setAdapter(mSchedule);
+			
+			listview_dialog.setOnItemClickListener(new OnItemClickListener(){
+
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					
+					HashMap<String, String> itemAtPosition = (HashMap<String, String>) listview_dialog.getItemAtPosition(arg2);
+					
+					if(itemAtPosition.get("titre") == "Add File"){
+						Log.i("id", itemAtPosition.get("id"));
+						addLeaf(getNode(Integer.parseInt(itemAtPosition.get("id"))));
+					}
+					else if(itemAtPosition.get("titre") == "Add Folder"){
+						Log.i("id", itemAtPosition.get("id"));
+						addFolder(getNode(Integer.parseInt(itemAtPosition.get("id"))));
+					}
+					else if(itemAtPosition.get("titre") == "Rename Folder"){
+						renameFolder(getNode(Integer.parseInt(itemAtPosition.get("id"))));
+					}
+					else if(itemAtPosition.get("titre") == "Delete Folder"){
+						deleteFolder(getNode(Integer.parseInt(itemAtPosition.get("id"))));
+					}
+					click_dialog.dismiss();
+				}
+				
+			});
+			
 			click_dialog.show();
 		}
 		else if(s == "Leaf"){
 
 			map = new HashMap<String, String>();
 			map.put("titre", "Add File");
+			map.put("id", n.getParentId()+"");
 			map.put("img", String.valueOf(R.drawable.add_document));
 			listitem.add(map);
 
 			map = new HashMap<String, String>();
 			map.put("titre", "Rename File");
+			map.put("id", n.getNodeId()+"");
 			map.put("img", String.valueOf(R.drawable.rename_icon));
 			listitem.add(map);
 
 			map = new HashMap<String, String>();
 			map.put("titre", "Delete File");
+			map.put("id", n.getNodeId()+"");
 			map.put("img", String.valueOf(R.drawable.document_delete));
 			listitem.add(map);
 
@@ -263,6 +333,31 @@ public class MyTreeManager {
 			click_dialog.setContentView(R.layout.clickdialoglayout);
 			listview_dialog = (ListView) (click_dialog.findViewById(R.id.listview_dialog));
 			listview_dialog.setAdapter(mSchedule);
+			
+			listview_dialog.setOnItemClickListener(new OnItemClickListener(){
+
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					
+					HashMap<String, String> itemAtPosition = (HashMap<String, String>) listview_dialog.getItemAtPosition(arg2);
+					
+					if(itemAtPosition.get("titre") == "Add File"){
+						
+						addLeaf(getNode(Integer.parseInt(itemAtPosition.get("id"))));
+					}
+					else if(itemAtPosition.get("titre") == "Rename File"){
+						renameLeaf(getNode(Integer.parseInt(itemAtPosition.get("id"))));
+					}
+					else if(itemAtPosition.get("titre") == "Delete File"){
+						deleteLeaf(getNode(Integer.parseInt(itemAtPosition.get("id"))));
+					}
+					
+					click_dialog.dismiss();
+					
+				}
+				
+			});
+			
 			click_dialog.show();
 		}
 		else{
@@ -270,6 +365,166 @@ public class MyTreeManager {
 		}
 	}
 
+	public void addFolder(Node parent){
+		current_parent = parent;
+		Dialog d = new Dialog(act, R.style.noBorder);
+		d.setContentView(R.layout.modifitemdialog);
+		TextView tv = (TextView) (d.findViewById(R.id.additem_tv));
+		tv.setText("Ajouter un dossier :");
+		d.show();
+		
+		Button b = (Button) (d.findViewById(R.id.button_ok));
+		
+		
+		modifItem_dialog = d;
+		b.setOnClickListener(new OnClickListener(){
+			public void onClick(View arg0) {
+				
+				// TODO Auto-generated method stub
+				EditText text = (EditText) (modifItem_dialog.findViewById(R.id.additem_et));
+				String s = text.getText().toString();
+				
+				addNode(s, current_parent.getName(), Node.FOLDER);
+				
+				updateTree();
+				modifItem_dialog.dismiss();
+				
+			}
+		});
+	}
+	
+	public void addLeaf(Node parent){
+		current_parent = parent;
+		Dialog d = new Dialog(act, R.style.noBorder);
+		d.setContentView(R.layout.modifitemdialog);
+		TextView tv = (TextView) (d.findViewById(R.id.additem_tv));
+		tv.setText("Ajouter un fichier :");
+		d.show();
+		
+		Button b = (Button) (d.findViewById(R.id.button_ok));
+		
+		
+		modifItem_dialog = d;
+		b.setOnClickListener(new OnClickListener(){
+			public void onClick(View arg0) {
+				
+				// TODO Auto-generated method stub
+				EditText text = (EditText) (modifItem_dialog.findViewById(R.id.additem_et));
+				String s = text.getText().toString();
+				
+				addNode(s, current_parent.getName(), Node.LEAF);
+				
+				updateTree();
+				modifItem_dialog.dismiss();
+				
+			}
+		});
+		
+	}
+	
+	public void renameFolder(Node n){
+		current_parent = n;
+		Dialog d = new Dialog(act, R.style.noBorder);
+		d.setContentView(R.layout.modifitemdialog);
+		TextView tv = (TextView) (d.findViewById(R.id.additem_tv));
+		tv.setText("Renommer le dossier :");
+		d.show();
+		
+		Button b = (Button) (d.findViewById(R.id.button_ok));
+		modifItem_dialog = d;
+		b.setOnClickListener(new OnClickListener(){
+			public void onClick(View arg0) {
+				
+				// TODO Auto-generated method stub
+				EditText text = (EditText) (modifItem_dialog.findViewById(R.id.additem_et));
+				String s = text.getText().toString();
+				current_parent.setName(s);
+				
+				updateTree();
+				modifItem_dialog.dismiss();
+				
+			}
+		});
+		
+		
+	}
+	
+	public void renameLeaf(Node n){
+		current_parent = n;
+		Dialog d = new Dialog(act, R.style.noBorder);
+		d.setContentView(R.layout.modifitemdialog);
+		TextView tv = (TextView) (d.findViewById(R.id.additem_tv));
+		tv.setText("Renommer le fichier :");
+		d.show();
+		
+		Button b = (Button) (d.findViewById(R.id.button_ok));
+		modifItem_dialog = d;
+		b.setOnClickListener(new OnClickListener(){
+			public void onClick(View arg0) {
+				
+				EditText text = (EditText) (modifItem_dialog.findViewById(R.id.additem_et));
+				String s = text.getText().toString();
+				
+				current_parent.setName(s);
+				
+				updateTree();
+				modifItem_dialog.dismiss();
+				
+			}
+		});
+	}
+	
+	public void deleteFolder(Node n){
+		
+		ArrayList<Node> tmp = new ArrayList<Node>();
+		
+		for(Node node : tree)
+			if(hasToBeRemoved(node, n))
+				tmp.add(node);
+			
+		for(Node node : tmp)
+			tree.remove(node);
+		
+		
+		tmp.clear();
+		tmp = null;
+		updateTree();
+	}
+	
+	public boolean hasToBeRemoved(Node n, Node parent){
+		Node current = n;
+		Node root = tree.get(0);
+		while(current != parent && current != root){
+			current = getNode(current.getParentId());
+		}
+		
+		if(current == parent)
+			return true;
+		else
+			return false;
+	}
+	
+	public void deleteLeaf(Node n){
+		View tmp = (View) (act.findViewById(n.getNodeId()));
+		if(tmp == current_italic_view){
+			TextView tv = (TextView) (current_italic_view.findViewById(R.id.tv_leaf));
+			tv.setTypeface(Typeface.DEFAULT, Typeface.NORMAL);
+		}
+		current_italic_view = null;
+		act.setText("");
+		act.updateText();
+		tree.remove(n);
+		updateTree();
+	}
+	
+	public void updateTree(){
+		LinearLayout layout_arbo;
+		layout_arbo = (LinearLayout) (act.findViewById(R.id.layout_arbo));
+		layout_arbo.removeAllViews();
+		
+		printTree();
+	}
+	
 	public void printTree(){
 		tree = sortList();
 		LinearLayout layout_arbo;
@@ -279,7 +534,7 @@ public class MyTreeManager {
 		TextView tv;
 
 		for(Node n : tree){
-			//System.out.println(n.getParentId() + " " + n.getName() + " " + n.getNodeId());
+			System.out.println(n.getParentId() + " " + n.getName() + " " + n.getNodeId());
 			switch(n.type){
 
 			case Node.ROOT:
@@ -298,7 +553,8 @@ public class MyTreeManager {
 
 				v.setOnLongClickListener(new OnLongClickListener() {
 					public boolean onLongClick(View v) {
-						popClickDialog("Root");
+						Node n = getNode(v.getId());
+						popClickDialog("Root", n);
 						return false;
 					}
 				});
@@ -322,7 +578,7 @@ public class MyTreeManager {
 				v.setOnLongClickListener(new OnLongClickListener() {
 
 					public boolean onLongClick(View v) {
-						popClickDialog("Folder");
+						popClickDialog("Folder", getNode(v.getId()));
 						return false;
 					}
 				});
@@ -347,7 +603,7 @@ public class MyTreeManager {
 
 				v.setOnLongClickListener(new OnLongClickListener() {
 					public boolean onLongClick(View v) {
-						popClickDialog("Leaf");
+						popClickDialog("Leaf", getNode(v.getId()));
 						return false;
 					}
 				});
@@ -365,7 +621,8 @@ public class MyTreeManager {
 	}
 
 	public void changeTextStyle(View v){
-
+		
+		
 		if(current_italic_view != v){
 			TextView tv = (TextView) (v.findViewById(R.id.tv_leaf));
 			tv.setTypeface(Typeface.DEFAULT, Typeface.ITALIC);

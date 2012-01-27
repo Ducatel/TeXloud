@@ -26,7 +26,7 @@ import android.util.Log;
 public class Comm{
 
 	
-	public static final String IP = "192.168.0.5";
+	public static final String IP = "192.168.0.4";
 	//public static final String IP = "192.168.1.11";
 	//public static final String IP = "172.16.21.183";
 	
