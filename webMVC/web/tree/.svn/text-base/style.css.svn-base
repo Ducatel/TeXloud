@@ -1,0 +1,83 @@
+/* CSS Document */
+
+body {
+	font: normal 13px arial, tahoma, helvetica, sans-serif;
+
+}
+#processing {
+	position:fixed;
+	bottom:0;
+	min-width:250px;
+	width:50%;
+	left:25%;
+	display:none;
+	opacity:0.9;
+	padding:8px;
+	
+}
+.contextMenu {
+	display:none;
+	position:absolute;
+	background:#fff;
+	border:#999 1px solid;
+	width:auto;
+	height:auto;
+	z-index:499;
+	opacity:0.9;	
+}
+.contextMenu li {
+	list-style-type:none;
+	text-align:left;
+	padding:5px;
+}
+
+/* to much space in Internet Explorer 7 */
+*+ html .contextMenu li {
+	padding-bottom: 0;
+}
+
+.contextMenu li:Hover {
+	background-color:#0066CC;
+	color:#FFFFFF;
+	cursor:pointer;
+}
+#pdfTree, #helpSubjects{
+	float:left;
+	width:300px;
+	height:500px;
+	padding:5px;
+	margin: 0 10px;
+	clear:both;
+	overflow:auto;
+}
+
+
+#header{
+	height:75px;
+}
+.ajaxInfo, .info{
+	text-align:center;
+	background-color:#FF5511; /*3366CC;*/
+	font-size:16px;
+	font-weight:bold;
+	color:#FFFFFF;
+}
+#activeElement {
+	text-align:center;
+	padding-top:4px;
+	min-width:250px;
+	width:25%;
+	left:37%;
+	font-size:14px;
+	height:20px;
+	margin-bottom:15px;
+	margin-top:15px;
+}
+#wrap{
+	width:100%;
+	clear:both;
+}
+.root{
+	color:#036AC2;
+	font-size:14px;
+}
