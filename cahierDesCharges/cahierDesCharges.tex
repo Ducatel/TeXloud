@@ -120,41 +120,37 @@ stockage temporaire d’une copie de travail des documents, permettant
 un mode d’édition non-connecté.
 \end{itemize}
 \newpage
-\subsection{Les fonctions du produit}
+\subsection{Les spécifications fonctionnelles détaillées}
  	
-Les fonctionnalités principales du produit sont les suivantes :\\
+Les spécifications fonctionnelles détaillées sont les suivantes :\\
 
 \begin{itemize}
- \item FP0 - \'Edition des documents Latex
- \item FP1 - Accès à l'ensemble des projets
- \item FP2 - Interface Web et Android
- \item FP3 - Compilation Latex
- \item FP4 - Création de compte
- \item FP5 - Authentification
- \item FP6 - Téléchargement des documents
- \item FP7 - Synchronisation des documents
- \item FP8 - Charte graphique
-\end{itemize}
-\bigskip
-Fonctionnalités complémentaires :\\
-\begin{itemize}
- \item FC0 - Versioning (gestion de conflits, etc.)
- \item FC1 - Gestion des groupes d'utilisateurs
- \item FC2 - Gestion des erreurs
- \item FC3 - Unification des interfaces
- \item FC4 - Sauvegarde locale (travail offline)
+ \item SFD0 - \'Edition des documents Latex
+ \item SFD1 - Accès à l'ensemble des projets
+ \item SFD2 - Interface Web et Android
+ \item SFD3 - Compilation Latex
+ \item SFD4 - Création de compte
+ \item SFD5 - Authentification
+ \item SFD6 - Téléchargement des documents
+ \item SFD7 - Synchronisation des documents
+ \item SFD8 - Charte graphique
+ \item SFD9 - Versioning (gestion de conflits, etc.)
+ \item SFD10 - Gestion des groupes d'utilisateurs
+ \item SFD11 - Gestion des erreurs
+ \item SFD12 - Unification des interfaces
+ \item SFD13 - Sauvegarde locale (travail offline)
 \end{itemize}
 
-\paragraph{FP0 - \'Edition des documents Latex\\}
+\paragraph{SFD0 - \'Edition des documents Latex\\}
 La fonctionnalité principale de l'interface (Android ou Web) est l'édition de documents Latex. 
 L'éditeur sera la zone principale de l'application, afin de pouvoir afficher le plus de texte 
 possible.
 
-\paragraph{FP1 - Accès à l'ensemble des projets\\}
+\paragraph{SFD1 - Accès à l'ensemble des projets\\}
 Lors de l'authentification, l'utilisateur récupère l'arborescence de ses projets (dossiers, 
 fichiers). Le fichier sélectionné sera ensuite téléchargé, et l'utilisateur pourra travailler.
 
-\paragraph{FP2 - Interface Web et Android\\}
+\paragraph{SFD2 - Interface Web et Android\\}
 L'utilisateur a deux possibilités pour se connecter à TeXloud, \emph{via} :\\
 \begin{itemize}
  \item Interface web : on peut se connecter de n'importe quel poste (ordinateur personnel, cybercafé...)
@@ -162,51 +158,100 @@ L'utilisateur a deux possibilités pour se connecter à TeXloud, \emph{via} :\\
 travailler par un réseau Wifi ou 3G, ou bien en local (offline).
 \end{itemize}
 
-\paragraph{FP3 - Compilation Latex\\}
+\paragraph{SFD3 - Compilation Latex\\}
 Lorsque l'utilisateur souhaite avoir un rendu PDF de son document Latex, il doit pouvoir demander 
 la compilation au serveur.
 
-\paragraph{FP4 - Création de compte\\}
+\paragraph{SFD4 - Création de compte\\}
 Pour qu'un utilisateur puisse utiliser le service TeXloud, une inscription est nécessaire. La 
 création de compte est faisable par l'application android ou l'application web. L'utilisateur doit
 fournir un nom, un mot de passe et une adresse mail.
 
-\paragraph{FP5 - Authentification\\}
+\paragraph{SFD5 - Authentification\\}
 A chaque démarrage de l'application, l'utilisateur envoie son login et mot de passe. L'authentification
 est nécessaire pour pouvoir utiliser l'application TeXloud.
 
-\paragraph{FP6 - Téléchargement des documents\\}
+\paragraph{SFD6 - Téléchargement des documents\\}
 Le téléchargement des documents est une fonctionnalité capitale de l'application. Les documents 
 compilés (PDF) doivent pouvoir être envoyés à l'utilisateur, ainsi que les fichiers Latex, pour que 
 l'utilisateur travaille toujours sur la version la plus récente.
 
-\paragraph{FP7 - Synchronisation des documents\\}
+\paragraph{SFD7 - Synchronisation des documents\\}
 Un fichier Latex en cours de modification doit être régulièrement synchronisé avec le serveur.
 
-\paragraph{FP8 - Charte graphique\\}
+\paragraph{SFD8 - Charte graphique\\}
 Définir une charte graphique.
 
 
-\paragraph{FC0 - Versioning (gestion de conflits, etc.)\\}
+\paragraph{SFD9 - Versioning (gestion de conflits, etc.)\\}
 L'application devra intégrer un gestionnaire de version, afin de permettre un meilleur travail de
 groupe.
 
-\paragraph{FC1 - Gestion des groupes d'utilisateurs\\}
+\paragraph{SFD10 - Gestion des groupes d'utilisateurs\\}
 Plusieurs personnes peuvent travailler sur un même projet. Chaque projet a donc un ou plusieurs 
-utilisateurs qui ont le droit de modifier les fichiers. Le créateur du projet doit former le groupe.
+utilisateurs qui ont le droit de modifier les fichiers. Le créateur du projet doit former le groupe. (Exclue du projet)
 
-\paragraph{FC2 - Gestion des erreurs\\}
+\paragraph{SFD11 - Gestion des erreurs\\}
 Le client doit pouvoir voir les différentes erreurs, afin de les corriger. Par exemple : erreur 
 de compilation, conflit de version sur un fichier.
 
-\paragraph{FC3 - Unification des interfaces\\}
+\paragraph{SFD12 - Unification des interfaces\\}
 L'interface des deux applications doit être similaire. L'utilisateur doit pouvoir retrouver ses
 repères rapidement, en passant d'une application à l'autre. Par exemple : position et ordre des 
 éléments, onglets, thème graphique.
 
-\paragraph{FC4 - Sauvegarde locale (travail offline)\\}
+\paragraph{SFD13 - Sauvegarde locale (travail offline)\\}
 Une tablette Android peut à tout moment perdre sa connexion Internet (voyage, zone non couverte). 
 Il est donc important de pouvoir travailler hors-ligne à partir d'un fichier temporaire.
+
+\subsection{Les spécifications techniques détaillées}
+Les spécifications techniques détaillées sont les suivantes :
+
+\paragraph{STD0 - Edition de documents LaTeX\\}
+L'édition d'un document Latex sera possible via deux interfaces : un TextArea HTML5 pour l'application web, un EditText pour l'application Android.
+
+\paragraph{STD1 - Accès à l'ensemble des projets\\}
+Les fichiers transiteront entre les différentes machines via des communications par socket (Python 2.7, PHP).
+
+\paragraph{STD2 - Interface Web et Android\\}
+Les deux interfaces seront développées en HTML, PHP, CSS et JavaScript pour la partie Web, et Java / XML pour la partie Android. L'application Android est conçue pour les équipements Android version 3.0 ou supérieure (API niveau 11). Il sera alors impossible 
+de lancer l'application sur les équipements plus anciens (smartphones).
+
+\paragraph{STD3 - Compilation Latex\\}
+On utilisera un script Perl Latexmk qui s'occupera du choix du type de compilation. Le tout sera géré par un script python, sur un ou plusieurs serveurs dédiés à la compilation.
+
+\paragraph{STD4 - Création de compte\\}
+La création de compte se fera grâce à un formulaire (HTML pour la version web, Java + XML pour la version Android), et les données seront stockées sur une base de données MySQL.
+
+\paragraph{STD5 - Authentification \\}
+L'authentification se fait en PHP, pour les deux applications. L'application Android appelle un script php distant qui fera les opérations nécessaires à l'authentification. Les mots de passes sont cryptés en MD5, puis liés à un salt via un algorithme SHA1.
+
+\paragraph{STD6 - Téléchargement des documents \\}
+Le téléchargement des documents se fait en straming binaire par sockets. On formalise l'information sur la requête en JSON, envoyée en première partie du message (la deuxième partie étant le fichier binaire). Une fois reçu le message complet, on sépare la 
+chaîne à l'aide d'un marqueur. La première partie correspond aux informations, et la seconde au fichier. 
+
+\paragraph{STD7 - Synchronisation des documents \\}
+Côté Android, un script de synchronisation sera régulièrement exécuté lorsque la tablette est connectée. Côté web, une liste de fichiers est envoyée régulièrement en python au format JSON.
+
+\paragraph{STD8 - Charte graphique\\}
+Aucune spécification technique particulière.
+
+\paragraph{STD9 - Versioning\\}
+On garde un historique des fichiers tex des utilisateurs.
+
+\paragraph{STD10 - Gestion des groupes d'utilisateurs\\}
+Exclue du projet.
+
+\paragraph{STD11 - Gestion des erreurs de compilation\\}
+Les erreurs de compilation seront parsées dans du XML via un script python, sur les serveurs de compilation. L'interpretation sera effectuée par un script PHP sur le serveur HTTP.
+
+\paragraph{STD12 - Unification des interfaces\\}
+Pas de spécification technique particulière.
+
+\paragraph{STD13 - Sauvegarde locale (travail offline)\\}
+Sur plateforme Android, on permet à l'utilisateur d'enregistrer ses documents en local. Cela se fait via la permission $WRITE\_EXTERNAL\_STORAGE$.
+
+
 
 \newpage
 \subsection{Infrastructure physique}
