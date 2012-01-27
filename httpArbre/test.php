@@ -1,9 +1,11 @@
 <?php
 include_once("./PHPsrc/Tree.php");
+
+echo '<html><head>';
 echo '<link rel="stylesheet" href="./css/arbre.css" />';
 echo '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>';
 echo '<script type="text/javascript" src="./js/arbre.js"></script>';
-
+echo '</head><body>';
 
 $tree=new Tree("Workspace");
 $tree->addNode("Un Fichier_1",$tree->getRoot()->getId(),false);
@@ -44,4 +46,6 @@ echo $tree->toString();
 echo "<hr/>";*/
 
 echo $tree->toStringHTML();
+
+echo '</body></html>';
 ?>

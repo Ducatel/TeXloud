@@ -115,11 +115,11 @@ class Tree{
 	}
 	
 	public function toStringHTML(){
-		$s="\n<ul>\n";
+		$s="\n<div id='tree'><ul>\n";
 		
 		$s.=$this->_toStringHTML($this->root,0);
 		
-		$s.="</ul>\n";
+		$s.="</ul></div>\n";
 		return $s;
 	}
 
