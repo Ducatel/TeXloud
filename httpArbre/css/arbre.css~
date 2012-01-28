@@ -40,7 +40,7 @@
 	list-style-type:none;
 	text-align:left;
 	padding:5px;
-}
+}*/
 .menu {
 	background-color: rgba(230, 230, 230, 0.9);
 	z-index: 20;

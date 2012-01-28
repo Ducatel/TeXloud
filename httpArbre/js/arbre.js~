@@ -151,7 +151,7 @@ function removeFolder(folder){
 }
 
 /***********************************************************************/
-/**							Add File_Folder Methode 						  **/
+/**							Add File Methode 						  **/
 /***********************************************************************/
 function menuAddFolder(posX, posY,folder){
 	
