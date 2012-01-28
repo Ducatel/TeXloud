@@ -4,9 +4,9 @@
  * --> aprés ajout d'un dossier, impossible de créer des fichier dans ce dossier
  * --> aprés ajout d'un dossier, renommage de celui-ci impossible --> fait n'importe quoi
  * --> aprés ajout d'un dossier, renommage de celui-ci impossible --> fait n'importe quoi
- * --> meme probleme que le precedent avec les nouveaux fichiers
+ * --> même probleme que le precedent avec les nouveaux fichiers
  */
-
+	
 
 // Fonction d'initialisation
 $(function() {
