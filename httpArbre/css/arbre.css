@@ -25,39 +25,44 @@
 	padding: 0;
 }
 
-#contextMenu {
+.menu {
 	background-color: rgba(230, 230, 230, 0.9);
 	z-index: 20;
 	width: 220px;
-	padding-left: 10px;
+	padding: 10px;
 	border-radius: 10px;
 	border: 1px solid black;
 }
 
-#contextMenu ul {
+.menu ul {
 	list-style-type: none;
 }
 
-#contextMenu li {
+.menu li {
 	cursor: pointer;
 }
 
-#contextMenu li:hover {
+.menu li:hover {
 	color:hsla(120,100%,10%,0.7);
 }
 
-#contextMenu #addFolder {
+#contextFolderMenu #addFolder {
 	list-style-image: url("./../img/addFolder.png");
 }
 
-#contextMenu #removeFolder {
+#contextFolderMenu #removeFolder {
 	list-style-image: url("./../img/removeFolder.png");
 }
 
-#contextMenu #addFile {
+#contextFolderMenu #addFile {
 	list-style-image: url("./../img/addFile.png");
 }
 
-#contextMenu #removeFile {
+#contextFileMenu #removeFile {
 	list-style-image: url("./../img/removeFile.png");
+}
+
+#menuAddFile{
+	width: 250px;
+	text-align:center;
 }

@@ -125,9 +125,9 @@ class Tree{
 
 	private function _toStringHTML($currentNode,$dec){
 		if($currentNode->getId()== $this->root->getId())
-			$s="<li class='root' style='margin-left:".$dec."px;'>".$currentNode->getName()."</li>\n<ul class='ulArbre'>\n";
+			$s="<li class='root' id='".$this->root->getId()."' style='margin-left:".$dec."px;'>".$currentNode->getName()."</li>\n<ul class='ulArbre'>\n";
 		else
-			$s="<li class='folder' style='margin-left:".$dec."px;'>".$currentNode->getName()."</li>\n<ul class='ulArbre'>\n";
+			$s="<li class='folder' id='".$currentNode->getId()."' style='margin-left:".$dec."px;'>".$currentNode->getName()."</li>\n<ul class='ulArbre'>\n";
 		
 		$dec+=20;
 		
@@ -139,7 +139,7 @@ class Tree{
 			 		
 			 }
 			 else
-			  $s.="<li class='file' style='margin-left:".$dec."px;' >".$node->getName()."</li>\n";		 	
+			  $s.="<li class='file' id='".$node->getId()."' style='margin-left:".$dec."px;' >".$node->getName()."</li>\n";		 	
 			}
 		}
 		if($currentNode->getId()== $this->root->getId())
