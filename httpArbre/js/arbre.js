@@ -1,8 +1,46 @@
+/**
+ * Bug a corriger:
+ * --> aprés ajout d'un fichier, si on veux supprimer ce fichier il supprime toutes la sous arbo
+ * --> aprés ajout d'un dossier, impossible de créer des fichier dans ce dossier
+ * --> aprés ajout d'un dossier, renommage de celui-ci impossible --> fait n'importe quoi
+ * --> aprés ajout d'un dossier, renommage de celui-ci impossible --> fait n'importe quoi
+ * --> meme probleme que le precedent avec les nouveaux fichiers
+ */
+
+
 // Fonction d'initialisation
 $(function() {
 
-	// Rend les champs de text unselectable
-	$('.folder').click(function() {
+	$('.folder').each(function(){
+		addFolderAction($(this));
+	});
+	
+	$('.file').each(function(){
+		addFileAction($(this));
+	});
+
+	closeMenu();
+	
+});
+
+/***********************************************************************/
+/**									Actions							  **/
+/***********************************************************************/
+
+function addFolderAction(element){
+	addDisableFocus(element);
+	addFolderMenu(element);
+	addRenameAction(element);
+}
+
+function addFileAction(element){
+	addDisableFocus(element);
+	addFileMenu(element);
+	addRenameAction(element);
+}
+
+function addDisableFocus(element){
+	$(element).click(function() {
 		this.onselectstart = function() {
 			return false;
 		};
@@ -10,51 +48,58 @@ $(function() {
 		$(this).next().slideToggle('fast');
 		return false;
 	});
+}
 
-	$('.folder').dblclick(function() {
-		return false;
-	});
-
-	// Gestion du clic droit pour le menu contextuel sur un dossier
-	$(".folder").bind("contextmenu", function(e) {
+function addFolderMenu(element){
+	$(element).bind("contextmenu", function(e) {
 		contextFolderMenu(e.pageX, e.pageY,$(this));
 		return false;
 	});
-	
-	// Gestion du clic droit pour le menu contextuel sur un fichier
-	$(".file").bind("contextmenu", function(e) {
+}
+
+function addFileMenu(element){
+	$(element).bind("contextmenu", function(e) {
 		contextFileMenu(e.pageX, e.pageY,$(this));
 		return false;
 	});
+}
 
-	// permet de fermer les menu avec le bouton echap
+
+function closeMenu(){
 	$(document).keyup(function(event) {
 		if (event.keyCode == 27)
 				$('.menu').remove();
 		return false;
 	});
+}
 
-	// permet de faire un rename lors du double click
-	$('.file,.folder').dblclick(
-			function() {
-				if ($('#rename').size() == 0) {
-					var name = $(this).html();
-					$(this).html('<input type="text" id="rename" value="' + name+'" /> ');
-					$('#rename').focus();
-				}
 
-				$('#rename').keyup(function(event) {
-					if (event.keyCode == 13) {
-						rename($(this));
-					}
-					return false;
+function addRenameAction(element){
+	$(element).dblclick(function() {
+		if ($('#rename').size() == 0) {
+			var name = $(this).html();
+			$(this).html('<input type="text" id="rename" value="' + name+'" /> ');
+			$('#rename').focus();
+		}
+		
+		$('#rename').keyup(function(event) {
+			if (event.keyCode == 13) {
+				rename($(this));
+			}
+			return false;
+		
+		});
+		
+		return false;
+	});
+}
 
-				});
+function removeAction(element){
+	$(element).unbind('click');
+	$(element).unbind('dblclick');
+	$(element).unbind('contextmenu');
+}
 
-				return false;
-			});
-
-});
 
 
 /***********************************************************************/
@@ -96,7 +141,8 @@ function contextFolderMenu(posX, posY,folder) {
 	
 	// Ajout de l'action permettant de créer de supprimer un dossier
 	$('#addFolder').click(function(){
-		//TODO faire le addFolder
+		$('.menu').remove();
+		menuAddFolder(posX, posY,folder);
 	});
 
 }
@@ -137,19 +183,21 @@ function rename(entry){
 
 function removeFile(file){
 	//TODO faire le remove file dans l'objet PHP
+	removeAction($(file));
 	$(file).remove();
 }
 
 function removeFolder(folder){
 	//TODO faire le remove folder dans l'objet PHP /!\ attention doit etre recursif
 
+	removeAction($(folder));
 	$(folder).next().children().remove();
 	$(folder).remove();
 	
 }
 
 /***********************************************************************/
-/**							Add File Methode 						  **/
+/**								Add Methode 						  **/
 /***********************************************************************/
 
 function menuAddFile(posX, posY,folder){
@@ -157,7 +205,7 @@ function menuAddFile(posX, posY,folder){
 	$('.menu').remove();
 	var menu = $(
 			'<div id="menuAddFile" class="menu">'+
-			'<label for="nameAddfile" >Nom du fichier:</label><input type="text" id="nameAddfile" name="nameAddfile" />'+
+			'<label for="nameAddFile" >Nom du fichier:</label><input type="text" id="nameAddFile" name="nameAddfile" />'+
 			'<br/><button id="addFileButton">Ajouter le fichier</button>'+
 			'</div>').attr('style',
 			'position:fixed;top:' + posY + ';left:' + posX + ';');
@@ -166,7 +214,7 @@ function menuAddFile(posX, posY,folder){
 	
 	$('#addFileButton').click(function(){
 		var fatherId=$(folder).attr('id');
-		var filename=$("#nameAddfile").val();
+		var filename=$("#nameAddFile").val();
 		addFile(fatherId,filename);
 		$('#menuAddFile').remove();
 
@@ -179,5 +227,49 @@ function addFile(fatherId,filename){
 	
 	var margin=$('#'+fatherId).next().children().first().attr('style');
 	var newFile=$("<li class='file' style='"+margin+"'>"+filename+"</li>");
-	$('#'+fatherId).next().prepend(newFile);
+	var file=$('#'+fatherId).next().prepend(newFile);
+	addFileAction($(file));
+	
+}
+
+
+function menuAddFolder(posX, posY,folder){
+	$('.menu').remove();
+	var menu = $(
+			'<div id="menuAddFolder" class="menu">'+
+			'<label for="nameAddFolder" >Nom du Dossier:</label><input type="text" id="nameAddFolder" name="nameAddfile" />'+
+			'Position relative au dossier: "'+$(folder).html()+'"<br/><select id="levelFolder"><option value="same">M&ecirc;me niveau</option><option value="child">Fils</option></select> '+
+			'<br/><button id="addFolderButton">Ajouter le dossier</button>'+
+			'</div>').attr('style',
+			'position:fixed;top:' + posY + ';left:' + posX + ';');
+	$('#tree').append(menu);
+	
+	$('#addFolderButton').click(function(){
+		
+		var folderName=$("#nameAddFolder").val();
+		addFolder(folderName,$('#levelFolder option:selected').val(),folder);
+		$('#menuAddFolder').remove();
+
+	});
+}
+
+function addFolder(folderName,level,folder){
+	
+	var fatherId="";
+	var margin="";
+	if(level=="child"){
+		fatherId=$(folder).attr('id');
+		margin=$(folder).next().children().first().attr('style');
+
+	}
+	else if(level=="same"){
+		fatherId=$(folder).prev().parent().prev().attr('id');
+		margin=$(folder).attr('style');
+	}
+	
+	console.log($('#'+fatherId));
+
+	var newFolder=$("<li class='folder' style='"+margin+"'>"+folderName+"</li>");
+	newFolder=$('#'+fatherId).next().prepend(newFolder);
+	addFolderAction($(newFolder));
 }
