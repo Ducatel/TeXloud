@@ -1,4 +1,7 @@
+// Fonction d'initialisation
 $(function() {
+	
+	// Rend les champs de text unselectable
 	$('.folder').click(function() {
 		this.onselectstart = function() {
 			return false;
@@ -12,19 +15,42 @@ $(function() {
 		return false;
 	});
 
+	// Gestion du clic droit pour le menu contextuel
 	$(".folder").bind("contextmenu", function(e) {
 		contextMenu(e.pageX, e.pageY);
 		return false;
 	});
 
-	$('.file').dblclick(function() {
-		// faire le rename
+	// permet de fermer le menu contextuel avec le bouton echap
+	$(document).keyup(function(event) {
+		if (event.keyCode == 27)
+			if ($('#renameFile').size() != 0)
+				$('#contextMenu').remove();
 		return false;
 	});
 
-	$("body").click(function() {
-		$('#contextMenu').remove();
-	});
+	// permet de faire un rename lors du double click
+	$('.file,.folder').dblclick(
+			function() {
+				if ($('#rename').size() == 0) {
+					var name = $(this).html();
+					$(this).html(
+							'<input type="text" id="rename" value="' + name
+									+ '" /> ');
+					$('#rename').focus();
+				}
+
+				$('#rename').keyup(function(event) {
+					if (event.keyCode == 13) {
+						var newName = $(this).val();
+						$($(this).parent()).html(newName);
+					}
+					return false;
+
+				});
+
+				return false;
+			});
 
 });
 
