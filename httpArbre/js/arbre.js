@@ -4,9 +4,9 @@
  * --> aprés ajout d'un dossier, impossible de créer des fichier dans ce dossier
  * --> aprés ajout d'un dossier, renommage de celui-ci impossible --> fait n'importe quoi
  * --> aprés ajout d'un dossier, renommage de celui-ci impossible --> fait n'importe quoi
- * --> même probleme que le precedent avec les nouveaux fichiers
+ * --> meme probleme que le precedent avec les nouveaux fichiers
  */
-	
+
 
 // Fonction d'initialisation
 $(function() {
@@ -141,7 +141,6 @@ function contextFolderMenu(posX, posY,folder) {
 	
 	// Ajout de l'action permettant de créer de supprimer un dossier
 	$('#addFolder').click(function(){
-		//TODO faire le addFolder
 		$('.menu').remove();
 		menuAddFolder(posX, posY,folder);
 	});
@@ -200,27 +199,7 @@ function removeFolder(folder){
 /***********************************************************************/
 /**								Add Methode 						  **/
 /***********************************************************************/
-function menuAddFolder(posX, posY,folder){
-	
-	$('.menu').remove();
-	var menu = $(
-			'<div id="menuAddFile" class="menu">'+
-			'<label for="nameAddfolder" >Nom du dossier:</label><input type="text" id="nameAddfolder" name="nameAddfolder" />'+
-			'<br/><button id="addFileButton">Ajouter le fichier</button>'+
-			'</div>').attr('style',
-			'position:fixed;top:' + posY + ';left:' + posX + ';');
-	$('#tree').append(menu);
-	
-	
-	$('#addFileButton').click(function(){
-		var fatherId=$(folder).attr('id');
-		var foldername=$("#nameAddfolder").val();
-		addFolder(fatherId,foldername);
-		$('#menuAddFile').remove();
 
-	});
-	
-}
 function menuAddFile(posX, posY,folder){
 	
 	$('.menu').remove();
@@ -241,14 +220,6 @@ function menuAddFile(posX, posY,folder){
 
 	});
 	
-}
-
-function addFolder(fatherId,foldername){
-	//TODO faire l'ajout dans l'objet PHP
-	
-	var margin=$('#'+fatherId).next().children().first().attr('style');
-	var newFolder=$("<li class='folder' style='"+margin+"'>"+foldername+"</li>");
-	$('#'+fatherId).next().prepend(newFolder);
 }
 
 function addFile(fatherId,filename){
