@@ -1,9 +1,9 @@
 /**
  * Bug a corriger:
- * --> aprés ajout d'un fichier, si on veux supprimer ce fichier il supprime toutes la sous arbo
- * --> aprés ajout d'un dossier, impossible de créer des fichier dans ce dossier
- * --> aprés ajout d'un dossier, renommage de celui-ci impossible --> fait n'importe quoi
- * --> aprés ajout d'un dossier, renommage de celui-ci impossible --> fait n'importe quoi
+ * --> apres ajout d'un fichier, si on veux supprimer ce fichier il supprime toutes la sous arbo
+ * --> apres ajout d'un dossier, impossible de creer des fichier dans ce dossier
+ * --> apres ajout d'un dossier, renommage de celui-ci impossible --> fait n'importe quoi
+ * --> apres ajout d'un dossier, renommage de celui-ci impossible --> fait n'importe quoi
  * --> meme probleme que le precedent avec les nouveaux fichiers
  */
 
@@ -127,19 +127,19 @@ function contextFolderMenu(posX, posY,folder) {
 	$('#tree').append(menu);
 	
 	
-	// Ajout de l'action permettant de créer de nouveau fichier
+	// Ajout de l'action permettant de creer de nouveau fichier
 	$('#addFile').click(function(){
 		$('.menu').remove();
 		menuAddFile(posX, posY,folder);
 	});
 	
-	// Ajout de l'action permettant de créer de supprimer un dossier
+	// Ajout de l'action permettant de creer de supprimer un dossier
 	$('#removeFolder').click(function(){
 		$('.menu').remove();
 		removeFolder(folder);
 	});
 	
-	// Ajout de l'action permettant de créer de supprimer un dossier
+	// Ajout de l'action permettant de creer de supprimer un dossier
 	$('#addFolder').click(function(){
 		$('.menu').remove();
 		menuAddFolder(posX, posY,folder);
@@ -159,7 +159,7 @@ function contextFileMenu(posX, posY,file) {
 	$('#tree').append(menu);
 	
 	
-	// Ajout de l'action permettant de créer de nouveau fichier
+	// Ajout de l'action permettant de creer de nouveau fichier
 	$('#removeFile').click(function(){
 		$('.menu').remove();
 		removeFile(file);

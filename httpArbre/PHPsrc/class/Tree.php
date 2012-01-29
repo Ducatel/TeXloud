@@ -18,6 +18,14 @@ class Tree{
 		$this->arrayOfNode[$this->root->getId()]=$this->root;
 	}
 	
+	/**
+	 * Fonction qui va initialise l'arbre pour un utilisateur
+	 * @param $userId: id d'un utilisateur dans la BDD
+	 */
+	public function init($userId){
+		
+	}
+	
 	
 	/**
 	* Ajoute le noeud a l'arbre

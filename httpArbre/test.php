@@ -1,5 +1,7 @@
 <?php
-include_once("./PHPsrc/Tree.php");
+session_start();
+include_once("./PHPsrc/class/Tree.php");
+
 
 echo '<html><head>';
 echo '<link rel="stylesheet" href="./css/arbre.css" />';
@@ -23,29 +25,10 @@ $id3=$tree->addNode("Un dossier_2_1",$id2,true);
 $tree->addNode("Un Fichier_2_1_1",$id3,false);
 $tree->addNode("Un Fichier_2_1_2 ",$id3,false);
 
-/*
-echo $tree->toString();
-echo "<hr/>";
-
-echo "suppression Fichier:<br/><br/>";
-$tree->removeNode($fichier20);
-
-echo $tree->toString();
-echo "<hr/>";
-
-echo "suppression dossier sans sous dossier:<br/><br/>";
-$tree->removeNode($id);
-
-echo $tree->toString();
-echo "<hr/>";
-
-echo "suppression dossier avec sous dossier:<br/><br/>";
-$tree->removeNode($id2);
-
-echo $tree->toString();
-echo "<hr/>";*/
 
 echo $tree->toStringHTML();
+
+$_SESSION['tree']=serialize($tree);
 
 echo '</body></html>';
 ?>
