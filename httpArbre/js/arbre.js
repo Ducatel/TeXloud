@@ -9,8 +9,7 @@
 
 
 // Fonction d'initialisation
-$(function() {
-
+$(function(){
 	$('.folder').each(function(){
 		addFolderAction($(this));
 	});
@@ -266,10 +265,24 @@ function addFolder(folderName,level,folder){
 		fatherId=$(folder).prev().parent().prev().attr('id');
 		margin=$(folder).attr('style');
 	}
-	
-	console.log($('#'+fatherId));
 
-	var newFolder=$("<li class='folder' style='"+margin+"'>"+folderName+"</li>");
-	newFolder=$('#'+fatherId).next().prepend(newFolder);
-	addFolderAction($(newFolder));
+	
+	$.ajax({
+        url:"./PHPsrc/AjaxFile/treeProcessing.php",
+  	  	type: 'POST',
+        data:{
+        		'action':'addFolder',
+                'name':folderName,
+                'idParent':fatherId,
+        },
+        success:function(data){
+        	console.log(data);
+        	var newFolder=$("<li class='folder' id='"+data+"' style='"+margin+"'>"+folderName+"</li>");
+        	newFolder=$('#'+fatherId).next().prepend(newFolder);
+        	addFolderAction($(newFolder));
+        }
+	});
+
+
+	
 }

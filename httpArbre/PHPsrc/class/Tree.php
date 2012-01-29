@@ -164,6 +164,10 @@ class Tree{
 		return $this->root;
 	}
 	
+	public function getNode($id){
+		return $this->arrayOfNode[$id];
+	}
+	
 
 }
 
