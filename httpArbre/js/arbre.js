@@ -245,20 +245,40 @@ function removeFile(file){
 }
 
 function removeFolder(folder){
-	$.ajax({
-        url:"./PHPsrc/AjaxFile/treeProcessing.php",
-  	  	type: 'POST',
-        data:{
-        		'action':'removeFolder',
-                'id':$(folder).attr('id'),
-        },
-        success:function(data){
-        	removeAction($(folder));
-        	$(folder).next().children().remove();
-        	$(folder).next().remove();
-        	$(folder).remove();
-        }
-	});
+	
+	//on regarde si le dossier est un projet ou non
+	if($(folder).parent().parent().children().first().attr('class')=="root"){
+		$.ajax({
+	        url:"./PHPsrc/AjaxFile/treeProcessing.php",
+	  	  	type: 'POST',
+	        data:{
+	        		'action':'removeProject',
+	                'id':$(folder).attr('id'),
+	        },
+	        success:function(data){
+	        	removeAction($(folder));
+	        	$(folder).next().children().remove();
+	        	$(folder).next().remove();
+	        	$(folder).remove();
+	        }
+		});
+	}
+	else{
+		$.ajax({
+	        url:"./PHPsrc/AjaxFile/treeProcessing.php",
+	  	  	type: 'POST',
+	        data:{
+	        		'action':'removeFolder',
+	                'id':$(folder).attr('id'),
+	        },
+	        success:function(data){
+	        	removeAction($(folder));
+	        	$(folder).next().children().remove();
+	        	$(folder).next().remove();
+	        	$(folder).remove();
+	        }
+		});
+	}
 }
 
 /***********************************************************************/

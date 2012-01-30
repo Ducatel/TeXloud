@@ -89,7 +89,6 @@ function addFolder($name,$idParent){
  */
 function removeFolder($id){
 	$tree=unserialize($_SESSION['tree']);
-	
 	$tree->removeNode($id);
 	$_SESSION['tree']=serialize($tree);
 	
