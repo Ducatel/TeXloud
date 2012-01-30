@@ -590,7 +590,7 @@ public class MyTreeManager{
 
 				v.setOnClickListener(new OnClickListener() {
 					public void onClick(View arg0) {
-						act.fileClicked();
+						act.fileClicked(getNode(arg0.getId()).getName());
 						changeTextStyle(arg0);
 					}
 				});
