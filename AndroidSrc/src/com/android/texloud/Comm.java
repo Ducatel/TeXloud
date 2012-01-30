@@ -10,23 +10,18 @@ import java.util.ArrayList;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 public class Comm{
 
 	
-	public static final String IP = "192.168.0.5";
+	public static final String IP = "192.168.0.2";
 	//public static final String IP = "192.168.1.11";
 	//public static final String IP = "172.16.21.183";
 	
@@ -89,29 +84,17 @@ public class Comm{
 			result=sb.toString().trim();
 			Log.i("str", result);
 
-			if(result.equals("ok")){
-				Log.i("ok", result);
-
-				//msg = comm.mHandler.obtainMessage(0);
-				//comm.mHandler.sendMessage(msg);
+			if(result.equals("ok"))
 				return Comm.statement.SUCCESS;
 
-			}
-			else{ 
-				Log.i("pas ok", result);
-				//msg = comm.mHandler.obtainMessage(1);
-				//comm.mHandler.sendMessage(msg);
+			else
 				return Comm.statement.WRONG;
-			}
+			
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//msg = comm.mHandler.obtainMessage(2);
-		//comm.mHandler.sendMessage(msg);
 		return Comm.statement.ERROR;
 		
 	}
@@ -148,5 +131,26 @@ public class Comm{
 		}
 		
 		return result;
+	}
+	
+	//TODO à terminer
+	public void compilRequest(String namefile){
+		InputStream is = null;
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("file", namefile));
+		
+		try{
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(URLauth);
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			is = entity.getContent();
+
+		}catch(Exception e){
+			Log.e("log_tag", "Error in http connection " + e.toString());
+		}
+		
+		// Reception pdf : ?
 	}
 }

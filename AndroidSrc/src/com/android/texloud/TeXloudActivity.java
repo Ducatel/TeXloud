@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ public class TeXloudActivity extends Activity {
 	private static final int ERR_LOGIN = 1;
 	
 	private ProgressDialog connect_dialog;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,103 +42,138 @@ public class TeXloudActivity extends Activity {
 
 		setContentView(R.layout.login);
 
-
+		// Test connectivité
+		testConnectivite();
+	}
+	
+	public void testConnectivite(){
+		
 		forgot = (Button) (findViewById(R.id.tv_forgot));
 
 		login = (EditText)(findViewById(R.id.EditText_id));
 		passwd = (EditText)(findViewById(R.id.EditText_passwd));
 		
-		forgot.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View v) {
-
-
-				dialog = new Dialog(TeXloudActivity.this, R.style.noBorder);
-				dialog.setContentView(R.layout.alertdialog);
-				dialog.setTitle("Mot de passe oublié");
-
-				dialog.show();
-
-				Button button = (Button) dialog.findViewById(R.id.button_cancel);
-				button.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						dismissDialog();
-					}
-				});
-			}
-		});
-
 		connect = (Button) (findViewById(R.id.button_connect));
-		connect.setOnClickListener(new OnClickListener() {
+		sign_in = (Button) (findViewById(R.id.button_inscription));
+		
+		if(isOnline()){
+			forgot.setOnClickListener(new OnClickListener() {
 
-			public void onClick(View arg0) {
-				
-				connect_dialog = ProgressDialog.show(TeXloudActivity.this, "Authentification", "Authentification en cours...", true);
-				
-				new Thread(new Runnable(){
+				public void onClick(View v) {
 
-					public void run() {
-						Comm c = new Comm();
-						Comm.statement st;
 
-						st = c.getAuth(login.getText(),passwd.getText());
-						//st = Comm.statement.SUCCESS;
-						Message msg = null;
-						switch(st){
-						case SUCCESS:
-							Log.i("switch", "success");
-							Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
-							startActivity(intent);
-							finish();
-							msg = mHandler.obtainMessage(TeXloudActivity.LOGIN_OK);
+					dialog = new Dialog(TeXloudActivity.this, R.style.noBorder);
+					dialog.setContentView(R.layout.alertdialog);
+					dialog.setTitle("Mot de passe oublié");
+
+					dialog.show();
+
+					Button button = (Button) dialog.findViewById(R.id.button_cancel);
+					button.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
+							dismissDialog();
+						}
+					});
+				}
+			});
+
+			connect.setOnClickListener(new OnClickListener() {
+
+				public void onClick(View arg0) {
+					
+					connect_dialog = ProgressDialog.show(TeXloudActivity.this, "Authentification", "Authentification en cours...", true);
+					
+					new Thread(new Runnable(){
+
+						public void run() {
+							Comm c = new Comm();
+							Comm.statement st;
+
+							st = c.getAuth(login.getText(),passwd.getText());
+							//st = Comm.statement.SUCCESS;
 							
-							break;
+							Message msg = null;
+							switch(st){
+							case SUCCESS:
+								Log.i("switch", "success");
+								Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
+								intent.putExtra("isOnline", isOnline());
+								startActivity(intent);
+								finish();
+								msg = mHandler.obtainMessage(TeXloudActivity.LOGIN_OK);
+								
+								break;
 
-						case WRONG:
-							Log.i("switch", "wrong");
-							msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
+							case WRONG:
+								Log.i("switch", "wrong");
+								msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
+								
+								break;
+
+							default:
+								Log.i("switch", "error");
+								msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
+								break;
+							}
 							
-							break;
-
-						default:
-							Log.i("switch", "error");
-							msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
-							break;
+							mHandler.sendMessage(msg);
 						}
 						
-						mHandler.sendMessage(msg);
-					}
+					}).start();
 					
-				}).start();
-				
-			}
+				}
 
-		});
+			});
 
 
-		sign_in = (Button) (findViewById(R.id.button_inscription));
-		sign_in.setOnClickListener(new OnClickListener() {
+			
+			sign_in.setOnClickListener(new OnClickListener() {
 
-			public void onClick(View v) {
-				signin_dialog = new Dialog(TeXloudActivity.this, R.style.noBorder);
-				signin_dialog.setContentView(R.layout.signindialog);
+				public void onClick(View v) {
+					signin_dialog = new Dialog(TeXloudActivity.this, R.style.noBorder);
+					signin_dialog.setContentView(R.layout.signindialog);
 
-				Spinner s = (Spinner) signin_dialog.findViewById(R.id.spinner);
-				ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-						TeXloudActivity.this, R.array.months, android.R.layout.simple_spinner_item);
+					Spinner s = (Spinner) signin_dialog.findViewById(R.id.spinner);
+					ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+							TeXloudActivity.this, R.array.months, android.R.layout.simple_spinner_item);
 
-				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				s.setAdapter(adapter);
+					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					s.setAdapter(adapter);
 
-				signin_dialog.show();
-			}
-		});
+					signin_dialog.show();
+				}
+			});
+			
+		}
 		
-		if(isOnline())
-			Log.i("status", "online");
-		else
-			Log.i("status", "offline");
-
+		// Offline Mode
+		else{
+			login.setEnabled(false);
+			passwd.setEnabled(false);
+			TextView tv_id = (TextView)(findViewById(R.id.tv_id));
+			tv_id.setTextColor(Color.LTGRAY);
+			TextView tv_mdp = (TextView)(findViewById(R.id.tv_passwd));
+			tv_mdp.setTextColor(Color.LTGRAY);
+			
+			/*forgot.setTextColor(Color.LTGRAY);
+			sign_in.setTextColor(Color.LTGRAY);
+			connect.setTextColor(Color.LTGRAY);*/
+			
+			forgot.setVisibility(View.GONE);
+			sign_in.setVisibility(View.GONE);
+			connect.setText("Continuer en mode hors-ligne");
+			
+			
+			connect.setOnClickListener(new OnClickListener() {
+				public void onClick(View arg0) {
+					Log.i("switch", "success");
+					Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
+					intent.putExtra("isOnline", isOnline());
+					startActivity(intent);
+					finish();	
+				}
+			});
+		}
 	}
 
 	public boolean isOnline() {

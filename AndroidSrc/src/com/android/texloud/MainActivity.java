@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,7 +34,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	private String text;
 	private MyScrollView sv1, sv2;
 	private LinearLayout layout_lineCount;
-	private Button deconnect, save_file;
+	private Button deconnect, save_file, compil;
 
 	private Dialog dialog_fileSaved;
 
@@ -44,6 +45,11 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	private static final int LOAD_OK = 0;
 	private static final int LOAD_ERR = 1;
 
+	protected Mode currentMode;
+	protected enum Mode{ONLINE, OFFLINE};
+
+	private String loaded_file = "";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,11 +58,26 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		setContentView(R.layout.main);
 
 
+		Bundle b = getIntent().getExtras();
+		boolean bl = b.getBoolean("isOnline");
+
+		currentMode = (bl) ? Mode.ONLINE : Mode.OFFLINE;
+
 		layout_lineCount = (LinearLayout) (findViewById(R.id.layout_lineCount));
 		sv1 = (MyScrollView) (findViewById(R.id.scroll1));
 		sv2 = (MyScrollView) (findViewById(R.id.scroll2));
 
 
+		compil = (Button) (findViewById(R.id.bouton_compil));
+		
+		compil.setOnClickListener(new OnClickListener(){
+			public void onClick(View arg0) {
+				if(loaded_file != "")
+					compil(loaded_file);
+			}
+			
+		});
+		
 		deconnect = (Button) (findViewById(R.id.deco));
 
 		deconnect.setOnClickListener(new OnClickListener() {
@@ -73,8 +94,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		save_file.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
-				//saveFile(main_text.getText().toString(), "/mnt/sdcard/TeXloudDocs/cahierDesCharges.tex");		
-				saveFile(main_text.getText().toString(), "cahierDesCharges.tex");
+				saveFile(main_text.getText().toString(), loaded_file);
 			}
 
 		});
@@ -108,6 +128,10 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 		updateLineCount(0);
 	}
+	
+	public void compil(String name_file){
+		Comm c = new Comm();
+	}
 
 	public void setText(String s){
 		text = s;
@@ -118,11 +142,6 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	}
 
 	public void updateLineCount(int nbLines){
-		/*lineCount.setText("");
-		for(int i=1; i<=40 + nbLines; i++){
-			lineCount.setText(lineCount.getText()+""+i+"\n");
-		}*/
-
 		TextView v;
 
 		for(int i=1; i<2000; i++){
@@ -138,21 +157,19 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		} else if(scrollView == sv2) {
 			sv1.scrollTo(x, y);
 		}
-
-
 	}
 
 	public boolean isOnline() {
-	    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
-	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-	        return true;
-	    }
-	    return false;
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+			return true;
+		}
+		return false;
 	}
-	
-	public void fileClicked(){
-		loading_dialog = ProgressDialog.show(this, "Chargement", "Chargement du fichier...", true);
+
+	public void fileClicked(String fileName){
+		loading_dialog = ProgressDialog.show(this, "Chargement", "Chargement du fichier " + fileName + "...", true);
 
 
 		new Thread(new Runnable(){
@@ -170,17 +187,18 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 	public void saveFile(String file_content, String file_name){
 
-		File file = new File(Environment.getExternalStorageDirectory() + "/TeXloudDocs", file_name);
+		if(loaded_file != ""){
+			File file = new File(Environment.getExternalStorageDirectory() + "/TeXloudDocs", file_name);
 
-		try {
-			file.createNewFile();
-			FileWriter filewriter = new FileWriter(file,false);
-			filewriter.write(file_content);
-			filewriter.close();
-			popDialogFileSaved();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				file.createNewFile();
+				FileWriter filewriter = new FileWriter(file,false);
+				filewriter.write(file_content);
+				filewriter.close();
+				popDialogFileSaved();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -190,11 +208,10 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		dialog_fileSaved.setContentView(R.layout.filesaveddialoglayout);
 		Button b = (Button) (dialog_fileSaved.findViewById(R.id.button_ok_filesaved));
 		dialog_fileSaved.show();
-		
+
 		b.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				dismissDialogFileSaved();
 			}
 		});
@@ -221,7 +238,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 		}
 	};
-	
-	
+
+
 
 }

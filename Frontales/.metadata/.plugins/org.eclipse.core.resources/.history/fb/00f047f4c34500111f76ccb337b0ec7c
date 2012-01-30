@@ -1,0 +1,39 @@
+#!/usr/bin/python
+# -*-coding:utf-8 -*
+'''
+Created on 8 dec. 2011
+
+@author: David Ducatel
+'''
+
+'''
+import Frontal
+
+f=Frontal.Frontal('127.0.0.1',12800)
+f.lanceServeur()'''
+
+
+'''
+import json
+
+dico=dict()
+dico['label']='unLabel'
+dico['test']='chaineDeTest'
+jsonDico=json.dumps(dico)
+
+print(jsonDico)
+t=json.loads(jsonDico)
+
+print(t['label'])
+print(t['test'])
+'''
+
+def test2():
+    print('test2')
+    
+def test3():
+    print('test3')
+
+def test(i):
+    (i==1)?return test2():return test3
+    

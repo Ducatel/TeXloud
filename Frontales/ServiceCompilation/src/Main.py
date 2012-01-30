@@ -2,7 +2,6 @@
 # -*-coding:utf-8 -*
 '''
 Created on 19 janv. 2012
-
 @author: David Ducatel
 '''
 

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/layout_Top"
+        android:layout_width="fill_parent"
+        android:layout_height="39dp"
+        android:background="#699838" >
+
+        <Button
+            android:id="@+id/texloud"
+            android:layout_width="150dp"
+            android:layout_height="fill_parent"
+            android:background="@layout/buttonshape"
+            android:text="TeXloud"
+            android:textColor="#FFFFFF"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_main_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/text_left_login"
+            android:layout_width="600dp"
+            android:layout_height="350dp"
+            android:gravity="center_vertical|left"
+            android:paddingRight="100dp"
+            android:text="@string/text_login_page"
+            android:textColor="#888888" />
+
+        <LinearLayout
+            android:id="@+id/login_view"
+            android:layout_width="500dp"
+            android:layout_height="300dp"
+            android:background="#EDEDED"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/auth_border"
+                android:layout_width="fill_parent"
+                android:layout_height="39dp"
+                android:background="#699838"
+                android:gravity="left" >
+
+                <Button
+                    android:id="@+id/auth"
+                    android:layout_width="170dp"
+                    android:layout_height="fill_parent"
+                    android:background="@layout/buttonshape"
+                    android:text="Authentification"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="0px"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
+
+            <LinearLayout
+                android:id="@+id/login_fields"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center|right"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tv_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="80dp"
+                    android:text="Erreur authentification"
+                    android:textColor="#FF0000"
+                    android:textSize="16dp"
+                    android:textStyle="italic"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right" >
+
+                    <TextView
+                        android:id="@+id/tv_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Identifiant :"
+                        android:textColor="#000000"
+                        android:textSize="18dp" />
+
+                    <EditText
+                        android:id="@+id/EditText_id"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="80dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right" >
+
+                    <TextView
+                        android:id="@+id/tv_passwd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Password :"
+                        android:textColor="#000000"
+                        android:textSize="18dp" />
+
+                    <EditText
+                        android:id="@+id/EditText_passwd"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="80dp"
+                        android:password="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="right" >
+
+                    <Button
+                        android:id="@+id/tv_forgot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="80dp"
+                        android:background="#EDEDED"
+                        android:text="Mot de passe oublié ?"
+                        android:textColor="#699838" />
+
+                    <Button
+                        android:id="@+id/button_connect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#EDEDED"
+                        android:paddingRight="80dp"
+                        android:text="Connexion"
+                        android:textColor="#699838"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/button_inscription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#EDEDED"
+                    android:paddingRight="80dp"
+                    android:text="Inscription"
+                    android:textColor="#699838"
+                    android:textSize="20dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

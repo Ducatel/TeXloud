@@ -1,0 +1,6 @@
+MODULES_MANAGER_V2
+connector.GenericConnector|/home/hannibal/Documents/projet&&truc_a_rendre/TeXloud/Connectors/svnConnector/connector/GenericConnector.py
+connector.SvnConnector|/home/hannibal/Documents/projet&&truc_a_rendre/TeXloud/Connectors/svnConnector/connector/SvnConnector.py
+connector.__init__|/home/hannibal/Documents/projet&&truc_a_rendre/TeXloud/Connectors/svnConnector/connector/__init__.py
+test.Test|/home/hannibal/Documents/projet&&truc_a_rendre/TeXloud/Connectors/svnConnector/test/Test.py
+test.__init__|/home/hannibal/Documents/projet&&truc_a_rendre/TeXloud/Connectors/svnConnector/test/__init__.py
