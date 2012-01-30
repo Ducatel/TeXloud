@@ -26,7 +26,8 @@ class SvnDataSocket(DataSocket):
         if not '..' in path:
             print path
             # connection = SvnConnector.SvnConnector('svn://87.98.144.200/test_svn', 'meva', 'plop', path)
-            connection = SvnConnector.SvnConnector(path, username, password)
+            connection = SvnConnector.SvnConnector(self.getUserProperty(path, 'repo'), self.getUserProperty(path, 'username'), 
+                                                   self.getUserProperty(path, 'password'), path, False)
             self.save_user_conf(connection.get_public_dir_name(), username, password, connection.get_url())
             
             working_copy_dir = connection.get_public_dir_name()
