@@ -23,14 +23,12 @@ class SvnDataSocket(DataSocket):
         
         working_copy_dir = False
         
-        if not '..' in path:
-            print path
-            # connection = SvnConnector.SvnConnector('svn://87.98.144.200/test_svn', 'meva', 'plop', path)
-            connection = SvnConnector.SvnConnector(self.getUserProperty(path, 'repo'), self.getUserProperty(path, 'username'), 
-                                                   self.getUserProperty(path, 'password'), path, False)
-            self.save_user_conf(connection.get_public_dir_name(), username, password, connection.get_url())
+        print path
+        # connection = SvnConnector.SvnConnector('svn://87.98.144.200/test_svn', 'meva', 'plop', path)
+        connection = SvnConnector.SvnConnector(path, username, password)
+        self.save_user_conf(connection.get_public_dir_name(), username, password, connection.get_url())
             
-            working_copy_dir = connection.get_public_dir_name()
+        working_copy_dir = connection.get_public_dir_name()
         
         request = '{"projectName" : "' + connection.get_url() + '", "workingCopyDir":"' + connection.get_public_dir_name() + '"}'
         super(SvnDataSocket, self).sendAsciiMessage(request, self._webserver_ip, httpPort)
