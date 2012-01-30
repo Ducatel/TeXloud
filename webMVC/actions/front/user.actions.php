@@ -42,7 +42,7 @@ class userActions extends Actions {
 			$user->country = ucwords($userVars['country']);
 			
 			$user->save();
-			$this->redirect('/user/myAccount');
+			$this->redirect('/');
 		}
 		else
 			$this->redirect('/user/myAccount');

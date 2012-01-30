@@ -23,18 +23,16 @@
 <link rel="stylesheet" type="text/css" href="/css/common.css" />
 <link rel="stylesheet" type="text/css" href="/js/edit_area/edit_area.css" />
 <link rel="stylesheet" type="text/css" href="/css/style.css" />
-
-<script type="text/javascript" src="/js/jquery/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/arbre.css" />
 
 <?php
 	foreach($var->css as $css)
 		echo '<link rel="stylesheet" type="text/css" href="/css/'.$css.'.css" />';
 ?>
 
-<link rel="stylesheet" type="text/css" href="/js/jquery/plugins/simpleTree/style.css" />
 <link rel="stylesheet" type="text/css" href="/css/style.css" />
 
-<script type="text/javascript" src="/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
 <?php 
 	foreach($var->js as $js)
