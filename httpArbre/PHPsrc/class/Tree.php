@@ -13,7 +13,7 @@ class Tree{
 	private $arrayOfNode;
 	
 	public function __construct($rootName){
-		$this->root=new Node($rootName, 0,true);
+		$this->root=new Node($rootName, "workspace",true);
 		$this->arrayOfNode=array();
 		$this->arrayOfNode[$this->root->getId()]=$this->root;
 	}
@@ -31,7 +31,7 @@ class Tree{
 	* Ajoute le noeud a l'arbre
 	* @param $nodeName: nom du noeud
 	* @param $nodeParentId: id du parent du noeud a ajouter
-	* @param Boolean $folder: repertoire ou non
+	* @param Boolean $folder: true si repertoire ou non
 	* @return: id du node si ajouter, -1 sinon
 	*/
 	public function addNode($nodeName,$nodeParentId,$folder){
@@ -48,15 +48,14 @@ class Tree{
 			
 			// Le parent n'existe pas, ou n'est pas un dossier
 			if(!$find)
-				return -1;
+				return "No parent found or not a directory";
 		
 			$node=new Node($nodeName,$nodeParentId,$folder);
 			$this->arrayOfNode[$node->getId()]=$node;
 			
 			return $node->getId();
 		}
-		else
-			return -1;
+		return "Error Not boolean argument";
 	}
 
 	/**

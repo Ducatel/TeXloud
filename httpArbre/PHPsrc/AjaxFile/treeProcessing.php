@@ -35,7 +35,12 @@ if(isset($_POST['action']) && !empty($_POST['action'])){
 		if(!empty($_POST['id']) && !empty($_POST['name']))
 			renameElement($_POST['id'], $_POST['name']);
 	}
+	else
+		die("Not action found");
+	
 }
+else 
+	die("empty variable");
 
 /**
  * Permet d'ajouter un fichier
@@ -46,7 +51,11 @@ if(isset($_POST['action']) && !empty($_POST['action'])){
 function addFile($name,$idParent){
 	$tree=unserialize($_SESSION['tree']);
 	
-	return $tree->addNode($name,$idParent,False);
+	$id=$tree->addNode($name,$idParent,False);
+	
+	$_SESSION['tree']=serialize($tree);
+	
+	return $id;
 }
 
 /**
@@ -57,6 +66,8 @@ function removeFile($id){
 	$tree=unserialize($_SESSION['tree']);
 	
 	$tree->removeNode($id);
+	$_SESSION['tree']=serialize($tree);
+	
 }
 
 /**
@@ -66,8 +77,10 @@ function removeFile($id){
  */
 function addFolder($name,$idParent){
 	$tree=unserialize($_SESSION['tree']);
+	$id=$tree->addNode($name,$idParent,True);
+	$_SESSION['tree']=serialize($tree);
+	return $id;
 	
-	return $tree->addNode($name,$idParent,True);
 }
 
 /**
@@ -78,6 +91,8 @@ function removeFolder($id){
 	$tree=unserialize($_SESSION['tree']);
 	
 	$tree->removeNode($id);
+	$_SESSION['tree']=serialize($tree);
+	
 }
 
 /**
@@ -88,6 +103,10 @@ function removeFolder($id){
 function addProject($name){
 	$tree=unserialize($_SESSION['tree']);
 	
+	$_SESSION['tree']=serialize($tree);
+	return "pasFait";
+	
+	
 }
 
 /**
@@ -96,6 +115,8 @@ function addProject($name){
 */
 function removeProject($id){
 	$tree=unserialize($_SESSION['tree']);
+	$_SESSION['tree']=serialize($tree);
+	return "pasFait";
 	
 }
 
@@ -108,5 +129,7 @@ function renameElement($id,$name){
 	$tree=unserialize($_SESSION['tree']);
 	
 	$tree->getNode($id)->setName($name);
+	$_SESSION['tree']=serialize($tree);
+	
 }
 ?>

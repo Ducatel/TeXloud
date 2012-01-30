@@ -10,7 +10,7 @@ echo '<script type="text/javascript" src="./js/arbre.js"></script>';
 echo '</head><body>';
 
 $tree=new Tree("Workspace");
-$tree->addNode("Un Fichier_1",$tree->getRoot()->getId(),false);
+//$tree->addNode("Un Fichier_1",$tree->getRoot()->getId(),false);
 
 
 $id=$tree->addNode("Un dossier_1",$tree->getRoot()->getId(),true);

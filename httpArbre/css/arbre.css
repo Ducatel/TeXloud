@@ -62,6 +62,10 @@
 	list-style-image: url("./../img/removeFile.png");
 }
 
+#contextProjectMenu #addProject{
+	list-style-image: url("./../img/addProject.png");
+}
+
 #menuAddFile{
 	width: 250px;
 	text-align:center;
@@ -70,5 +74,9 @@
 #menuAddFolder{
 	width: 350px;
 	text-align:center;
-	
+}
+
+#menuAddProject{
+	width: 250px;
+	text-align:center;
 }
