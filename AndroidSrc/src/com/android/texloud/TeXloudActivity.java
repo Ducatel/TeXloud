@@ -53,6 +53,7 @@ public class TeXloudActivity extends Activity {
 		login = (EditText)(findViewById(R.id.EditText_id));
 		passwd = (EditText)(findViewById(R.id.EditText_passwd));
 		
+		
 		connect = (Button) (findViewById(R.id.button_connect));
 		sign_in = (Button) (findViewById(R.id.button_inscription));
 		
