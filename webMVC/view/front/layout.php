@@ -53,7 +53,7 @@
 
 		<nav id='menu'>
 			<ul>
-				<li><a href="pdfjs/web/viewer.html" title="compiler">Compiler</a></li>
+				<li><a href="js/pdfjs/viewer.html" title="compiler">Compiler</a></li>
 				<li><a href="#" title="telecharger">Télécharger Projet</a></li>
 				<li><a href="#" title="contact">Contact</a></li>
 			</ul>
