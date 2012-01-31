@@ -11,6 +11,8 @@
         android:layout_height="39dp"
         android:background="#699838" >
 
+        
+
         <Button
             android:id="@+id/texloud"
             android:layout_width="150dp"

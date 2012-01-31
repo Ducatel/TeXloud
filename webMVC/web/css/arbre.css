@@ -1,0 +1,78 @@
+.root {
+	list-style-image: url("/images/arbre/rootIcon.png");
+}
+
+.folder {
+	list-style-image: url("/images/arbre/folderIcon.png");
+	cursor: pointer;
+	user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+.file {
+	list-style-image: url("/images/arbre/fileIcon.png");
+	cursor: pointer;
+	user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+.ulArbre {
+	margin: 0;
+	padding: 0;
+}
+
+.menu {
+	background-color: rgba(230, 230, 230, 0.9);
+	z-index: 20;
+	width: 220px;
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid black;
+}
+
+.menu ul {
+	list-style-type: none;
+}
+
+.menu li {
+	cursor: pointer;
+}
+
+.menu li:hover {
+	color:hsla(120,100%,10%,0.7);
+}
+
+#contextFolderMenu #addFolder {
+	list-style-image: url("/images/arbre/addFolder.png");
+}
+
+#contextFolderMenu #removeFolder {
+	list-style-image: url("/images/arbre/removeFolder.png");
+}
+
+#contextFolderMenu #addFile {
+	list-style-image: url("/images/arbre/addFile.png");
+}
+
+#contextFileMenu #removeFile {
+	list-style-image: url("/images/arbre/removeFile.png");
+}
+
+#contextProjectMenu #addProject{
+	list-style-image: url("/images/arbre/addProject.png");
+}
+
+#menuAddFile{
+	width: 250px;
+	text-align:center;
+}
+
+#menuAddFolder{
+	width: 350px;
+	text-align:center;
+	
+}

@@ -21,7 +21,7 @@ public final class R {
         public static final int folder_add=0x7f020004;
         public static final int folder_add2=0x7f020005;
         public static final int folder_delete2=0x7f020006;
-        public static final int ic_launcher=0x7f020007;
+        public static final int icon=0x7f020007;
         public static final int loading=0x7f020008;
         public static final int my_border=0x7f020009;
         public static final int rename_icon=0x7f02000a;
