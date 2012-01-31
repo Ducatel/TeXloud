@@ -28,26 +28,19 @@ class User extends object {
 		if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != null) {
 			return new user($_SESSION['user_id']);
 		}
-		else
+		
 		return false;
 	}
 	
-	public function getTree(){
-		$q = new Query('unique_select', 'SELECT id FROM file WHERE uid = ' . $this->id . ' AND parent = 0');
+	public function getProjects(){
+		$q = new Query('select', 'SELECT p.id FROM project p, user u, group_user gu, `group` g WHERE u.id = ' . $this->id . ' AND u.id=gu.user_id AND gu.group_id=g.id AND p.group_id=g.id');
 		
-		if($q->result){
-			$file = new File($q->result->id);
-			
-			$tree = '<div id="wrap"><div id="annualWizard"><ul class="simpleTree" id="pdfTree">' . 
-					'<li class="root" id="Projets"><span>Projets</span>' . 
-					 	'<ul>' . $file->getTree() . '</ul>' .				
-					'</li>' .
-					'</ul></div></div>';
-			
-			return $tree;
-		}			
-			
-		return 'root';
+		$projects = array();
+		
+		foreach($q->result as $p)
+			$projects[] = new Project($p->id);
+		
+		return $projects;
 	}
 }
 ?>

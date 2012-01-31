@@ -23,7 +23,7 @@ class treeActions extends Actions {
 		$id=$tree->addNode($_POST['name'],$_POST['idParent'],True);
 		$_SESSION['tree']=serialize($tree);
 		
-		return $id;
+		echo $id;
 	}
 	
 	public function removeFolderSuccess(){
@@ -55,13 +55,13 @@ class treeActions extends Actions {
 		$tree=unserialize($_SESSION['tree']);
 		
 		$_SESSION['tree']=serialize($tree);
-		return "pasFait";
+		echo "pasFait";
 	}
 	
 	public function removeProject(){
 		$tree=unserialize($_SESSION['tree']);
 		$_SESSION['tree']=serialize($tree);
-		return "pasFait";
+		echo "pasFait";
 	}
 }
 

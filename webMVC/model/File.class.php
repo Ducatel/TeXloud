@@ -1,6 +1,6 @@
 <?php
 class File extends object {		
-	public $id, $path, $filename, $type_id, $project_id, $uid, $is_dir, $parent;
+	public $id, $path, $project_id, $is_dir, $parent;
 		
 	public function __construct($id=0) {
 		parent::__construct($id);
