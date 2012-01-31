@@ -1,13 +1,3 @@
-/**
- * Bug a corriger:
- * --> apres ajout d'un fichier, si on veux supprimer ce fichier il supprime toutes la sous arbo
- * --> apres ajout d'un dossier, impossible de creer des fichier dans ce dossier
- * --> apres ajout d'un dossier, renommage de celui-ci impossible --> fait n'importe quoi
- * --> apres ajout d'un dossier, renommage de celui-ci impossible --> fait n'importe quoi
- * --> meme probleme que le precedent avec les nouveaux fichiers
- */
-
-
 // Fonction d'initialisation
 $(function(){
 	$('.folder').each(function(){
