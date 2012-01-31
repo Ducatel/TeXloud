@@ -34,13 +34,13 @@ $(function(){
 function addFolderAction(element){
 	addDisableFolderFocus(element);
 	addFolderMenu(element);
-	addRenameAction(element);
+	//addRenameAction(element);
 }
 
 function addFileAction(element){
 	addDisableFileFocus(element);
 	addFileMenu(element);
-	addRenameAction(element);
+	//addRenameAction(element);
 }
 
 function addDisableFolderFocus(element){
@@ -89,10 +89,12 @@ function closeMenu(){
 
 
 function addRenameAction(element){
-	$(element).dblclick(function() {
+	
+	
 		if ($('#rename').size() == 0) {
-			var name = $(this).html();
-			$(this).html('<input type="text" id="rename" value="' + name+'" /> ');
+			var name = $(element).html();
+			console.log('nom '+name);
+			$(element).html('<input type="text" id="rename" value="' + name+'" /> ');
 			$('#rename').focus();
 		}
 		
@@ -105,7 +107,7 @@ function addRenameAction(element){
 		});
 		
 		return false;
-	});
+	
 }
 
 function removeAction(element){
@@ -134,6 +136,7 @@ function contextFolderMenu(posX, posY,folder) {
 			'<div id="contextFolderMenu" class="menu">' + '<ul>'
 					+ '<li id="addFile">Cr&eacute;er un fichier</li>'
 					+ '<li id="addFolder">Cr&eacute;er un dossier</li>'
+					+ '<li id="editeFolder">Editer un dossier</li>'
 					+ '<li id="removeFolder">Supprimer un dossier</li>'
 					+ '</ul>' + '</div>').attr('style',
 			'position:fixed;top: 0; left: 0;margin-left: ' + posX + 'px; margin-top: ' + posY + 'px;');
@@ -158,6 +161,12 @@ function contextFolderMenu(posX, posY,folder) {
 		$('.menu').remove();
 		menuAddFolder(posX, posY,folder);
 	});
+	
+	// Ajout de l'action permettant d'editer un dossier
+	$('#editeFolder').click(function(){
+		$('.menu').remove();
+		addRenameAction(folder);
+	});
 
 }
 
@@ -167,16 +176,23 @@ function contextFileMenu(posX, posY,file) {
 	var menu = $(
 			'<div id="contextFileMenu" class="menu">' + '<ul>'
 					+ '<li id="removeFile">Supprimer le fichier</li>'
+					+ '<li id="editeFile">Editer le fichier</li>'
 					+ '</ul>' + '</div>').attr('style',
 				'position:fixed;top: 0; left: 0;margin-left: ' + posX + 'px; margin-top: ' + posY + 'px;');
 
 	$('#tree').append(menu);
 	
 	
-	// Ajout de l'action permettant de creer de nouveau fichier
+	// Ajout de l'action permettant de supprimer un fichier
 	$('#removeFile').click(function(){
 		$('.menu').remove();
 		removeFile(file);
+	});
+	
+	// Ajout de l'action permettant d'editer un fichier
+	$('#editeFile').click(function(){
+		$('.menu').remove();
+		addRenameAction(file);
 	});
 
 }

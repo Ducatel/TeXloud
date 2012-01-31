@@ -50,6 +50,14 @@
 	list-style-image: url("/images/arbre/addFolder.png");
 }
 
+#contextFolderMenu #editeFolder {
+	list-style-image: url("/images/arbre/editeFolder.png");
+}
+
+#contextFileMenu #editeFile {
+	list-style-image: url("/images/arbre/editeFolder.png");
+}
+
 #contextFolderMenu #removeFolder {
 	list-style-image: url("/images/arbre/removeFolder.png");
 }

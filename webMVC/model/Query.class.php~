@@ -4,7 +4,7 @@ class query {
 
 	private $hostname = 'localhost';
 	private $user = 'root';
-	private $password = 'admin';
+	private $password = 'passwd';
 	private $database = 'TeXloud';
 	var $link;
 	var $result;
