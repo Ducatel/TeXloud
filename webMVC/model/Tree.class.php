@@ -15,16 +15,7 @@ class Tree{
 		$this->arrayOfNode=array();
 		$this->arrayOfNode[$this->root->getId()]=$this->root;
 	}
-	
-	/**
-	 * Fonction qui va initialise l'arbre pour un utilisateur
-	 * @param $userId: id d'un utilisateur dans la BDD
-	 */
-	public function init($userId){
 		
-	}
-	
-	
 	/**
 	* Ajoute le noeud a l'arbre
 	* @param $nodeName: nom du noeud
@@ -32,10 +23,8 @@ class Tree{
 	* @param Boolean $folder: repertoire ou non
 	* @return: id du node si ajouter, -1 sinon
 	*/
-	public function addNode($nodeName,$nodeParentId,$folder){
-		
+	public function addNode($nodeName,$nodeParentId,$folder, $nodeId=null){
 		if(is_bool($folder)){
-			
 			$find=false;
 			foreach($this->arrayOfNode as $possibleParentNode){
 				if($possibleParentNode->getId()==$nodeParentId && $possibleParentNode->isFolder()){
@@ -47,8 +36,8 @@ class Tree{
 			// Le parent n'existe pas, ou n'est pas un dossier
 			if(!$find)
 				return -1;
-		
-			$node=new Node($nodeName,$nodeParentId,$folder);
+			
+			$node=new Node($nodeName,$nodeParentId,$folder, $nodeId);
 			$this->arrayOfNode[$node->getId()]=$node;
 			
 			return $node->getId();
@@ -90,13 +79,19 @@ class Tree{
 					array_push($tabSon,$node);
 				}
 				else{
+					File::delete($node->getId());
 					$this->removeFile($node);
 				}
 			}
 		}
 		
-		foreach($tabSon as $son)
+		foreach($tabSon as $son){
+			File::delete($son->getId());
 			$this->removeFolder($son);
+		}
+		
+		File::delete($folder->getId());
+		
 		unset($this->arrayOfNode[$folder->getId()]);
 	}
 	
@@ -105,6 +100,7 @@ class Tree{
 	 * @param $folder: objet Node qui représente le fichier a supprimer
 	 */
 	private function removeFile($file){
+		File::delete($file->getId());
 		unset($this->arrayOfNode[$file->getId()]);
 	}
 	
@@ -130,7 +126,7 @@ class Tree{
 	}
 
 	private function _toStringHTML($currentNode,$dec){
-		if($currentNode->getId()== $this->root->getId())
+		if($currentNode->getId() == $this->root->getId())
 			$s="<li class='root' id='".$this->root->getId()."' style='margin-left:".$dec."px;'>".$currentNode->getName()."</li>\n<ul class='ulArbre'>\n";
 		else
 			$s="<li class='folder' id='".$currentNode->getId()."' style='margin-left:".$dec."px;'>".$currentNode->getName()."</li>\n<ul class='ulArbre'>\n";
@@ -142,7 +138,6 @@ class Tree{
 			 if($node->isFolder()){
 			 	$s.=$this->_toStringHTML($node,$dec);
 			 	$s.="</ul>\n";
-			 		
 			 }
 			 else
 			  $s.="<li class='file' id='".$node->getId()."' style='margin-left:".$dec."px;' >".$node->getName()."</li>\n";		 	

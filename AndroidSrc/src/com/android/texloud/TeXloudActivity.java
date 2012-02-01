@@ -1,5 +1,9 @@
 package com.android.texloud;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Formatter;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -33,6 +37,7 @@ public class TeXloudActivity extends Activity {
 	private static final int ERR_LOGIN = 1;
 	
 	private ProgressDialog connect_dialog;
+	private Spinner spinner_month, spinner_gender;
 	
 
 	@Override
@@ -134,13 +139,58 @@ public class TeXloudActivity extends Activity {
 					signin_dialog = new Dialog(TeXloudActivity.this, R.style.noBorder);
 					signin_dialog.setContentView(R.layout.signindialog);
 
-					Spinner s = (Spinner) signin_dialog.findViewById(R.id.spinner);
+					spinner_month = (Spinner) signin_dialog.findViewById(R.id.spinner);
 					ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
 							TeXloudActivity.this, R.array.months, android.R.layout.simple_spinner_item);
 
 					adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-					s.setAdapter(adapter);
+					spinner_month.setAdapter(adapter);
+					
+					spinner_gender = (Spinner) signin_dialog.findViewById(R.id.spinner_gender);
+					ArrayAdapter<CharSequence> adapter_gender = ArrayAdapter.createFromResource(
+							TeXloudActivity.this, R.array.gender, android.R.layout.simple_spinner_item);
+					adapter_gender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					spinner_gender.setAdapter(adapter_gender);
+					
 
+					Button ok, cancel;
+					
+					ok = (Button) (signin_dialog.findViewById(R.id.button_ok));
+					cancel = (Button) (signin_dialog.findViewById(R.id.button_cancel));
+					
+					ok.setOnClickListener(new OnClickListener(){
+						public void onClick(View arg0) {
+							Comm c = new Comm();
+							EditText firstName, lastName, userName, mail, password, address, city, country, zip, year, day;
+							
+							firstName = (EditText) (signin_dialog.findViewById(R.id.firstname));
+							lastName = (EditText) (signin_dialog.findViewById(R.id.lastname));
+							userName = (EditText) (signin_dialog.findViewById(R.id.username));
+							mail = (EditText) (signin_dialog.findViewById(R.id.mail_signin));
+							password = (EditText) (signin_dialog.findViewById(R.id.passwd_signin));
+							address = (EditText) (signin_dialog.findViewById(R.id.address));
+							city = (EditText) (signin_dialog.findViewById(R.id.city));
+							country = (EditText) (signin_dialog.findViewById(R.id.country));
+							zip = (EditText) (signin_dialog.findViewById(R.id.zip));
+							year = (EditText) (signin_dialog.findViewById(R.id.year));
+							day = (EditText) (signin_dialog.findViewById(R.id.day));
+							
+							String month = getMonth(spinner_month.getSelectedItem().toString());
+							String gender = spinner_gender.getSelectedItem().toString();
+							
+							c.signIn(firstName.getText(), lastName.getText(), userName.getText(), mail.getText(), password.getText(), address.getText(), gender,
+									city.getText(), country.getText(), zip.getText(), year.getText(), month, day.getText());
+							
+							signin_dialog.dismiss();
+						}
+					});
+					
+					cancel.setOnClickListener(new OnClickListener(){
+						public void onClick(View arg0) {
+							signin_dialog.dismiss();
+						}
+					});
+					
 					signin_dialog.show();
 				}
 			});
@@ -177,6 +227,38 @@ public class TeXloudActivity extends Activity {
 		}
 	}
 
+	public String getMonth(String s){
+		if(s == "Janvier")
+			return "01";
+		if(s == "Fevrier")
+			return "02";
+		if(s == "Mars")
+			return "03";
+		if(s == "Avril")
+			return "04";
+		if(s == "Mai")
+			return "05";
+		if(s == "Juin")
+			return "06";
+		if(s == "Juillet")
+			return "07";
+		if(s == "Aout")
+			return "08";
+		if(s == "Septembre")
+			return "09";
+		if(s == "Octobre")
+			return "10";
+		if(s == "Novembre")
+			return "11";
+		if(s == "Decembre")
+			return "12";
+		else
+			return "00";
+		
+		
+		
+	}
+	
 	public boolean isOnline() {
 	    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -204,6 +286,20 @@ public class TeXloudActivity extends Activity {
 		connect_dialog.dismiss();
 	}
 	
+	public static String SHAsum(byte[] convertme) throws NoSuchAlgorithmException{
+	    MessageDigest md = MessageDigest.getInstance("SHA-1"); 
+	    return byteArray2Hex(md.digest(convertme));
+	}
+
+	private static String byteArray2Hex(final byte[] hash) {
+	    Formatter formatter = new Formatter();
+	    for (byte b : hash) {
+	        formatter.format("%02x", b);
+	    }
+	    return formatter.toString();
+	}
+	
+	
 	final Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			dismissLoadingDialog();
@@ -219,4 +315,6 @@ public class TeXloudActivity extends Activity {
 		}
 	};
 
+	
+	
 }

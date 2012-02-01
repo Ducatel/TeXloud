@@ -19,10 +19,12 @@ class Node{
 	 * @param $parentId: id du parent du noeud
 	 * @param Boolean $folder: repertoire ou non
 	 */
-	public function __construct($name,$parentId,$folder){
+	public function __construct($name,$parentId,$folder, $nodeId=null){
 		$this->name=$name;
 		$this->parentId=$parentId;
-		$this->id=uniqid();
+		
+		$this->id=$nodeId!==null?$nodeId:uniqid();
+		
 		$this->folder=$folder;
 	}
 	
@@ -49,7 +51,18 @@ class Node{
 	}
 	
 	public function setName($name){
-		$this->name=$name;	
+		$file = new File($this->getId());
+		$filePath = explode('/', $file->path);
+		
+		$this->name = $name;
+		
+		if(count($filePath)>1)
+			$newPath = substr($file->path, 0, strlen($filePath[count($filePath)-1])-1) . $name;
+		else
+			$newPath = $name;
+		
+		$file->path = $newPath;
+		$file->save();
 	}
 	
 	public function getParentId(){

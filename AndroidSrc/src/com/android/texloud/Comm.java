@@ -26,8 +26,8 @@ public class Comm{
 	//public static final String IP = "172.16.21.183";
 	
 	public static final String URLauth = "http://"+IP+"/texloud/login.php";
-	public static final String URLgetFile = "http://"+IP+"/texloud/getTexFile.php";
-
+	public static final String URLgetFile = "http://"+IP+"/texloud/downloadTex.php";
+	public static final String URLsignin = "http://"+IP+"/texloud/createAccount.php";
 	
 	
 	public enum statement{SUCCESS, WRONG, ERROR};
@@ -152,5 +152,41 @@ public class Comm{
 		}
 		
 		// Reception pdf : ?
+	}
+	
+	public void signIn(CharSequence firstName, CharSequence lastName, CharSequence userName, CharSequence mail, CharSequence password, CharSequence address, String gender, 
+			CharSequence city, CharSequence country, CharSequence zip, CharSequence year, String month, CharSequence day){
+		
+		InputStream is;
+		
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("userName", userName.toString()));
+		nameValuePairs.add(new BasicNameValuePair("mail", mail.toString()));
+		nameValuePairs.add(new BasicNameValuePair("password", password.toString()));
+		
+		// Champs optionnels :
+		nameValuePairs.add(new BasicNameValuePair("firstName", firstName.toString()));
+		nameValuePairs.add(new BasicNameValuePair("lastName", lastName.toString()));
+		nameValuePairs.add(new BasicNameValuePair("address", address.toString()));
+		nameValuePairs.add(new BasicNameValuePair("gender", gender.toString()));
+		nameValuePairs.add(new BasicNameValuePair("city", city.toString()));
+		nameValuePairs.add(new BasicNameValuePair("country", country.toString()));
+		nameValuePairs.add(new BasicNameValuePair("zip", zip.toString()));
+		nameValuePairs.add(new BasicNameValuePair("year", year.toString()));
+		nameValuePairs.add(new BasicNameValuePair("month", month));
+		nameValuePairs.add(new BasicNameValuePair("day", day.toString()));
+		
+		try{
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(URLsignin);
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			is = entity.getContent();
+
+		}catch(Exception e){
+			Log.e("log_tag", "Error in http connection " + e.toString());
+		}
+		
 	}
 }

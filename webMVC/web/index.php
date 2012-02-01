@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-define("IN_PHP", true);
-
 require_once('../model/ClassLoader.class.php');
 $autoloader = new ClassLoader();
 
