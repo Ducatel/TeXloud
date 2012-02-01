@@ -7,11 +7,13 @@ class Project extends object {
 	}
 	
 	public function getFiles(){
-		$q = new Query('select', 'SELECT id FROM file WHERE project_id = ' . $this->id);
+		$q = new Query('select', 'SELECT id FROM file WHERE project_id = ' . $this->id . ' ORDER BY parent');
 		$files = array();
 		
 		foreach($q->result as $f)
 			$files[] = new File($f->id);
+		
+		return $files;
 	}
 }
 ?>

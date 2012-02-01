@@ -4,7 +4,7 @@ class query {
 
 	private $hostname = 'localhost';
 	private $user = 'root';
-	private $password = 'admin';
+	private $password = 'vac08*.';
 	private $database = 'TeXloud';
 	var $link;
 	var $result;
@@ -55,6 +55,7 @@ class query {
 	private function select($query) {
 		$array = array();
 		$result = mysql_query($query, $this->link) or die(mysql_error());
+		
 		if($result) {
 			while($data = mysql_fetch_object($result)) {
 				$array[] = $data;

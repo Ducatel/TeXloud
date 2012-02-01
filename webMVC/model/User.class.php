@@ -42,5 +42,35 @@ class User extends object {
 		
 		return $projects;
 	}
+	
+	public function getTree(){
+		$project = $this->getProjects();
+		
+		$tree = new Tree("Workspace");
+		
+		foreach($project as $p){
+			$project_node_id = $tree->addNode($p->name, $tree->getRoot()->getId(), true, $p->id . '_project');
+				
+			foreach ($p->getFiles() as $f){
+				$filePath = explode('/', $f->path);
+				$is_dir = $f->is_dir?true:false;
+				$parentNode = $f->parent==0?$project_node_id:$f->parent;
+		
+				$tree->addNode($filePath[count($filePath)-1], $parentNode, $is_dir, $f->id);
+			}
+		}
+		
+		return $tree;
+	}
+	
+	public function getCreatedGroups(){
+		$query = new Query('select', 'SELECT g.id AS id FROM group_user gu, user u, permission p, `group` g WHERE u.id=' . $this->id . ' AND u.id = gu.user_id AND g.id = gu.group_id AND p.id=gu.permission_id AND p.type=\'admin\' ORDER BY g.id');
+		$groups = array();
+		
+		foreach($query->result as $g)
+			$groups[] = new Group($g->id);
+		
+		return $groups;
+	}
 }
 ?>

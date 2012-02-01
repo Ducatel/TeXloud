@@ -19,9 +19,11 @@ class object {
 		}
 	}
 	
-	public function delete(){
+	public static function delete($id=0){
+		$classname = get_called_class();
+		
 		if($id){
-			$q = new Query('delete', 'DELETE FROM ' . $this::getTableName() . ' WHERE id=' . $this->id);
+			$q = new Query('delete', 'DELETE FROM ' . $classname::getTableName() . ' WHERE id=' . $id);
 			return $q->result;
 		}
 	

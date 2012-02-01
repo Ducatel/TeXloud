@@ -14,24 +14,16 @@ class editionActions extends Actions {
 			$user = User::getCurrentUser();
 			
 			/* mockup */
-			$tree=new Tree("Workspace");
 			
-			
-			$id=$tree->addNode("Un dossier_1",$tree->getRoot()->getId(),true);
-			$tree->addNode("Un Fichier_1_1",$id,false);
-			$fichier20=$tree->addNode("Un Fichier_1_2 ",$id,false);
-			
-			
-			$id2=$tree->addNode("Un dossier_2",$tree->getRoot()->getId(),true);
-			$tree->addNode("Un Fichier_2_1",$id2,false);
-			$tree->addNode("Un Fichier_2_2 ",$id2,false);
-			$id3=$tree->addNode("Un dossier_2_1",$id2,true);
-			$tree->addNode("Un Fichier_2_1_1",$id3,false);
-			$tree->addNode("Un Fichier_2_1_2 ",$id3,false);
-			
-			$this->tree = $tree;
-			
-			$_SESSION['tree']=serialize($this->tree);
+			if(!$_SESSION['tree']){
+				$this->tree = $user->getTree();
+				$_SESSION['tree']=serialize($this->tree);
+				//echo 'get tree<br />';
+			}
+			else{
+				$this->tree = unserialize($_SESSION['tree']);
+				//echo 'get tree from session<br />';
+			}	
 			
 			/* Fin mockup */
 			
@@ -40,7 +32,7 @@ class editionActions extends Actions {
 	}
 	
 	public function testSuccess(){
-		echo 'plop';
+
 	}
 }
 
