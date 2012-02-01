@@ -34,13 +34,12 @@ $(function(){
 function addFolderAction(element){
 	addDisableFolderFocus(element);
 	addFolderMenu(element);
-	//addRenameAction(element);
+	
 }
 
 function addFileAction(element){
 	addDisableFileFocus(element);
 	addFileMenu(element);
-	//addRenameAction(element);
 }
 
 function addDisableFolderFocus(element){

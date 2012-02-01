@@ -57,7 +57,7 @@ $registerOK = FALSE;
 			    
                             /* $sql=$bdd->prepare('INSERT INTO utilisateur (prenom,nom,sex,datenaissance,adresse,codepostal,ville,pays,identifiant,motpasse,motpassedeux,mail) VALUES  (?,?,?,?,?,?,?,?,?,?,?,?)');
 			      $sql->execute(array($_POST['prenom'],$_POST['nom'],$_POST['sex'],$_POST['datenaissance'],$_POST['adresse'],$_POST['codepostal'],$_POST['ville'],$_POST['pays'],$_POST['identifiant'],$motpasse,$motpassedeux,$_POST['mail']));*/
-			      $sql=$bdd->prepare('INSERT INTO utilisateur (identifiant,motpasse,motpassedeux,mail) VALUES  (?,?,?,?)');
+			      $sql=$bdd->prepare('INSERT INTO utilisateur (identifiant,motpasse,salt,mail) VALUES  (?,?,?,?)');
 			      $sql->execute(array($_POST['identifiant'],$motpasse,$salt,$_POST['mail']));
                           // Si la requête s'est bien effectué :
                           if($sql){
