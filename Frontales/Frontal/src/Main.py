@@ -8,5 +8,5 @@ Created on 8 dec. 2011
 
 import Frontal
 
-f=Frontal.Frontal('172.16.21.186',12800)
+f=Frontal.Frontal('192.168.0.7',12800)
 f.lanceServeur()

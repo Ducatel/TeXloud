@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.13)  27 JAN 2012 16:04
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  2 FEB 2012 14:32
 entering extended mode
  %&-line parsing enabled.
 **cahierDesCharges.tex
@@ -598,7 +598,7 @@ TeX warning (ext4): destination with the same identifier (name{page.1}) has bee
 n already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.93 ....0.4}Inscription}{21}{subsubsection.B.0.4}
+l.94 ....0.4}Inscription}{21}{subsubsection.B.0.4}
                                                    [1
 
 ])
@@ -645,11 +645,11 @@ dentifier (name{figure.2}) has been already used, duplicate ignored
                                                   \fi \fi 
 l.318 \newpage
                <./Diagramme/mpm.pdf>] [11] [12] [13] [14]
-<../layout/layout_texloud_login.png, id=473, 1096.898pt x 616.704pt>
+<../layout/layout_texloud_login.png, id=472, 1096.898pt x 616.704pt>
 File: ../layout/layout_texloud_login.png Graphic file (type png)
 
 <use ../layout/layout_texloud_login.png> [15]
-<../layout/layout_texloud_project.png, id=492, 1096.898pt x 616.704pt>
+<../layout/layout_texloud_project.png, id=493, 1096.898pt x 616.704pt>
 File: ../layout/layout_texloud_project.png Graphic file (type png)
 
 <use ../layout/layout_texloud_project.png> [16pdfTeX warning (ext4): destinatio
@@ -658,9 +658,9 @@ nored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.528 \newpage
+l.534 \newpage
                <../layout/layout_texloud_login.png>]
-<../layout/layout_texloud_std.png, id=500, 1096.898pt x 616.704pt>
+<../layout/layout_texloud_std.png, id=501, 1096.898pt x 616.704pt>
 File: ../layout/layout_texloud_std.png Graphic file (type png)
 
 <use ../layout/layout_texloud_std.png> [17pdfTeX warning (ext4): destination wi
@@ -669,12 +669,12 @@ d
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.539 \newpage
+l.545 \newpage
                <../layout/layout_texloud_project.png>]
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Ressources/macroPlanning.pdf): PDF in
 clusion: found PDF version <1.5>, but at most version <1.4> allowed
-<./Ressources/macroPlanning.pdf, id=508, 845.0471pt x 597.51233pt>
+<./Ressources/macroPlanning.pdf, id=509, 845.0471pt x 597.51233pt>
 File: ./Ressources/macroPlanning.pdf Graphic file (type pdf)
 
 <use ./Ressources/macroPlanning.pdf> [18pdfTeX warning (ext4): destination with
@@ -682,16 +682,16 @@ File: ./Ressources/macroPlanning.pdf Graphic file (type pdf)
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.551 \newpage
+l.557 \newpage
                <../layout/layout_texloud_std.png>] [19pdfTeX warning (ext4): de
 stination with the same identifier (name{figure.6}) has been already used, dupl
 icate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.557 \newpage
+l.563 \newpage
                <./Ressources/macroPlanning.pdf>]
-<./Diagramme/diaUseCase.jpg, id=528, 410.53375pt x 457.71pt>
+<./Diagramme/diaUseCase.jpg, id=529, 410.53375pt x 457.71pt>
 File: ./Diagramme/diaUseCase.jpg Graphic file (type jpg)
 
 <use ./Diagramme/diaUseCase.jpg> [20pdfTeX warning (ext4): destination with the
@@ -699,13 +699,13 @@ File: ./Diagramme/diaUseCase.jpg Graphic file (type jpg)
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.569 \newpage
+l.575 \newpage
                <./Diagramme/diaUseCase.jpg>]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 571.
+(hyperref)                than one, level fixed on input line 577.
 
-<./Diagramme/CompteInscription.jpg, id=534, 862.22125pt x 468.75125pt>
+<./Diagramme/CompteInscription.jpg, id=535, 862.22125pt x 468.75125pt>
 File: ./Diagramme/CompteInscription.jpg Graphic file (type jpg)
 
 <use ./Diagramme/CompteInscription.jpg> [21pdfTeX warning (ext4): destination w
@@ -714,9 +714,9 @@ ed
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.581 \newpage
+l.587 \newpage
                <./Diagramme/CompteInscription.jpg>]
-<./Diagramme/CompteSuppression.jpg, id=540, 1369.115pt x 469.755pt>
+<./Diagramme/CompteSuppression.jpg, id=541, 1369.115pt x 469.755pt>
 File: ./Diagramme/CompteSuppression.jpg Graphic file (type jpg)
 
 <use ./Diagramme/CompteSuppression.jpg> [22pdfTeX warning (ext4): destination w
@@ -725,9 +725,9 @@ ed
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.592 \newpage
+l.598 \newpage
                <./Diagramme/CompteSuppression.jpg>]
-<./Diagramme/CreationProjet.jpg, id=546, 1321.93875pt x 468.75125pt>
+<./Diagramme/CreationProjet.jpg, id=547, 1321.93875pt x 468.75125pt>
 File: ./Diagramme/CreationProjet.jpg Graphic file (type jpg)
 
 <use ./Diagramme/CreationProjet.jpg> [23pdfTeX warning (ext4): destination with
@@ -736,9 +736,9 @@ File: ./Diagramme/CreationProjet.jpg Graphic file (type jpg)
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.603 \newpage
+l.609 \newpage
                <./Diagramme/CreationProjet.jpg>]
-<./Diagramme/DemandeCompilation.jpg, id=552, 1777.64125pt x 636.3775pt>
+<./Diagramme/DemandeCompilation.jpg, id=553, 1777.64125pt x 636.3775pt>
 File: ./Diagramme/DemandeCompilation.jpg Graphic file (type jpg)
 
 <use ./Diagramme/DemandeCompilation.jpg> [24pdfTeX warning (ext4): destination 
@@ -747,9 +747,9 @@ ored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.614 \newpage
+l.620 \newpage
                <./Diagramme/DemandeCompilation.jpg>]
-<./Diagramme/FichierLatexTelechargement.jpg, id=559, 1273.75874pt x 470.75874pt
+<./Diagramme/FichierLatexTelechargement.jpg, id=560, 1273.75874pt x 470.75874pt
 >
 File: ./Diagramme/FichierLatexTelechargement.jpg Graphic file (type jpg)
  <use ./Diagramme/FichierLatexTelechargement.jpg> [25pdfTeX warning (ext4): des
@@ -758,9 +758,9 @@ icate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.625 \newpage
+l.631 \newpage
                <./Diagramme/FichierLatexTelechargement.jpg>]
-<./Diagramme/PartageProjet.png, id=565, 806.01125pt x 686.565pt>
+<./Diagramme/PartageProjet.png, id=566, 806.01125pt x 686.565pt>
 File: ./Diagramme/PartageProjet.png Graphic file (type png)
 
 <use ./Diagramme/PartageProjet.png> [26pdfTeX warning (ext4): destination with 
@@ -768,9 +768,9 @@ the same identifier (name{figure.13}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.636 \newpage
+l.642 \newpage
                <./Diagramme/PartageProjet.png (PNG copy)>]
-<./Diagramme/data_sync.pdf, id=571, 1294.8375pt x 401.5pt>
+<./Diagramme/data_sync.pdf, id=572, 1294.8375pt x 401.5pt>
 File: ./Diagramme/data_sync.pdf Graphic file (type pdf)
 
 <use ./Diagramme/data_sync.pdf> [27pdfTeX warning (ext4): destination with the 
@@ -778,9 +778,9 @@ same identifier (name{figure.14}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.647 \newpage
+l.653 \newpage
                <./Diagramme/data_sync.pdf>]
-<./Diagramme/project_visu.pdf, id=581, 1294.8375pt x 461.725pt>
+<./Diagramme/project_visu.pdf, id=582, 1294.8375pt x 461.725pt>
 File: ./Diagramme/project_visu.pdf Graphic file (type pdf)
 
 <use ./Diagramme/project_visu.pdf> [28pdfTeX warning (ext4): destination with t
@@ -788,9 +788,9 @@ he same identifier (name{figure.15}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.658 \newpage
+l.664 \newpage
                <./Diagramme/project_visu.pdf>]
-<./Diagramme/SuppressionProjetViaWeb.jpg, id=591, 1388.18625pt x 685.56125pt>
+<./Diagramme/SuppressionProjetViaWeb.jpg, id=592, 1388.18625pt x 685.56125pt>
 File: ./Diagramme/SuppressionProjetViaWeb.jpg Graphic file (type jpg)
 
 <use ./Diagramme/SuppressionProjetViaWeb.jpg> [29pdfTeX warning (ext4): destina
@@ -799,17 +799,17 @@ e ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.669 \newpage
+l.675 \newpage
                <./Diagramme/SuppressionProjetViaWeb.jpg>]
-<./Diagramme/telechargementRenduProjet.jpg, id=598, 1777.64125pt x 636.3775pt>
+<./Diagramme/telechargementRenduProjet.jpg, id=599, 1777.64125pt x 636.3775pt>
 File: ./Diagramme/telechargementRenduProjet.jpg Graphic file (type jpg)
 
 <use ./Diagramme/telechargementRenduProjet.jpg>
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 681.
+(hyperref)                than one, level fixed on input line 687.
 
-<./Diagramme/Android/CompteInscription.jpg, id=599, 885.3075pt x 467.7475pt>
+<./Diagramme/Android/CompteInscription.jpg, id=600, 885.3075pt x 467.7475pt>
 File: ./Diagramme/Android/CompteInscription.jpg Graphic file (type jpg)
 
 <use ./Diagramme/Android/CompteInscription.jpg> [30pdfTeX warning (ext4): desti
@@ -818,16 +818,16 @@ ate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.689 \end{figure}
+l.695 \end{figure}
                    <./Diagramme/telechargementRenduProjet.jpg>] [31pdfTeX warni
 ng (ext4): destination with the same identifier (name{figure.18}) has been alre
 ady used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.691 \newpage
+l.697 \newpage
                <./Diagramme/Android/CompteInscription.jpg>]
-<./Diagramme/Android/CompteSuppression.jpg, id=611, 1391.1975pt x 468.75125pt>
+<./Diagramme/Android/CompteSuppression.jpg, id=612, 1391.1975pt x 468.75125pt>
 File: ./Diagramme/Android/CompteSuppression.jpg Graphic file (type jpg)
 
 <use ./Diagramme/Android/CompteSuppression.jpg> [32pdfTeX warning (ext4): desti
@@ -836,9 +836,9 @@ ate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.702 \newpage
+l.708 \newpage
                <./Diagramme/Android/CompteSuppression.jpg>]
-<./Diagramme/Android/CreationProjet.jpg, id=617, 1340.00626pt x 467.7475pt>
+<./Diagramme/Android/CreationProjet.jpg, id=618, 1340.00626pt x 467.7475pt>
 File: ./Diagramme/Android/CreationProjet.jpg Graphic file (type jpg)
 
 <use ./Diagramme/Android/CreationProjet.jpg> [33pdfTeX warning (ext4): destinat
@@ -847,9 +847,9 @@ ion with the same identifier (name{figure.20}) has been already used, duplicate
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.713 \newpage
+l.719 \newpage
                <./Diagramme/Android/CreationProjet.jpg>]
-<./Diagramme/Android/DemandeCompilation.jpg, id=623, 1801.73125pt x 635.37375pt
+<./Diagramme/Android/DemandeCompilation.jpg, id=624, 1801.73125pt x 635.37375pt
 >
 File: ./Diagramme/Android/DemandeCompilation.jpg Graphic file (type jpg)
  <use ./Diagramme/Android/DemandeCompilation.jpg> [34pdfTeX warning (ext4): des
@@ -858,9 +858,9 @@ icate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.724 \newpage
+l.730 \newpage
                <./Diagramme/Android/DemandeCompilation.jpg>]
-<./Diagramme/Android/FichierLatexTelechargement.jpg, id=629, 1302.8675pt x 470.
+<./Diagramme/Android/FichierLatexTelechargement.jpg, id=630, 1302.8675pt x 470.
 75874pt>
 File: ./Diagramme/Android/FichierLatexTelechargement.jpg Graphic file (type jpg
 )
@@ -870,7 +870,7 @@ ed, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.735 \newpage
+l.741 \newpage
                <./Diagramme/Android/FichierLatexTelechargement.jpg>]
 
 ! Package pdftex.def Error: File ` ./Diagramme/Android/SuppressionProjetViaAndr
@@ -880,13 +880,13 @@ See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.741 .../Android/SuppressionProjetViaAndroid.jpg}
+l.747 .../Android/SuppressionProjetViaAndroid.jpg}
                                                   
 Using draft setting for this image.
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 741.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 747.
 
 (/usr/share/texmf-texlive/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
@@ -895,9 +895,9 @@ File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.747 \newpage
+l.753 \newpage
               ]
-<./Diagramme/Android/telechargementRenduProjet.jpg, id=642, 1819.79875pt x 636.
+<./Diagramme/Android/telechargementRenduProjet.jpg, id=643, 1819.79875pt x 636.
 3775pt>
 File: ./Diagramme/Android/telechargementRenduProjet.jpg Graphic file (type jpg)
 
@@ -907,7 +907,7 @@ d, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.758 \newpage
+l.764 \newpage
                <./Diagramme/Android/telechargementRenduProjet.jpg>]
 (./cahierDesCharges.lof)
 \tf@lof=\write6
@@ -919,27 +919,27 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6998 strings out of 495061
- 98883 string characters out of 1182620
+ 6999 strings out of 495061
+ 98894 string characters out of 1182622
  171664 words of memory out of 3000000
  9796 multiletter control sequences out of 15000+50000
  24742 words of font info for 71 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  38i,8n,36p,479b,466s stack positions out of 5000i,500n,10000p,200000b,50000s
- </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </home/
-adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/adrien/.te
-xmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </home/adrien/.texmf-var/fo
-nts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/adrien/.texmf-var/fonts/pk/ljf
-our/jknappen/ec/ecbx1200.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknapp
-en/ec/ecrm1200.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx
-1728.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1440.600pk
-> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/a
-drien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/adrien/.tex
-mf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk></usr/share/texmf-texlive/fon
-ts/type1/public/amsfonts/cm/cmmi12.pfb>
-Output written on cahierDesCharges.pdf (39 pages, 1605182 bytes).
+ </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </hom
+e/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/hannib
+al/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </home/hannibal/.texm
+f-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/hannibal/.texmf-var/fo
+nts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/hannibal/.texmf-var/fonts/pk/l
+jfour/jknappen/ec/ecrm1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jk
+nappen/ec/ecbx1728.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/e
+c/eccc1440.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx20
+74.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk
+> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk></usr/s
+hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
+Output written on cahierDesCharges.pdf (39 pages, 1606169 bytes).
 PDF statistics:
- 1091 PDF objects out of 1200 (max. 8388607)
- 207 named destinations out of 1000 (max. 500000)
+ 1094 PDF objects out of 1200 (max. 8388607)
+ 208 named destinations out of 1000 (max. 500000)
  556 words of extra memory for PDF output out of 10000 (max. 10000000)
 

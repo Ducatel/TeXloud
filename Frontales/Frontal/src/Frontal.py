@@ -12,6 +12,8 @@ import json
 import Ordonnanceur
 import Serveur
 
+import sys
+
 class Frontal(object):
     '''
     Classe qui gere le serveur de la frontale de compilation grace à
