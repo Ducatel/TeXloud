@@ -414,8 +414,6 @@ function menuAddProject(posX, posY){
 }
 
 function addProject(projectName){
-	
-	
 	$.ajax({
         url:"/tree/addProject",
   	  	type: 'POST',

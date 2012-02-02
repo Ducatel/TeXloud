@@ -77,11 +77,17 @@ class object {
 		return strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', get_called_class()));
 	}
 	
-	static public function getAll($start=0, $limit=10, $where=1, $order='id ASC') {
+	static public function getAll($start=null, $limit=null, $where=1, $order='id ASC') {
 		$classname = get_called_class();
 		
 		$array = array();
-		$query = new Query('select', "SELECT id FROM `". $classname::getTableName() ."` WHERE $where ORDER BY $order LIMIT $start, $limit");
+		
+		$rq = "SELECT id FROM `". $classname::getTableName() ."` WHERE $where ORDER BY $order ";
+		
+		if($start && $limit)
+			$rq .= "LIMIT $start, $limit";
+		
+		$query = new Query('select', $rq);
 		
 		if($query->result) {
 			foreach($query->result as $data) {
