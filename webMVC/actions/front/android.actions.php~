@@ -41,6 +41,8 @@ class androidActions extends Actions{
 		}
 	}
 	
+		
+	//TODO a tester
 	public function createAccountSuccess(){
 		$firstname=(empty($_POST['firstname']))?'':$_POST['firstname'];
 		$lastname=(empty($_POST['lastname']))?'':$_POST['lastname'];
@@ -90,48 +92,8 @@ class androidActions extends Actions{
 		echo "Inscription reussie ! Vous etes maintenant membre de TeXloud.";
 	}	
 	
-	public function deleteProject(){
-
-		$projectName=$_POST['projectName'];
 		
-		if(!isset($projetName) && empty($projectName))
-			die("Erreur sur le nom du projet");
-			
-		$user=User::getCurrentUser();
-		
-		// creation de la socket de reception
-		$receiver=new ReceiverTextOnly("192.168.0.2");
-		
-		//creation de la requete d'emission
-		$frontalAddress = "192.168.0.6";
-		$frontalPort = 12800;
-
-		$requete=array(
-			'label'=>'create',
-			'username'=>$user->username,
-			'projectName'=>$projectName,
-			'httpPort'=>$receiver->getPort(),
-		);
-		$sender->setRequest($requete);
-		
-		//envoie de la commande de creation de projet
-		$sender->sendRequest();
-		unset($sender);
-		
-		// Attente de recuperation des infos
-		$trame=$receiver->getReturn();
-		
-		// Creation du projet dans la BDD
-		$req=new Query('insert',"INSERT INTO project VALUES ('','".$projectName."','".$trame['serverUrl']."',(select GU.group_id from user U , group_user GU where U.id='".$user->id."' and GU.user_id=U.id limit 0,1))");
-		
-		
-		$_SESSION['workingCopyDir']=array()
-		$_SESSION['workingCopyDir'][$req->result]=$trame['workingCopyDir'];
-		
-		echo "Creation du projet termine";
-		
-	}
-
+	//TODO a tester
 	public function createProject(){
 		$projectName=$_POST['projectName'];
 		
@@ -146,6 +108,7 @@ class androidActions extends Actions{
 		//creation de la requete d'emission
 		$frontalAddress = "192.168.0.6";
 		$frontalPort = 12800;
+		$sender= new Sender($frontalAddress,$frontalPort);
 
 		$requete=array(
 			'label'=>'create',
@@ -166,12 +129,204 @@ class androidActions extends Actions{
 		$req=new Query('insert',"INSERT INTO project VALUES ('','".$projectName."','".$trame['serverUrl']."',(select GU.group_id from user U , group_user GU where U.id='".$user->id."' and GU.user_id=U.id limit 0,1))");
 		
 		
-		$_SESSION['workingCopyDir']=array()
-		$_SESSION['workingCopyDir'][$req->result]=$trame['workingCopyDir'];
+		$_SESSION['workingCopyDir']=array();
+		$_SESSION['workingCopyDir'][$req->last_id]=$trame['workingCopyDir'];
 		
 		echo "Creation du projet termine";
+	}
+	
+	//TODO a tester
+	public function getProject(){
+		
+		$projectId=$_POST['projectId'];
+		
+		if(!isset($projectId) && empty($projectId))
+			die('Erreur dans le chargement de projet ');
+			$user=User::getCurrentUser();
+
+		// creation de la socket de reception
+		$receiver=new ReceiverTextOnly("192.168.0.2");
+
+		//creation de la requete d'emission
+		$frontalAddress = "192.168.0.6";
+		$frontalPort = 12800;
+		$sender= new Sender($frontalAddress,$frontalPort);
+
+		$project=new Project($projectId);
+		$dataUrl=explode(':',$project->serverUrl);
+		$dataIp=$dataUrl[0];
+		$dataPort=$dataUrl[1];
+		
+		$requete=array(
+			'label'=>'getProject',
+			'path'=>$_SESSION['workingCopyDir'][$project->id],
+			'servDataIp'=>$dataIp,
+			'servDataPort'=>$dataPort,
+			'httpPort'=>$receiver->getPort(),
+		);
+		$sender->setRequest($requete);
+
+		//envoie de la commande de chargement de projet
+		$sender->sendRequest();
+		unset($sender);
+
+		// Attente de recuperation des infos
+		$trame=$receiver->getReturn();
+
+		// chargement du projet dans la BDD
+		new Query('select',"select id from project where id=".$project->id);
+
+
+		unset($_SESSION['workingCopyDir'][$project->id]);
+
+		echo "Suppression du projet termine";
+	
+	
+	}
+	
+	
+		
+	//TODO a tester
+	public function deleteProject(){
+	
+		$projectId=$_POST['projectId'];
+
+		if(!isset($projetId) && empty($projectId))
+			die("Erreur sur l'id du projet");
+	
+		$user=User::getCurrentUser();
+
+		// creation de la socket de reception
+		$receiver=new ReceiverTextOnly("192.168.0.2");
+
+		//creation de la requete d'emission
+		$frontalAddress = "192.168.0.6";
+		$frontalPort = 12800;
+		$sender= new Sender($frontalAddress,$frontalPort);
+
+		$project=new Project($projectId);
+		$dataUrl=explode(':',$project->serverUrl);
+		$dataIp=$dataUrl[0];
+		$dataPort=$dataUrl[1];
+		
+		$requete=array(
+			'label'=>'deleteProject',
+			'path'=>$_SESSION['workingCopyDir'][$project->id],
+			'servDataIp'=>$dataIp,
+			'servDataPort'=>$dataPort,
+			'httpPort'=>$receiver->getPort(),
+		);
+		$sender->setRequest($requete);
+
+		//envoie de la commande de suppression de projet
+		$sender->sendRequest();
+		unset($sender);
+
+		// Attente de recuperation des infos
+		$trame=$receiver->getReturn();
+
+		// suppression du projet dans la BDD
+		new Query('delete',"delete from project where id=".$project->id);
+
+
+		unset($_SESSION['workingCopyDir'][$project->id]);
+
+		echo "Suppression du projet termine";
+			
+	}
+	
+	//TODO a tester
+	public function sync {
+	
+		$currentFile=$_POST['currentFile'];
+		
+		if(!isset($currentFile) && empty($currentFile))
+			die("Erreur sur le chargement du fichier");
+			
+		$user=User::getCurrentUser();
+		
+		// creation de la socket de reception
+		$receiver=new ReceiverTextOnly("192.168.0.2");
+		
+		//creation de la requete d'emission
+		$frontalAddress = "192.168.0.6";
+		$frontalPort = 12800;
+		$sender= new Sender($frontalAddress,$frontalPort);
+		
+		$file=new File($fileId);
+		
+		$requete=array(
+			'label'=>'sync',
+			'path'=>$_SESSION['workingCopyDir'][$file->id],
+			'currentFile'=>$currentFile,
+			'httpPort'=>$receiver->getPort(),
+		);
+		$sender->setRequest($requete);
+		
+		//envoie de la commande de syncronisation du fichier
+		$sender->sendRequest();
+		unset($sender);
+		
+		// Attente de recuperation des infos
+		$trame=$receiver->getReturn();
+				
+		echo "Syncronisation du fichier termine";
 		
 	}
+	
+		
+	//TODO a tester
+	public function deleteFile(){
+	
+		$fileId=$_POST['fileId'];
+
+		if(!isset($fileId) && empty($fileId))
+			die("Erreur sur l'id du fichier");
+	
+		$user=User::getCurrentUser();
+
+		// creation de la socket de reception
+		$receiver=new ReceiverTextOnly("192.168.0.2");
+
+		//creation de la requete d'emission
+		$frontalAddress = "192.168.0.6";
+		$frontalPort = 12800;
+		$sender= new Sender($frontalAddress,$frontalPort);
+
+		$file=new File($fileId);
+		$dataUrl=explode(':',$file->serverUrl);
+		$dataIp=$dataUrl[0];
+		$dataPort=$dataUrl[1];
+		
+		$requete=array(
+			'label'=>'deleteFile',
+			'path'=>$_SESSION['workingCopyDir'][$file->id],
+			'servDataIp'=>$dataIp,
+			'servDataPort'=>$dataPort,
+			'httpPort'=>$receiver->getPort(),
+		);
+		$sender->setRequest($requete);
+
+		//envoie de la commande de suppression de file
+		$sender->sendRequest();
+		unset($sender);
+
+		// Attente de recuperation des infos
+		$trame=$receiver->getReturn();
+
+		// suppression du file dans la BDD
+		new Query('delete',"delete from file where id=".$file->id);
+
+
+		unset($_SESSION['workingCopyDir'][$file->id]);
+
+		echo "Suppression du file termine";
+			
+	
+	
+	}
+	
+	
 }
 new androidActions();
 
