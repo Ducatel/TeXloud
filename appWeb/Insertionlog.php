@@ -3,7 +3,7 @@
 
 session_start();
    $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-   $bdd = new PDO('mysql:host=localhost;dbname=Texloud', 'root', 'debouz1990', $pdo_options);
+   $bdd = new PDO('mysql:host=localhost;dbname=Texloud', 'root', 'admin', $pdo_options);
 
 
 // On met les variables utilisé dans le code PHP à FALSE (C'est-à-dire les désactiver pour le moment).
