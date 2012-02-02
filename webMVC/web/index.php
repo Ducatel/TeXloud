@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+define('HTTP_IP', '192.168.0.2');
+define('COMPIL_IP', '192.168.0.5');
+define('FRONTAL_IP', '192.168.0.6');
+define('DATA_IP', '192.168.0.4');
+define('FRONTAL_PORT', '12800');
+
 require_once('../model/ClassLoader.class.php');
 $autoloader = new ClassLoader();
 

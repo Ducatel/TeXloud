@@ -322,7 +322,6 @@ class androidActions extends Actions{
 		unset($_SESSION['workingCopyDir'][$file->id]);
 
 		echo "recuperation du fichier termine";
-		
 	}
 		
 	//TODO a tester

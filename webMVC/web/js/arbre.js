@@ -40,6 +40,15 @@ function addFolderAction(element){
 function addFileAction(element){
 	addDisableFileFocus(element);
 	addFileMenu(element);
+	
+	$(element).click(function(){
+		$.post('/ajax/getFile/id/' + $(this).attr('id'),
+			   function(content){
+				editAreaLoader.setValue('codelatex', content);
+				console.log(editAreaLoader.getValue('codelatex'));
+				//$('textarea#textarea').val(content);
+		});
+	});
 }
 
 function addDisableFolderFocus(element){
@@ -130,12 +139,19 @@ function removeAction(element){
 function contextFolderMenu(posX, posY,folder) {
 
 	$('.menu').remove();
+	
+	var folderEdit = "";
+	
+	if($(folder).parent().parent().children().first().attr('class')!="root")
+		folderEdit = '<li id="editeFolder">Editer un dossier</li>';
+	else
+		folderEdit = '';
 
 	var menu = $(
 			'<div id="contextFolderMenu" class="menu">' + '<ul>'
 					+ '<li id="addFile">Cr&eacute;er un fichier</li>'
 					+ '<li id="addFolder">Cr&eacute;er un dossier</li>'
-					+ '<li id="editeFolder">Editer un dossier</li>'
+					+ folderEdit
 					+ '<li id="removeFolder">Supprimer un dossier</li>'
 					+ '</ul>' + '</div>').attr('style',
 			'position:fixed;top: 0; left: 0;margin-left: ' + posX + 'px; margin-top: ' + posY + 'px;');
