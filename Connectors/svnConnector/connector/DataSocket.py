@@ -32,6 +32,14 @@ class DataSocket(object):
         self.working_copy_user_index = '/tmp/texloud/users.conf'
         self._repo_dir = '/tmp/texloud/repos/'
         
+        if(not os.path.isdir(self._repo_dir)):
+            os.makedirs(self._repo_dir)
+            
+            if(not os.path.exists(self.working_copy_user_index)):
+                f = open(self.working_copy_user_index, 'w')
+                f.close()
+            
+        
     def getUserProperty(self, wc_dir, prop):
         f = open(self.working_copy_user_index, 'r')
         usersJSON = f.read()
@@ -222,7 +230,7 @@ class DataSocket(object):
                 #tested - work
                 elif(label=='sync'):
                     print 'sync -> ' + str(requestInfo['files'])
-                    self.sync(requestInfo['path'], requestInfo['currentFile'], requestInfo['files'], requestInfo['httpPort'], client)
+                    self.sync(requestInfo['path'], requestInfo['files'], requestInfo['httpPort'], client)
                 elif(label=="backCompile"):
                     print 'send compiled file to server'
                     self.sendPdfToWebServer(requestInfo['log'], messageArray[1], requestInfo['httpPort'])
@@ -235,7 +243,7 @@ class DataSocket(object):
                 
       
     ''' synchronise plusieurs fichiers sur la copie locale puis commit '''
-    def sync(self, path, currentFile, files, httpPort, client):
+    def sync(self, path, files, httpPort, client):
         if not '..' in path:
             for fdata in files:
                 print 'fdata -> ' + str(fdata)
@@ -308,12 +316,12 @@ class DataSocket(object):
         depot de test: file:///home/meva/test_repo/, file:///tmp/texloud/repos/plop/
         getProject: sock.send('{"label":"getProject","path":"file:///home/meva/test_repo/"}')
         deleteProject: sock.send('{"label":"deleteProject","path":"53d4ad39451eac91f7a983fd2d4ab34c"}')
-        sync: sock.send('{"label" : "sync", "path" : "53d4ad39451eac91f7a983fd2d4ab34c", "files" : [{"filename" : "bouh/bouhbouh.txt", "content" : "blahblah commit"}], "currentFile" : "rien"}')
+        sync: sock.send('{"label" : "sync", "path" : "53d4ad39451eac91f7a983fd2d4ab34c", "files" : [{"filename" : "bouh/bouhbouh.txt", "content" : "blahblah commit"}]}')
         compile: {"label":"compile","path":"65a3c9a8fa66596de53bec9377a89aef", "rootFile" : "rapport.tex", "servCompileIp" : "127.0.0.1","servCompilePort":"6667"}
        
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)z
         sock.connect(('127.0.0.1', 31346))
-        sock.send('{"label" : "sync", "path" : "53d4ad39451eac91f7a983fd2d4ab34c", "files" : [["pdfgsbvslop", "contenu"],["hdufk","gfyig"]], "currentFile" : "rien"}')
+        sock.send('{"label" : "sync", "path" : "53d4ad39451eac91f7a983fd2d4ab34c", "files" : [["pdfgsbvslop", "contenu"],["hdufk","gfyig"]]s}')
         sock.send('+==\endTrame==+')
         sock.close()
     '''
