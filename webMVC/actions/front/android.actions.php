@@ -183,9 +183,6 @@ class androidActions extends Actions{
 		// Attente de recuperation des infos
 		$trame=$receiver->getReturn();
 
-		// chargement du projet dans la BDD
-		new Query('select',"select id from project where id=".$project->id);
-
 		unset($_SESSION['workingCopyDir'][$project->id]);
 
 		echo "recuperation du projet termine";
@@ -242,7 +239,7 @@ class androidActions extends Actions{
 	}
 	
 	//TODO a tester
-	public function syncSuccess() {
+	public function syncSuccess($affichage=true) {
 	
 		$files=$_POST['files'];
 		
@@ -276,10 +273,57 @@ class androidActions extends Actions{
 		// Attente de recuperation des infos
 		$trame=$receiver->getReturn();
 				
-		echo "Syncronisation du fichier termine";
+		if($affichage)
+			echo "Syncronisation du fichier termine";
 		
 	}
 	
+	//TODO a tester
+	
+	public function getFileSuccess(){
+	
+		$fileId = $_POST['fileId'];
+		
+		if(!isset($fileId) && empty($fileId))
+			die('Erreur sur l id du fichier');
+		
+		// creation de la socket de reception
+		$receiver=new ReceiverTextOnly("192.168.0.2");
+
+		//creation de la requete d'emission
+		$frontalAddress = "192.168.0.6";
+		$frontalPort = 12800;
+		$sender= new Sender($frontalAddress,$frontalPort);
+
+		$file=new File($filesId);
+		$dataUrl=explode(':',$file->serverUrl);
+		$dataIp=$dataUrl[0];
+		$dataPort=$dataUrl[1];
+		
+		$requete=array(
+			'label'=>'getFile',
+			'path'=>$_SESSION['workingCopyDir'][$file->id],
+			'servDataIp'=>$dataIp,
+			'servDataPort'=>$dataPort,
+			'httpPort'=>$receiver->getPort(),
+		);
+		$sender->setRequest($requete);
+
+		//envoie de la commande de chargement de fichier
+		$sender->sendRequest();
+		unset($sender);
+
+		// Attente de recuperation des infos
+		$trame=$receiver->getReturn();
+
+		// chargement du projet dans la BDD
+		new Query('select',"select id from file where id=".$file->id);
+
+		unset($_SESSION['workingCopyDir'][$file->id]);
+
+		echo "recuperation du fichier termine";
+		
+	}
 		
 	//TODO a tester
 	public function deleteFileSuccess(){
@@ -289,8 +333,6 @@ class androidActions extends Actions{
 		if(!isset($fileId) && empty($fileId))
 			die("Erreur sur l'id du fichier");
 	
-		$user=User::getCurrentUser();
-
 		// creation de la socket de reception
 		$receiver=new ReceiverTextOnly("192.168.0.2");
 
@@ -330,7 +372,9 @@ class androidActions extends Actions{
 		
 	}
 	
+	//TODO a tester
 	public function compileSuccess(){
+		$this->syncSuccess(false);
 	
 		$rootFile =  $_POST['rootFile'];
 
@@ -339,7 +383,7 @@ class androidActions extends Actions{
 
 
 		// creation de la socket de reception
-		$receiver=new ReceiverTextOnly("192.168.0.2");
+		$receiver=new ReceiverTextWithBinary("192.168.0.2");
 
 		//creation de la requete d'emission
 		$frontalAddress = "192.168.0.5";
@@ -365,27 +409,11 @@ class androidActions extends Actions{
 
 		//envoie de la commande de suppression de file
 		$sender->sendRequest();
-		unset($sender);
-
-		$tab=array(
-			'label'=>'sync',
-			'path'=>'53d4ad39451eac91f7a983fd2d4ab34c',
-		);
-		$tab['files']=array();
-		$tab['files'][]=array(
-			'filename'=>'bouh/bouboub.txt',
-			'content'=>'blablba idfoghdmofjg sioudfhnedk'
-		);
-		$tab['files'][]=array(
-			'filename'=>'bouh/bouboub234.txt',
-			'content'=>'plop plip ploup'
-		);
+		unset($sender);	
 		
-		echo json_encode($tab);
-	
+		$receiver->getReturn($log,$binaryPdf);
+		//TODO voir comment retourner le binaire du pdf
 	}
-	
-	
 }
 new androidActions();
 

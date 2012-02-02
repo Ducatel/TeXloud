@@ -5,8 +5,8 @@ class androidActions extends Actions{
 
 		$login = $_POST['login'];
 		$password = $_POST['password'];
-
-		$login='meva';
+		
+		$login = 'meva';
 		$password = 'plop';
 
 		$query = new Query('unique_select', "SELECT id, salt, password FROM user WHERE username='$login'");
@@ -20,29 +20,32 @@ class androidActions extends Actions{
 			$arboresence=array();
 
 			// recuperation de tous les project de l'utilisateur
-			$getProjects = new Query('select',"select P.id as id, P.name as name from user U,group_user GU, project P where U.username='".$login."' and U.id=GU.user_id and GU.group_id=P.group_id");
-			
+			$getProjects = new Query('select',"select P.id as id, P.name as name from user U,group_user GU, project P where U.username='".$login."' and U.id=GU.user_id and GU.ugroup_id=P.ugroup_id");
+			$i=0;
 			foreach($getProjects->result as $res){
-				$arboresence[$res->id]=array();
-				$arboresence[$res->id]['projectName']=$res->name;
+				$arboresence[$i]=array();
+				$arboresence[$i]['projectName']=$res->name;
+				$arboresence[$i]['projectId']=$res->id;
 
 	
 				$getFilesInProject= new Query('select',"select F.* from file F, project P where P.id=".$res->id." and F.project_id=P.id");
+				$j=0;
+				$arboresence[$i]['files']=array();
 				foreach($getFilesInProject->result as $file){
 					$tmp=explode('/',$file->path);
-					$arboresence[$res->id][$file->id]=array();
-					$arboresence[$res->id][$file->id]['parentId']=$file->parent;
-					$arboresence[$res->id][$file->id]['filename']=$tmp[count($tmp)-1];
-					$arboresence[$res->id][$file->id]['is_dir']=$file->is_dir;
+					$arboresence[$i]['files'][$j]=array();
+					$arboresence[$i]['files'][$j]['parentId']=$file->parent;
+					$arboresence[$i]['files'][$j]['filename']=$tmp[count($tmp)-1];
+					$arboresence[$i]['files'][$j]['is_dir']=$file->is_dir;
+					$arboresence[$i]['files'][$j]['id_file']=$file->id;
+					$j++;
 				}
-				
+				$i++;
 			}
 			echo json_encode($arboresence);
 		}
 	}
 	
-		
-	//TODO a tester
 	public function createAccountSuccess(){
 		$firstname=(empty($_POST['firstname']))?'':$_POST['firstname'];
 		$lastname=(empty($_POST['lastname']))?'':$_POST['lastname'];
@@ -88,13 +91,20 @@ class androidActions extends Actions{
 		$user->salt = md5(microtime());
 		$user->password = sha1($user->salt . $password);
 		$user->save();
+		
+		$ugroup=new Ugroup();
+		$ugroup->name=$username;
+		$ugroup->save();
+		
+		$permAdmin = Permission::getAll(0, 1, 'type = \'admin\'');
+		new Query('insert', 'INSERT INTO group_user VALUES(' . $user->id . ', ' . $ugroup->id . ', \'valide\', ' . $permAdmin[0]->id.')');
 
 		echo "Inscription reussie ! Vous etes maintenant membre de TeXloud.";
 	}	
 	
 		
 	//TODO a tester
-	public function createProject(){
+	public function createProjectSuccess(){
 		$projectName=$_POST['projectName'];
 		
 		if(!isset($projetName) && empty($projectName))
@@ -126,7 +136,7 @@ class androidActions extends Actions{
 		$trame=$receiver->getReturn();
 		
 		// Creation du projet dans la BDD
-		$req=new Query('insert',"INSERT INTO project VALUES ('','".$projectName."','".$trame['serverUrl']."',(select GU.group_id from user U , group_user GU where U.id='".$user->id."' and GU.user_id=U.id limit 0,1))");
+		$req=new Query('insert',"INSERT INTO project VALUES ('','".$projectName."','".$trame['serverUrl']."',(select GU.ugroup_id from user U , group_user GU where U.id='".$user->id."' and GU.user_id=U.id limit 0,1))");
 		
 		
 		$_SESSION['workingCopyDir']=array();
@@ -136,7 +146,7 @@ class androidActions extends Actions{
 	}
 	
 	//TODO a tester
-	public function getProject(){
+	public function getProjectSuccess(){
 		
 		$projectId=$_POST['projectId'];
 		
@@ -176,18 +186,15 @@ class androidActions extends Actions{
 		// chargement du projet dans la BDD
 		new Query('select',"select id from project where id=".$project->id);
 
-
 		unset($_SESSION['workingCopyDir'][$project->id]);
 
-		echo "Suppression du projet termine";
-	
-	
+		echo "recuperation du projet termine";
 	}
 	
 	
 		
 	//TODO a tester
-	public function deleteProject(){
+	public function deleteProjectSuccess(){
 	
 		$projectId=$_POST['projectId'];
 
@@ -226,21 +233,20 @@ class androidActions extends Actions{
 		$trame=$receiver->getReturn();
 
 		// suppression du projet dans la BDD
-		new Query('delete',"delete from project where id=".$project->id);
+		Project::delete($project->id);
 
 
 		unset($_SESSION['workingCopyDir'][$project->id]);
 
-		echo "Suppression du projet termine";
-			
+		echo "Suppression du projet termine";			
 	}
 	
 	//TODO a tester
-	public function sync {
+	public function syncSuccess() {
 	
-		$currentFile=$_POST['currentFile'];
+		$files=$_POST['files'];
 		
-		if(!isset($currentFile) && empty($currentFile))
+		if(!isset($files) && empty($files))
 			die("Erreur sur le chargement du fichier");
 			
 		$user=User::getCurrentUser();
@@ -258,7 +264,7 @@ class androidActions extends Actions{
 		$requete=array(
 			'label'=>'sync',
 			'path'=>$_SESSION['workingCopyDir'][$file->id],
-			'currentFile'=>$currentFile,
+			'files'=>$files,
 			'httpPort'=>$receiver->getPort(),
 		);
 		$sender->setRequest($requete);
@@ -276,7 +282,7 @@ class androidActions extends Actions{
 	
 		
 	//TODO a tester
-	public function deleteFile(){
+	public function deleteFileSuccess(){
 	
 		$fileId=$_POST['fileId'];
 
@@ -321,8 +327,61 @@ class androidActions extends Actions{
 		unset($_SESSION['workingCopyDir'][$file->id]);
 
 		echo "Suppression du file termine";
-			
+		
+	}
 	
+	public function compileSuccess(){
+	
+		$rootFile =  $_POST['rootFile'];
+
+		if(!isset($rootFile) && empty($rootFile))
+			die("Erreur sur l'id du fichier");
+
+
+		// creation de la socket de reception
+		$receiver=new ReceiverTextOnly("192.168.0.2");
+
+		//creation de la requete d'emission
+		$frontalAddress = "192.168.0.5";
+		$frontalPort = 12800;
+		$sender= new Sender($frontalAddress,$frontalPort);
+
+		$rootFile=new File($rootFile);
+		$dataUrl=explode(':',$rootFile->serverUrl);
+		$dataIp=$dataUrl[0];
+		$dataPort=$dataUrl[1];
+		
+		$tmp=explode('/',$rootFile->path);
+		
+		$requete=array(
+			'label'=>'compile',
+			'rootFile'=>$tmp[count($tmp)-1],
+			'path'=>$_SESSION['workingCopyDir'][$rootFile->id],
+			'servDataIp'=>$dataIp,
+			'servDataPort'=>$dataPort,
+			'httpPort'=>$receiver->getPort(),
+		);
+		$sender->setRequest($requete);
+
+		//envoie de la commande de suppression de file
+		$sender->sendRequest();
+		unset($sender);
+
+		$tab=array(
+			'label'=>'sync',
+			'path'=>'53d4ad39451eac91f7a983fd2d4ab34c',
+		);
+		$tab['files']=array();
+		$tab['files'][]=array(
+			'filename'=>'bouh/bouboub.txt',
+			'content'=>'blablba idfoghdmofjg sioudfhnedk'
+		);
+		$tab['files'][]=array(
+			'filename'=>'bouh/bouboub234.txt',
+			'content'=>'plop plip ploup'
+		);
+		
+		echo json_encode($tab);
 	
 	}
 	
