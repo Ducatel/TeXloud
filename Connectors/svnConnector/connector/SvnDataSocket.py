@@ -63,8 +63,8 @@ class SvnDataSocket(DataSocket):
         connection.full_commit()
         print 'file commited'
     
-    def sync(self, path, currentFile, files, httpPort, client):
-        super(SvnDataSocket, self).sync(path, currentFile, files, httpPort, client)
+    def sync(self, path, files, httpPort, client):
+        super(SvnDataSocket, self).sync(path, files, httpPort, client)
         
         if not '..' in path:
             connection = SvnConnector.SvnConnector(self.getUserProperty(path, 'repo'), self.getUserProperty(path, 'username'), 
