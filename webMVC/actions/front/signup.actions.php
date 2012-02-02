@@ -21,7 +21,7 @@ class signupActions extends Actions {
 			
 			$user->save();
 			
-			$group = new Group();
+			$group = new Ugroup();
 			$group->name = 'Groupe de ' . $user->username;
 			$group->save();
 			

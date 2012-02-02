@@ -93,7 +93,7 @@ class treeActions extends Actions {
 		$groups = User::getCurrentUser()->getCreatedGroups();
 		
 		$project = new Project();
-		$project->group_id = $groups[0]->id;
+		$project->ugroup_id = $groups[0]->id;
 		$project->name = $_POST['name'];
 		$project->save();
 		
