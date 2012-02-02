@@ -13,8 +13,6 @@ class editionActions extends Actions {
 			
 			$user = User::getCurrentUser();
 			
-			/* mockup */
-			
 			if(!$_SESSION['tree']){
 				$this->tree = $user->getTree();
 				$_SESSION['tree']=serialize($this->tree);
@@ -23,9 +21,7 @@ class editionActions extends Actions {
 			else{
 				$this->tree = unserialize($_SESSION['tree']);
 				//echo 'get tree from session<br />';
-			}	
-			
-			/* Fin mockup */
+			}
 			
 			$this->setTemplate('edition', $this);
 		}

@@ -1,6 +1,6 @@
 <?php
 class Project extends object {		
-	public $id, $name, $server_url, $group_id;
+	public $id, $name, $server_url, $ugroup_id;
 		
 	public function __construct($id=0) {
 		parent::__construct($id);

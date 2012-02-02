@@ -6,6 +6,37 @@ class File extends object {
 		parent::__construct($id);
 	}
 	
+	public function setPathPrefix($prefix){
+		$filePath = explode('/', $this->path);
+		
+		$this->path = $prefix . $filePath[count($filePath)-1];
+		$this->save();
+	}
+	
+	public function renameChildrenPath(){
+		if($this->is_dir){
+			$filePath = explode('/', $this->path);
+			$children = $this->getChildren();
+			
+			$prefix = $this->path . '/';
+			
+			if($prefix){
+				foreach($children as $c){
+					$c->setPathPrefix($prefix);
+					
+					if($c->is_dir)
+						$c->renameChildrenPath();
+				}
+			}
+		}
+	}
+	
+	public function getChildren(){
+		$children = File::getAll(null, null, 'parent = ' . $this->id);
+		
+		return $children;
+	}
+	
 	public function getTree(){
 		$files = parent::getAll(0, 1000, 'parent = ' . $this->id, 'id' );
 		
@@ -22,6 +53,16 @@ class File extends object {
 		}
 		
 		return $tree;
+	}
+	
+	public function _delete(){
+		if($this->is_dir){
+			foreach($this->getChildren() as $c){
+				$c->_delete();
+			}
+		}
+		
+		return parent::delete($this->id);
 	}
 }
 ?>

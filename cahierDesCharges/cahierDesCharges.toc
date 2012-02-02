@@ -56,27 +56,28 @@
 \contentsline {paragraph}{Trame entre le serveur frontal et un serveur de donn\IeC {\'e}es:}{13}{section*.47}
 \contentsline {paragraph}{Trame entre le serveur frontal et un serveur de compilation:}{13}{section*.48}
 \contentsline {paragraph}{Trame entre le serveur de donn\IeC {\'e}es et un serveur de compilation:}{13}{section*.49}
+\contentsline {paragraph}{Trame entre le serveur HTTP et un serveur de donn\IeC {\'e}es:}{14}{section*.50}
 \contentsline {subsection}{\numberline {4.4}Sc\IeC {\'e}nario}{14}{subsection.4.4}
 \contentsline {subsubsection}{\numberline {4.4.1}Diagramme de cas d'utilisation}{14}{subsubsection.4.4.1}
 \contentsline {subsubsection}{\numberline {4.4.2}Diagramme de s\IeC {\'e}quence de l'interface web}{14}{subsubsection.4.4.2}
-\contentsline {paragraph}{Inscription:\\}{14}{section*.50}
-\contentsline {paragraph}{Suppression de compte:\\}{14}{section*.51}
-\contentsline {paragraph}{Cr\IeC {\'e}ation d'un projet:\\}{14}{section*.52}
-\contentsline {paragraph}{Compilation de documents:\\}{14}{section*.53}
-\contentsline {paragraph}{T\IeC {\'e}l\IeC {\'e}chargement de fichier:\\}{14}{section*.54}
-\contentsline {paragraph}{Partage de projet:\\}{14}{section*.55}
-\contentsline {paragraph}{Synchronisation de documents:\\}{14}{section*.56}
-\contentsline {paragraph}{Visualisation d'un projet:\\}{14}{section*.57}
-\contentsline {paragraph}{Suppression d'un projet:\\}{14}{section*.58}
-\contentsline {paragraph}{T\IeC {\'e}l\IeC {\'e}chargement d'un projet:\\}{14}{section*.59}
-\contentsline {subsubsection}{\numberline {4.4.3}Diagramme de s\IeC {\'e}quence de l'application Android}{14}{subsubsection.4.4.3}
-\contentsline {paragraph}{Inscription:\\}{14}{section*.60}
-\contentsline {paragraph}{Suppression de compte:\\}{15}{section*.61}
-\contentsline {paragraph}{Cr\IeC {\'e}ation de projet:\\}{15}{section*.62}
-\contentsline {paragraph}{Compilation de documents:\\}{15}{section*.63}
-\contentsline {paragraph}{T\IeC {\'e}l\IeC {\'e}chargement de documents :\\}{15}{section*.64}
-\contentsline {paragraph}{Suppression d'un projet:\\}{15}{section*.65}
-\contentsline {paragraph}{T\IeC {\'e}l\IeC {\'e}chargement d'un projet:\\}{15}{section*.66}
+\contentsline {paragraph}{Inscription:\\}{14}{section*.51}
+\contentsline {paragraph}{Suppression de compte:\\}{14}{section*.52}
+\contentsline {paragraph}{Cr\IeC {\'e}ation d'un projet:\\}{14}{section*.53}
+\contentsline {paragraph}{Compilation de documents:\\}{14}{section*.54}
+\contentsline {paragraph}{T\IeC {\'e}l\IeC {\'e}chargement de fichier:\\}{14}{section*.55}
+\contentsline {paragraph}{Partage de projet:\\}{14}{section*.56}
+\contentsline {paragraph}{Synchronisation de documents:\\}{14}{section*.57}
+\contentsline {paragraph}{Visualisation d'un projet:\\}{14}{section*.58}
+\contentsline {paragraph}{Suppression d'un projet:\\}{14}{section*.59}
+\contentsline {paragraph}{T\IeC {\'e}l\IeC {\'e}chargement d'un projet:\\}{14}{section*.60}
+\contentsline {subsubsection}{\numberline {4.4.3}Diagramme de s\IeC {\'e}quence de l'application Android}{15}{subsubsection.4.4.3}
+\contentsline {paragraph}{Inscription:\\}{15}{section*.61}
+\contentsline {paragraph}{Suppression de compte:\\}{15}{section*.62}
+\contentsline {paragraph}{Cr\IeC {\'e}ation de projet:\\}{15}{section*.63}
+\contentsline {paragraph}{Compilation de documents:\\}{15}{section*.64}
+\contentsline {paragraph}{T\IeC {\'e}l\IeC {\'e}chargement de documents :\\}{15}{section*.65}
+\contentsline {paragraph}{Suppression d'un projet:\\}{15}{section*.66}
+\contentsline {paragraph}{T\IeC {\'e}l\IeC {\'e}chargement d'un projet:\\}{15}{section*.67}
 \contentsline {subsection}{\numberline {4.5}Charte graphique}{15}{subsection.4.5}
 \contentsline {subsubsection}{\numberline {4.5.1}Page d'authentification}{15}{subsubsection.4.5.1}
 \contentsline {paragraph}{}{15}{figure.3}

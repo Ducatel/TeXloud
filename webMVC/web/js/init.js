@@ -24,7 +24,7 @@ $(document).ready(function() {
 			word_wrap: true,
 			start_highlight: true,
 			language: 'fr',
-			toolbar: 'undo,redo',
+			toolbar: 'undo,redo'
 		});
 	});
 });

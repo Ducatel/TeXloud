@@ -21,13 +21,13 @@ class signupActions extends Actions {
 			
 			$user->save();
 			
-			$group = new Group();
+			$group = new Ugroup();
 			$group->name = 'Groupe de ' . $user->username;
 			$group->save();
 			
 			$permAdmin = Permission::getAll(0, 1, 'type = \'admin\'');
 			
-			$query = new Query('insert', 'INSERT INTO group_user VALUES(' . $user->id . ', ' . $group->id . ', \'valide\', ' . $permAdmin[0]->id);
+			$query = new Query('insert', 'INSERT INTO group_user VALUES(' . $user->id . ', ' . $group->id . ', \'valide\', ' . $permAdmin[0]->id . ')');
 			
 			$this->flash = 'Votre inscription a été prise en compte';
 			

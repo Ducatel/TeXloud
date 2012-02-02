@@ -33,7 +33,7 @@ class User extends object {
 	}
 	
 	public function getProjects(){
-		$q = new Query('select', 'SELECT p.id FROM project p, user u, group_user gu, `group` g WHERE u.id = ' . $this->id . ' AND u.id=gu.user_id AND gu.group_id=g.id AND p.group_id=g.id');
+		$q = new Query('select', 'SELECT p.id FROM project p, user u, group_user gu, ugroup g WHERE u.id = ' . $this->id . ' AND u.id=gu.user_id AND gu.ugroup_id=g.id AND p.ugroup_id=g.id');
 		
 		$projects = array();
 		
@@ -64,11 +64,11 @@ class User extends object {
 	}
 	
 	public function getCreatedGroups(){
-		$query = new Query('select', 'SELECT g.id AS id FROM group_user gu, user u, permission p, `group` g WHERE u.id=' . $this->id . ' AND u.id = gu.user_id AND g.id = gu.group_id AND p.id=gu.permission_id AND p.type=\'admin\' ORDER BY g.id');
+		$query = new Query('select', 'SELECT g.id AS id FROM group_user gu, user u, permission p, ugroup g WHERE u.id=' . $this->id . ' AND u.id = gu.user_id AND g.id = gu.ugroup_id AND p.id=gu.permission_id AND p.type=\'admin\' ORDER BY g.id');
 		$groups = array();
 		
 		foreach($query->result as $g)
-			$groups[] = new Group($g->id);
+			$groups[] = new Ugroup($g->id);
 		
 		return $groups;
 	}

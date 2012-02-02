@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="30" version="2.0">
+<workbench progressCount="31" version="2.0">
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="0" y="26">
 <fastViewData fastViewLocation="1024"/>
@@ -35,21 +35,31 @@
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
+<part id="3"/>
+<part id="4"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.python.pydev.editor.PythonEditor" name="ServiceCompilation.py" partName="ServiceCompilation" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/ServiceCompilation/src/ServiceCompilation.py" title="ServiceCompilation" tooltip="ServiceCompilation/src/ServiceCompilation.py" workbook="DefaultEditorWorkbook">
+<editor id="org.python.pydev.editor.PythonEditor" name="ServiceCompilation.py" partName="ServiceCompilation" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/ServiceCompilation/src/ServiceCompilation.py" title="ServiceCompilation" tooltip="ServiceCompilation/src/ServiceCompilation.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ServiceCompilation/src/ServiceCompilation.py"/>
-<editorState selectionHorizontalPixel="0" selectionLength="86" selectionOffset="1038" selectionTopPixel="466"/>
+<editorState selectionHorizontalPixel="0" selectionLength="86" selectionOffset="1038" selectionTopPixel="476"/>
 </editor>
-<editor id="org.python.pydev.editor.PythonEditor" name="Main.py" partName="Main" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/ServiceCompilation/src/Main.py" title="Main" tooltip="ServiceCompilation/src/Main.py" workbook="DefaultEditorWorkbook">
+<editor id="org.python.pydev.editor.PythonEditor" name="Main.py" partName="Main (ServiceCompilation.src)" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/ServiceCompilation/src/Main.py" title="Main (ServiceCompilation.src)" tooltip="ServiceCompilation/src/Main.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ServiceCompilation/src/Main.py"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="91" selectionTopPixel="0"/>
 </editor>
 <editor id="org.python.pydev.editor.PythonEditor" name="httpServeurTest.py" partName="httpServeurTest" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/httpServeurTest.py" title="httpServeurTest" tooltip="Frontal/src/httpServeurTest.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Frontal/src/httpServeurTest.py"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="251"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="Main.py" partName="Main (Frontal.src)" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/Main.py" title="Main (Frontal.src)" tooltip="Frontal/src/Main.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Frontal/src/Main.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="141" selectionTopPixel="0"/>
+</editor>
+<editor activePart="true" focus="true" id="org.python.pydev.editor.PythonEditor" name="Frontal.py" partName="Frontal" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/Frontal.py" title="Frontal" tooltip="Frontal/src/Frontal.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Frontal/src/Frontal.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2691" selectionTopPixel="706"/>
 </editor>
 </editors>
 <views>
@@ -122,7 +132,7 @@
 <expanded IMemento.internal.id="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/ServiceCompilation/src"/>
 <expanded IMemento.internal.id="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal"/>
 <expanded IMemento.internal.id="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src"/>
-<selected IMemento.internal.id="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/httpServeurTest.py"/>
+<selected IMemento.internal.id="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/Frontal.py"/>
 </viewState>
 </view>
 </views>
@@ -382,34 +392,10 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ServiceCompilation/src/ServiceCompilation.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ServiceCompilation/src/Main.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/httpServeurTest.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/Main.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ServiceCompilation/src/Main.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/Frontal.py"/>
 </editors>
-<item historyLabel="ServiceCompilation" index="0">
-<position info="not_deleted" x="3238" y="0"/>
-</item>
-<item historyLabel="ServiceCompilation" index="0">
-<position info="not_deleted" x="4713" y="0"/>
-</item>
-<item historyLabel="Main" index="1">
-<position info="not_deleted" x="312" y="0"/>
-</item>
-<item historyLabel="ServiceCompilation" index="0">
-<position/>
-</item>
-<item historyLabel="Main" index="1">
-<position info="not_deleted" x="312" y="0"/>
-</item>
-<item historyLabel="ServiceCompilation" index="0">
-<position/>
-</item>
-<item historyLabel="Main" index="1">
-<position info="not_deleted" x="312" y="0"/>
-</item>
-<item historyLabel="ServiceCompilation" index="0">
-<position/>
-</item>
-<item historyLabel="Main" index="1">
-<position info="not_deleted" x="312" y="0"/>
-</item>
 <item historyLabel="ServiceCompilation" index="0">
 <position info="not_deleted" x="3052" y="0"/>
 </item>
@@ -530,8 +516,35 @@
 <item historyLabel="Main" index="1">
 <position info="not_deleted" x="91" y="0"/>
 </item>
-<item active="true" historyLabel="ServiceCompilation" index="0">
+<item historyLabel="ServiceCompilation" index="0">
 <position info="not_deleted" x="2305" y="0"/>
+</item>
+<item historyLabel="Main (Frontal.src)" index="3">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Main (ServiceCompilation.src)" index="4">
+<position info="not_deleted" x="91" y="0"/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position info="not_deleted" x="2691" y="0"/>
+</item>
+<item historyLabel="Main (Frontal.src)" index="3">
+<position info="not_deleted" x="141" y="0"/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position info="not_deleted" x="2691" y="0"/>
+</item>
+<item historyLabel="Main (Frontal.src)" index="3">
+<position info="not_deleted" x="141" y="0"/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position/>
+</item>
+<item historyLabel="Main (Frontal.src)" index="3">
+<position info="not_deleted" x="141" y="0"/>
+</item>
+<item active="true" historyLabel="Frontal" index="5">
+<position/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -550,14 +563,17 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Frontal.py" tooltip="Frontal/src/Frontal.py">
+<persistable path="/Frontal/src/Frontal.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Main.py" tooltip="Frontal/src/Main.py">
+<persistable path="/Frontal/src/Main.py"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="httpServeurTest.py" tooltip="Frontal/src/httpServeurTest.py">
 <persistable path="/Frontal/src/httpServeurTest.py"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Main.py" tooltip="ServiceCompilation/src/Main.py">
 <persistable path="/ServiceCompilation/src/Main.py"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Frontal.py" tooltip="Frontal/src/Frontal.py">
-<persistable path="/Frontal/src/Frontal.py"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ServiceCompilation.py" tooltip="ServiceCompilation/src/ServiceCompilation.py">
 <persistable path="/ServiceCompilation/src/ServiceCompilation.py"/>

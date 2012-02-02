@@ -2,7 +2,7 @@
 include('Sender.php');
 
 echo "Debut<br/>";
-$frontalAddress = "127.0.0.1";
+$frontalAddress = "192.168.0.7";
 $frontalPort = 12800;
 
 $requete=array(
