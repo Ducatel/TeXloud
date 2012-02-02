@@ -57,12 +57,14 @@ class Node{
 		$this->name = $name;
 		
 		if(count($filePath)>1)
-			$newPath = substr($file->path, 0, strlen($filePath[count($filePath)-1])-1) . $name;
+			$newPath = substr($file->path, 0, -strlen($filePath[count($filePath)-1])) . $name;
 		else
 			$newPath = $name;
 		
 		$file->path = $newPath;
 		$file->save();
+		
+		$file->renameChildrenPath();
 	}
 	
 	public function getParentId(){
