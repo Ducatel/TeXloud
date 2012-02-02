@@ -108,7 +108,8 @@
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginRight="80dp" />
+                        android:layout_marginRight="80dp"
+                        android:text="meva" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -122,7 +123,8 @@
                         android:layout_height="wrap_content"
                         android:text="Password :"
                         android:textColor="#000000"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        />
 
                     <EditText
                         android:id="@+id/EditText_passwd"
@@ -130,7 +132,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="80dp"
-                        android:password="true" />
+                        android:password="true"
+                        android:text="plop"  />
                 </LinearLayout>
 
                 <LinearLayout

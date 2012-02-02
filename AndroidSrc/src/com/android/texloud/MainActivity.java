@@ -3,6 +3,11 @@ package com.android.texloud;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -49,6 +54,12 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	protected enum Mode{ONLINE, OFFLINE};
 
 	private String loaded_file = "";
+	private String tree_json;
+
+	private ArrayList<String> projects_list;
+
+	private int nb_projects;
+	private String current_fileId;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,9 +68,15 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 		setContentView(R.layout.main);
 
+		projects_list = new ArrayList<String>();
 
 		Bundle b = getIntent().getExtras();
 		boolean bl = b.getBoolean("isOnline");
+		tree_json = b.getString("tree");
+
+		try {
+			traitementJson();
+		} catch (JSONException e) {e.printStackTrace();}
 
 		currentMode = (bl) ? Mode.ONLINE : Mode.OFFLINE;
 
@@ -69,15 +86,15 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 
 		compil = (Button) (findViewById(R.id.bouton_compil));
-		
+
 		compil.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
 				if(loaded_file != "")
 					compil(loaded_file);
 			}
-			
+
 		});
-		
+
 		deconnect = (Button) (findViewById(R.id.deco));
 
 		deconnect.setOnClickListener(new OnClickListener() {
@@ -111,24 +128,25 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		 * Partie Arborescence
 		 */
 
-		mtm = new MyTreeManager(this, "Dossier racine");
-		mtm.addNode("Dossier1", "Dossier racine", Node.FOLDER);
-		mtm.addNode("Dossier2", "Dossier racine", Node.FOLDER);
-		mtm.addNode("monFichier.tex", "Dossier1", Node.LEAF);
-		mtm.addNode("fichier2.tex", "Dossier1", Node.LEAF);
-		mtm.addNode("fichier3.tex", "Dossier2", Node.LEAF);
-		mtm.addNode("Dossier3", "Dossier racine", Node.FOLDER);
-		mtm.addNode("fichier4.tex", "Dossier racine", Node.LEAF);
-		mtm.addNode("Dossier5", "Dossier1", Node.FOLDER);
+		/*mtm = new MyTreeManager(this, "Workspace");
+		mtm.addNode("Projet 1", "Workspace", Node.FOLDER);
+		mtm.addNode("Projet 2", "Workspace", Node.FOLDER);
+		mtm.addNode("monFichier.tex", "Projet 1", Node.LEAF);
+		mtm.addNode("fichier2.tex", "Projet 1", Node.LEAF);
+		mtm.addNode("fichier3.tex", "Projet 2", Node.LEAF);
+		mtm.addNode("Dossier3", "Workspace", Node.FOLDER);
+		mtm.addNode("fichier4.tex", "Workspace", Node.LEAF);
+		mtm.addNode("Dossier5", "Projet 1", Node.FOLDER);
 		mtm.addNode("fichier5.tex", "Dossier5", Node.LEAF);
 		mtm.addNode("fichier6.tex", "Dossier3", Node.LEAF);
 		mtm.addNode("fichier7.tex", "Dossier3", Node.LEAF);
 
-		mtm.printTree();
+
+		mtm.printTree();*/
 
 		updateLineCount(0);
 	}
-	
+
 	public void compil(String name_file){
 		Comm c = new Comm();
 	}
@@ -168,15 +186,15 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		return false;
 	}
 
-	public void fileClicked(String fileName){
+	public void fileClicked(String fileName, String fileId){
 		loading_dialog = ProgressDialog.show(this, "Chargement", "Chargement du fichier " + fileName + "...", true);
-
-
+		current_fileId = fileId;
+		
 		new Thread(new Runnable(){
 
 			public void run() {
 				Comm c = new Comm();
-				String result = c.getFile();
+				String result = c.getFile(current_fileId);
 
 				Message msg = mHandler.obtainMessage(LOAD_OK, result);
 				mHandler.sendMessage(msg);
@@ -216,6 +234,61 @@ public class MainActivity extends Activity implements ScrollViewListener{
 			}
 		});
 
+	}
+
+	public void traitementJson() throws JSONException{
+		mtm = new MyTreeManager(this, "Workspace");
+		JSONArray jo = new JSONArray(tree_json);
+		nb_projects = jo.length();
+		Log.i("nb_project", Integer.toString(nb_projects));
+		Log.i("json1", jo.toString());
+
+		ArrayList<JSONObject> projects = new ArrayList<JSONObject>();
+
+		for(int i=0; i<nb_projects; i++){
+			projects.add(jo.getJSONObject(i));
+		}
+
+
+		selectProject(projects.get(0).getString("projectName"));
+
+
+	}
+
+	public void selectProject(String name_project) throws JSONException{
+		JSONArray jo = new JSONArray(tree_json);
+		ArrayList<JSONObject> projects = new ArrayList<JSONObject>();
+
+		for(int i=0; i<nb_projects; i++){
+			projects.add(jo.getJSONObject(i));
+		}
+
+		
+		for(JSONObject project : projects){
+			Log.i(name_project, project.getString("projectName"));
+			
+			
+			if(project.getString("projectName").trim().equals(name_project.trim())){
+				Log.i("coucou", "test");
+				mtm.getNode(0).setName(project.getString("projectName"));
+				JSONArray files = new JSONArray(project.getString("files"));
+
+				for(int i=0; i<files.length(); i++){
+					JSONObject object = files.getJSONObject(i);
+					Log.i("file", object.getString("filename"));
+
+
+					if(object.getInt("is_dir") == 0){
+						mtm.addNode(object.getString("filename"), Integer.parseInt(object.getString("parentId")), Node.LEAF, Integer.parseInt(object.getString("id_file")));
+					}
+					else{
+						mtm.addNode(object.getString("filename"), Integer.parseInt(object.getString("parentId")), Node.FOLDER, Integer.parseInt(object.getString("id_file")));
+					}
+				}
+			}
+		}
+
+		mtm.updateTree();
 	}
 
 	public void dismissDialogFileSaved(){

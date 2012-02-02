@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
 
+import org.json.JSONException;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -93,9 +95,14 @@ public class TeXloudActivity extends Activity {
 
 						public void run() {
 							Comm c = new Comm();
-							Comm.statement st;
-
-							st = c.getAuth(login.getText(),passwd.getText());
+							Comm.statement st = null;
+							
+							try {
+								st = c.getAuth(login.getText(),passwd.getText());
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							//st = Comm.statement.SUCCESS;
 							
 							Message msg = null;
@@ -104,6 +111,7 @@ public class TeXloudActivity extends Activity {
 								Log.i("switch", "success");
 								Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
 								intent.putExtra("isOnline", isOnline());
+								intent.putExtra("tree", c.getTree());
 								startActivity(intent);
 								finish();
 								msg = mHandler.obtainMessage(TeXloudActivity.LOGIN_OK);

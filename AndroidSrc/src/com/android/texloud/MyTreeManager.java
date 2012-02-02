@@ -31,7 +31,7 @@ public class MyTreeManager{
 	private Dialog click_dialog;
 	private ListView listview_dialog;
 	private View current_italic_view = null;
-	
+
 	private Node current_parent;
 	private Dialog modifItem_dialog;
 
@@ -45,7 +45,9 @@ public class MyTreeManager{
 		protected static final int ROOT = 0;
 		protected static final int FOLDER = 1;
 		protected static final int LEAF = 2;
+		
 		private int id;
+		private String view_id;
 		private boolean open = true;
 
 		private Node(Context context, String name, int type, int id, int padding){
@@ -64,7 +66,7 @@ public class MyTreeManager{
 			this.id = id;
 			this.padding = padding;
 		}
-		
+
 		protected int getType(){
 			return type;
 		}
@@ -76,7 +78,7 @@ public class MyTreeManager{
 		protected String getName(){
 			return name;
 		}
-		
+
 		protected void setName(String s){
 			this.name = s;
 		}
@@ -100,13 +102,13 @@ public class MyTreeManager{
 
 	public MyTreeManager(MainActivity act, String root_name){
 		this.act = act;
-		root = new Node(act, root_name, Node.ROOT, current_id++, 5);
+		root = new Node(act, root_name, Node.ROOT, 0, 5);
 		tree = new ArrayList<Node>();
 		tree.add(root);
 	}
 
-	public void addNode(String node_name, String parent_name, int type){
-		tree.add(new Node(act, node_name, getNodeId(parent_name), type, current_id++, (getNode(getNodeId(parent_name)).getPadding())+PADDING_GAP));
+	public void addNode(String node_name, int parent_id, int type, int id){
+		tree.add(new Node(act, node_name, parent_id, type, id, (getNode(parent_id).getPadding())+PADDING_GAP));
 	}
 
 	protected int getNodeId(String parent_name){
@@ -160,28 +162,6 @@ public class MyTreeManager{
 		}
 	}
 
-	public ArrayList<Node> sortList(){
-		ArrayList<Node> sorted = new ArrayList<Node>();
-
-		sortListRecursive(sorted, tree, root);
-
-		return sorted;
-	}
-
-	public void sortListRecursive(ArrayList<Node> sorted, ArrayList<Node> original, Node node){
-
-		sorted.add(node);
-
-		if(node.type == Node.FOLDER || node.type == Node.ROOT){
-			for(Node n : original){
-				if(n.getParentId() == node.getNodeId())
-					sortListRecursive(sorted, original, n);
-			}
-		}
-
-	}
-
-
 	public void popClickDialog(String s, Node n){
 		Log.i("ID node", n.getNodeId()+"");
 		ArrayList<HashMap<String, String>> listitem;
@@ -210,21 +190,21 @@ public class MyTreeManager{
 			map.put("id", n.getNodeId()+"");
 			map.put("img", String.valueOf(R.drawable.trash_icon));
 			listitem.add(map);
-			
+
 			SimpleAdapter mSchedule = new SimpleAdapter (act, listitem, R.layout.itemlayout, 
 					new String[] {"img", "titre"}, new int[] {R.id.img, R.id.name_item});
 
 			click_dialog.setContentView(R.layout.clickdialoglayout);
 			listview_dialog = (ListView) (click_dialog.findViewById(R.id.listview_dialog));
 			listview_dialog.setAdapter(mSchedule);
-			
+
 			listview_dialog.setOnItemClickListener(new OnItemClickListener(){
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
-					
+
 					HashMap<String, String> itemAtPosition = (HashMap<String, String>) listview_dialog.getItemAtPosition(arg2);
-					
+
 					if(itemAtPosition.get("titre") == "Add File"){
 						Log.i("id", itemAtPosition.get("id"));
 						addLeaf(getNode(Integer.parseInt(itemAtPosition.get("id"))));
@@ -235,7 +215,7 @@ public class MyTreeManager{
 					}
 					click_dialog.dismiss();
 				}
-				
+
 			});
 			click_dialog.show();
 		}
@@ -272,14 +252,14 @@ public class MyTreeManager{
 			click_dialog.setContentView(R.layout.clickdialoglayout);
 			listview_dialog = (ListView) (click_dialog.findViewById(R.id.listview_dialog));
 			listview_dialog.setAdapter(mSchedule);
-			
+
 			listview_dialog.setOnItemClickListener(new OnItemClickListener(){
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
-					
+
 					HashMap<String, String> itemAtPosition = (HashMap<String, String>) listview_dialog.getItemAtPosition(arg2);
-					
+
 					if(itemAtPosition.get("titre") == "Add File"){
 						Log.i("id", itemAtPosition.get("id"));
 						addLeaf(getNode(Integer.parseInt(itemAtPosition.get("id"))));
@@ -296,9 +276,9 @@ public class MyTreeManager{
 					}
 					click_dialog.dismiss();
 				}
-				
+
 			});
-			
+
 			click_dialog.show();
 		}
 		else if(s == "Leaf"){
@@ -327,16 +307,16 @@ public class MyTreeManager{
 			click_dialog.setContentView(R.layout.clickdialoglayout);
 			listview_dialog = (ListView) (click_dialog.findViewById(R.id.listview_dialog));
 			listview_dialog.setAdapter(mSchedule);
-			
+
 			listview_dialog.setOnItemClickListener(new OnItemClickListener(){
 
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
-					
+
 					HashMap<String, String> itemAtPosition = (HashMap<String, String>) listview_dialog.getItemAtPosition(arg2);
-					
+
 					if(itemAtPosition.get("titre") == "Add File"){
-						
+
 						addLeaf(getNode(Integer.parseInt(itemAtPosition.get("id"))));
 					}
 					else if(itemAtPosition.get("titre") == "Rename File"){
@@ -345,13 +325,13 @@ public class MyTreeManager{
 					else if(itemAtPosition.get("titre") == "Delete File"){
 						deleteLeaf(getNode(Integer.parseInt(itemAtPosition.get("id"))));
 					}
-					
+
 					click_dialog.dismiss();
-					
+
 				}
-				
+
 			});
-			
+
 			click_dialog.show();
 		}
 		else{
@@ -366,27 +346,27 @@ public class MyTreeManager{
 		TextView tv = (TextView) (d.findViewById(R.id.additem_tv));
 		tv.setText("Ajouter un dossier :");
 		d.show();
-		
+
 		Button b = (Button) (d.findViewById(R.id.button_ok));
-		
-		
+
+
 		modifItem_dialog = d;
 		b.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
-				
+
 				// TODO Auto-generated method stub
 				EditText text = (EditText) (modifItem_dialog.findViewById(R.id.additem_et));
 				String s = text.getText().toString();
-				
-				addNode(s, current_parent.getName(), Node.FOLDER);
-				
+
+				addNode(s, current_parent.getNodeId(), Node.FOLDER, 0);
+
 				updateTree();
 				modifItem_dialog.dismiss();
-				
+
 			}
 		});
 	}
-	
+
 	public void addLeaf(Node parent){
 		current_parent = parent;
 		Dialog d = new Dialog(act, R.style.noBorder);
@@ -394,28 +374,28 @@ public class MyTreeManager{
 		TextView tv = (TextView) (d.findViewById(R.id.additem_tv));
 		tv.setText("Ajouter un fichier :");
 		d.show();
-		
+
 		Button b = (Button) (d.findViewById(R.id.button_ok));
-		
-		
+
+
 		modifItem_dialog = d;
 		b.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
-				
+
 				// TODO Auto-generated method stub
 				EditText text = (EditText) (modifItem_dialog.findViewById(R.id.additem_et));
 				String s = text.getText().toString();
-				
-				addNode(s, current_parent.getName(), Node.LEAF);
-				
+
+				addNode(s, current_parent.getNodeId(), Node.LEAF, 0);
+
 				updateTree();
 				modifItem_dialog.dismiss();
-				
+
 			}
 		});
-		
+
 	}
-	
+
 	public void renameFolder(Node n){
 		current_parent = n;
 		Dialog d = new Dialog(act, R.style.noBorder);
@@ -423,26 +403,26 @@ public class MyTreeManager{
 		TextView tv = (TextView) (d.findViewById(R.id.additem_tv));
 		tv.setText("Renommer le dossier :");
 		d.show();
-		
+
 		Button b = (Button) (d.findViewById(R.id.button_ok));
 		modifItem_dialog = d;
 		b.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
-				
+
 				// TODO Auto-generated method stub
 				EditText text = (EditText) (modifItem_dialog.findViewById(R.id.additem_et));
 				String s = text.getText().toString();
 				current_parent.setName(s);
-				
+
 				updateTree();
 				modifItem_dialog.dismiss();
-				
+
 			}
 		});
-		
-		
+
+
 	}
-	
+
 	public void renameLeaf(Node n){
 		current_parent = n;
 		Dialog d = new Dialog(act, R.style.noBorder);
@@ -450,54 +430,54 @@ public class MyTreeManager{
 		TextView tv = (TextView) (d.findViewById(R.id.additem_tv));
 		tv.setText("Renommer le fichier :");
 		d.show();
-		
+
 		Button b = (Button) (d.findViewById(R.id.button_ok));
 		modifItem_dialog = d;
 		b.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
-				
+
 				EditText text = (EditText) (modifItem_dialog.findViewById(R.id.additem_et));
 				String s = text.getText().toString();
-				
+
 				current_parent.setName(s);
-				
+
 				updateTree();
 				modifItem_dialog.dismiss();
-				
+
 			}
 		});
 	}
-	
+
 	public void deleteFolder(Node n){
-		
+
 		ArrayList<Node> tmp = new ArrayList<Node>();
-		
+
 		for(Node node : tree)
 			if(hasToBeRemoved(node, n))
 				tmp.add(node);
-			
-		for(Node node : tmp)
-			tree.remove(node);
-		
-		
-		tmp.clear();
-		tmp = null;
-		updateTree();
+
+				for(Node node : tmp)
+					tree.remove(node);
+
+
+						tmp.clear();
+						tmp = null;
+						updateTree();
 	}
-	
+
 	public boolean hasToBeRemoved(Node n, Node parent){
 		Node current = n;
 		Node root = tree.get(0);
 		while(current != parent && current != root){
 			current = getNode(current.getParentId());
 		}
-		
+
 		if(current == parent)
 			return true;
 		else
 			return false;
 	}
-	
+
 	public void deleteLeaf(Node n){
 		View tmp = (View) (act.findViewById(n.getNodeId()));
 		if(tmp == current_italic_view){
@@ -510,17 +490,48 @@ public class MyTreeManager{
 		tree.remove(n);
 		updateTree();
 	}
-	
+
 	public void updateTree(){
 		LinearLayout layout_arbo;
 		layout_arbo = (LinearLayout) (act.findViewById(R.id.layout_arbo));
 		layout_arbo.removeAllViews();
-		
+
 		printTree();
 	}
-	
+
+	public ArrayList<Node> sortList(){
+		ArrayList<Node> sorted = new ArrayList<Node>();
+
+		sortListRecursive(sorted, tree, root);
+
+		return sorted;
+	}
+
+	public void sortListRecursive(ArrayList<Node> sorted, ArrayList<Node> original, Node node){
+
+		sorted.add(node);
+
+		if(node.type == Node.FOLDER || node.type == Node.ROOT){
+			for(Node n : original){
+				Log.i("node name", n.getName() + " " + n.getType());
+				if(n.type != Node.ROOT){
+					Log.i("sort", n.getParentId() + " " + node.getNodeId() + " " + node.getName());
+					if(n.getParentId() == node.getNodeId())
+						sortListRecursive(sorted, original, n);
+				}
+			}
+		}
+	}
+
 	public void printTree(){
+
+		for(Node n : tree){
+			Log.i("id", n.getNodeId()+"");
+		}
+
 		tree = sortList();
+
+
 		LinearLayout layout_arbo;
 		layout_arbo = (LinearLayout) (act.findViewById(R.id.layout_arbo));
 
@@ -528,7 +539,7 @@ public class MyTreeManager{
 		TextView tv;
 
 		for(Node n : tree){
-			System.out.println(n.getParentId() + " " + n.getName() + " " + n.getNodeId());
+			System.out.println(n.getParentId() + " " + n.getName() + " " + n.getNodeId() + " " + n.getType());
 			switch(n.type){
 
 			case Node.ROOT:
@@ -538,12 +549,6 @@ public class MyTreeManager{
 				tv.setText(n.getName());
 				v.setPadding(n.getPadding(), 0, 0, 0);
 
-				v.setOnClickListener(new OnClickListener(){
-					public void onClick(View arg0) {
-						click(arg0);
-					}
-
-				});
 
 				v.setOnLongClickListener(new OnLongClickListener() {
 					public boolean onLongClick(View v) {
@@ -590,7 +595,7 @@ public class MyTreeManager{
 
 				v.setOnClickListener(new OnClickListener() {
 					public void onClick(View arg0) {
-						act.fileClicked(getNode(arg0.getId()).getName());
+						act.fileClicked(getNode(arg0.getId()).getName(), Integer.toString(arg0.getId()));
 						changeTextStyle(arg0);
 					}
 				});
@@ -611,12 +616,12 @@ public class MyTreeManager{
 	}
 
 	public void getFile(View v){
-		
+
 	}
 
 	public void changeTextStyle(View v){
-		
-		
+
+
 		if(current_italic_view != v){
 			TextView tv = (TextView) (v.findViewById(R.id.tv_leaf));
 			tv.setTypeface(Typeface.DEFAULT, Typeface.ITALIC);
@@ -630,5 +635,5 @@ public class MyTreeManager{
 		}
 	}
 
-	
+
 }
