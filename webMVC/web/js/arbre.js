@@ -42,7 +42,8 @@ function addFileAction(element){
 	addFileMenu(element);
 	
 	$(element).click(function(){
-		$.post('/ajax/getFile/id/' + $(this).attr('id'),
+		$.post('/ajax/getFile/',
+			   {'id' : $(this).attr('id')},
 			   function(content){
 				editAreaLoader.setValue('codelatex', content);
 				console.log(editAreaLoader.getValue('codelatex'));

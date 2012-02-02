@@ -9,8 +9,7 @@ class ajaxActions extends Actions {
 	}
 	
 	public function getFileSuccess(){
-		$fileId = intval($_POST['fileId']);
-		$file = new File($_POST['fileId']);
+		$file = new File($_POST['id']);
 		
 		if(!$file->id)
 			die('Erreur sur l\'id du fichier');
