@@ -23,8 +23,10 @@ $(document).ready(function() {
 			syntax: 'php',
 			word_wrap: true,
 			start_highlight: true,
-			language: 'fr',
-			toolbar: 'undo,redo'
+			language: 'en',
+			toolbar: 'undo,redo',
+			allow_toggle: false,
+			min_height: $(window).height() - $('#titre_principal').height()
 		});
 	});
 });
