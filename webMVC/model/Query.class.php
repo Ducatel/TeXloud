@@ -4,8 +4,8 @@ class query {
 
 	private $hostname = 'localhost';
 	private $user = 'root';
-	private $password = 'vac08*.';
-	private $database = 'TeXloud';
+	private $password = 'admin';
+	private $database = 'texloud';
 	var $link;
 	var $result;
 	var $last_id;
