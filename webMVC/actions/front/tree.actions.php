@@ -105,6 +105,40 @@ class treeActions extends Actions {
 		$project->name = $_POST['name'];
 		$project->save();
 		
+		$user=User::getCurrentUser();
+		
+		// creation de la socket de reception
+		$receiver=new ReceiverTextOnly(HTTP_IP);
+		
+		//creation de la requete d'emission
+		$frontalAddress = FRONTAL_IP;
+		$frontalPort = FRONTAL_PORT;
+		$sender= new Sender($frontalAddress,$frontalPort);
+		
+		$requete=array(
+					'label'=>'create',
+					'username'=>$user->username,
+					'projectName'=>$projectName,
+					'httpPort'=>$receiver->getPort(),
+		);
+		
+		$sender->setRequest($requete);
+		
+		//envoie de la commande de creation de projet
+		$sender->sendRequest();
+		unset($sender);
+		
+		// Attente de recuperation des infos
+		$trame=$receiver->getReturn();
+		
+		// Creation du projet dans la BDD
+		$req=new Query('insert',"INSERT INTO project VALUES ('','".$project->name."','".$trame['serverUrl']."',(select GU.ugroup_id from user U , group_user GU where U.id='".$user->id."' and GU.user_id=U.id limit 0,1))");
+		
+		$_SESSION['workingCopyDir']=array();
+		$_SESSION['workingCopyDir'][$req->last_id]=$trame['workingCopyDir'];
+		
+		echo "Creation du projet termine";
+		
 		$_SESSION['tree']=serialize($tree);
 		
 		echo $project->id . '_project';
