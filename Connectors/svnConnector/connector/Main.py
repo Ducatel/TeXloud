@@ -12,7 +12,7 @@ import json
 import os
 import zipfile
 
-dsock = SvnDataSocket.SvnDataSocket('172.16.21.185', 6668)
+dsock = SvnDataSocket.SvnDataSocket('192.168.0.4', 6668)
 dsock.launch()
 
 '''

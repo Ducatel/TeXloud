@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*-coding:utf-8 -*
+# -*-coding:utf-8 -*-
 '''
 Created on 12 janv. 2012
 
@@ -26,7 +26,7 @@ class DataSocket(object):
         self._port = port
         self._messageSeparator = '+==\sep==+'
         self._trameEnd = '+==\endTrame==+'
-        self._webserver_ip = '127.0.0.1'
+        self._webserver_ip = '192.168.0.2'
         self._webserver_port = 6667
         self.wc_dir = '/tmp/'
         self.working_copy_user_index = '/tmp/texloud/users.conf'
@@ -167,6 +167,7 @@ class DataSocket(object):
         
     def launch(self):
         self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	self._sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self._sock.bind((self._address, self._port))
         self._sock.listen(5)
         
@@ -270,7 +271,7 @@ class DataSocket(object):
         return NotImplemented
         
     def createProject(self, projectName, httpPort, client):
-        print 'nom du dépot' + projectName
+        #print 'nom du dépot' + projectName
         
         if not '..' in projectName:
             os.system('svnadmin create ' + self._repo_dir + projectName)
