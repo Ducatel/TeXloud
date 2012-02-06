@@ -7,6 +7,31 @@ class ajaxActions extends Actions {
 	
 		parent::__construct();
 	}
+
+	public function syncSuccess(){
+		$user = User::getCurrentUser();
+		$data = json_decode($_POST['files']);
+		$request = array('label' => 'sync');
+		$files = array();
+
+		if($user && $data){
+			foreach($data as $filename => $content){
+				 $files[$filename] = $content;
+			}
+			
+			$receiver=new ReceiverTextOnly(HTTP_IP);
+			$sender= new Sender(FRONTAL_IP, FRONTAL_PORT);
+		$requete['httpPort'] = $receiver->getPort()
+		$sender->setRequest($requete);
+
+		//envoie de la commande de chargement de fichier
+		$sender->sendRequest();
+		unset($sender);
+
+		}
+
+		
+	}
 	
 	public function getFileSuccess(){
 		$file = new File($_POST['id']);

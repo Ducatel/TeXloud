@@ -103,7 +103,6 @@ class treeActions extends Actions {
 		$project = new Project();
 		$project->ugroup_id = $groups[0]->id;
 		$project->name = $_POST['name'];
-		$project->save();
 		
 		$user=User::getCurrentUser();
 		
@@ -118,7 +117,7 @@ class treeActions extends Actions {
 		$requete=array(
 					'label'=>'create',
 					'username'=>$user->username,
-					'projectName'=>$projectName,
+					'projectName'=>$project->name,
 					'httpPort'=>$receiver->getPort(),
 		);
 		
@@ -131,8 +130,8 @@ class treeActions extends Actions {
 		// Attente de recuperation des infos
 		$trame=$receiver->getReturn();
 		
-		// Creation du projet dans la BDD
-		$req=new Query('insert',"INSERT INTO project VALUES ('','".$project->name."','".$trame['serverUrl']."',(select GU.ugroup_id from user U , group_user GU where U.id='".$user->id."' and GU.user_id=U.id limit 0,1))");
+		$project->server_url = $receiver->getRemoteIp().':'.$trame->port;
+		$project->save();
 		
 		$_SESSION['workingCopyDir']=array();
 		$_SESSION['workingCopyDir'][$req->last_id]=$trame['workingCopyDir'];
