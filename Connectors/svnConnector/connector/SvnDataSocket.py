@@ -30,7 +30,7 @@ class SvnDataSocket(DataSocket):
             
         working_copy_dir = connection.get_public_dir_name()
         
-        request = '{"projectName" : "' + connection.get_url() + '", "workingCopyDir":"' + connection.get_public_dir_name() + '"}'
+        request = '{"port" : "' + str(self._port) + '", "projectName" : "' + connection.get_url() + '", "workingCopyDir":"' + connection.get_public_dir_name() + '"}'
         super(SvnDataSocket, self).sendAsciiMessage(request, self._webserver_ip, httpPort)
         
     def deleteProject(self, path, httpPort, client):
