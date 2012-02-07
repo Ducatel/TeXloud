@@ -17,8 +17,6 @@ class userActions extends Actions {
 		if($this->user){
 			$this->title= 'Modifier mon profil';
 			$this->addCss('signup');
-			$this->addJs('account');
-
 			$this->setTemplate('myAccount', $this);
 		}
 		else
@@ -27,6 +25,7 @@ class userActions extends Actions {
 	
 	public function processEditAccountSuccess(){
 		$userVars = $_POST['editAccount'];
+				$this->addJs('account');
 
 		$user = User::getCurrentUser();
 		

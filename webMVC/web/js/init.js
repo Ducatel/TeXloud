@@ -20,7 +20,7 @@ $(document).ready(function() {
 	$(document).ready(function(){
 		editAreaLoader.init({
 			id : 'codelatex',
-			syntax: 'php',
+			syntax: 'latex',
 			word_wrap: true,
 			start_highlight: true,
 			language: 'en',

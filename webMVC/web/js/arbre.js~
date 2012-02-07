@@ -470,6 +470,7 @@ function menuAddProject(posX, posY){
 		if(e.keyCode == 13){
 		    addProject(projectName);	
 		    $('#menuAddProject').remove();
+		  
 		}
 
 	});

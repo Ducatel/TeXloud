@@ -1,5 +1,3 @@
-
-
 article
 {
     display: inline-block;
@@ -11,18 +9,6 @@ article p
 {
     font-size: 0.8em;
 }
-
-/* Correctifs pour les vieilles versions d'Internet Explorer */
-
-/* Pour activer un positionnement type inline-block sur les vieilles versions d'IE */
-
-.old_ie #titre_principal, .old_ie #logo, .old_ie header h1, .old_ie nav, .old_ie nav li, .old_ie .bouton_rouge, .old_ie article, .old_ie aside, .old_ie #tweet, .old_ie #mes_photos, .old_ie #mes_amis, .old_ie #mes_amis ul
-{
-    display: inline;
-    zoom: 1;
-}
-
-/* Quelques ajustements pour les vieilles versions d'IE */
 
 .old_ie section h1, .ie8 section h1
 {
@@ -45,11 +31,30 @@ article p
 #editeur textarea{
 	border: none;
 	border-left: 1px solid black;
-	min-height: 700px;
 	height: 100%;
 	width: 80%;
 	font-size: 0.9em;
 	float: right;
 	overflow:auto; 
 	display: inline-block;
+}
+
+#popup_compile{
+	overflow: hidden;
+	text-align: center;
+	display: block;
+	background-color: white;
+	opacity: 0.95;
+	border-radius: 5px;
+	border: 1px solid #999;
+	padding: 20px 10px;
+	width: 400px;
+	height: 120px;
+}
+
+#root_file_id optgroup{
+	font-style: none;
+} 
+
+#root_file_id{
 }

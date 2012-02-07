@@ -269,7 +269,7 @@
 
 				    <p>
 					    <label for="pwd">Nouveau mot de passe : </label> <input type="password"
-						    id="pwd1" name="editAccount[pwd_check]" />
+						    id="pwd" name="editAccount[pwd_check]" />
 				    </p>
 				    <p>
 					    <label for="pwd2">Confirmer le nouveau mot de passe: </label> <input

@@ -29,10 +29,38 @@ class treeActions extends Actions {
 		
 		$file->save();
 		
+		$project = new Project($file->project_id);
+		
+		if(!$_SESSION['workingCopyDir'][$file->project_id])
+			Common::getProject($project);
+		
 		$id=$tree->addNode($_POST['name'], $_POST['idParent'], false, $file->id);
 		
 		$_SESSION['tree']=serialize($tree);
+
+		$request = array('label' => 'sync');
+
+		$files = array();	
+		$files[] = array('filename' => $file->path, 'content' => '');
+
+		$sender= new Sender(FRONTAL_IP, FRONTAL_PORT);
 		
+		$data_addr = explode(':', $project->server_url);
+
+		$request['httpPort'] = '';
+		$request['path'] = $_SESSION['workingCopyDir'][$_SESSION['project_id']];
+//		$request['path'] = '82357dfb1a833466744dd6ce186d7336';
+		$request['servDataIp'] = $data_addr[0];
+		$request['servDataPort'] = $data_addr[1];
+		$request['files'] = $files;
+
+		$sender->setRequest($request);
+
+		$sender->sendRequest();
+		unset($sender);
+
+//		echo 'envoyé';	
+	
 		echo $id;
 	}
 	
@@ -115,10 +143,10 @@ class treeActions extends Actions {
 		$sender= new Sender($frontalAddress,$frontalPort);
 		
 		$requete=array(
-					'label'=>'create',
-					'username'=>$user->username,
-					'projectName'=>$project->name,
-					'httpPort'=>$receiver->getPort(),
+			'label'=>'create',
+			'username'=>$user->username,
+			'projectName'=>$project->name,
+			'httpPort'=>$receiver->getPort(),
 		);
 		
 		$sender->setRequest($requete);
@@ -131,12 +159,17 @@ class treeActions extends Actions {
 		$trame=$receiver->getReturn();
 		
 		$project->server_url = $receiver->getRemoteIp().':'.$trame->port;
+		$project->repo = $trame->projectName;
 		$project->save();
+	
+		if(!is_array($_SESSION['workingCopyDir']))
+			$_SESSION['workingCopyDir']=array();
+
+		$_SESSION['workingCopyDir'][$project->id]=$trame->workingCopyDir;
 		
-		$_SESSION['workingCopyDir']=array();
-		$_SESSION['workingCopyDir'][$req->last_id]=$trame['workingCopyDir'];
-		
-		echo "Creation du projet termine";
+		$_SESSION['project_id'] = $project->id;	
+	
+	//	echo "Creation du projet termine";
 		
 		$_SESSION['tree']=serialize($tree);
 		

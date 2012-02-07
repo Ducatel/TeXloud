@@ -54,8 +54,8 @@
 		<nav id='menu'>
 			<ul>
 				<li><a id="sync">Synchroniser</a></li>
-				<li><a id="compile">Compiler</a></li>
-				<li><a href="js/pdfjs/viewer.html" title="compiler">Télécharger Projet</a></li>
+				<li><a href="js/pdfjs/viewer.html" title="compiler">Compiler</a></li>
+				<li><a href="#" title="telecharger">Télécharger Projet</a></li>
 				<li><a href="#" title="contact">Contact</a></li>
 			</ul>
 

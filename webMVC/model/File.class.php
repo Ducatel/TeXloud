@@ -64,5 +64,11 @@ class File extends object {
 		
 		return parent::delete($this->id);
 	}
+
+	public static function getPath($id){
+		$q = new Query('unique_select', 'SELECT path FROM file WHERE id = ' . $id);
+
+		return $q->result->path?$q->result->path:null;
+	}
 }
 ?>
