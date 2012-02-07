@@ -94,42 +94,33 @@ public class TeXloudActivity extends Activity {
 					new Thread(new Runnable(){
 
 						public void run() {
-							Comm c = new Comm();
-							Comm.statement st = null;
-							
+													
+							//String[] st = new String[2];
+							String st = "";
 							try {
-								st = c.getAuth(login.getText(),passwd.getText());
+								st = Comm.getAuth(login.getText(),passwd.getText());
 							} catch (JSONException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							//st = Comm.statement.SUCCESS;
-							
+												
 							Message msg = null;
-							switch(st){
-							case SUCCESS:
+												
+							if(st != ""){
 								Log.i("switch", "success");
 								Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
 								intent.putExtra("isOnline", isOnline());
-								intent.putExtra("tree", c.getTree());
+								intent.putExtra("tree", st);
+								
 								startActivity(intent);
 								finish();
 								msg = mHandler.obtainMessage(TeXloudActivity.LOGIN_OK);
 								
-								break;
-
-							case WRONG:
+							}
+							else{
 								Log.i("switch", "wrong");
 								msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
-								
-								break;
-
-							default:
-								Log.i("switch", "error");
-								msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
-								break;
-							}
 							
+							}
 							mHandler.sendMessage(msg);
 						}
 						

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,14 +22,20 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.texloud.MyTreeManager.Node;
@@ -39,9 +47,9 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	private String text;
 	private MyScrollView sv1, sv2;
 	private LinearLayout layout_lineCount;
-	private Button deconnect, save_file, compil;
+	private Button deconnect, save_file, compil, create, sync;
 
-	private Dialog dialog_fileSaved;
+	private Dialog dialog_fileSaved, dialog_createProject;
 
 	private MyTreeManager mtm;
 	private ProgressDialog loading_dialog;
@@ -56,24 +64,29 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	private String loaded_file = "";
 	private String tree_json;
 
-	private ArrayList<String> projects_list;
+	private HashMap<String,String> projectsList;
 
 	private int nb_projects;
-	private String current_fileId;
-
+	private String current_fileId, currentProject;
+	
+	private Spinner project_spinner;
+	private String [] projectsStringArray;
+	private HashMap<String, String> modifiedFiles;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.main);
-
-		projects_list = new ArrayList<String>();
+		
+		modifiedFiles = new HashMap<String,String>();
+		projectsList = new HashMap<String, String>();
 
 		Bundle b = getIntent().getExtras();
 		boolean bl = b.getBoolean("isOnline");
 		tree_json = b.getString("tree");
-
+		
 		try {
 			traitementJson();
 		} catch (JSONException e) {e.printStackTrace();}
@@ -117,34 +130,82 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		});
 
 
+		create = (Button) (findViewById(R.id.bouton_create_project));
+		create.setOnClickListener(new OnClickListener(){
+
+			public void onClick(View arg0) {
+				Log.i("projet", "creation projet");
+				popDialogProject();
+			}
+			
+		});
+		
 		sv1.setScrollViewListener(this);
 		sv1.setVerticalScrollBarEnabled(false);
 		sv2.setScrollViewListener(this);
 
 		main_text = (EditText) (findViewById(R.id.main_editText));
+		main_text.addTextChangedListener(new TextWatcher(){
 
+			public void afterTextChanged(Editable arg0) {
+				modifiedFiles.put(current_fileId, main_text.getText().toString().trim());		
+			}
 
-		/*
-		 * Partie Arborescence
-		 */
+			public void beforeTextChanged(CharSequence arg0, int arg1,
+					int arg2, int arg3) {
+				
+			}
 
-		/*mtm = new MyTreeManager(this, "Workspace");
-		mtm.addNode("Projet 1", "Workspace", Node.FOLDER);
-		mtm.addNode("Projet 2", "Workspace", Node.FOLDER);
-		mtm.addNode("monFichier.tex", "Projet 1", Node.LEAF);
-		mtm.addNode("fichier2.tex", "Projet 1", Node.LEAF);
-		mtm.addNode("fichier3.tex", "Projet 2", Node.LEAF);
-		mtm.addNode("Dossier3", "Workspace", Node.FOLDER);
-		mtm.addNode("fichier4.tex", "Workspace", Node.LEAF);
-		mtm.addNode("Dossier5", "Projet 1", Node.FOLDER);
-		mtm.addNode("fichier5.tex", "Dossier5", Node.LEAF);
-		mtm.addNode("fichier6.tex", "Dossier3", Node.LEAF);
-		mtm.addNode("fichier7.tex", "Dossier3", Node.LEAF);
-
-
-		mtm.printTree();*/
+			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+					int arg3) {
+				
+			}
+			
+		});
+		
+		sync = (Button) (findViewById(R.id.bouton_sync));
+		sync.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				sync();
+			}
+		});
+		
 
 		updateLineCount(0);
+	}
+	
+	public HashMap<String, String> getProjectsList() {
+		return projectsList;
+	}
+
+	public void sync(){
+		Comm.syncFile(modifiedFiles);
+	}
+	
+	public void popDialogProject(){
+		dialog_createProject = new Dialog(this, R.style.noBorder);
+		dialog_createProject.setContentView(R.layout.newprojectlayout);
+		
+		Button ok = (Button) (dialog_createProject.findViewById(R.id.button_ok_newproject));
+		ok.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				EditText editText = (EditText) (dialog_createProject.findViewById(R.id.et_newproject));
+				Comm.createProject(editText.getText().toString());
+				dialog_createProject.dismiss();
+			}
+		});
+		
+		Button cancel = (Button)(dialog_createProject.findViewById(R.id.button_cancel_newproject));
+		cancel.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				dialog_createProject.dismiss();
+			}
+		});
+		dialog_createProject.show();
 	}
 
 	public void compil(String name_file){
@@ -245,17 +306,60 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 		ArrayList<JSONObject> projects = new ArrayList<JSONObject>();
 
+		
 		for(int i=0; i<nb_projects; i++){
 			projects.add(jo.getJSONObject(i));
+			projectsList.put(projects.get(i).getString("projectName"), projects.get(i).getString("projectId"));
 		}
 
-
 		selectProject(projects.get(0).getString("projectName"));
+		updateProjectSpinner();
+	}
+	
+	public void updateProjectSpinner(){
+		project_spinner = (Spinner) (findViewById(R.id.project_spinner));
+			
+		projectsStringArray = new String[projectsList.size()];
+		
+		/*for(int i=0; i<projectsList.size(); i++){
+			projectsStringArray[i] = projectsList.get(i);
+		}*/
+		
+		int i=0;
+		for(String s : projectsList.keySet()){
+			projectsStringArray[i] = s;
+			i++;
+		}
+		
+		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, projectsStringArray);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		project_spinner.setAdapter(adapter);
+		project_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+		    	try {
+					selectProject(projectsStringArray[position]);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+		       
+		    }
 
+		    public void onNothingSelected(AdapterView<?> parentView) {
+		       
+		    }
 
+		});
+	}
+	
+	public String getCurrentProject(){
+		return currentProject;
 	}
 
 	public void selectProject(String name_project) throws JSONException{
+		currentProject = name_project;
+		mtm.setTree(new ArrayList<Node>());
+		Log.i("select", name_project);
+		
 		JSONArray jo = new JSONArray(tree_json);
 		ArrayList<JSONObject> projects = new ArrayList<JSONObject>();
 
@@ -265,17 +369,18 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 		
 		for(JSONObject project : projects){
-			Log.i(name_project, project.getString("projectName"));
+			//Log.i(name_project, project.getString("projectName"));
 			
 			
 			if(project.getString("projectName").trim().equals(name_project.trim())){
-				Log.i("coucou", "test");
-				mtm.getNode(0).setName(project.getString("projectName"));
+				//Log.i("coucou", "test");
+				mtm = new MyTreeManager(this, project.getString("projectName"));
+				//mtm.getNode(0).setName(project.getString("projectName"));
 				JSONArray files = new JSONArray(project.getString("files"));
 
 				for(int i=0; i<files.length(); i++){
 					JSONObject object = files.getJSONObject(i);
-					Log.i("file", object.getString("filename"));
+					//Log.i("file", object.getString("filename"));
 
 
 					if(object.getInt("is_dir") == 0){

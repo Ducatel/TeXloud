@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:textSize="18px"
             android:textStyle="bold"
-            android:textColor="#BBBBBB" />
+            android:textColor="#AAAAAA" />
     </LinearLayout>
 
 </LinearLayout>

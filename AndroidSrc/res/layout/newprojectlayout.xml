@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:padding="15dip" >
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <TextView
+        android:id="@+id/newproject_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:paddingBottom="10dip"
+        android:text="Nom du projet :"
+        android:textColor="#699838"
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/et_newproject"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/newproject_tv" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_newproject"
+        android:gravity="right" >
+
+        <Button
+            android:id="@+id/button_ok_newproject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:paddingRight="30dp"
+            android:text="Ok"
+            android:textColor="#699838"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button_cancel_newproject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:text="Cancel"
+            android:textColor="#699838"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>

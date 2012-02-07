@@ -45,9 +45,8 @@ public class MyTreeManager{
 		protected static final int ROOT = 0;
 		protected static final int FOLDER = 1;
 		protected static final int LEAF = 2;
-		
+
 		private int id;
-		private String view_id;
 		private boolean open = true;
 
 		private Node(Context context, String name, int type, int id, int padding){
@@ -387,7 +386,7 @@ public class MyTreeManager{
 				String s = text.getText().toString();
 
 				addNode(s, current_parent.getNodeId(), Node.LEAF, 0);
-
+				Comm.createFile(s, Integer.toString(current_parent.getNodeId()), act.getProjectsList().get(act.getCurrentProject()));
 				updateTree();
 				modifItem_dialog.dismiss();
 
@@ -499,6 +498,14 @@ public class MyTreeManager{
 		printTree();
 	}
 
+	public ArrayList<Node> getTree() {
+		return tree;
+	}
+
+	public void setTree(ArrayList<Node> tree) {
+		this.tree = tree;
+	}
+
 	public ArrayList<Node> sortList(){
 		ArrayList<Node> sorted = new ArrayList<Node>();
 
@@ -513,9 +520,9 @@ public class MyTreeManager{
 
 		if(node.type == Node.FOLDER || node.type == Node.ROOT){
 			for(Node n : original){
-				Log.i("node name", n.getName() + " " + n.getType());
+				//Log.i("node name", n.getName() + " " + n.getType());
 				if(n.type != Node.ROOT){
-					Log.i("sort", n.getParentId() + " " + node.getNodeId() + " " + node.getName());
+					//Log.i("sort", n.getParentId() + " " + node.getNodeId() + " " + node.getName());
 					if(n.getParentId() == node.getNodeId())
 						sortListRecursive(sorted, original, n);
 				}
@@ -525,9 +532,9 @@ public class MyTreeManager{
 
 	public void printTree(){
 
-		for(Node n : tree){
+		/*for(Node n : tree){
 			Log.i("id", n.getNodeId()+"");
-		}
+		}*/
 
 		tree = sortList();
 
@@ -620,7 +627,6 @@ public class MyTreeManager{
 	}
 
 	public void changeTextStyle(View v){
-
 
 		if(current_italic_view != v){
 			TextView tv = (TextView) (v.findViewById(R.id.tv_leaf));

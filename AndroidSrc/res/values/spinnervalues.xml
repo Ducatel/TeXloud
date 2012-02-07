@@ -21,4 +21,8 @@
         <item>M</item>
         <item>F</item>
     </string-array>
+
+	<string-array name="projects">
+		
+	</string-array>
 </resources>

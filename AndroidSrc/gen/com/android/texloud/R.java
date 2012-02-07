@@ -9,8 +9,9 @@ package com.android.texloud;
 
 public final class R {
     public static final class array {
-        public static final int gender=0x7f040001;
-        public static final int months=0x7f040000;
+        public static final int gender=0x7f060001;
+        public static final int months=0x7f060000;
+        public static final int projects=0x7f060002;
     }
     public static final class attr {
     }
@@ -33,48 +34,54 @@ public final class R {
     public static final class id {
         public static final int EditText_id=0x7f080015;
         public static final int EditText_passwd=0x7f080017;
-        public static final int additem_et=0x7f08002a;
-        public static final int additem_tv=0x7f080029;
-        public static final int address=0x7f080032;
+        public static final int additem_et=0x7f08002c;
+        public static final int additem_tv=0x7f08002b;
+        public static final int address=0x7f080038;
         public static final int auth=0x7f080011;
         public static final int auth_border=0x7f080010;
-        public static final int bouton_compil=0x7f080020;
-        public static final int bouton_dl=0x7f08001e;
-        public static final int bouton_sync=0x7f08001f;
+        public static final int bouton_compil=0x7f080021;
+        public static final int bouton_create_project=0x7f08001e;
+        public static final int bouton_dl=0x7f08001f;
+        public static final int bouton_sync=0x7f080020;
         public static final int button_cancel=0x7f080003;
+        public static final int button_cancel_newproject=0x7f080030;
         public static final int button_connect=0x7f080019;
         public static final int button_inscription=0x7f08001a;
         public static final int button_ok=0x7f080002;
         public static final int button_ok_filesaved=0x7f080006;
-        public static final int city=0x7f080033;
-        public static final int country=0x7f080034;
-        public static final int day=0x7f080038;
+        public static final int button_ok_newproject=0x7f08002f;
+        public static final int city=0x7f080039;
+        public static final int country=0x7f08003a;
+        public static final int day=0x7f08003e;
         public static final int deco=0x7f08001c;
         public static final int email_edittext=0x7f080001;
         public static final int email_tv=0x7f080000;
-        public static final int firstname=0x7f08002f;
+        public static final int et_newproject=0x7f08002e;
+        public static final int firstname=0x7f080035;
         public static final int img=0x7f080008;
-        public static final int lastname=0x7f080030;
+        public static final int lastname=0x7f080036;
         public static final int layout_Top=0x7f08000b;
         public static final int layout_TopLeft=0x7f08001b;
         public static final int layout_TopRight=0x7f08001d;
-        public static final int layout_arbo=0x7f080023;
-        public static final int layout_left=0x7f080022;
-        public static final int layout_lineCount=0x7f080026;
-        public static final int layout_main=0x7f080021;
+        public static final int layout_arbo=0x7f080025;
+        public static final int layout_left=0x7f080023;
+        public static final int layout_lineCount=0x7f080028;
+        public static final int layout_main=0x7f080022;
         public static final int layout_main_login=0x7f08000d;
         public static final int listview_dialog=0x7f080004;
         public static final int login_fields=0x7f080012;
         public static final int login_view=0x7f08000f;
-        public static final int mail_signin=0x7f08002e;
-        public static final int main_editText=0x7f080028;
+        public static final int mail_signin=0x7f080034;
+        public static final int main_editText=0x7f08002a;
         public static final int name_item=0x7f080009;
-        public static final int passwd_conf_signin=0x7f08002d;
-        public static final int passwd_signin=0x7f08002c;
-        public static final int scroll1=0x7f080025;
-        public static final int scroll2=0x7f080027;
-        public static final int spinner=0x7f080037;
-        public static final int spinner_gender=0x7f080031;
+        public static final int newproject_tv=0x7f08002d;
+        public static final int passwd_conf_signin=0x7f080033;
+        public static final int passwd_signin=0x7f080032;
+        public static final int project_spinner=0x7f080024;
+        public static final int scroll1=0x7f080027;
+        public static final int scroll2=0x7f080029;
+        public static final int spinner=0x7f08003d;
+        public static final int spinner_gender=0x7f080037;
         public static final int texloud=0x7f08000c;
         public static final int text_left_login=0x7f08000e;
         public static final int tv_dialogStatus=0x7f080005;
@@ -84,14 +91,14 @@ public final class R {
         public static final int tv_id=0x7f080014;
         public static final int tv_leaf=0x7f08000a;
         public static final int tv_passwd=0x7f080016;
-        public static final int username=0x7f08002b;
-        public static final int vertical_border=0x7f080024;
-        public static final int year=0x7f080036;
-        public static final int zip=0x7f080035;
+        public static final int username=0x7f080031;
+        public static final int vertical_border=0x7f080026;
+        public static final int year=0x7f08003c;
+        public static final int zip=0x7f08003b;
     }
     public static final class integer {
-        public static final int leftSideWidth=0x7f050000;
-        public static final int width_editText=0x7f050001;
+        public static final int leftSideWidth=0x7f040000;
+        public static final int width_editText=0x7f040001;
     }
     public static final class layout {
         public static final int alertdialog=0x7f030000;
@@ -107,17 +114,19 @@ public final class R {
         public static final int login=0x7f03000a;
         public static final int main=0x7f03000b;
         public static final int modifitemdialog=0x7f03000c;
-        public static final int rootlayout=0x7f03000d;
-        public static final int signindialog=0x7f03000e;
+        public static final int newprojectlayout=0x7f03000d;
+        public static final int rootlayout=0x7f03000e;
+        public static final int signindialog=0x7f03000f;
     }
     public static final class string {
         public static final int app_name=0x7f070001;
         public static final int gender_prompt=0x7f070004;
         public static final int hello=0x7f070000;
         public static final int month_prompt=0x7f070003;
+        public static final int project_prompt=0x7f070005;
         public static final int text_login_page=0x7f070002;
     }
     public static final class style {
-        public static final int noBorder=0x7f060000;
+        public static final int noBorder=0x7f050000;
     }
 }

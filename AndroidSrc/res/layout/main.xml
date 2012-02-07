@@ -44,6 +44,15 @@
             android:gravity="center|right" >
 
             <Button
+                android:id="@+id/bouton_create_project"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:background="@layout/buttonshape"
+                android:text="Créer projet"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp" />
+            
+            <Button
                 android:id="@+id/bouton_dl"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
@@ -84,7 +93,15 @@
             android:id="@+id/layout_left"
             android:layout_width="250dp"
             android:layout_height="match_parent"
-            android:background="#FFFFFF" >
+            android:background="#FFFFFF"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/project_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true"
+                android:prompt="@string/project_prompt"/>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -129,12 +146,10 @@
                 android:id="@+id/layout_lineCount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:gravity="right"
-                android:paddingTop="2px"
-                android:paddingRight="5px" >
-
-                
+                android:orientation="vertical"
+                android:paddingRight="5px"
+                android:paddingTop="2px" >
             </LinearLayout>
         </com.android.texloud.MyScrollView>
 
