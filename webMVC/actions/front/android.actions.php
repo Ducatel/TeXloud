@@ -47,6 +47,37 @@ class androidActions extends Actions{
 		}
 	}
 	
+	public function getJsonTreeSuccess(){
+			$arboresence=array();
+
+			$user=User::getCurrentUser();
+			// recuperation de tous les project de l'utilisateur
+			$getProjects = new Query('select',"select P.id as id, P.name as name from user U,group_user GU, project P where U.username='".$user->username."' and U.id=GU.user_id and GU.ugroup_id=P.ugroup_id");
+			$i=0;
+			foreach($getProjects->result as $res){
+				$arboresence[$i]=array();
+				$arboresence[$i]['projectName']=$res->name;
+				$arboresence[$i]['projectId']=$res->id;
+
+	
+				$getFilesInProject= new Query('select',"select F.* from file F, project P where P.id=".$res->id." and F.project_id=P.id");
+				$j=0;
+				$arboresence[$i]['files']=array();
+				foreach($getFilesInProject->result as $file){
+					$tmp=explode('/',$file->path);
+					$arboresence[$i]['files'][$j]=array();
+					$arboresence[$i]['files'][$j]['parentId']=$file->parent;
+					$arboresence[$i]['files'][$j]['filename']=$tmp[count($tmp)-1];
+					$arboresence[$i]['files'][$j]['is_dir']=$file->is_dir;
+					$arboresence[$i]['files'][$j]['id_file']=$file->id;
+					$j++;
+				}
+				$i++;
+			}
+
+			echo json_encode($arboresence);
+	}
+	
 	public function createAccountSuccess(){
 		$firstname=(empty($_POST['firstname']))?'':$_POST['firstname'];
 		$lastname=(empty($_POST['lastname']))?'':$_POST['lastname'];
@@ -247,7 +278,8 @@ class androidActions extends Actions{
 			$project = new Project($file->project_id);
 			Common::getProject($project);
 		}
-		$request['path'] = $_SESSION['workingCopyDir'][$project->id];
+	
+	        $request['path'] = $_SESSION['workingCopyDir'][$project->id];
 		$request['files'] = $files;
 		$data_addr = explode(':', $project->server_url);
 		$request['servDataIp'] = $data_addr[0];
@@ -263,10 +295,11 @@ class androidActions extends Actions{
 	
 	public function syncSuccess($affichage=true) {
 		$data=$_POST['files'];
-
+		var_dump($data);
 		if(!isset($data) || empty($data))
 			die("Erreur sur le chargement du fichier");
 			
+
 		$data=json_decode($data,true);
 		$user = User::getCurrentUser();
 		$request = array('label' => 'sync');
@@ -274,8 +307,9 @@ class androidActions extends Actions{
 
 		if($user){
 			$fileId="";
+			
 			foreach($data as $id => $content){
-				if(empty($gileId))
+				if(empty($fileId))
 					$fileId=$id;
 				$files[] = array('filename' => File::getPath($id), 'content' => $content);
 			}
@@ -283,7 +317,7 @@ class androidActions extends Actions{
 			$file = new File($fileId);
 			$project = new Project($file->project_id);
 			
-			
+		
 			if(!$_SESSION['workingCopyDir'][$file->project_id]){
 				$project = new Project($file->project_id);
 				Common::getProject($project);
@@ -402,50 +436,74 @@ class androidActions extends Actions{
 		unset($_SESSION['workingCopyDir'][$file->id]);
 
 		echo "Suppression du file termine";
-		
 	}
+		
 	
-	//TODO a tester
-	public function compileSuccess(){
-		$this->syncSuccess(false);
+	public function processCompileSuccess(){
+		if($_POST['root_file_id']){
+			$rootFile = new File($_POST['root_file_id']);
+			$project = new Project($rootFile->project_id);
+			
+			if(!$_SESSION['workingCopyDir'][$project->id]){
+				Common::getProject($project);
+			}
+		
+			$receiver=new ReceiverTextWithBinary(HTTP_IP);
+			$sender= new Sender(FRONTAL_IP, FRONTAL_PORT);
+			
+			$dataUrl=explode(':', $project->server_url);
+			$dataIp=$dataUrl[0];
+			$dataPort=$dataUrl[1];
+		
+			$request = array('label' => 'compile',
+					 'path' => $_SESSION['workingCopyDir'][$_SESSION['project_id']],
+					 'httpPort' => $receiver->getPort(),
+					 'rootFile' => $rootFile->path,
+					 'servDataIp' => $dataIp,
+					 'servDataPort' => $dataPort);
+			
+			$sender->setRequest($request);
+			$sender->sendRequest();
+			
+			unset($sender);
+
+			$receiver->getReturn($result_log, $pdf);
+			Common::writePdf($pdf, true);		
 	
-		$rootFile =  $_POST['rootFile'];
+			echo HTTP_IP . '/pdf/' . $_SESSION['pdf']; 
+		}
+	}
 
-		if(!isset($rootFile) && empty($rootFile))
-			die("Erreur sur l'id du fichier");
-
-
-		// creation de la socket de reception
-		$receiver=new ReceiverTextWithBinary("192.168.0.2");
-
-		//creation de la requete d'emission
-		$frontalAddress = "192.168.0.5";
-		$frontalPort = 12800;
-		$sender= new Sender($frontalAddress,$frontalPort);
-
-		$rootFile=new File($rootFile);
-		$dataUrl=explode(':',$rootFile->serverUrl);
-		$dataIp=$dataUrl[0];
-		$dataPort=$dataUrl[1];
+	public function deletePdfFileSuccess(){
+		$user = User::getCurrentUser();
 		
-		$tmp=explode('/',$rootFile->path);
-		
-		$requete=array(
-			'label'=>'compile',
-			'rootFile'=>$tmp[count($tmp)-1],
-			'path'=>$_SESSION['workingCopyDir'][$rootFile->id],
-			'servDataIp'=>$dataIp,
-			'servDataPort'=>$dataPort,
-			'httpPort'=>$receiver->getPort(),
-		);
-		$sender->setRequest($requete);
+		if($user && $_SESSION['pdf']){
+			unlink(PDF_ANDROID_TMP_DIR . $_SESSION['pdf']);
+		}	
+	}
 
-		//envoie de la commande de suppression de file
-		$sender->sendRequest();
-		unset($sender);	
-		
-		$receiver->getReturn($log,$binaryPdf);
-		//TODO voir comment retourner le binaire du pdf
+	public function getPdfSuccess(){
+		$user = User::getCurrentUser();
+		$path = $_SESSION['pdf'];
+			
+		if($user && $path && file_exists($path)){
+			$size = filesize($path);
+			
+			header('Content-Type: application/octet-stream');
+			header('Content-Transfer-Encoding: base64');
+			header('Content-Length: ' . $size);
+			header('Content-Disposition: attachement; filename="document.PDF"');
+			header('Expires: 0');
+			header('Cache-Control: no-cache, must-revalidate');
+			header('Pragma: no-cache');
+
+			readfile($path);
+
+			unlink($path);
+			unset($_SESSION['pdf']);
+			
+			exit;
+		}
 	}
 }
 new androidActions();

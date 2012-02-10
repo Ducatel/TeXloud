@@ -46,15 +46,18 @@ function addFileAction(element){
 	addFileMenu(element);
 	
 	$(element).click(function(){
-		console.log('met dans filecontent à l\'id ' + CURRENT_FILE_ID + ', content -> ' + editAreaLoader.getValue('codelatex'));
+		
 		CURRENT_FILE_ID = $(this).attr('id');
+		
+		$('.file').css('color','black');
+		$(this).css('color','red');	
 
 		if(!CURRENT_FILE_ID || !FILES_CONTENT[CURRENT_FILE_ID]){
 			$.post('/ajax/getFile/',
 				   {'id' : $(this).attr('id')},
 				   function(content){
 					editAreaLoader.setValue('codelatex', content);
-					console.log(editAreaLoader.getValue('codelatex'));
+					//console.log(editAreaLoader.getValue('codelatex'));
 					FILES_CONTENT[CURRENT_FILE_ID] = editAreaLoader.getValue('codelatex');
 					//$('textarea#textarea').val(content);
 			});

@@ -34,8 +34,8 @@ class ajaxActions extends Actions {
 			if(!$_SESSION['workingCopyDir'][$project->id]){
 				Common::getProject($project);
 			}
-			
-			$receiver=new ReceiverTextOnly(HTTP_IP);
+		
+			$receiver=new ReceiverTextWithBinary(HTTP_IP);
 			$sender= new Sender(FRONTAL_IP, FRONTAL_PORT);
 			
 			$dataUrl=explode(':', $project->server_url);
@@ -51,10 +51,39 @@ class ajaxActions extends Actions {
 			
 			$sender->setRequest($request);
 			$sender->sendRequest();
+			
 			unset($sender);
 
-			$trame=$receiver->getReturn(false);
-			echo $trame;
+			$receiver->getReturn(&$result_log, $pdf);
+			echo($result_log);
+			
+			//Common::writePdf($pdf);	
+			
+
+		}
+	}
+
+	public function getViewerSuccess(){
+		$this->setTemplateAlone('_viewer', $this);
+	}
+	
+	public function getPdfSuccess(){
+		$user = User::getCurrentUser();
+		$path = $_SESSION['pdf'];
+			
+		if($user && $path && file_exists($path)){
+			$size = filesize($path);
+			
+			header('Content-Type: application/force-download; name = "document.pdf"');
+			header('Content-Transfer-Encoding: binary');
+			header('Content-Length: ' . $size);
+			header('Content-Disposition: attachement; filename="document.pdf"');
+			header('Expires: 0');
+			header('Cache-Control: no-cache, must-revalidate');
+			header('Pragma: no-cache');
+			readfile($path);
+
+			exit;
 		}
 	}
 
@@ -144,6 +173,47 @@ class ajaxActions extends Actions {
 
 		Common::getProject($project);
 	}
+	
+	public function parseXmlSuccess(){
+		$log=simplexml_load_string($_POST['log']);
+
+		if(!empty($log->warning)){
+			echo "<b> Warning </b></br>";
+			foreach($log->warning as $warning){
+				echo "<ul class='warningLog'>";
+				$type = (string)$warning->type;
+				$message = (string)$warning->message;
+				$tabLigne='';
+				foreach($warning->line as $ligne){
+					$line = (string)$ligne;
+					$tabLigne.= "-> ".$line." ";
+				}
+				$tabLigne=substr($tabLigne,2,strlen($tabLigne));
+				echo "Lignes :".$tabLigne."<li> message : ".$message."</li>";
+				$tabLigne="";
+				echo "</ul>"; 
+			}
+		}
+
+
+		if(!empty($log->error)){
+			echo "</br><b> Error </b></br>";
+			foreach($log->error as $error){
+				echo "<ul class='errorLog'>";
+				$type = (string)$warning->type;
+				$message = (string)$warning->message;
+				$tabLigne='';
+				foreach($warning->line as $ligne){
+					$line = (string)$ligne;
+					$tabLigne.= " ".$line;
+				}
+				echo "Lignes :".$tabLigne."<li> message : ".$message."</li>";
+				$tabLigne="";
+				echo "</ul>"; 
+			}
+		}
+	}
+	
 }
 
 new ajaxActions();

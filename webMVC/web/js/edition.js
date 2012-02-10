@@ -14,17 +14,12 @@ $(function(){
 	$('#sync').click(function(){
 		if(CURRENT_FILE_ID)
 			FILES_CONTENT[CURRENT_FILE_ID] = editAreaLoader.getValue('codelatex');
-		console.log('dans edition -> ');
-		console.log(FILES_CONTENT);
 		
 		files_json = convertToJSON(FILES_CONTENT);
-
-		console.log('en json -> ' + files_json);
 
 		$.post('/ajax/sync',
 		 	{'files' : FILES_CONTENT},
 			function(data){
-				console.log(data);
 			});	
 	});
 
@@ -62,10 +57,32 @@ $(function(){
 
 						$('#form_compile').submit(
 							function(){
+								var rootFile=$('#root_file_id :selected').val();
+								$('#popup_compile').fadeOut().remove();
+								
+								var loadingDiv="<div id='loadingDiv' style='text-align:center;'><b>Compilation en cours</b><br/><br/><img src='/images/loading.gif' alt='loading gif' /></div>";
+								$('#popup_wrapper').html(loadingDiv).css('top', ($(window).height()/2)-16 + 'px').css('left', ($(window).width()/2)-16 + 'px').css('position', 'fixed').fadeIn();
 								$.post('/ajax/processCompile',
-								       {'root_file_id' : $('#root_file_id :selected').val()},
+								       {'root_file_id' : rootFile},
+								       
 								       function(data){
-										console.log(data);
+								       		$('#loadingDiv').fadeOut().remove();
+											$.post('/ajax/parseXml',
+								      		 {'log' : data},
+								      		 function(xml){
+								      		 	var divLog="<div id='divLog'><div id='divLogTopBar'><span id='closeDivLog'>fermer</span></div><div id='divLogContent'>"+xml+"</div></div>";
+								      		 	//TODO reduire la taille du editArea
+								      		
+								      		 	$('#editeur').append(divLog);
+								      		 	$('#closeDivLog').unbind('click');	
+								      		 	$('#closeDivLog').click(function(){
+								      		 		//TODO remettre le edit area en pleine taille
+								      		 		$('#divLog').fadeOut().remove();
+								      		 	});
+								      		 	
+								      		 });
+											
+											
 								       });
 							
 							return false; 
@@ -74,6 +91,17 @@ $(function(){
 				    }
 				);
 			      }
+			);
+		}
+	);
+
+	$('#show_viewer').click(
+		function(){
+			$.get('/ajax/getViewer',
+			     function(viewer){
+				$('#edition').hide();
+				$('#viewer').html(viewer).show();
+			     }
 			);
 		}
 	);

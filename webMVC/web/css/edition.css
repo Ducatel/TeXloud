@@ -31,7 +31,6 @@ article p
 #editeur textarea{
 	border: none;
 	border-left: 1px solid black;
-	height: 100%;
 	width: 80%;
 	font-size: 0.9em;
 	float: right;
@@ -44,7 +43,6 @@ article p
 	text-align: center;
 	display: block;
 	background-color: white;
-	opacity: 0.95;
 	border-radius: 5px;
 	border: 1px solid #999;
 	padding: 20px 10px;
@@ -52,9 +50,49 @@ article p
 	height: 120px;
 }
 
+#loadingDiv{
+	text-align: center;
+	display: block;
+	background-color: white;
+	border-radius: 5px;
+	border: 1px solid #999;
+	padding: 20px 10px;
+}
+
 #root_file_id optgroup{
 	font-style: none;
 } 
 
 #root_file_id{
+}
+
+.menu{
+	text-align: center;
+}
+
+ #contextProjectMenu, #contextFolderMenu, #contextFileMenu{
+	text-align: left;
+}
+
+#divLog{
+	height:150px;
+	overflow: auto ;
+	background-color:#E0E0E0;
+}
+
+#divLogTopBar{
+	text-align:right;
+}
+
+#divLogTopBar span{
+	cursor:pointer;
+	font-weight:bold;
+}
+
+.warningLog{
+	color:#CC3300;
+}
+
+.errorLog{
+	color:red;
 }

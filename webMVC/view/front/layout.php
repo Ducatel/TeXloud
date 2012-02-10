@@ -1,11 +1,3 @@
-<?php
-//define("IN_PHP", true);
-//require_once("common.php");
-
-//$rootName = "Workspace";
-//$treeElements = $treeManager->getElementList(null, "manageStructure.php");
-?>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8" />
@@ -55,8 +47,8 @@
 			<ul>
 				<li><a id="sync">Synchroniser</a></li>
 				<li><a id="compile">Compiler</a></li>
-				<li><a href="js/pdfjs/viewer.html" title="compiler">Télécharger Projet</a></li>
-				<li><a href="#" title="contact">Contact</a></li>
+				<li><a href="js/pdfjs/web/viewer.html" title="compiler">Télécharger Projet</a></li>
+				<li><a id="show_viewer" title="contact">Contact</a></li>
 			</ul>
 
 		</nav>

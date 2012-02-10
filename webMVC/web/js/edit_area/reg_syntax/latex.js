@@ -14,9 +14,9 @@ editAreaLoader.load_syntax["latex"] = {
 		'[', ']', '{', '}'
 	]
 	,'REGEXPS' : {
-		// highlight all function with parametre(\...{...} or \...[..]{...} or \...{...}[..])
+		// highlight all function(\...{...} or \...[..]{...} or \...{...}[..] or \....)
 		'functParam' : {
-			'search' : "(\)(\\w+)([\*|\{|\[]{1})"
+			'search' : "()(\\\\\\w+[*]?)()"
 			,'class' : 'functparam'
 			,'modifiers' : 'g'
 			,'execute' : 'before' 
@@ -28,14 +28,6 @@ editAreaLoader.load_syntax["latex"] = {
 			,'modifiers' : 'g'
 			,'execute' : 'before' 
 		}
-		// highlight all function (\...)
-		/*,'functWithoutParam' : {
-			'search' : ''
-			,'class' : 'functwithoutparam'
-			,'modifiers' : 'g'
-			,'execute' : 'before' 
-		}*/
-
 	}
 	,'STYLES' : {
 		'COMMENTS': 'color: #AAAAAA;'
@@ -45,9 +37,8 @@ editAreaLoader.load_syntax["latex"] = {
 			}
 		,'DELIMITERS' : 'color: #2B60FF;'
 		,'REGEXPS' : {
-			'functparam' : 'color: #FF0000;'
-			,'equation': 'color: #00FF00;'
-			//,'functwithoutparam':'color: #00AAFF;'
+			'functparam' : 'color: hsl(0,100%,30%);'
+			,'equation': 'color: hsl(120,100%,30%);'
 	
 		}		
 	}

@@ -18,9 +18,9 @@ Fichier principal:
 				$prevGrp = implode('/', $tree);
 				echo '<optgroup label="/' . $prevGrp . '">';
 			}
-
-			$label = ($prevGrp)?preg_replace('/'.$prevGrp.'\//', '', $f->path):$f->path;
-
+			
+			$label = ($prevGrp)?preg_replace('#'.$prevGrp.'/#', '', $f->path):$f->path;
+			
 			echo '<option value="' . $f->id . '">' . $label . '</option>';
 		}
 		

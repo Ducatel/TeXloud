@@ -34,8 +34,10 @@ class Common{
 		// Attente de recuperation des infos
 		$trame=$receiver->getReturn();
 		
-		$project->server_url = $receiver->getRemoteIp().':'.$trame->port;
-		$project->save();
+		if(!$project->server_url){
+			$project->server_url = $receiver->getRemoteIp().':'.$trame->port;
+			$project->save();
+		}
 	
 		if(!is_array($_SESSION['workingCopyDir']))
 			$_SESSION['workingCopyDir']=array();
@@ -48,5 +50,29 @@ class Common{
 	public static function startsWith($target, $match){
 		$length = strlen($match);
 		return (substr($target, 0, $length)===$needle);
+	}
+
+	public static function writePdf($pdf, $android = false){
+		if(!file_exists(PDF_TMP_DIR) || !is_dir(PDF_TMP_DIR))
+			mkdir(PDF_TMP_DIR, 0777);
+
+		$filename = uniqid() . '.pdf';
+		
+		if($android){
+			$f = fopen(PDF_ANDROID_TMP_DIR . '/' . $filename, 'w');
+			chmod(PDF_ANDROID_TMP_DIR . '/' . $filename, 0777);
+		}
+		else{
+			$f = fopen(PDF_TMP_DIR . '/' . $filename, 'w');
+			chmod(PDF_TMP_DIR . '/' . $filename, 0777);
+		}
+//		fwrite($f, base64_encode($pdf));
+		fwrite($f, $pdf);
+		fclose($f);
+
+		if($android)
+			$_SESSION['pdf'] = $filename;
+		else
+			$_SESSION['pdf'] = PDF_TMP_DIR . '/' . $filename;
 	}
 }

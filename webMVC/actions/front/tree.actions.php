@@ -61,7 +61,7 @@ class treeActions extends Actions {
 
 //		echo 'envoyé';	
 	
-		echo $id;
+		echo $file->id;
 	}
 	
 	public function addFolderSuccess(){
@@ -171,9 +171,11 @@ class treeActions extends Actions {
 	
 	//	echo "Creation du projet termine";
 		
+		$id = $tree->addNode($project->name, $tree->getRoot()->getId(), true, $project->id . '_project');
+
 		$_SESSION['tree']=serialize($tree);
-		
-		echo $project->id . '_project';
+
+		echo $id;
 	}
 	
 	public function removeProject(){

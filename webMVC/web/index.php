@@ -6,6 +6,8 @@ define('COMPIL_IP', '192.168.0.5');
 define('FRONTAL_IP', '192.168.0.6');
 define('DATA_IP', '192.168.0.4');
 define('FRONTAL_PORT', '12800');
+define('PDF_TMP_DIR', '/tmp/texloud/');
+define('PDF_ANDROID_TMP_DIR', dirname(__FILE__) . '/pdf/');
 
 require_once('../model/ClassLoader.class.php');
 $autoloader = new ClassLoader();

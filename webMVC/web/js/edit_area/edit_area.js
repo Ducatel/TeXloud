@@ -103,7 +103,7 @@
 		t.tab_browsing_area	= _$("tab_browsing_area");
 		t.test_font_size	= _$("test_font_size");
 		a = t.textarea;
-		
+
 		if(!s['is_editable'])
 			t.set_editable(false);
 		

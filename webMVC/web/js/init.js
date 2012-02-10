@@ -16,17 +16,17 @@ var langManager = new languageManager();
 //tr for turkish
 langManager.load("en");  
 
-$(document).ready(function() {
-	$(document).ready(function(){
-		editAreaLoader.init({
-			id : 'codelatex',
-			syntax: 'latex',
-			word_wrap: true,
-			start_highlight: true,
-			language: 'en',
-			toolbar: 'undo,redo',
-			allow_toggle: false,
-			min_height: $(window).height() - $('#titre_principal').height()
-		});
+
+$(document).ready(function(){
+	editAreaLoader.init({
+		id : 'codelatex',
+		syntax: 'latex',
+		word_wrap: true,
+		start_highlight: true,
+		language: 'en',
+		toolbar: 'undo,redo',
+		allow_toggle: false,
+		min_height: $(window).height() - $('#titre_principal').height()
 	});
 });
+
