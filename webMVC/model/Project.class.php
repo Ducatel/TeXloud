@@ -15,5 +15,16 @@ class Project extends object {
 		
 		return $files;
 	}
+
+	public function deleteFiles(){
+		$q = new Query('delete', 'DELETE FROM files WHERE project_id = ' . $this->id);
+
+		return $q->result;
+	}
+
+	public function _delete(){
+		$this->deleteFiles();
+		parent::delete($this->id);
+	}
 }
 ?>

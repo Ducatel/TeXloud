@@ -182,11 +182,11 @@ function isArray(v) {
   return v instanceof Array;
 }
 
-function isStream(v) {
+function isStream(v) {  
   return typeof v == 'object' && v != null && ('getChar' in v);
 }
 
-function isArrayBuffer(v) {
+function isArrayBuffer(v) { 
   return typeof v == 'object' && v != null && ('byteLength' in v);
 }
 

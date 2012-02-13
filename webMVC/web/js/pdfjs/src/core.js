@@ -26,12 +26,14 @@ if (!globalScope.PDFJS) {
 //               },
 //               callback)
 function getPdf(arg, callback) {
+
   var params = arg;
   if (typeof arg === 'string')
     params = { url: arg };
 
   var xhr = new XMLHttpRequest();
   xhr.open('GET', params.url);
+
   xhr.mozResponseType = xhr.responseType = 'arraybuffer';
   var protocol = params.url.indexOf(':') < 0 ? window.location.protocol :
     params.url.substring(0, params.url.indexOf(':') + 1);
@@ -48,6 +50,7 @@ function getPdf(arg, callback) {
       if (xhr.status === xhr.expected) {
         var data = (xhr.mozResponseArrayBuffer || xhr.mozResponse ||
                     xhr.responseArrayBuffer || xhr.response);
+
         callback(data);
       } else if (params.error) {
         params.error(e);
@@ -592,7 +595,7 @@ var PDFDoc = (function PDFDocClosure() {
   function PDFDoc(arg, callback) {
     var stream = null;
     var data = null;
-
+    
     if (isStream(arg)) {
       stream = arg;
       data = arg.bytes;
@@ -603,13 +606,14 @@ var PDFDoc = (function PDFDocClosure() {
       error('PDFDoc: Unknown argument type');
     }
 
+
     this.data = data;
     this.stream = stream;
     this.pdf = new PDFDocModel(stream);
     this.fingerprint = this.pdf.getFingerprint();
     this.catalog = this.pdf.catalog;
     this.objs = new PDFObjects();
-
+    console.log('tesdfs');
     this.pageCache = [];
     this.fontsLoading = {};
     this.workerReadyPromise = new Promise('workerReady');

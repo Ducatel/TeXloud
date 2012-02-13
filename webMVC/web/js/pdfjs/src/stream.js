@@ -5,6 +5,7 @@
 
 var Stream = (function StreamClosure() {
   function Stream(arrayBuffer, start, length, dict) {
+  console.log("stream");
     this.bytes = new Uint8Array(arrayBuffer);
     this.start = start || 0;
     this.pos = this.start;

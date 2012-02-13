@@ -7,8 +7,13 @@ class userActions extends Actions {
 	}
 	
 	public function logoutSuccess() {
+		foreach($_SESSION['workingCopyDir'] as $project_id => $path)
+			Common::deleteWorkingCopy($project_id, $path);
+		
 		session_destroy();
-		$this->redirect('/');
+		
+		if(!$_POST['android'])
+			$this->redirect('/');
 	}
 	
 	public function myAccountSuccess(){

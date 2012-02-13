@@ -2,7 +2,6 @@
 class androidActions extends Actions{
 
 	public function loginSuccess(){
-
 		$login = $_POST['login'];
 		$password = $_POST['password'];
 
@@ -274,7 +273,7 @@ class androidActions extends Actions{
 		$sender= new Sender(FRONTAL_IP, FRONTAL_PORT);
 		$request['httpPort'] = '';
 		
-		if(!$_SESSION['workingCopyDir'][$file->project_id]){
+		if(!$_SESSION['workingCopyDir'][$project->id]){
 			$project = new Project($file->project_id);
 			Common::getProject($project);
 		}
@@ -343,8 +342,7 @@ class androidActions extends Actions{
 			echo "ERROR";
 	}
 		
-	public function getFileSuccess(){
-	
+	public function getFileSuccess(){	
 		$fileId = $_POST['fileId'];
 		
 		if(!isset($fileId) && empty($fileId))
@@ -468,9 +466,16 @@ class androidActions extends Actions{
 			unset($sender);
 
 			$receiver->getReturn($result_log, $pdf);
-			Common::writePdf($pdf, true);		
-	
-			echo HTTP_IP . '/pdf/' . $_SESSION['pdf']; 
+			
+			if($pdf)
+				Common::writePdf($pdf, true);		
+
+			$result = array();
+			$result['status'] = $pdf?1:0;
+			$result['log'] = $result_log;
+			$result['url'] = $pdf?HTTP_IP . '/pdf/' . $_SESSION['pdf']:'';
+
+			echo json_encode($result);
 		}
 	}
 

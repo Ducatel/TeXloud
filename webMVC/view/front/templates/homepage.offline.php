@@ -32,25 +32,14 @@
 					<a href="#">Mot de passe oublié</a>
 				</p>
 			</div>
-
 		</div>
 	</section>
 
 	<section id="paragraph">
-		<p>LaTeX est un langage et un système de composition de documents créé
-			par Leslie Lamport en 198312. Plus exactement, il s'agit d'une
-			collection de macro-commandes destinées à faciliter l'utilisation du
-			« processeur de texte » TeX de Donald Knuth. Depuis 1993, il est
-			maintenu par le LATEX3 Project team. La première version utilisée
-			largement, appelée LaTeX2.09, est sortie en 1984. Une révision
-			majeure, appelée LaTeX2ε est sortie en 1991. Le nom est l'abréviation
-			de Lamport TeX. On écrit souvent LATEX, le logiciel permettant les
-			mises en forme correspondant au logo. Du fait de sa relative
-			simplicité, il est devenu la méthode privilégiée d'écriture de
-			documents scientifiques employant TeX. Il est particulièrement
-			utilisé dans les domaines techniques et scientifiques pour la
-			production de documents de taille moyenne ou importante (thèse ou
-			livre, par exemple). Néanmoins, il peut aussi être employé pour
-			générer des documents de types variés (par exemple,</p>
+
+
+			<img src='/images/dessin.png' alt='texloud explication' style='width:450px;margin:0;padding:0;position:fixed;top:70px;' />
+
+
 	</section>
 </article>

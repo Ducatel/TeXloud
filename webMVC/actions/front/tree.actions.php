@@ -96,9 +96,6 @@ class treeActions extends Actions {
 		$tree=unserialize($_SESSION['tree']);
 		$tree->removeNode($_POST['id']);
 		
-		$file = new File($_POST['id']);
-		$file->_delete();
-		
 		$_SESSION['tree']=serialize($tree);
 	}
 	
@@ -106,13 +103,21 @@ class treeActions extends Actions {
 		$tree=unserialize($_SESSION['tree']);
 		$tree->removeNode($_POST['id']);
 		
-		File::delete($_POST['id']);
-		
 		$_SESSION['tree']=serialize($tree);
 	}
 	
 	public function removeProjectSuccess(){
 		$tree=unserialize($_SESSION['tree']);
+		
+		$id_splitted = explode('_', $_POST['id']);
+		$project = new Project($id_splitted[0]);
+
+		if($project){
+			$tree->removeNode($_POST['id']);
+			$project->_delete();
+		}
+
+		$_SESSION['tree']=serialize($tree);
 	}
 	
 	public function renameElementSuccess(){

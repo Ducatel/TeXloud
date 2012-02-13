@@ -54,6 +54,37 @@ class File extends object {
 		
 		return $tree;
 	}
+
+	public static function deleteFromData($id){
+		$file = new File($id);
+		
+		if($file->id){	
+			$sender = new Sender(FRONTAL_IP, FRONTAL_PORT);
+
+			$project = new Project($file->project_id);
+
+			$dataUrl=explode(':', $project->server_url);
+			$dataIp=$dataUrl[0];
+			$dataPort=$dataUrl[1];
+		
+			if(!$_SESSION['workingCopyDir'][$project->id]){
+				Common::getProject($project);
+			}
+
+			$request = array('label' => 'deleteFile',
+					 'path' => $_SESSION['workingCopyDir'][$_SESSION['project_id']],
+					 'filename' => $file->path,
+                			 'httpPort' => '',
+					 'servDataIp' => $dataIp,
+					 'servDataPort' => $dataPort);
+		
+			$sender->setRequest($request);
+			$sender->sendRequest();
+			unset($sender);
+		}
+
+		parent::delete($id);
+	}
 	
 	public function _delete(){
 		if($this->is_dir){

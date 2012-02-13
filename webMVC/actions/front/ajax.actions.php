@@ -57,9 +57,7 @@ class ajaxActions extends Actions {
 			$receiver->getReturn(&$result_log, $pdf);
 			echo($result_log);
 			
-			//Common::writePdf($pdf);	
-			
-
+			Common::writePdf($pdf);
 		}
 	}
 
@@ -98,8 +96,12 @@ class ajaxActions extends Actions {
 		
 		if($user && $data){
 			foreach($data as $id => $content){
-				$files[] = array('filename' => File::getPath($id), 'content' => urldecode($content));
-//				 $files[File::getPath($id)] = $content;
+				$file = new File($id);
+
+				if($content && $file->path){
+					$files[] = array('filename' => $file->path, 'content' => urldecode($content));
+	//				 $files[File::getPath($id)] = $content;
+				}
 			}
 			
 			$sender= new Sender(FRONTAL_IP, FRONTAL_PORT);
@@ -200,10 +202,10 @@ class ajaxActions extends Actions {
 			echo "</br><b> Error </b></br>";
 			foreach($log->error as $error){
 				echo "<ul class='errorLog'>";
-				$type = (string)$warning->type;
-				$message = (string)$warning->message;
+				$type = (string)$error->type;
+				$message = (string)$error->message;
 				$tabLigne='';
-				foreach($warning->line as $ligne){
+				foreach($error->line as $ligne){
 					$line = (string)$ligne;
 					$tabLigne.= " ".$line;
 				}

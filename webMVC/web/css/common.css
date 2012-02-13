@@ -45,6 +45,7 @@ nav a
     color:white;
     padding-bottom: 3px;
     text-decoration: none;
+    cursor:pointer;
 }
 
 #bloc_texloud{
@@ -54,9 +55,15 @@ nav a
 	background-color: white;
 }
 
+#logoTexloud{
+	height:50px;
+	float:left;
+	margin-left:10px;
+}
+
 #titretexloud{
    display: inline-block;
-   padding-left: 1em;
+   padding-left: 10px;
    padding-right: 1em;
    font-size: 2em;
    font-weight: normal;

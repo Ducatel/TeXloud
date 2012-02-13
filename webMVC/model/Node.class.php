@@ -66,13 +66,13 @@ class Node{
 		$file->save();
 		
 		$file->renameChildrenPath();
-		$project = new Project($project->id);	
+		$project = new Project($file->project_id);	
 	
 		if(!$_SESSION['workingCopyDir'][$project->id]){
 			Common::getProject($project);
 		}
 	
-		$sender= new Sender(FRONTAL_IP, FRONTAL_PORT);
+		$sender = new Sender(FRONTAL_IP, FRONTAL_PORT);
 			
 		$dataUrl=explode(':', $project->server_url);
 		$dataIp=$dataUrl[0];
@@ -82,10 +82,10 @@ class Node{
 				 'path' => $_SESSION['workingCopyDir'][$_SESSION['project_id']],
 				 'target' => $oldPath,
 				 'dest' => $newPath,
-                                 'httpPort' => '',
+                 'httpPort' => '',
 				 'servDataIp' => $dataIp,
 				 'servDataPort' => $dataPort);
-			
+	
 		$sender->setRequest($request);
 		$sender->sendRequest();
 	}

@@ -71,17 +71,19 @@ $(function(){
 								      		 {'log' : data},
 								      		 function(xml){
 								      		 	var divLog="<div id='divLog'><div id='divLogTopBar'><span id='closeDivLog'>fermer</span></div><div id='divLogContent'>"+xml+"</div></div>";
-								      		 	//TODO reduire la taille du editArea
-								      		
+
+								      			var heightEditor=stripPx($('#frame_codelatex').css('height'));
+								 
+								      			$('#frame_codelatex').css('height',(heightEditor-150));
+								      			
 								      		 	$('#editeur').append(divLog);
 								      		 	$('#closeDivLog').unbind('click');	
 								      		 	$('#closeDivLog').click(function(){
-								      		 		//TODO remettre le edit area en pleine taille
 								      		 		$('#divLog').fadeOut().remove();
+								      		 		$('#frame_codelatex').css('height',heightEditor);
 								      		 	});
 								      		 	
-								      		 });
-											
+								      		 });										
 											
 								       });
 							
@@ -105,4 +107,13 @@ $(function(){
 			);
 		}
 	);
+
+	$('#refresh_cache').click(function(){
+		FILES_CONTENT = {};
+	});
 });
+
+function stripPx( value ) {
+    if( value == "" ) return 0;
+    return parseFloat( value.substring( 0, value.length - 2 ) );
+}  

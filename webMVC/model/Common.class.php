@@ -4,14 +4,63 @@ class Common{
 		return preg_match('#^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}$#', $email);
 	}
 
+	public static function deleteWorkingCopy($project_id, $path){
+		$project = new Project($project_id);
+
+		if($project->id){
+			$sender = new Sender(FRONTAL_IP, FRONTAL_PORT);
+	
+			$data_addr = explode(':', $project->server_url);
+                    
+	                $requete=array(
+        	                'label' => 'deleteWorkingCopy',
+                	        'username' => '', 
+                        	'password' => '', 
+	                        'path' => $path,
+        	                'servDataIp' => $data_addr[0],
+                	        'servDataPort' => $data_addr[1],
+                        	'httpPort' => ''
+	                ); 	
+
+			$sender->setRequest($requete);
+			$sender->sendRequest();
+		}
+	}
+
+	public static function deleteProject($path, $project_id){
+                $project = new Project($project_id);
+
+                if($project->id){
+                        $sender = new Sender(FRONTAL_IP, FRONTAL_PORT);
+                    
+                        $data_addr = explode(':', $project->server_url);
+
+                        $requete=array(
+                                'label' => 'deleteProject',
+                                'username' => '',
+                                'password' => '',
+                                'path' => $path,
+                                'servDataIp' => $data_addr[0],
+                                'servDataPort' => $data_addr[1],
+                                'httpPort' => ''
+                        );      
+
+                        $sender->setRequest($requete);
+                        $sender->sendRequest();
+                }   
+	}
+
 	public static function getProject($project){
-		$user=User::getCurrentUser();
+		if(!$project->id)
+			die('le projet n\'existe pas');
+
+		$user = User::getCurrentUser();
 		
-		$receiver=new ReceiverTextOnly(HTTP_IP);
+		$receiver = new ReceiverTextOnly(HTTP_IP);
 		
 		$frontalAddress = FRONTAL_IP;
 		$frontalPort = FRONTAL_PORT;
-		$sender= new Sender($frontalAddress,$frontalPort);
+		$sender = new Sender($frontalAddress,$frontalPort);
 		
 		$data_addr = explode(':', $project->server_url);
 		
@@ -73,6 +122,6 @@ class Common{
 		if($android)
 			$_SESSION['pdf'] = $filename;
 		else
-			$_SESSION['pdf'] = PDF_TMP_DIR . '/' . $filename;
+			$_SESSION['pdf'] = PDF_TMP_DIR . $filename;
 	}
 }

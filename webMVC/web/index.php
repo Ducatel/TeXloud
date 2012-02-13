@@ -17,7 +17,14 @@ require_once('../actions/front/actions.php');
 //verifie si la page est passée en parametre et si le fichier existe
 if(!empty($_GET['p'])) {
 	//inclut le fichier actions correspondant à la page
-	require_once('../actions/front/'.$_GET['p'].'.actions.php');
+	if(file_exists('../actions/front/'.$_GET['p'].'.actions.php'))
+		require_once('../actions/front/'.$_GET['p'].'.actions.php');
+	else{
+		if(User::isLogged())
+			require_once('../actions/front/edition.actions.php');
+		else
+			require_once('../actions/front/homepage.actions.php');	
+	}
 }
 elseif(isset($_SESSION['user_id'])) {
 	require_once('../actions/front/edition.actions.php');

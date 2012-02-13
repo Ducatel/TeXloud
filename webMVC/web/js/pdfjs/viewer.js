@@ -2,8 +2,7 @@
 /* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
 
 'use strict';
-
-var kDefaultURL = '/ajax/getPdf';
+var kDefaultURL = "/pdf/4f352985f2e8b.pdf";//'/ajax/getPdf';
 var kDefaultScale = 'auto';
 var kDefaultScaleDelta = 1.1;
 var kUnknownScale = 0;
@@ -262,8 +261,8 @@ var PDFView = {
   },
 
   open: function pdfViewOpen(url, scale) {
-    document.title = this.url = url;
 
+    document.title = this.url = url;
     var self = this;
     PDFJS.getPdf(
       {
@@ -283,6 +282,7 @@ var PDFView = {
       },
       function getPdfLoad(data) {
         self.loading = true;
+        //TODO retour appel callback chargement fichier pdf
         self.load(data, scale);
         self.loading = false;
       });
@@ -435,6 +435,7 @@ var PDFView = {
 
     var pdf;
     try {
+    //TODO plante ici
       pdf = new PDFJS.PDFDoc(data);
     } catch (e) {
       this.error('An error occurred while reading the PDF.', e);
@@ -1092,8 +1093,11 @@ var TextLayerBuilder = function textLayerBuilder(textLayerDiv) {
   };
 };
 
-window.addEventListener('load', function webViewerLoad(evt) {
+//TODO entry point
+//window.addEventListener('load', function webViewerLoad(evt) {
+$(function(){
   var params = document.location.search.substring(1).split('&');
+
   for (var i = 0; i < params.length; i++) {
     var param = params[i].split('=');
     params[unescape(param[0])] = unescape(param[1]);
@@ -1102,6 +1106,7 @@ window.addEventListener('load', function webViewerLoad(evt) {
   var scale = ('scale' in params) ? params.scale : 0;
   var file = PDFJS.isFirefoxExtension ?
               window.location.toString() : params.file || kDefaultURL;
+  console.log(file);
   PDFView.open(file, parseFloat(scale));
 
   if (PDFJS.isFirefoxExtension || !window.File || !window.FileReader ||
@@ -1121,8 +1126,8 @@ window.addEventListener('load', function webViewerLoad(evt) {
 
   var sidebarScrollView = document.getElementById('sidebarScrollView');
   sidebarScrollView.addEventListener('scroll', updateThumbViewArea, true);
-}, true);
-
+//}, true);
+});
 window.addEventListener('unload', function webViewerUnload(evt) {
   window.scrollTo(0, 0);
 }, true);
@@ -1247,6 +1252,7 @@ window.addEventListener('change', function webViewerChange(evt) {
   // Read the local file into a Uint8Array.
   var fileReader = new FileReader();
   fileReader.onload = function webViewerChangeFileReaderOnload(evt) {
+
     var data = evt.target.result;
     var buffer = new ArrayBuffer(data.length);
     var uint8Array = new Uint8Array(buffer);

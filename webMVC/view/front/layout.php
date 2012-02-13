@@ -12,10 +12,13 @@
 		echo '<title>TeXloud</title>';
 ?>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
 <link rel="stylesheet" type="text/css" href="/css/common.css" />
 <link rel="stylesheet" type="text/css" href="/js/edit_area/edit_area.css" />
 <link rel="stylesheet" type="text/css" href="/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/css/arbre.css" />
+<link rel="icon" type="image/png" href="/images/logoTexloud.png" />
+<!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="/images/logoTexloud.ico" /><![endif]-->
 
 <?php
 	foreach($var->css as $css)
@@ -34,6 +37,7 @@
 
 <body>
 	<header id="titre_principal">
+		<img src='/images/logoTexloud.png' alt='logo TeXloud' id='logoTexloud' />
 		<a href="/" id="titretexloud">TeXloud</a>
 		<?php if(User::isLogged()): ?>
 			<p id="session">
@@ -45,10 +49,11 @@
 
 		<nav id='menu'>
 			<ul>
+				<li><a id="refresh_cache">Effacer cache</a></li>
 				<li><a id="sync">Synchroniser</a></li>
 				<li><a id="compile">Compiler</a></li>
-				<li><a href="js/pdfjs/web/viewer.html" title="compiler">Télécharger Projet</a></li>
-				<li><a id="show_viewer" title="contact">Contact</a></li>
+				<li><a href="js/pdfjs/web/viewer.html">Télécharger Projet</a></li>
+				<li><a id="show_viewer">Contact</a></li>
 			</ul>
 
 		</nav>
