@@ -117,18 +117,108 @@ L'équipe est composé de 5 personnes:
 
 \newpage
 \section{Choix techniques}
+\subsection{Architecture général}
+\paragraph*{}
+Le projet est divisé en 5 parties minimum:
+\begin{itemize}
+ \item Un serveur web
+ \item Une application Android
+ \item Un serveur de routage et d'ordonnancement
+ \item Un à N serveur(s) de stockage de données
+ \item Un à N serveur(s) de compilation
+\end{itemize}
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=0.92\textwidth,angle=90]{./images/DiagrammeDeploiement.jpg}
+\end{center}
+  \caption{Diagramme de déploiement}
+  \label{déploiement}
+\end{figure}
+
+\paragraph*{}
+Ce type d'architecture à été choisie car elle permet une extension du nombre de serveurs de compilation et de données théoriquement infinie. Aussi, elle permet de limité au maximum les échange "lourd"\footnote{Transfert de nombreux fichiers et donc potentiellement lourd pour le réseau}. L'ensemble des communications (sauf envoie de binaire) sont au format JSON.
+
+\paragraph*{}
+Typiquement une compilation de documents passe par l'ensemble des serveurs:
+\begin{enumerate}
+ \item Serveur HTTP $\rightarrow$ serveur de routage et d'ordonnancement
+ \item Serveur routage et d'ordonnancement $\rightarrow$ serveur de stockage de données
+ \item Serveur de stockage de données $\rightarrow$ serveur de compilation
+ \item Serveur de compilation $\rightarrow$ serveur de stockage de données
+ \item Serveur de stockage de données $\rightarrow$ serveur HTTP
+\end{enumerate}
+
+
+
+\subsection{Serveur web}
+\paragraph*{}
+Le serveur web inclue plusieurs services:
+\begin{itemize}
+ \item La base de données de l'application. Le SGBD MySQL a été choisie pour supporté cette tâche.
+ \item L'interface coté serveur a été développé en PHP5. Le serveur HTTP Apache2 est utilisé pour géré les connexions.
+ \item L'interface cliente utilise les technologies HTML5, CSS3 et javascript (Via le frameworks JQuery).
+ \item L'interface de communication entre l'application Android et le reste de l'architecture.
+\end{itemize}
+
+\paragraph*{}
+Un modèle de conception MVC a été utilisé afin de rendre le code de l'application plus clair, plus facilement maintenable et évolutif. Les communications avec le serveur de routage et d'ordonnancement sont effectués grâce à des sockets TCP qui ont une durée de vie égale à une boucle entre tous les serveurs. Ceci permet de ne pas laisser en permanence de ports ouvert sur le serveur et ainsi limité les risques d'attaques sur ce service.
+
+
+\paragraph*{}
+L'application Web est divisé en deux parties:
+\begin{enumerate}
+ \item La partie développement, où l'utilisateur peut écrire sont code Latex, consulter les logs d'erreurs/warning (s'il existe) après la compilation.
+ \item La partie gestion des projets. L'utilisateur peut crée des projets, des dossier (sous dossiers) et des fichiers. il peut aussi renommer, supprimer un dossier ou un fichier.
+\end{enumerate}
+
+\clearpage
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=0.6\textwidth]{./images/MVC.png}
+\end{center}
+  \caption{Diagramme MVC}
+  \label{MVC}
+\end{figure}
+
+\subsection{Application Android}
+\paragraph*{}
+
+\subsection{Serveur de routage et d'ordonnancement}
+\paragraph*{}
+Le serveur de routage et d'ordonnancement permet de géré les communications entre le serveur web et les différents serveur de données et de compilation. Ce service à été développé en python. Il fourni deux services:
+\begin{enumerate}
+ \item Un service de routage
+ \item Un service d'ordonnancement
+\end{enumerate}
+
+\paragraph*{}
+Le service de routage permet de dirigé les requêtes vers les bon serveurs en fonctions de l'action voulu (compilation vers un serveurs de compilation,gestion des données vers le bon serveur de données). Le service d'ordonnancement permet de répartir la charge sur les différents serveurs en fonction de leurs charge propre. L'ordonnancement permet ainsi d'éviter d'avoir des serveurs totalement au repos et d'autres au maximum de leurs capacité.
+
+\paragraph*{}
+Les communications entre le serveur HTTP, les serveurs de compilation et les serveurs de données sont effectués la aussi grâce à des socket TCP.
+
+\paragraph*{}
+L'ensemble des données sur les serveurs (adresse IP, port du service, type de service, charge maximal) sont stocké au sein d'un fichier XML sur ce serveur.
+
+
+\subsection{Serveur de stockage de données}
+\paragraph*{}
+
+\subsection{Serveur de compilation}
 \paragraph*{}
 
 \newpage
-\section{Utilisation de l'application}
-
-\subsection{Création de compte}
+\section{Utilisation des applications}
+\subsection{Application Web}
+\subsubsection{Création de compte}
 \paragraph*{}
 
-\subsection{Création de projet}
+\subsubsection{Création de projet}
 \paragraph*{}
 
-\subsection{Compilation}
+\subsubsection{Compilation}
 \paragraph*{}
 \begin{itemize}
  \item Lancement compilation
@@ -138,7 +228,32 @@ L'équipe est composé de 5 personnes:
 \end{itemize}
 
 
-\subsection{Fonction annexe}
+\subsubsection{Fonctions annexes}
+\paragraph*{}
+\begin{itemize}
+ \item Suppression de dossier/fichier
+ \item Rename dossier/fichier
+ \item Info supp sur user
+\end{itemize}
+
+\subsection{Application Android}
+\subsubsection{Création de compte}
+\paragraph*{}
+
+\subsubsection{Création de projet}
+\paragraph*{}
+
+\subsubsection{Compilation}
+\paragraph*{}
+\begin{itemize}
+ \item Lancement compilation
+ \item log
+ \item visu du pdf
+ \item telechargement du pdf
+\end{itemize}
+
+
+\subsubsection{Fonctions annexes}
 \paragraph*{}
 \begin{itemize}
  \item Suppression de dossier/fichier
@@ -160,6 +275,9 @@ L'équipe est composé de 5 personnes:
 \subsection{Intégration de PDFJS}
 \paragraph*{}
 
+
+\newpage
+\listoffigures
 
 
 \end{document}

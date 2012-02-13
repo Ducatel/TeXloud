@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  13 FEB 2012 17:38
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  13 FEB 2012 19:24
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -600,26 +600,58 @@ been already used, duplicate ignored
 l.82 \newpage
               [1
 
-] [2] [3] [4] [5] [6] (./rapport.aux) ) 
+] [2]
+<./images/DiagrammeDeploiement.jpg, id=158, 1782.66pt x 1154.3125pt>
+File: ./images/DiagrammeDeploiement.jpg Graphic file (type jpg)
+
+<use ./images/DiagrammeDeploiement.jpg> [3pdfTeX warning (ext4): destination wi
+th the same identifier (name{figure.1}) has been already used, duplicate ignore
+d
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.139 \paragraph
+                *{} <./images/DiagrammeDeploiement.jpg>] [4]
+<./images/MVC.png, id=187, 331.2375pt x 261.22594pt>
+File: ./images/MVC.png Graphic file (type png)
+ <use ./images/MVC.png>
+[5
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.208 \subsection
+                 {Serveur de compilation} <./images/MVC.png>] [6] [7] [8]
+[9] (./rapport.lof)
+\tf@lof=\write6
+\openout6 = `rapport.lof'.
+
+ [10] (./rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 6629 strings out of 495061
- 91049 string characters out of 1182622
- 164202 words of memory out of 3000000
- 9624 multiletter control sequences out of 15000+50000
- 21540 words of font info for 66 fonts, out of 3000000 for 9000
+ 6696 strings out of 495061
+ 91895 string characters out of 1182622
+ 166289 words of memory out of 3000000
+ 9645 multiletter control sequences out of 15000+50000
+ 23742 words of font info for 69 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,5n,36p,312b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
- </home/hannibal/.texmf-var/fonts/pk/ljf
-our/jknappen/ec/ecbx1440.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jkna
-ppen/ec/ecbx1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/
-ecrm1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728
-.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1440.600pk> 
-</home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/h
-annibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/hannibal/
-.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk>
-Output written on rapport.pdf (7 pages, 108201 bytes).
+ 38i,8n,36p,482b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
+ </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/
+ecrm1000.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800
+.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> 
+</home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/h
+annibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/hannibal/
+.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/hannibal/.texmf-v
+ar/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/hannibal/.texmf-var/fonts
+/pk/ljfour/jknappen/ec/eccc1440.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfo
+ur/jknappen/ec/ecbx2074.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknap
+pen/ec/ecbx2488.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/e
+crm1440.600pk></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb>
+Output written on rapport.pdf (11 pages, 313346 bytes).
 PDF statistics:
- 423 PDF objects out of 1000 (max. 8388607)
- 45 named destinations out of 1000 (max. 500000)
- 161 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 579 PDF objects out of 1000 (max. 8388607)
+ 80 named destinations out of 1000 (max. 500000)
+ 219 words of extra memory for PDF output out of 10000 (max. 10000000)
 

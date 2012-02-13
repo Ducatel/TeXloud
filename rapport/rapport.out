@@ -2,6 +2,12 @@
 \BOOKMARK [2][-]{subsection.1.1}{Rappel du sujet}{section.1}
 \BOOKMARK [2][-]{subsection.1.2}{L'\351quipe}{section.1}
 \BOOKMARK [1][-]{section.2}{Choix techniques}{}
+\BOOKMARK [2][-]{subsection.2.1}{Architecture g\351n\351ral}{section.2}
+\BOOKMARK [2][-]{subsection.2.2}{Serveur web}{section.2}
+\BOOKMARK [2][-]{subsection.2.3}{Application Android}{section.2}
+\BOOKMARK [2][-]{subsection.2.4}{Serveur de routage et d'ordonnancement}{section.2}
+\BOOKMARK [2][-]{subsection.2.5}{Serveur de stockage de donn\351es}{section.2}
+\BOOKMARK [2][-]{subsection.2.6}{Serveur de compilation}{section.2}
 \BOOKMARK [1][-]{section.3}{Utilisation des applications}{}
 \BOOKMARK [2][-]{subsection.3.1}{Application Web}{section.3}
 \BOOKMARK [3][-]{subsubsection.3.1.1}{Cr\351ation de compte}{subsection.3.1}
