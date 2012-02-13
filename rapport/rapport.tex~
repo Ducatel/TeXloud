@@ -82,6 +82,65 @@ Sp\'ecialisation SIRES\\
 \newpage
 
 \section{Introduction}
+\subsection{Rappel du sujet}
 \paragraph*{}
+
+\subsection{Rappel de l'équipe}
+\paragraph*{}
+
+\section{Choix techniques}
+\paragraph*{}
+
+\section{Utilisation standard}
+\subsection{Création de compte}
+\paragraph*{}
+
+\subsection{Création de projet}
+\paragraph*{}
+\begin{itemize}
+ \item Authentification
+ \item Creation d'un projet
+ \item Creation d'un fichier/dossier
+ \item sync
+\end{itemize}
+
+
+\subsection{Compilation}
+\paragraph*{}
+\begin{itemize}
+ \item Lancement compilation
+ \item log
+ \item visu du pdf
+ \item telechargement du pdf
+\end{itemize}
+
+
+\subsection{Fonction annexe}
+\paragraph*{}
+\begin{itemize}
+ \item Suppression de dossier/fichier
+ \item Rename dossier/fichier
+ \item Info supp sur user
+\end{itemize}
+
+\section{Perspective d'évolution}
+\subsection{Support des images}
+\paragraph*{}
+
+\subsection{Gestion des groupes}
+\paragraph*{}
+
+\subsection{Coloration syntaxique sur Android}
+\paragraph*{}
+
+\subsection{Intégration PDFJS}
+\paragraph*{}
+\begin{itemize}
+ \item Ajout d'image
+ \item Ajout de la gestion des groupes
+ \item Coloration syntaxique sur tablette
+ \item Intégration dans le design de PDFJS 
+\end{itemize}
+
 
 \end{document}

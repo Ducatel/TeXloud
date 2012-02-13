@@ -1,2 +1,9 @@
 \select@language {french}
-\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {section}{\numberline {1}Rappel du sujet}{2}{section.1}
+\contentsline {section}{\numberline {2}Choix techniques}{2}{section.2}
+\contentsline {section}{\numberline {3}Utilisation standard}{2}{section.3}
+\contentsline {subsection}{\numberline {3.1}Cr\IeC {\'e}ation de compte}{2}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Cr\IeC {\'e}ation de projet}{2}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Compilation}{2}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Fonction annexe}{2}{subsection.3.4}
+\contentsline {section}{\numberline {4}Perspective d'\IeC {\'e}volution}{2}{section.4}
