@@ -18,6 +18,13 @@ class SvnDataSocket(DataSocket):
     def __init__(self, port, address):
         super(self.__class__,self).__init__(port, address)
             
+    def rename(self, path, target, dest, httpPort, client):
+       print 'begin rename'
+       connection = SvnConnector.SvnConnector(self.getUserProperty(path, 'repo'), self.getUserProperty(path, 'username'),
+                                              self.getUserProperty(path, 'password'), path, False)  
+       connection.rename(path, target, dest) 
+       print 'end rename'
+
     def getProject(self, path, username, password, httpPort, client):
         super(SvnDataSocket, self).getProject(path, username, password, httpPort, client)
         
@@ -52,7 +59,6 @@ class SvnDataSocket(DataSocket):
             connection = SvnConnector.SvnConnector(self.getUserProperty(path, 'repo'), self.getUserProperty(path, 'username'), 
                                                    self.getUserProperty(path, 'password'), path, False)
             connection.remove_file(filename)
-            connection.commit()
             print path + '/' + filename + ' deleted'
             
     def createFile(self, path, filename, file_content, httpPort, client):
