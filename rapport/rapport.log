@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  13 FEB 2012 19:24
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  13 FEB 2012 21:58
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -623,15 +623,15 @@ s been already used, duplicate ignored
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.208 \subsection
-                 {Serveur de compilation} <./images/MVC.png>] [6] [7] [8]
-[9] (./rapport.lof)
+                 {Serveur de stockage de données} <./images/MVC.png>] [6]
+[7] [8] [9] (./rapport.lof)
 \tf@lof=\write6
 \openout6 = `rapport.lof'.
 
  [10] (./rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 6696 strings out of 495061
- 91895 string characters out of 1182622
+ 6704 strings out of 495061
+ 91963 string characters out of 1182622
  166289 words of memory out of 3000000
  9645 multiletter control sequences out of 15000+50000
  23742 words of font info for 69 fonts, out of 3000000 for 9000
@@ -649,9 +649,9 @@ ur/jknappen/ec/ecbx2074.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknap
 pen/ec/ecbx2488.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/e
 crm1440.600pk></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.p
 fb>
-Output written on rapport.pdf (11 pages, 313346 bytes).
+Output written on rapport.pdf (11 pages, 318499 bytes).
 PDF statistics:
- 579 PDF objects out of 1000 (max. 8388607)
- 80 named destinations out of 1000 (max. 500000)
+ 599 PDF objects out of 1000 (max. 8388607)
+ 88 named destinations out of 1000 (max. 500000)
  219 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -164,12 +164,11 @@ Le serveur web inclue plusieurs services:
 \paragraph*{}
 Un modèle de conception MVC a été utilisé afin de rendre le code de l'application plus clair, plus facilement maintenable et évolutif. Les communications avec le serveur de routage et d'ordonnancement sont effectués grâce à des sockets TCP qui ont une durée de vie égale à une boucle entre tous les serveurs. Ceci permet de ne pas laisser en permanence de ports ouvert sur le serveur et ainsi limité les risques d'attaques sur ce service.
 
-
 \paragraph*{}
 L'application Web est divisé en deux parties:
 \begin{enumerate}
  \item La partie développement, où l'utilisateur peut écrire sont code Latex, consulter les logs d'erreurs/warning (s'il existe) après la compilation.
- \item La partie gestion des projets. L'utilisateur peut crée des projets, des dossier (sous dossiers) et des fichiers. il peut aussi renommer, supprimer un dossier ou un fichier.
+ \item La partie gestion des projets. L'utilisateur peut crée des projets, des dossier (sous dossiers) et des fichiers LaTex. il peut aussi renommer, supprimer un projet, un dossier ou un fichier.
 \end{enumerate}
 
 \clearpage
