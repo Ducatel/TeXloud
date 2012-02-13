@@ -162,7 +162,7 @@ public class MyTreeManager{
 	}
 
 	public void popClickDialog(String s, Node n){
-		Log.i("ID node", n.getNodeId()+"");
+		//Log.i("ID node", n.getNodeId()+"");
 		ArrayList<HashMap<String, String>> listitem;
 
 		listitem = new ArrayList<HashMap<String,String>>();
@@ -205,11 +205,11 @@ public class MyTreeManager{
 					HashMap<String, String> itemAtPosition = (HashMap<String, String>) listview_dialog.getItemAtPosition(arg2);
 
 					if(itemAtPosition.get("titre") == "Add File"){
-						Log.i("id", itemAtPosition.get("id"));
+						//Log.i("id", itemAtPosition.get("id"));
 						addLeaf(getNode(Integer.parseInt(itemAtPosition.get("id"))));
 					}
 					else if(itemAtPosition.get("titre") == "Add Folder"){
-						Log.i("id", itemAtPosition.get("id"));
+						//Log.i("id", itemAtPosition.get("id"));
 						addFolder(getNode(Integer.parseInt(itemAtPosition.get("id"))));
 					}
 					click_dialog.dismiss();
@@ -260,11 +260,11 @@ public class MyTreeManager{
 					HashMap<String, String> itemAtPosition = (HashMap<String, String>) listview_dialog.getItemAtPosition(arg2);
 
 					if(itemAtPosition.get("titre") == "Add File"){
-						Log.i("id", itemAtPosition.get("id"));
+						//Log.i("id", itemAtPosition.get("id"));
 						addLeaf(getNode(Integer.parseInt(itemAtPosition.get("id"))));
 					}
 					else if(itemAtPosition.get("titre") == "Add Folder"){
-						Log.i("id", itemAtPosition.get("id"));
+						//Log.i("id", itemAtPosition.get("id"));
 						addFolder(getNode(Integer.parseInt(itemAtPosition.get("id"))));
 					}
 					else if(itemAtPosition.get("titre") == "Rename Folder"){
@@ -546,7 +546,7 @@ public class MyTreeManager{
 		TextView tv;
 
 		for(Node n : tree){
-			System.out.println(n.getParentId() + " " + n.getName() + " " + n.getNodeId() + " " + n.getType());
+			//System.out.println(n.getParentId() + " " + n.getName() + " " + n.getNodeId() + " " + n.getType());
 			switch(n.type){
 
 			case Node.ROOT:
@@ -602,6 +602,7 @@ public class MyTreeManager{
 
 				v.setOnClickListener(new OnClickListener() {
 					public void onClick(View arg0) {
+						System.out.println("fileClicked : " + getNode(arg0.getId()).getName() + " " + Integer.toString(arg0.getId()));
 						act.fileClicked(getNode(arg0.getId()).getName(), Integer.toString(arg0.getId()));
 						changeTextStyle(arg0);
 					}
