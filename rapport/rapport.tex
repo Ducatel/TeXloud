@@ -84,28 +84,67 @@ Sp\'ecialisation SIRES\\
 \section{Introduction}
 \subsection{Rappel du sujet}
 \paragraph*{}
+Ce projet propose la création et la gestion collaborative de documents
+Latex. Le but est de proposer à des plateformes dépourvues de distribution
+Latex (tablettes, smartphones, desktops), de se connecter au Web et
+d'accéder à ces service de gestion et de compilation de documents.
+\paragraph*{} 
+Les utilisateurs seront authentifiés au service et bénéficieront d'un espace
+de stockage privé. L'application facilitera le partage de documents et le
+travail collaboratif entre utilisateurs du service.
+\paragraph*{} 
+Coté client, deux types d'applications seront développés :
 
-\subsection{Rappel de l'équipe}
-\paragraph*{}
-
-\section{Choix techniques}
-\paragraph*{}
-
-\section{Utilisation standard}
-\subsection{Création de compte}
-\paragraph*{}
-
-\subsection{Création de projet}
-\paragraph*{}
 \begin{itemize}
- \item Authentification
- \item Creation d'un projet
- \item Creation d'un fichier/dossier
- \item sync
+ \item Un service Web permettra l'accès au service à partir de n'importe
+quelle machine (desktop, tablette non-Android) pourvue d'un navigateur
+Web et d'une connexion internet
+
+ \item Une application Android, permettra une certaine autonomie avec le
+stockage temporaire d'une copie de travail des documents, permettant
+un mode d'édition non-connecté.
 \end{itemize}
 
+\subsection{L'équipe}
+\paragraph*{}
+L'équipe est composé de 5 personnes:
+\begin{itemize}
+ \item Adrien Bruyère est responsable du développement de l'application Android
+ \item David Ducatel (chef de projet) est responsable du développement de la frontale et du service de compilation.
+ \item Meva Rakotondratsima est responsable du développement du service de stockage de données.
+ \item Sidina Biha, Zakaria Bouchakor sont responsables du développement de l'application WEB
+\end{itemize}
 
-\subsection{Compilation}
+\newpage
+\section{Choix techniques}
+\subsection{Architecture général}
+\paragraph*{}
+
+\subsection{Service web}
+\paragraph*{}
+
+\subsection{Application Android}
+\paragraph*{}
+
+\subsection{Service de routage et d'ordonnancement}
+\paragraph*{}
+
+\subsection{Service de stockage de données}
+\paragraph*{}
+
+\subsection{Service de compilation}
+\paragraph*{}
+
+\newpage
+\section{Utilisation des applications}
+\subsection{Application Web}
+\subsubsection{Création de compte}
+\paragraph*{}
+
+\subsubsection{Création de projet}
+\paragraph*{}
+
+\subsubsection{Compilation}
 \paragraph*{}
 \begin{itemize}
  \item Lancement compilation
@@ -115,7 +154,7 @@ Sp\'ecialisation SIRES\\
 \end{itemize}
 
 
-\subsection{Fonction annexe}
+\subsubsection{Fonctions annexes}
 \paragraph*{}
 \begin{itemize}
  \item Suppression de dossier/fichier
@@ -123,6 +162,32 @@ Sp\'ecialisation SIRES\\
  \item Info supp sur user
 \end{itemize}
 
+\subsection{Application Android}
+\subsubsection{Création de compte}
+\paragraph*{}
+
+\subsubsection{Création de projet}
+\paragraph*{}
+
+\subsubsection{Compilation}
+\paragraph*{}
+\begin{itemize}
+ \item Lancement compilation
+ \item log
+ \item visu du pdf
+ \item telechargement du pdf
+\end{itemize}
+
+
+\subsubsection{Fonctions annexes}
+\paragraph*{}
+\begin{itemize}
+ \item Suppression de dossier/fichier
+ \item Rename dossier/fichier
+ \item Info supp sur user
+\end{itemize}
+
+\newpage
 \section{Perspective d'évolution}
 \subsection{Support des images}
 \paragraph*{}

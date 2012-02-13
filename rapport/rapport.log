@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  13 FEB 2012 17:13
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  13 FEB 2012 17:38
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -600,26 +600,26 @@ been already used, duplicate ignored
 l.82 \newpage
               [1
 
-] [2] (./rapport.aux) ) 
+] [2] [3] [4] [5] [6] (./rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 6591 strings out of 495061
- 90476 string characters out of 1182622
- 162190 words of memory out of 3000000
- 9612 multiletter control sequences out of 15000+50000
+ 6629 strings out of 495061
+ 91049 string characters out of 1182622
+ 164202 words of memory out of 3000000
+ 9624 multiletter control sequences out of 15000+50000
  21540 words of font info for 66 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,5n,36p,312b,360s stack positions out of 5000i,500n,10000p,200000b,50000s
- </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/
-ecbx1440.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200
-.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> 
-</home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/h
-annibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1440.600pk> </home/hannibal/
-.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/hannibal/.texmf-v
-ar/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/hannibal/.texmf-var/fonts
-/pk/ljfour/jknappen/ec/ecrm1440.600pk>
-Output written on rapport.pdf (3 pages, 82502 bytes).
+ 38i,5n,36p,312b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
+ </home/hannibal/.texmf-var/fonts/pk/ljf
+our/jknappen/ec/ecbx1440.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jkna
+ppen/ec/ecbx1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/
+ecrm1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728
+.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1440.600pk> 
+</home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/h
+annibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/hannibal/
+.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk>
+Output written on rapport.pdf (7 pages, 108201 bytes).
 PDF statistics:
- 291 PDF objects out of 1000 (max. 8388607)
- 19 named destinations out of 1000 (max. 500000)
- 65 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 423 PDF objects out of 1000 (max. 8388607)
+ 45 named destinations out of 1000 (max. 500000)
+ 161 words of extra memory for PDF output out of 10000 (max. 10000000)
 
