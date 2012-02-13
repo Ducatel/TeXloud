@@ -89,7 +89,9 @@ class Frontal(object):
         requete=json.loads(requeteJSON)
         
         if requete['label']=="endCompilation":    
-            adresseIP,port,req=self.requestEndCompilation(requete)
+            self.requestEndCompilation(requete)
+            print self._ordonnanceurCompilation
+            
         else :
             if requete['label']=="create":
                 adresseIP,port,req=self.requestCreateNewUserDataSpace(requete)
@@ -105,6 +107,10 @@ class Frontal(object):
                 adresseIP,port,req=self.requestDeleteProject(requete)
             elif requete['label']=="sync":    
                 adresseIP,port,req=self.requestSync(requete)
+            elif requete['label']=='rename':
+                adresseIP,port,req=self.requestRename(requete)
+            elif requete['label']=='deleteWorkingCopy':
+                adresseIP,port,req=self.requestDeleteWorkingCopy(requete)
             
             self.sendRequestOfDataServer(adresseIP, port, req)
         
@@ -200,6 +206,28 @@ class Frontal(object):
     def requestSync(self,requete):
         """
         Méthode qui va demande au serveur de donnée de faire une synchro
+        @param requete: requete a reformater et a router (dico python)
+        """
+        
+        adresseIP=requete.pop('servDataIp')
+        port=requete.pop('servDataPort')
+        
+        return adresseIP,port,requete
+    
+    def requestRename(self,requete):
+        """
+        Méthode qui va demande au serveur de donnee de faire un rename de fichier
+        @param requete: requete a reformater et a router (dico python)
+        """
+        
+        adresseIP=requete.pop('servDataIp')
+        port=requete.pop('servDataPort')
+        
+        return adresseIP,port,requete
+    
+    def requestDeleteWorkingCopy(self,requete):
+        """
+        Méthode qui va demande au serveur de donnee de faire un delete de la copie de travail
         @param requete: requete a reformater et a router (dico python)
         """
         

@@ -430,7 +430,7 @@ Ci-dessous se trouve la liste exhaustive des trames:
  \item label:getFile,path,httpPort
  \item label:deleteFile,path,httpPort
  \item label:deleteProject,path,httpPort
- \item label:sync,path,files(tableau de {filename: ,content: }),httpPort
+ \item label:sync,path,files(tableau de \{filename: ,content: \}),httpPort
 \end{itemize}
 
 \paragraph{Trame entre le serveur frontal et un serveur de compilation:}

@@ -102,11 +102,10 @@ public class TeXloudActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-												
+							
 							Message msg = null;
 												
 							if(st != ""){
-								Log.i("switch", "success");
 								Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
 								intent.putExtra("isOnline", isOnline());
 								intent.putExtra("tree", st);
@@ -159,7 +158,6 @@ public class TeXloudActivity extends Activity {
 					
 					ok.setOnClickListener(new OnClickListener(){
 						public void onClick(View arg0) {
-							Comm c = new Comm();
 							EditText firstName, lastName, userName, mail, password, address, city, country, zip, year, day;
 							
 							firstName = (EditText) (signin_dialog.findViewById(R.id.firstname));
@@ -177,7 +175,7 @@ public class TeXloudActivity extends Activity {
 							String month = getMonth(spinner_month.getSelectedItem().toString());
 							String gender = spinner_gender.getSelectedItem().toString();
 							
-							c.signIn(firstName.getText(), lastName.getText(), userName.getText(), mail.getText(), password.getText(), address.getText(), gender,
+							Comm.signIn(firstName.getText(), lastName.getText(), userName.getText(), mail.getText(), password.getText(), address.getText(), gender,
 									city.getText(), country.getText(), zip.getText(), year.getText(), month, day.getText());
 							
 							signin_dialog.dismiss();
@@ -219,6 +217,7 @@ public class TeXloudActivity extends Activity {
 					Log.i("switch", "success");
 					Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
 					intent.putExtra("isOnline", isOnline());
+					//intent.putExtra("tree", "v");//TODO
 					startActivity(intent);
 					finish();	
 				}

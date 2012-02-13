@@ -44,7 +44,7 @@ class ServiceCompilation(object):
         self._messageSeparator='+==\sep==+'
         self._messageEnd='+==\endTrame==+'
         
-        self._ipFrontal="127.0.0.1"
+        self._ipFrontal="192.168.0.6"
         self._portFrontal=12800
 
 
@@ -128,8 +128,7 @@ class ServiceCompilation(object):
         os.chdir(pathDir)
         
         # Appel au script latexmk pour la compilation
-        valSortie=subprocess.call(["latexmk","-bibtex","-pdf","-quiet",nomFichier])
-        
+        valSortie=os.system("latexmk -bibtex -pdf -quiet "+nomFichier+" >/dev/null 2>&1")        
         logFile=pathDir+nomFichier[0:len(nomFichier)-3]+"log"
         
         # Si la sortie du script est egal a 0, il n'y a aucun probleme lors de la compilation
@@ -219,7 +218,7 @@ class ServiceCompilation(object):
                 finErrorUndefinedControlSequence=False
                 
             elif "! missing" in line:
-                msg+="<error>\n<message>\n{0}\n".format(line)
+                msg+="<error>\n<type>\nmissing\n</type>\n<message>\n{0}\n".format(line)
                 finErrorMissingBoolean=True
                 
             elif finErrorMissingBoolean:
@@ -296,6 +295,7 @@ class ServiceCompilation(object):
         trame['servCompilePort']=self._port
 
         s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((self._adresse,self._portFrontal))
+        s.connect((self._ipFrontal,self._portFrontal))
         s.send(json.dumps(trame))
         s.close()
+        
