@@ -223,7 +223,6 @@ class Frontal(object):
         
         return adresseIP,port,requete
     
-    
     def requestEndCompilation(self,requete):
         """
         Méthode qui dit a l'ordonnanceur que un serveur de compilation

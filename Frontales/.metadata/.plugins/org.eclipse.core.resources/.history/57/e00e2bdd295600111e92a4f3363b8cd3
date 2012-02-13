@@ -107,7 +107,7 @@ class Frontal(object):
                 adresseIP,port,req=self.requestDeleteProject(requete)
             elif requete['label']=="sync":    
                 adresseIP,port,req=self.requestSync(requete)
-            elif requete['label']=='rename':
+            elif requete['label']=='rename'
                 adresseIP,port,req=self.requestRename(requete)
             
             self.sendRequestOfDataServer(adresseIP, port, req)
@@ -212,17 +212,11 @@ class Frontal(object):
         
         return adresseIP,port,requete
     
-    def requestRename(self,requete):
+    def requestRename(self,request):
         """
         Méthode qui va demande au serveur de donnee de faire un rename de fichier
         @param requete: requete a reformater et a router (dico python)
         """
-        
-        adresseIP=requete.pop('servDataIp')
-        port=requete.pop('servDataPort')
-        
-        return adresseIP,port,requete
-    
     
     def requestEndCompilation(self,requete):
         """

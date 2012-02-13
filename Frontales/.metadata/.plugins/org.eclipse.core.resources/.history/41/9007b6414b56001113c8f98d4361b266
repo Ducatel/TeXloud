@@ -109,6 +109,8 @@ class Frontal(object):
                 adresseIP,port,req=self.requestSync(requete)
             elif requete['label']=='rename':
                 adresseIP,port,req=self.requestRename(requete)
+            elif requete['label']=='deleteFile':
+                adresseIP,port,req=self.requestDeleteFile(requete)
             
             self.sendRequestOfDataServer(adresseIP, port, req)
         

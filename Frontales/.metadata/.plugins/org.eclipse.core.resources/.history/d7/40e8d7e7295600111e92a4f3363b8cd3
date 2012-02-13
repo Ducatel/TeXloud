@@ -212,7 +212,7 @@ class Frontal(object):
         
         return adresseIP,port,requete
     
-    def requestRename(self,requete):
+    def requestRename(self,request):
         """
         Méthode qui va demande au serveur de donnee de faire un rename de fichier
         @param requete: requete a reformater et a router (dico python)
@@ -222,7 +222,6 @@ class Frontal(object):
         port=requete.pop('servDataPort')
         
         return adresseIP,port,requete
-    
     
     def requestEndCompilation(self,requete):
         """
