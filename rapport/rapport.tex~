@@ -241,8 +241,8 @@ Le service d'accès aux données se compose principalement de eux parties:
 \end{itemize}
 
 \paragraph{}
-Chacune de ces parties sont implémentées par héritage, les deux classes \emph{DataSocket} et \emph{GenericConnector} définissent les méthodes nécéssaires pour le fonctionnement complet du système et font éventuellement les traitements non spécifiques au type de stockage.
-L'application est donc potentiellement capable d'ajouter des connecteurs spécifique pour un type de stockage différent en développant les fonctions nécéssitant un traitement adapté à celui-ci.
+Chacune de ces parties sont implémentées par héritage, les deux classes \emph{DataSocket} et \emph{GenericConnector} définissent les méthodes nécessaires pour le fonctionnement complet du système et font éventuellement les traitements non spécifiques au type de stockage.
+L'application est donc potentiellement capable d'ajouter des connecteurs spécifique pour un type de stockage différent en développant les fonctions nécessitant un traitement adapté à celui-ci.
 
 Les fonctions du connecteur subversion sont intégrés par l'utilisation de la librairie Python PySvn permettant de faire les opération proposé par le système de gestion de version telle que les \emph{commit}, les \emph{merge} et les \emph{updates}.
 
@@ -354,6 +354,7 @@ Il serait possible d'utiliser plusieurs gestionnaire de version différents, des
 \section{Conclusion}
 \paragraph*{}
 
+Le projet, bien qu'il ne soit pas terminé, est stable. Nous avons pu nous familiariser avec de nouvelles technologies, de nous impliquer dans des conceptions distribuées.
 
 
 \newpage
