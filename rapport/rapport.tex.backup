@@ -196,6 +196,9 @@ Le serveur de routage et d'ordonnancement permet de géré les communications en
 Le service de routage permet de dirigé les requêtes vers les bon serveurs en fonctions de l'action voulu (compilation vers un serveurs de compilation,gestion des données vers le bon serveur de données). Le service d'ordonnancement permet de répartir la charge sur les différents serveurs en fonction de leurs charge propre. L'ordonnancement permet ainsi d'éviter d'avoir des serveurs totalement au repos et d'autres au maximum de leurs capacité.
 
 \paragraph*{}
+Ce service permet de gérer plusieurs connexion simultané. Il a été mit en charge avec plus de 1000 connexions simultané et aucun problème n'as été constaté.
+
+\paragraph*{}
 Les communications entre le serveur HTTP, les serveurs de compilation et les serveurs de données sont effectués la aussi grâce à des socket TCP.
 
 \paragraph*{}
@@ -207,6 +210,18 @@ L'ensemble des données sur les serveurs (adresse IP, port du service, type de s
 
 \subsection{Serveur de compilation}
 \paragraph*{}
+Le serveur de compilation, comme son nom l'indique permet de compiler le projet LaTeX afin de générer un fichier PDF. Le processus du service de compilation se déroule en 5 étapes:
+\begin{enumerate}
+ \item Réception d'une archive qui contient tous les fichiers latex du projet
+ \item Décompression de l'archive
+ \item Compilation du projet\footnote{La gestion du nombre de compilation (édition des liens, bibtex,etc.) nécessaire est effectués par le script Perl latexmk}
+ \item Génération d'un fichier de log au format XML
+ \item Renvoi au serveur de données du log et du fichier PDF
+\end{enumerate}
+
+\paragraph{}
+Ce service est la aussi développé en Python et les communications sont basé sur des socket TCP. De même que pour le service de routage et d'ordonnancement, le service de compilation peut gérer plusieurs connexion en simultané.
+
 
 \newpage
 \section{Utilisation des applications}
@@ -264,15 +279,19 @@ L'ensemble des données sur les serveurs (adresse IP, port du service, type de s
 \section{Perspective d'évolution}
 \subsection{Support des images}
 \paragraph*{}
+Le supports des images dans l'application permettrai d'ajouter des images au sein des PDF généré. L'ajout de cette fonctionnalité est très simple et rapide à mettre en \oe uvre mais malheureusement, nous n'avons pas eu le temps de la mettre en place. Pour intégrer ce support, une légère modification de la frontale, du service web et de l'application Android sont nécessaire.
 
 \subsection{Gestion des groupes}
 \paragraph*{}
+La gestion des groupes dans l'application permettrai la modification simultané de document par plusieurs utilisateurs. Cette modification est possible à intégrer par la suite car la base de données et le stockage des informations ont été prévue a cette effet\footnote{Le stockage des données étant effectués sur des serveur SubVersion et la gestion des conflit étant implémenté, la gestion des groupe ne posera aucun problème}. Comme pour le support des images, les modifications de l'application pour supporté cette fonctionnalité sont minime. Il s'agit seulement de modifier légèrement l'application Web et l'application Android.
 
 \subsection{Coloration syntaxique sur Android}
 \paragraph*{}
+La coloration syntaxique sur tablette Android n'as pas été implémenté car nous n'avons pas trouvez de solution qui ne soit pas trop lourde en ressource pour une tablette. Ceci est sûrement possible si nous
 
 \subsection{Intégration de PDFJS}
 \paragraph*{}
+La librairie PDFJS\footnote{PDFJS est un librairie permettant d'afficher un PDF dans un canvas HTML5 grâce à du JavaScript} étant pour l'instant en version de développement, il nous a été impossible de l'intégrer directement au sein d'une page de TeXloud. Nous avons cherché pendant plus de 10 Heures pour l'intégrer mais le code ne contient aucune documentation et évolue de jour en jour.Le support serai possible mais demande des modifications très lourde des script de PDFJS. De ce fait nous pensons que lorsque une release stable sera produit par l'équipe de Mozilla, il sera plus simple de l'intégrer au sein de notre design.
 
 
 \newpage

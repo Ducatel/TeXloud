@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  13 FEB 2012 21:58
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  15 FEB 2012 11:22
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -630,13 +630,13 @@ l.208 \subsection
 
  [10] (./rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 6704 strings out of 495061
- 91963 string characters out of 1182622
+ 6706 strings out of 495061
+ 91985 string characters out of 1182622
  166289 words of memory out of 3000000
  9645 multiletter control sequences out of 15000+50000
  23742 words of font info for 69 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,8n,36p,482b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,8n,36p,680b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
  </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/
 ecrm1000.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800
 .600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> 
@@ -649,9 +649,9 @@ ur/jknappen/ec/ecbx2074.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknap
 pen/ec/ecbx2488.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/e
 crm1440.600pk></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.p
 fb>
-Output written on rapport.pdf (11 pages, 318499 bytes).
+Output written on rapport.pdf (11 pages, 328181 bytes).
 PDF statistics:
- 599 PDF objects out of 1000 (max. 8388607)
- 88 named destinations out of 1000 (max. 500000)
+ 625 PDF objects out of 1000 (max. 8388607)
+ 90 named destinations out of 1000 (max. 500000)
  219 words of extra memory for PDF output out of 10000 (max. 10000000)
 
