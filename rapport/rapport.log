@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  15 FEB 2012 11:22
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.13)  15 FEB 2012 11:42
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -601,20 +601,61 @@ l.82 \newpage
               [1
 
 ] [2]
-<./images/DiagrammeDeploiement.jpg, id=158, 1782.66pt x 1154.3125pt>
-File: ./images/DiagrammeDeploiement.jpg Graphic file (type jpg)
 
-<use ./images/DiagrammeDeploiement.jpg> [3pdfTeX warning (ext4): destination wi
-th the same identifier (name{figure.1}) has been already used, duplicate ignore
-d
+LaTeX Warning: File `./images/DiagrammeDeploiement.jpg' not found on input line
+ 133.
+
+
+! Package pdftex.def Error: File `./images/DiagrammeDeploiement.jpg' not found.
+
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.133 ...le=90]{./images/DiagrammeDeploiement.jpg}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 133.
+
+(/usr/share/texmf-texlive/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+) [3pdfTeX warning (ext4): destination with the same identifier (name{figure.1}
+) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.139 \paragraph
-                *{} <./images/DiagrammeDeploiement.jpg>] [4]
-<./images/MVC.png, id=187, 331.2375pt x 261.22594pt>
-File: ./images/MVC.png Graphic file (type png)
- <use ./images/MVC.png>
+                *{}] [4]
+
+LaTeX Warning: File `./images/MVC.png' not found on input line 178.
+
+
+! Package pdftex.def Error: File `./images/MVC.png' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.178 ...cs[width=0.6\textwidth]{./images/MVC.png}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 192--195
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--199
+
+ []
+
 [5
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
@@ -622,36 +663,36 @@ s been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.208 \subsection
-                 {Serveur de stockage de données} <./images/MVC.png>] [6]
-[7] [8] [9] (./rapport.lof)
+l.199 \paragraph
+                *{}] [6] [7] [8] [9] [10] [11]
+No file rapport.lof.
 \tf@lof=\write6
 \openout6 = `rapport.lof'.
 
- [10] (./rapport.aux) ) 
+[12] (./rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 6706 strings out of 495061
- 91985 string characters out of 1182622
+ 6721 strings out of 495061
+ 92371 string characters out of 1182620
  166289 words of memory out of 3000000
- 9645 multiletter control sequences out of 15000+50000
- 23742 words of font info for 69 fonts, out of 3000000 for 9000
+ 9652 multiletter control sequences out of 15000+50000
+ 24055 words of font info for 70 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,8n,36p,680b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
- </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/
-ecrm1000.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800
-.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> 
-</home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/h
-annibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/hannibal/
-.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/hannibal/.texmf-v
-ar/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/hannibal/.texmf-var/fonts
-/pk/ljfour/jknappen/ec/eccc1440.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfo
-ur/jknappen/ec/ecbx2074.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknap
-pen/ec/ecbx2488.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/e
-crm1440.600pk></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb>
-Output written on rapport.pdf (11 pages, 328181 bytes).
+ 38i,7n,36p,680b,429s stack positions out of 5000i,500n,10000p,200000b,50000s
+ </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecr
+m1000.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600p
+k> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/
+adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </home/adrien/.te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/adrien/.texmf-var/fo
+nts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/adrien/.texmf-var/fonts/pk/ljf
+our/jknappen/ec/ecrm1200.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknapp
+en/ec/ecbx1728.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc
+1440.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk
+> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/a
+drien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk></usr/share/texmf-t
+exlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on rapport.pdf (13 pages, 174079 bytes).
 PDF statistics:
- 625 PDF objects out of 1000 (max. 8388607)
- 90 named destinations out of 1000 (max. 500000)
- 219 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 658 PDF objects out of 1000 (max. 8388607)
+ 96 named destinations out of 1000 (max. 500000)
+ 209 words of extra memory for PDF output out of 10000 (max. 10000000)
 

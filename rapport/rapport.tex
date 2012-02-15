@@ -183,6 +183,25 @@ L'application Web est divisé en deux parties:
 
 \subsection{Application Android}
 \paragraph*{}
+L'application Android comporte deux activités (écrans) principales.
+\begin{itemize}
+ \item La première est l'écran d'authentification, qui permet à l'utilisateur de s'authentifier afin d'accéder à son espace personnel, ou de s'inscrire afin de rejoindre le service TeXloud.
+ \item La deuxième activité est lancée lorsque l'utilisateur est identifié. C'est l'écran principal de l'application.
+\end{itemize}
+
+L'écran principal est divisé en trois parties : le bandeau supérieur, qui permet à l'utilisateur quelques intéractions indispensables, comme la création de projet, la synchronisation ou encore la compilation. Lorsque l'utilisateur a fait des modifications qui 
+n'ont pas été enregistrées (synchronisées), un logo rouge apparait pour rappeler à l'utilisateur de sauvegarder ses données. Une fois que les documents sont synchronisés, le logo rouge devient vert, l'utilisateur peut alors quitter l'application en étant sûr que ses 
+modifications ont été prises en compte.\\
+\paragraph*{}
+La partie de gauche contient deux éléments : une liste déroulante (Spinner), qui permet à l'utilisateur de naviguer entre ses différents projets, et une arborescence qui permet à l'utilisateur de parcourir ses dossiers et fichiers. Un clic (appui) sur un dossier 
+permet de masquer/afficher tous les fichiers et dossiers enfants (récursivement), et un clic sur un fichier le télécharge et l'affiche, permettant à l'utilisateur de le modifier. Les long clics sur les éléments de l'arborescence ouvrent un menu contextuel permettant, 
+par exemple, d'ajouter un fichier, renommer, supprimer etc...\\
+\paragraph*{}
+La partie de droite est la saisie de texte. Le contenu de cette zone de texte est le contenu du fichier ouvert, affiché en italique dans l'arborescence de droite.\\
+
+Pour des raisons de simplicité, les ordres de synchronisation et de compilation sont blocants, c'est-à-dire que l'utilisateur ne peut effectuer aucune modification tant que ces actions ne sont pas terminées.\\ 
+Toutes les requêtes utilisent le protocole HTTP.
+
 
 \subsection{Serveur de routage et d'ordonnancement}
 \paragraph*{}
@@ -293,6 +312,9 @@ La coloration syntaxique sur tablette Android n'as pas été implémenté car no
 \paragraph*{}
 La librairie PDFJS\footnote{PDFJS est un librairie permettant d'afficher un PDF dans un canvas HTML5 grâce à du JavaScript} étant pour l'instant en version de développement, il nous a été impossible de l'intégrer directement au sein d'une page de TeXloud. Nous avons cherché pendant plus de 10 Heures pour l'intégrer mais le code ne contient aucune documentation et évolue de jour en jour.Le support serai possible mais demande des modifications très lourde des script de PDFJS. De ce fait nous pensons que lorsque une release stable sera produit par l'équipe de Mozilla, il sera plus simple de l'intégrer au sein de notre design.
 
+\subsection{Mot de passe oublié}
+\paragraph*{}
+La gestion des mots de passes oubliés n'est pas encore implémentée puisqu'elle dépend de la gestion des e-mails, et nous n'avons pas développé cette fonction. Cependant, le bouton et la boite de dialogue sont déjà implémentés sur l'interface Android.
 
 \newpage
 \listoffigures
