@@ -165,10 +165,11 @@ Le serveur web inclue plusieurs services:
 Un modèle de conception MVC a été utilisé afin de rendre le code de l'application plus clair, plus facilement maintenable et évolutif. Les communications avec le serveur de routage et d'ordonnancement sont effectués grâce à des sockets TCP qui ont une durée de vie égale à une boucle entre tous les serveurs. Ceci permet de ne pas laisser en permanence de ports ouvert sur le serveur et ainsi limité les risques d'attaques sur ce service.
 
 \paragraph*{}
-L'application Web est divisé en deux parties:
+L'application Web est divisé en trois parties:
 \begin{enumerate}
- \item La partie développement, où l'utilisateur peut écrire sont code Latex, consulter les logs d'erreurs/warning (s'il existe) après la compilation.
+ \item La partie développement, où l'utilisateur peut écrire sont code LaTex, consulter les logs d'erreurs/warning (s'il existe) après la compilation.
  \item La partie gestion des projets. L'utilisateur peut crée des projets, des dossier (sous dossiers) et des fichiers LaTex. il peut aussi renommer, supprimer un projet, un dossier ou un fichier.
+ \item La barre supérieur, où l'utilisateur peut synchronisées les fichiers qui ont été modifier, les compilées, télécharger sous format de PDF. Éventuellement l'utilisateur peut modifier ces informations personnels ou changer son mot de passe.
 \end{enumerate}
 
 \clearpage
@@ -224,6 +225,36 @@ L'ensemble des données sur les serveurs (adresse IP, port du service, type de s
 
 \subsection{Serveur de stockage de données}
 \paragraph*{}
+Lorsqu'un projet est crée sur TeXloud, un serveur de stockage lui est attribué lors de la création du projet par l'ordonnanceur.
+Il s'agit en fait d'un parc de serveurs physiques disposant d'un démon serveur destiné à recevoir de la frontale des requêtes standardisées permettant de faire les traitements demandés.
+
+L'application serveur est développée en python et dispose d'une socket en écoute sur un port spécifique.
+La séparation des composant de l'application permet de donner un certaine scalabilité de l'application, les méthodes d'accès aux données peuvent donc différer selon le serveur concerné.
+De plus, le stockage des fichier se fait à l'aide de gestionnaires de versions afin de permettre le travail en équipe et une gestion de version éventuelle.
+
+\paragraph{}
+Le service d'accès aux données se compose principalement de eux parties:
+
+\begin{itemize}
+\item Un démon serveur recevant les requêtes
+\item Un connecteur permettant de faire les actions (notamment le stockage)
+\end{itemize}
+
+\paragraph{}
+Chacune de ces parties sont implémentées par héritage, les deux classes \emph{DataSocket} et \emph{GenericConnector} définissent les méthodes nécessaires pour le fonctionnement complet du système et font éventuellement les traitements non spécifiques au type de stockage.
+L'application est donc potentiellement capable d'ajouter des connecteurs spécifique pour un type de stockage différent en développant les fonctions nécessitant un traitement adapté à celui-ci.
+
+Les fonctions du connecteur subversion sont intégrés par l'utilisation de la librairie Python PySvn permettant de faire les opération proposé par le système de gestion de version telle que les \emph{commit}, les \emph{merge} et les \emph{updates}.
+
+\paragraph{}
+Le concept de \emph{copies de travail} est au centre du système de gestion des données.
+Les systèmes de gestions de versions permettent de récupérer une version d'un projet depuis un serveur distant en créant un \emph{miroir} du projet dans un état spécifique (généralement le dernier).
+
+Le répertoire ainsi crée correspond à une copie de travail, lorsque des modification sont faites sur le projet, elles sont ajoutées puis mise à jour sur le serveur, créant ainsi une nouvelle version du projet.
+
+\paragraph{}
+\`A chaque connexion d'un utilisateur, une requête est envoyé par le serveur web jusqu'au serveur de donnée visé qui initialise une nouvelle copie de travail sur le serveur, il s'agit du répertoire de travail associé à l'utilisateur.
+Les modifications effectuées au cours de la session de l'utilisateur sont synchronisées sur ce répertoire par écrasement des fichiers puis sont transmises aux gestionnaire de version.
 
 \subsection{Serveur de compilation}
 \paragraph*{}

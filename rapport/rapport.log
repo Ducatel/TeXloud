@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  15 FEB 2012 12:21
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  15 FEB 2012 13:34
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -612,7 +612,7 @@ d
                                                   \fi \fi 
 l.139 \paragraph
                 *{} <./images/DiagrammeDeploiement.jpg>] [4]
-<./images/MVC.png, id=202, 331.2375pt x 261.22594pt>
+<./images/MVC.png, id=203, 331.2375pt x 261.22594pt>
 File: ./images/MVC.png Graphic file (type png)
  <use ./images/MVC.png>
 [5
@@ -622,36 +622,36 @@ s been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.200 \paragraph
-                *{} <./images/MVC.png>] [6] [7] [8] [9] [10] [11] [12]
+l.201 \paragraph
+                *{} <./images/MVC.png>] [6] [7] [8] [9] [10] [11] [12] [13]
 (./rapport.lof)
 \tf@lof=\write6
 \openout6 = `rapport.lof'.
 
- [13] (./rapport.aux) ) 
+ [14] (./rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 6722 strings out of 495061
- 92163 string characters out of 1182622
+ 6730 strings out of 495061
+ 92243 string characters out of 1182622
  167289 words of memory out of 3000000
- 9648 multiletter control sequences out of 15000+50000
- 23742 words of font info for 69 fonts, out of 3000000 for 9000
+ 9649 multiletter control sequences out of 15000+50000
+ 24426 words of font info for 70 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,8n,36p,680b,429s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,8n,36p,680b,435s stack positions out of 5000i,500n,10000p,200000b,50000s
  </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/
-ecrm1000.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800
-.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> 
-</home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/h
-annibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/hannibal/
-.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/hannibal/.texmf-v
-ar/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/hannibal/.texmf-var/fonts
-/pk/ljfour/jknappen/ec/eccc1440.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfo
-ur/jknappen/ec/ecbx2074.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknap
-pen/ec/ecbx2488.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/e
-crm1440.600pk></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb>
-Output written on rapport.pdf (14 pages, 338978 bytes).
+ecti1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000
+.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> 
+</home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/h
+annibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/hannibal/
+.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/hannibal/.texmf-v
+ar/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/hannibal/.texmf-var/fonts
+/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfo
+ur/jknappen/ec/eccc1440.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknap
+pen/ec/ecbx2074.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/e
+cbx2488.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.
+600pk></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on rapport.pdf (15 pages, 351484 bytes).
 PDF statistics:
- 673 PDF objects out of 1000 (max. 8388607)
- 103 named destinations out of 1000 (max. 500000)
+ 710 PDF objects out of 1000 (max. 8388607)
+ 109 named destinations out of 1000 (max. 500000)
  243 words of extra memory for PDF output out of 10000 (max. 10000000)
 
