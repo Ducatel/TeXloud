@@ -199,7 +199,8 @@ par exemple, d'ajouter un fichier, renommer, supprimer etc...\\
 \paragraph*{}
 La partie de droite est la saisie de texte. Le contenu de cette zone de texte est le contenu du fichier ouvert, affiché en italique dans l'arborescence de droite.\\
 
-Pour des raisons de simplicité, les ordres de synchronisation et de compilation sont blocants, c'est-à-dire que l'utilisateur ne peut effectuer aucune modification tant que ces actions ne sont pas terminées.
+Pour des raisons de simplicité, les ordres de synchronisation et de compilation sont blocants, c'est-à-dire que l'utilisateur ne peut effectuer aucune modification tant que ces actions ne sont pas terminées.\\ 
+Toutes les requêtes utilisent le protocole HTTP.
 
 
 \subsection{Serveur de routage et d'ordonnancement}
@@ -313,7 +314,12 @@ La librairie PDFJS\footnote{PDFJS est un librairie permettant d'afficher un PDF 
 
 \subsection{Mot de passe oublié}
 \paragraph*{}
-La gestion des mots de passes oubliés n'est pas encore implémentée puisqu'elle dépend de la gestion des e-mails, et nous n'avons pas développé cette fonction. Cependant, le bouton et la boite de dialogue sont déjà implémentés sur l'interface Android.
+La gestion des mots de passes oubliés n'est pas encore implémentée puisqu'elle dépend de la gestion des e-mails, et nous n'avons pas développé cette fonction. Cependant, le bouton et la boite de dialogue sont déjà implémentés sur l'interface Android. La gestion des e-mails n'as pas été possible car nous n'avions pas l'architecture physique nous permettant de faire fonctionné convenablement un serveur mail\footnote{Pour être dans de bonne condition, il aurai fallu que nous puissions avoir un accès vers internet afin de contacté les serveur SMTP ou POP de différents fournisseur d'adresse mail}.
+
+
+\subsection{Utilisation d'autre support de stockage}
+\paragraph*{}
+Il serait possible d'utiliser plusieurs gestionnaire de version différents, des systèmes de fichiers,etc. pour stocker les données des utilisateurs. Pour l'instant seul SubVersion est géré, mais grâce a une interface générique, il est possible de développer rapidement des connecteurs pour n'importe quel gestionnaire de version. Grâce à cette interface, il suffit juste de développer une classe fille de cette interface sur un serveur de stockage de données et faire les appels spécifique au gestionnaire de version voulu.
 
 \newpage
 \listoffigures
