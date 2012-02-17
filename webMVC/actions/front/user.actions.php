@@ -7,8 +7,10 @@ class userActions extends Actions {
 	}
 	
 	public function logoutSuccess() {
-		foreach($_SESSION['workingCopyDir'] as $project_id => $path)
-			Common::deleteWorkingCopy($project_id, $path);
+		if($_SESSION['workingCopyDir'] ){	
+			foreach($_SESSION['workingCopyDir'] as $project_id => $path)
+				Common::deleteWorkingCopy($project_id, $path);
+		}
 		
 		session_destroy();
 		

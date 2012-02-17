@@ -57,6 +57,8 @@ function addFileAction(element){
 				   {'id' : $(this).attr('id')},
 				   function(content){
 					editAreaLoader.setValue('codelatex', content);
+					editAreaLoader.execCommand('codelatex', 'set_editable', true);
+					$('#frame_codelatex').contents().find('#result').css('background-color', 'white');
 					//console.log(editAreaLoader.getValue('codelatex'));
 					FILES_CONTENT[CURRENT_FILE_ID] = editAreaLoader.getValue('codelatex');
 					//$('textarea#textarea').val(content);

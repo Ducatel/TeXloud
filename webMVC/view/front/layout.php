@@ -45,20 +45,20 @@
 				<a href="/user/logout" class="top_link">déconnexion</a>
 				<a href="/user/myAccount" class="top_link">mon compte</a>
 			</p>
+	
+			<nav id='menu'>
+				<ul>
+					<li><a id="refresh_cache">Effacer cache</a></li>
+					<li><a id="sync">Synchroniser</a></li>
+					<li><a id="compile">Compiler</a></li>
+					<li><a href="js/pdfjs/web/viewer.html">Télécharger Projet</a></li>
+					<li><a id="show_viewer">Contact</a></li>
+				</ul>
+			</nav>
 		<?php endif; ?>
-
-		<nav id='menu'>
-			<ul>
-				<li><a id="refresh_cache">Effacer cache</a></li>
-				<li><a id="sync">Synchroniser</a></li>
-				<li><a id="compile">Compiler</a></li>
-				<li><a href="js/pdfjs/web/viewer.html">Télécharger Projet</a></li>
-				<li><a id="show_viewer">Contact</a></li>
-			</ul>
-
-		</nav>
 	</header>
 	<div id="bloc_texloud">
 	<?php echo $action_content; ?>
 	</div>
+	<div id="viewer_block"></div>
 </body>

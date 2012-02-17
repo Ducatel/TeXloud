@@ -1,7 +1,7 @@
 <?php
 class viewerActions extends Actions {
 	public function indexSuccess() {
-		$this->setTemplate('_viewer', $this);
+		$this->setTemplateAlone('_viewer', $this);
 	}
 }
 

@@ -613,7 +613,6 @@ var PDFDoc = (function PDFDocClosure() {
     this.fingerprint = this.pdf.getFingerprint();
     this.catalog = this.pdf.catalog;
     this.objs = new PDFObjects();
-    console.log('tesdfs');
     this.pageCache = [];
     this.fontsLoading = {};
     this.workerReadyPromise = new Promise('workerReady');

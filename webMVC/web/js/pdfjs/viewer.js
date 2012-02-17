@@ -2,7 +2,7 @@
 /* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
 
 'use strict';
-var kDefaultURL = "/pdf/4f352985f2e8b.pdf";//'/ajax/getPdf';
+var kDefaultURL = '/ajax/getPdf';
 var kDefaultScale = 'auto';
 var kDefaultScaleDelta = 1.1;
 var kUnknownScale = 0;
@@ -1106,7 +1106,6 @@ $(function(){
   var scale = ('scale' in params) ? params.scale : 0;
   var file = PDFJS.isFirefoxExtension ?
               window.location.toString() : params.file || kDefaultURL;
-  console.log(file);
   PDFView.open(file, parseFloat(scale));
 
   if (PDFJS.isFirefoxExtension || !window.File || !window.FileReader ||

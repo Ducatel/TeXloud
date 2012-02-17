@@ -191,24 +191,28 @@ class androidActions extends Actions{
 	
 	//TODO a tester
 	public function deleteProjectSuccess(){
-	
 		$projectId=$_POST['projectId'];
 
-		if(!isset($projetId) || empty($projectId))
+		if(!isset($projectId) || empty($projectId))
 			die("Erreur sur l'id du projet");
 	
 		$user=User::getCurrentUser();
 
-		// creation de la socket de reception
-		$receiver=new ReceiverTextOnly("192.168.0.2");
+		$project=new Project($projectId);
+
+		if(!$project->id)
+			die('pas de projet correspondant');
+
+		if(!$_SESSION['workingCopyDir'][$project->id]){
+			Common::getProject($project);
+		}
 
 		//creation de la requete d'emission
 		$frontalAddress = "192.168.0.6";
 		$frontalPort = 12800;
 		$sender= new Sender($frontalAddress,$frontalPort);
 
-		$project=new Project($projectId);
-		$dataUrl=explode(':',$project->serverUrl);
+		$dataUrl=explode(':',$project->server_url);
 		$dataIp=$dataUrl[0];
 		$dataPort=$dataUrl[1];
 		
@@ -217,7 +221,7 @@ class androidActions extends Actions{
 			'path'=>$_SESSION['workingCopyDir'][$project->id],
 			'servDataIp'=>$dataIp,
 			'servDataPort'=>$dataPort,
-			'httpPort'=>$receiver->getPort(),
+			'httpPort'=>'',
 		);
 		$sender->setRequest($requete);
 
@@ -225,12 +229,8 @@ class androidActions extends Actions{
 		$sender->sendRequest();
 		unset($sender);
 
-		// Attente de recuperation des infos
-		$trame=$receiver->getReturn();
-
 		// suppression du projet dans la BDD
-		Project::delete($project->id);
-
+		$project->_delete();
 
 		unset($_SESSION['workingCopyDir'][$project->id]);
 
@@ -294,7 +294,7 @@ class androidActions extends Actions{
 	
 	public function syncSuccess($affichage=true) {
 		$data=$_POST['files'];
-		var_dump($data);
+		
 		if(!isset($data) || empty($data))
 			die("Erreur sur le chargement du fichier");
 			

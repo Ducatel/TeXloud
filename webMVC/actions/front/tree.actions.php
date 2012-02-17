@@ -114,6 +114,7 @@ class treeActions extends Actions {
 
 		if($project){
 			$tree->removeNode($_POST['id']);
+
 			$project->_delete();
 		}
 

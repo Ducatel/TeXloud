@@ -400,7 +400,7 @@
 	};
 	
 	EditArea.prototype.execCommand= function(cmd, param){
-		
+
 		for(var i in this.plugins){
 			if(typeof(this.plugins[i].execCommand)=="function"){
 				if(!this.plugins[i].execCommand(cmd, param))

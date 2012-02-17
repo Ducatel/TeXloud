@@ -16,24 +16,18 @@ $(function(){
 			FILES_CONTENT[CURRENT_FILE_ID] = editAreaLoader.getValue('codelatex');
 		
 		files_json = convertToJSON(FILES_CONTENT);
-		var loadingDiv="<div id='loadingDiv' style='text-align:center;'><b>Synchronistation en cours</b><br/><br/><img src='/images/loading.gif' alt='loading gif' /></div>";
-		
-		$('#popup_wrapper').html(loadingDiv).css('top', ($(window).height()/2)-16 + 'px').css('left', ($(window).width()/2)-16 + 'px').css('position', 'fixed').fadeIn();
-		
-		
+
 		$.post('/ajax/sync',
 		 	{'files' : FILES_CONTENT},
 			function(data){
-
-					$('#popup_wrapper').fadeOut().remove();
 			});	
 	});
 	
 	$(window).keypress(function(event) {
-	  if (!(event.which == 115 && event.ctrlKey) && event.which!=19)
-			return true;
-			
-		$('#sync').trigger('click');
+	  
+	  if ((event.which == 115 && event.ctrlKey) && (event.which == 19))
+		return true;
+		alert("save");
 		event.preventDefault();
 		return false;
 	  
@@ -86,44 +80,20 @@ $(function(){
 											$.post('/ajax/parseXml',
 								      		 {'log' : data},
 								      		 function(xml){
-								      		 	if(xml!=""){
-										  		 	var divLog="<div id='divLog'><div id='divLogTopBar'><span id='closeDivLog'>fermer</span></div><div id='divLogContent'>"+xml+"</div></div>";
+								      		 	var divLog="<div id='divLog'><div id='divLogTopBar'><span id='closeDivLog'>fermer</span></div><div id='divLogContent'>"+xml+"</div></div>";
 
-										  			var heightEditor=stripPx($('#frame_codelatex').css('height'));
-									 
-										  			$('#frame_codelatex').css('height',(heightEditor-150));
-										  			
-										  		 	$('#editeur').append(divLog);
-										  		 	$('#closeDivLog').unbind('click');	
-										  		 	$('#closeDivLog').click(function(){
-										  		 		$('#divLog').fadeOut().remove();
-										  		 		$('#frame_codelatex').css('height',heightEditor);
-										  		 	});
-												}
-												
-												$('#viewer_frame').remove();
-												if(xml.indexOf("Error")==-1){
-
-											  		 
-													//window.open("/viewer", "_blank");	
-													var viewFrame = $('<iframe />', {name: 'viewer_frame', id: 'viewer_frame', src: '/viewer'});
-													viewFrame.appendTo('body')
-													viewFrame.css('position', 'absolute').css('bottom', 0).css('right', 0).css('height',  $(window).height() - $('#titre_principal').height()).css('width', '100%');
-													$('#bloc_texloud').hide();
-											
-													$('#menu ul').prepend('<li><a id="back_edit">Revenir</a></li>');
-													$('#back_edit').unbind('click');
-													$('#back_edit').click(function(){
-														$('#viewer_frame').toggle();
-														$('#bloc_texloud').toggle();
-														if($(this).html()=="Voir le dernier PDF compilé")
-															$(this).html("Revenir");
-														else
-															$(this).html("Voir le dernier PDF compilé");
-													});
-													}
-										  		 });	
-								      		 								
+								      			var heightEditor=stripPx($('#frame_codelatex').css('height'));
+								 
+								      			$('#frame_codelatex').css('height',(heightEditor-150));
+								      			
+								      		 	$('#editeur').append(divLog);
+								      		 	$('#closeDivLog').unbind('click');	
+								      		 	$('#closeDivLog').click(function(){
+								      		 		$('#divLog').fadeOut().remove();
+								      		 		$('#frame_codelatex').css('height',heightEditor);
+								      		 	});
+								      		 	
+								      		 });										
 											
 								       });
 							

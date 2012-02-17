@@ -72,7 +72,6 @@ class Tree{
 	 */
 	private function removeFolder($folder, $removeFromServer = true){
 		$tabSon=array();
-
 		foreach($this->arrayOfNode as $node){
 			if($node->getParentId()==$folder->getId()){
 				if($node->isFolder()){
@@ -89,11 +88,14 @@ class Tree{
 			File::delete($son->getId());
 			$this->removeFolder($son, false);
 		}
+	
 		
-		if($removeFromServer)
-			File::deleteFromData($folder->getId());
-		else
-			File::delete($folder->getId());
+		if(!Common::endsWith($folder->getId(), '_project')){
+			if($removeFromServer)
+				File::deleteFromData($folder->getId());
+			else
+				File::delete($folder->getId());
+		}
 		
 		unset($this->arrayOfNode[$folder->getId()]);
 	}

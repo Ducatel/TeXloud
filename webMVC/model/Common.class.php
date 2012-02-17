@@ -96,9 +96,13 @@ class Common{
 		$_SESSION['project_id'] = $project->id;	
 	}
 
+	public static function endsWith($target, $match){
+		return (substr($target, strlen($target) - strlen($match)) === $match);
+	}
+
 	public static function startsWith($target, $match){
 		$length = strlen($match);
-		return (substr($target, 0, $length)===$needle);
+		return (substr($target, 0, $length)===$match);
 	}
 
 	public static function writePdf($pdf, $android = false){

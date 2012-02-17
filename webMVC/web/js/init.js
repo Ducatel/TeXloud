@@ -17,6 +17,10 @@ var langManager = new languageManager();
 langManager.load("en");  
 
 
+function init_color_EA(id){
+	$('#frame_' + id).contents().find('#result').css('background-color', '#ffede0');
+}
+
 $(document).ready(function(){
 	editAreaLoader.init({
 		id : 'codelatex',
@@ -26,7 +30,9 @@ $(document).ready(function(){
 		language: 'en',
 		toolbar: 'undo,redo',
 		allow_toggle: false,
-		min_height: $(window).height() - $('#titre_principal').height()
+		min_height: $(window).height() - $('#titre_principal').height(),
+		is_editable: false,
+		EA_load_callback: 'init_color_EA'
 	});
-});
 
+});

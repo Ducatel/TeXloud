@@ -7,6 +7,8 @@ function keyDown(e){
 		e=event;
 	}
 	
+	
+	
 	// send the event to the plugins
 	for(var i in editArea.plugins){
 		if(typeof(editArea.plugins[i].onkeydown)=="function"){

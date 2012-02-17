@@ -1,4 +1,5 @@
         <link rel="stylesheet" href="/css/pdfjs/viewer.css"/>
+	<script type="text/javascript" src="/js/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="/js/pdfjs/compatibility.js"></script> <!-- PDFJSSCRIPT_REMOVE_FIREFOX_EXTENSION -->
 
         <!-- PDFJSSCRIPT_INCLUDE_BUILD -->
@@ -45,11 +46,11 @@
 
       <div class="separator"></div>
 
-      <button id="zoomOut" title="Zoom Out" onclick="PDFView.zoomOut();" oncontextmenu="return false;">
-        <img src="/images/pdfjs/zoom-out.svg" align="top" height="16"/>
+      <button id="download" title="Zoom Out" onclick="PDFView.zoomOut();" oncontextmenu="return false;">
+	&thinsp;<img src="/images/pdfjs/zoom-out.svg" align="top" height="16"/>&thinsp;
       </button>
-      <button id="zoomIn" title="Zoom In" onclick="PDFView.zoomIn();" oncontextmenu="return false;">
-        <img src="/images/pdfjs/zoom-in.svg" align="top" height="16"/>
+      <button id="download" title="Zoom In" onclick="PDFView.zoomIn();" oncontextmenu="return false;">
+        &thinsp;<img src="/images/pdfjs/zoom-in.svg" align="top" height="16"/>&thinsp;
       </button>
 
       <div class="separator"></div>
