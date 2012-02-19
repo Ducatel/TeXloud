@@ -360,7 +360,7 @@ Le projet, bien qu'il ne soit pas totalement terminé, est stable, viable et uti
 Le projet a subit de fortes contraintes au niveau de l'architecture physique qui limitait grandement notre possibilité de travail. Ces contraintes nous ont forcer a travailler en local. Par conséquent nous avons du travailler sur les horaires d'ouverture de la faculté et lorsque la salle n'était pas occupé pour des cours. Aussi nous avons eu des problème quand a la formation de notre "cloud". En effet, nous avons du utilisé les PC de la salle A104 (Résultat 2 serveurs en moins par rapport a notre architecture de base). De plus ils nous a fallu trouvez un routeur WIFI afin de faire fonctionné la tablette avec notre "Cloud".
 
 \paragraph*{}
-Pour finir nous pouvons dire que ce projet complexe et complet a été très intéressant a mettre en place. Aussi, nous avons prit un soin particulier à produire un code propre, compréhensible documenté et donc facilement réutilisable et de nombreuse fonctionnalité peuvent être facilement intégrable. 
+Pour finir nous pouvons dire que ce projet complexe et complet a été très intéressant a mettre en place. Aussi, nous avons prit un soin particulier à produire un code propre, compréhensible, documenté et donc facilement réutilisable afin que de nombreuse fonctionnalité puissent être facilement intégrable. 
 
 
 \newpage

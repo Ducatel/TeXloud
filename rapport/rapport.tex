@@ -349,6 +349,10 @@ La gestion des mots de passes oubliés n'est pas encore implémentée puisqu'ell
 \paragraph*{}
 Il serait possible d'utiliser plusieurs gestionnaire de version différents, des systèmes de fichiers,etc. pour stocker les données des utilisateurs. Pour l'instant seul SubVersion est géré, mais grâce a une interface générique, il est possible de développer rapidement des connecteurs pour n'importe quel gestionnaire de version. Grâce à cette interface, il suffit juste de développer une classe fille de cette interface sur un serveur de stockage de données et faire les appels spécifique au gestionnaire de version voulu.
 
+\subsection{Sécurisation des transferts de données}
+\paragraph*{}
+Tous les échanges entre socket ne sont pas sécurisé. Plus précisément ils ne sont pas crypté et donc vulnérable au écoute sur le réseau\footnote{Attaque communément appelé sniffing}. Pour sécurisé ceci, il suffit d'utilisé un cryptage type SSL/TLS\footnote{Technique utilisé pour les transferts HTTPS}. Cette solution est très simple à mettre en place en python, il suffit de remplacer les objets socket par des objets SSLSocket\footnote{Il faut bien sur au préalable généré les certificats SSL}.
+
 \newpage
 
 \section{Conclusion}

@@ -1,0 +1,34 @@
+#!/usr/bin/python
+# -*-coding:utf-8 -*-
+'''
+Created on 19 févr. 2012
+
+@author: hannibal
+'''
+
+import logging
+import logging.handlers
+import time
+import os
+
+class Logger(object):
+    '''
+    Class permettant de générer des logs avec rotation
+    '''
+
+
+    
+    def __init__(self,logDir=os.getcwd(),filename='log',tailleLog=50000,nbFileLog=3):
+        '''
+        
+        '''
+        if not os.path.exists(logDir):
+            os.makedirs(LOG_DIR)
+
+        self.logger = logging.getLogger('MyLogger')
+        self.logger.setLevel(logging.INFO)
+
+        handler = logging.handlers.RotatingFileHandler(LOG_DIR+"/"+LOG_FILENAME, backupCount=nbFileLog,maxBytes=tailleLog)
+
+        self.logger.addHandler(handler)
+        

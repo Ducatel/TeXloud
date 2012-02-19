@@ -13,9 +13,9 @@ import md5
 import os
 import shutil
 import socket
-import subprocess
 import threading
 import zipfile
+import Logger
 
 class ServiceCompilation(object):
     '''
@@ -46,6 +46,8 @@ class ServiceCompilation(object):
         
         self._ipFrontal="192.168.0.6"
         self._portFrontal=12800
+        
+        self._logger=Logger.Logger()
 
 
         
@@ -55,6 +57,8 @@ class ServiceCompilation(object):
         Puis qui accepte les connexions et appelle pour chacune d'elle la methode 
         De gestion des compilation dans un nouveau thread
         """
+        self._logger.write('Compilation server start')
+
         self._sock=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._sock.bind((self._adresse, self._port))
         self._sock.listen(5)
@@ -70,15 +74,17 @@ class ServiceCompilation(object):
         
         # On recupere les données
         trame,adresseArchive=self.getDataforCompilation(client,addr)
+        self._logger.write('trame In: '+str(trame))
         
         # On compile le projet
         msgCompile,contenuFichierPdf=self.latexCompilation(trame['rootFile'], adresseArchive)
+        
         
         # On renvoie le pdf et les infos
         self.backToSender(msgCompile, contenuFichierPdf, (trame['returnIp'],int(trame['returnPort'])),trame['httpPort'])
         
         # On renvoi un message de fin compilation au serveur frontal
-        # self.confirmEndCompilation()
+        self.confirmEndCompilation()
             
     def getDataforCompilation(self,client,addr):
         """
@@ -134,7 +140,8 @@ class ServiceCompilation(object):
         # Si la sortie du script est egal a 0, il n'y a aucun probleme lors de la compilation
         if valSortie==0:
             # Ici la compilation est ok
-            
+            self._logger.write('Compilation OK')
+
             pdfFileAdresse=pathDir+nomFichier[0:len(nomFichier)-3]+"pdf"
             
             #Recuperation du contenue binaire du fichier pdf
@@ -144,6 +151,8 @@ class ServiceCompilation(object):
             
         else:
             # Ici la compilation a echouer
+            self._logger.write('Compilation fail')
+
             pdfFileContent='0'
         
         # On parse le fichier de log
@@ -276,6 +285,8 @@ class ServiceCompilation(object):
         request['label']='backCompile'
         request['log']=message
         request['httpPort']=httpPort
+        
+        self._logger.write('trame out: '+str(request))
         
         s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         s.connect(addr)
