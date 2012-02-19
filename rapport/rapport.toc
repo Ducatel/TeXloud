@@ -7,13 +7,12 @@
 \contentsline {subsection}{\numberline {2.2}Serveur web}{4}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}Application Android}{5}{subsection.2.3}
 \contentsline {subsection}{\numberline {2.4}Serveur de routage et d'ordonnancement}{6}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}Serveur de stockage de donn\IeC {\'e}es}{6}{subsection.2.5}
-\contentsline {paragraph}{}{7}{section*.22}
+\contentsline {subsection}{\numberline {2.5}Serveur de stockage de donn\IeC {\'e}es}{7}{subsection.2.5}
 \contentsline {paragraph}{}{7}{section*.23}
 \contentsline {paragraph}{}{7}{section*.24}
 \contentsline {paragraph}{}{7}{section*.25}
-\contentsline {subsection}{\numberline {2.6}Serveur de compilation}{7}{subsection.2.6}
-\contentsline {paragraph}{}{8}{section*.27}
+\contentsline {paragraph}{}{7}{section*.26}
+\contentsline {subsection}{\numberline {2.6}Serveur de compilation}{8}{subsection.2.6}
 \contentsline {section}{\numberline {3}Utilisation des applications}{9}{section.3}
 \contentsline {subsection}{\numberline {3.1}Application Web}{9}{subsection.3.1}
 \contentsline {subsubsection}{\numberline {3.1.1}Cr\IeC {\'e}ation de compte}{9}{subsubsection.3.1.1}

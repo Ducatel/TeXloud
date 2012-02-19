@@ -1,5 +1,6 @@
 MODULES_MANAGER_V2
 Frontal|/home/hannibal/Documents/projet&&truc_a_rendre/TeXloud/Frontales/Frontal/src/Frontal.py
+Logger|/home/hannibal/Documents/projet&&truc_a_rendre/TeXloud/Frontales/Frontal/src/Logger.py
 Main|/home/hannibal/Documents/projet&&truc_a_rendre/TeXloud/Frontales/Frontal/src/Main.py
 Ordonnanceur|/home/hannibal/Documents/projet&&truc_a_rendre/TeXloud/Frontales/Frontal/src/Ordonnanceur.py
 Serveur|/home/hannibal/Documents/projet&&truc_a_rendre/TeXloud/Frontales/Frontal/src/Serveur.py

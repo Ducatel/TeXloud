@@ -40,13 +40,15 @@
 <part id="5"/>
 <part id="6"/>
 <part id="7"/>
+<part id="8"/>
+<part id="9"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
 <editor id="org.python.pydev.editor.PythonEditor" name="ServiceCompilation.py" partName="ServiceCompilation" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/ServiceCompilation/src/ServiceCompilation.py" title="ServiceCompilation" tooltip="ServiceCompilation/src/ServiceCompilation.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ServiceCompilation/src/ServiceCompilation.py"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4319" selectionTopPixel="1989"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2169" selectionTopPixel="2094"/>
 </editor>
 <editor id="org.python.pydev.editor.PythonEditor" name="Main.py" partName="Main (ServiceCompilation.src)" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/ServiceCompilation/src/Main.py" title="Main (ServiceCompilation.src)" tooltip="ServiceCompilation/src/Main.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ServiceCompilation/src/Main.py"/>
@@ -54,15 +56,15 @@
 </editor>
 <editor id="org.python.pydev.editor.PythonEditor" name="httpServeurTest.py" partName="httpServeurTest" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/httpServeurTest.py" title="httpServeurTest" tooltip="Frontal/src/httpServeurTest.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Frontal/src/httpServeurTest.py"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="251"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="99" selectionTopPixel="234"/>
 </editor>
 <editor id="org.python.pydev.editor.PythonEditor" name="Main.py" partName="Main (Frontal.src)" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/Main.py" title="Main (Frontal.src)" tooltip="Frontal/src/Main.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Frontal/src/Main.py"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="141" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="109" selectionTopPixel="0"/>
 </editor>
-<editor activePart="true" focus="true" id="org.python.pydev.editor.PythonEditor" name="Frontal.py" partName="Frontal" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/Frontal.py" title="Frontal" tooltip="Frontal/src/Frontal.py" workbook="DefaultEditorWorkbook">
+<editor id="org.python.pydev.editor.PythonEditor" name="Frontal.py" partName="Frontal" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/Frontal.py" title="Frontal" tooltip="Frontal/src/Frontal.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Frontal/src/Frontal.py"/>
-<editorState selectionHorizontalPixel="0" selectionLength="12" selectionOffset="7061" selectionTopPixel="3145"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1633" selectionTopPixel="748"/>
 </editor>
 <editor id="org.python.pydev.editor.PythonEditor" name="Ordonnanceur.py" partName="Ordonnanceur" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/Ordonnanceur.py" title="Ordonnanceur" tooltip="Frontal/src/Ordonnanceur.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Frontal/src/Ordonnanceur.py"/>
@@ -70,11 +72,19 @@
 </editor>
 <editor id="org.python.pydev.editor.PythonEditor" name="Serveur.py" partName="Serveur" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/Serveur.py" title="Serveur" tooltip="Frontal/src/Serveur.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Frontal/src/Serveur.py"/>
-<editorState selectionHorizontalPixel="0" selectionLength="2" selectionOffset="426" selectionTopPixel="364"/>
+<editorState selectionHorizontalPixel="0" selectionLength="2" selectionOffset="426" selectionTopPixel="0"/>
 </editor>
 <editor id="org.eclipse.ui.DefaultTextEditor" name="fichierServeur.xml" partName="fichierServeur.xml" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/fichierServeur.xml" title="fichierServeur.xml" tooltip="Frontal/fichierServeur.xml" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Frontal/fichierServeur.xml"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="310" selectionTopPixel="9"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="Logger.py" partName="Logger (Frontal.src)" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/Logger.py" title="Logger (Frontal.src)" tooltip="Frontal/src/Logger.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Frontal/src/Logger.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1257" selectionTopPixel="285"/>
+</editor>
+<editor activePart="true" focus="true" id="org.python.pydev.editor.PythonEditor" name="Logger.py" partName="Logger (ServiceCompilation.src)" path="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/ServiceCompilation/src/Logger.py" title="Logger (ServiceCompilation.src)" tooltip="ServiceCompilation/src/Logger.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ServiceCompilation/src/Logger.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="303" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -85,6 +95,8 @@
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
 <category IMemento.internal.id="Warnings (1 item)"/>
+<category IMemento.internal.id="Warnings"/>
+<category IMemento.internal.id="Errors"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="105" org.eclipse.ui.ide.markerType="448" org.eclipse.ui.ide.pathField="140" org.eclipse.ui.ide.resourceField="105" org.eclipse.ui.ide.severityAndDescriptionField="350"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -147,7 +159,7 @@
 <expanded IMemento.internal.id="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/ServiceCompilation/src"/>
 <expanded IMemento.internal.id="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal"/>
 <expanded IMemento.internal.id="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src"/>
-<selected IMemento.internal.id="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/Frontal/src/Frontal.py"/>
+<selected IMemento.internal.id="/home/hannibal/Documents/projet&amp;&amp;truc_a_rendre/TeXloud/Frontales/ServiceCompilation/src/ServiceCompilation.py"/>
 </viewState>
 </view>
 </views>
@@ -294,8 +306,8 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@38aa2a95" ratio="0.90522873" ratioLeft="554" ratioRight="58" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@38aa2a95" ratio="0.75980395" ratioLeft="465" ratioRight="147" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -404,168 +416,171 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ServiceCompilation/src/ServiceCompilation.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ServiceCompilation/src/Main.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/Main.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ServiceCompilation/src/Main.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/Frontal.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ServiceCompilation/src/ServiceCompilation.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/Main.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ServiceCompilation/src/Main.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/Ordonnanceur.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/Serveur.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/Frontal/fichierServeur.xml"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/Frontal.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/Frontal/src/Logger"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/Frontal/src/Logger.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/Logger.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/Serveur.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/Frontal/fichierServeur.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/Main.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/Frontal/src/httpServeurTest.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ServiceCompilation/src/Logger.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ServiceCompilation/src/ServiceCompilation.py"/>
 </editors>
-<item historyLabel="Main" index="1">
-<position info="not_deleted" x="312" y="0"/>
-</item>
-<item historyLabel="ServiceCompilation" index="0">
-<position/>
-</item>
-<item historyLabel="Main" index="1">
-<position info="not_deleted" x="312" y="0"/>
-</item>
-<item historyLabel="ServiceCompilation" index="0">
-<position info="not_deleted" x="3291" y="0"/>
-</item>
-<item historyLabel="Main" index="1">
-<position info="not_deleted" x="312" y="0"/>
-</item>
-<item historyLabel="ServiceCompilation" index="0">
-<position info="not_deleted" x="9660" y="0"/>
-</item>
-<item historyLabel="Main" index="1">
-<position info="not_deleted" x="91" y="0"/>
-</item>
-<item historyLabel="ServiceCompilation" index="0">
-<position info="not_deleted" x="9660" y="0"/>
-</item>
-<item historyLabel="ServiceCompilation" index="0">
-<position info="not_deleted" x="5169" y="0"/>
-</item>
-<item historyLabel="ServiceCompilation" index="0">
-<position info="not_deleted" x="2305" y="0"/>
-</item>
-<item historyLabel="Main" index="1">
-<position info="not_deleted" x="91" y="0"/>
-</item>
-<item historyLabel="ServiceCompilation" index="0">
-<position info="not_deleted" x="2305" y="0"/>
-</item>
-<item historyLabel="Main (Frontal.src)" index="2">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="Main (ServiceCompilation.src)" index="3">
-<position info="not_deleted" x="91" y="0"/>
-</item>
-<item historyLabel="Frontal" index="4">
-<position info="not_deleted" x="2691" y="0"/>
-</item>
-<item historyLabel="Main (Frontal.src)" index="2">
-<position info="not_deleted" x="141" y="0"/>
-</item>
-<item historyLabel="Frontal" index="4">
-<position info="not_deleted" x="2691" y="0"/>
-</item>
-<item historyLabel="Main (Frontal.src)" index="2">
-<position info="not_deleted" x="141" y="0"/>
-</item>
-<item historyLabel="Frontal" index="4">
-<position/>
-</item>
-<item historyLabel="Main (Frontal.src)" index="2">
-<position info="not_deleted" x="141" y="0"/>
-</item>
-<item historyLabel="Frontal" index="4">
-<position/>
-</item>
-<item historyLabel="ServiceCompilation" index="5">
-<position/>
-</item>
-<item historyLabel="Frontal" index="4">
-<position info="not_deleted" x="2691" y="0"/>
-</item>
-<item historyLabel="Main (Frontal.src)" index="6">
-<position info="not_deleted" x="141" y="0"/>
-</item>
-<item historyLabel="Main (ServiceCompilation.src)" index="7">
-<position info="not_deleted" x="91" y="0"/>
-</item>
-<item historyLabel="ServiceCompilation" index="5">
-<position/>
-</item>
-<item historyLabel="Frontal" index="4">
-<position info="not_deleted" x="2692" y="9"/>
-</item>
-<item historyLabel="ServiceCompilation" index="5">
-<position/>
-</item>
-<item historyLabel="Frontal" index="4">
-<position info="not_deleted" x="2800" y="48"/>
-</item>
-<item historyLabel="ServiceCompilation" index="5">
-<position/>
-</item>
-<item historyLabel="Ordonnanceur" index="8">
-<position info="not_deleted" x="1455" y="11"/>
-</item>
-<item historyLabel="Frontal" index="4">
-<position info="not_deleted" x="2823" y="24"/>
-</item>
-<item historyLabel="Ordonnanceur" index="8">
+<item historyLabel="Ordonnanceur" index="2">
 <position info="not_deleted" x="3028" y="8"/>
 </item>
-<item historyLabel="Serveur" index="9">
+<item historyLabel="Serveur" index="3">
 <position info="not_deleted" x="1014" y="11"/>
 </item>
-<item historyLabel="Ordonnanceur" index="8">
+<item historyLabel="Ordonnanceur" index="2">
 <position info="not_deleted" x="3028" y="8"/>
 </item>
-<item historyLabel="Frontal" index="4">
+<item historyLabel="Frontal" index="0">
 <position info="not_deleted" x="1320" y="0"/>
 </item>
-<item historyLabel="fichierServeur.xml" index="10">
+<item historyLabel="fichierServeur.xml" index="4">
 <position info="not_deleted" x="129" y="11"/>
 </item>
-<item historyLabel="Frontal" index="4">
+<item historyLabel="Frontal" index="0">
 <position info="not_deleted" x="1320" y="0"/>
 </item>
-<item historyLabel="fichierServeur.xml" index="10">
+<item historyLabel="fichierServeur.xml" index="4">
 <position info="not_deleted" x="310" y="0"/>
 </item>
-<item historyLabel="Serveur" index="9">
+<item historyLabel="Serveur" index="3">
 <position info="not_deleted" x="1014" y="11"/>
 </item>
-<item historyLabel="Frontal" index="4">
+<item historyLabel="Frontal" index="0">
 <position info="not_deleted" x="1320" y="0"/>
 </item>
-<item historyLabel="Serveur" index="9">
+<item historyLabel="Serveur" index="3">
 <position info="not_deleted" x="1014" y="11"/>
 </item>
-<item historyLabel="Ordonnanceur" index="8">
+<item historyLabel="Ordonnanceur" index="2">
 <position info="not_deleted" x="3028" y="8"/>
 </item>
-<item historyLabel="Serveur" index="9">
+<item historyLabel="Serveur" index="3">
 <position info="not_deleted" x="439" y="0"/>
 </item>
-<item historyLabel="Ordonnanceur" index="8">
+<item historyLabel="Ordonnanceur" index="2">
 <position info="not_deleted" x="3028" y="8"/>
 </item>
-<item historyLabel="Frontal" index="4">
+<item historyLabel="Frontal" index="0">
 <position info="not_deleted" x="1320" y="0"/>
 </item>
-<item historyLabel="Ordonnanceur" index="8">
+<item historyLabel="Ordonnanceur" index="2">
 <position info="not_deleted" x="6419" y="0"/>
+</item>
+<item historyLabel="Serveur" index="3">
+<position info="not_deleted" x="426" y="2"/>
+</item>
+<item historyLabel="ServiceCompilation" index="1">
+<position/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position info="not_deleted" x="1320" y="0"/>
+</item>
+<item historyLabel="Logger" index="6">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Logger.py" index="7">
+<position info="not_deleted" x="39" y="0"/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position info="not_deleted" x="0" y="39"/>
+</item>
+<item historyLabel="Logger.py" index="7">
+<position info="not_deleted" x="39" y="0"/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position info="not_deleted" x="209" y="0"/>
+</item>
+<item historyLabel="Logger (Frontal.src)" index="8">
+<position info="not_deleted" x="152" y="0"/>
 </item>
 <item historyLabel="Serveur" index="9">
 <position info="not_deleted" x="426" y="2"/>
 </item>
-<item historyLabel="ServiceCompilation" index="5">
-<position/>
+<item historyLabel="Logger (Frontal.src)" index="8">
+<position info="not_deleted" x="1024" y="0"/>
 </item>
-<item active="true" historyLabel="Frontal" index="11">
-<position info="not_deleted" x="1320" y="0"/>
+<item historyLabel="Serveur" index="9">
+<position info="not_deleted" x="426" y="2"/>
+</item>
+<item historyLabel="Logger (Frontal.src)" index="8">
+<position info="not_deleted" x="1024" y="0"/>
+</item>
+<item historyLabel="fichierServeur.xml" index="10">
+<position info="not_deleted" x="310" y="0"/>
+</item>
+<item historyLabel="Logger (Frontal.src)" index="8">
+<position info="not_deleted" x="1290" y="0"/>
+</item>
+<item historyLabel="Logger (Frontal.src)" index="8">
+<position info="not_deleted" x="107" y="9"/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position info="not_deleted" x="209" y="0"/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position info="not_deleted" x="2825" y="0"/>
+</item>
+<item historyLabel="Logger (Frontal.src)" index="8">
+<position info="not_deleted" x="107" y="9"/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position info="not_deleted" x="2825" y="0"/>
+</item>
+<item historyLabel="Logger (Frontal.src)" index="8">
+<position info="not_deleted" x="1257" y="0"/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position info="not_deleted" x="2825" y="0"/>
+</item>
+<item historyLabel="Main (Frontal.src)" index="11">
+<position info="not_deleted" x="139" y="0"/>
+</item>
+<item historyLabel="httpServeurTest" index="12">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Main (Frontal.src)" index="11">
+<position info="not_deleted" x="109" y="0"/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position info="not_deleted" x="2394" y="0"/>
+</item>
+<item historyLabel="httpServeurTest" index="12">
+<position info="not_deleted" x="99" y="0"/>
+</item>
+<item historyLabel="Logger (Frontal.src)" index="8">
+<position info="not_deleted" x="1257" y="0"/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position info="not_deleted" x="1377" y="28"/>
+</item>
+<item historyLabel="Logger (ServiceCompilation.src)" index="13">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="ServiceCompilation" index="14">
+<position info="not_deleted" x="1551" y="0"/>
+</item>
+<item historyLabel="Frontal" index="5">
+<position info="not_deleted" x="1633" y="0"/>
+</item>
+<item historyLabel="ServiceCompilation" index="14">
+<position info="not_deleted" x="2169" y="0"/>
+</item>
+<item historyLabel="Logger (Frontal.src)" index="8">
+<position info="not_deleted" x="1257" y="0"/>
+</item>
+<item active="true" historyLabel="Logger (ServiceCompilation.src)" index="13">
+<position info="not_deleted" x="0" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -584,6 +599,15 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Logger.py" tooltip="ServiceCompilation/src/Logger.py">
+<persistable path="/ServiceCompilation/src/Logger.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Logger.py" tooltip="Frontal/src/Logger.py">
+<persistable path="/Frontal/src/Logger.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="Logger" tooltip="Frontal/src/Logger">
+<persistable path="/Frontal/src/Logger"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="fichierServeur.xml" tooltip="Frontal/fichierServeur.xml">
 <persistable path="/Frontal/fichierServeur.xml"/>
 </file>
@@ -619,15 +643,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Serveur.py" tooltip="FrontalCompilation/src/Serveur.py">
 <persistable path="/FrontalCompilation/src/Serveur.py"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Main.py" tooltip="FrontalCompilation/src/Main.py">
-<persistable path="/FrontalCompilation/src/Main.py"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="FrontalServeur.py" tooltip="FrontalCompilation/src/FrontalServeur.py">
-<persistable path="/FrontalCompilation/src/FrontalServeur.py"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="FrontalClientData.py" tooltip="FrontalCompilation/src/FrontalClientData.py">
-<persistable path="/FrontalCompilation/src/FrontalClientData.py"/>
 </file>
 </mruList>
 </workbench>

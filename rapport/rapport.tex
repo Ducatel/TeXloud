@@ -222,6 +222,9 @@ Les communications entre le serveur HTTP, les serveurs de compilation et les ser
 \paragraph*{}
 L'ensemble des données sur les serveurs (adresse IP, port du service, type de service, charge maximal) sont stocké au sein d'un fichier XML sur ce serveur.
 
+\paragraph*{}
+Il faut aussi indiquer que ce serveur génère des logs afin que le suivit de l'exploitation de cette partie puisse être effectué le plus simplement possible. Les logs générer sont en rotation, c'est-à-dire qu'ils ont une taille maximal fixer et qu'ils s'écrivent sur plusieurs fichiers\footnote{Sur trois fichiers actuellement}.
+
 
 \subsection{Serveur de stockage de données}
 \paragraph*{}
@@ -267,8 +270,11 @@ Le serveur de compilation, comme son nom l'indique permet de compiler le projet 
  \item Renvoi au serveur de données du log et du fichier PDF
 \end{enumerate}
 
-\paragraph{}
+\paragraph*{}
 Ce service est la aussi développé en Python et les communications sont basé sur des socket TCP. De même que pour le service de routage et d'ordonnancement, le service de compilation peut gérer plusieurs connexion en simultané.
+
+\paragraph*{}
+Ici aussi des logs en rotation sont générer afin de facilité l'exploitation de ce service de compilation.
 
 
 \newpage

@@ -222,6 +222,9 @@ Les communications entre le serveur HTTP, les serveurs de compilation et les ser
 \paragraph*{}
 L'ensemble des données sur les serveurs (adresse IP, port du service, type de service, charge maximal) sont stocké au sein d'un fichier XML sur ce serveur.
 
+\paragraph*{}
+Il faut aussi indiquer que ce serveur génère des logs afin que le suivit de l'exploitation de cette partie puisse être effectué le plus simplement possible. Les logs générer sont en rotation, c'est-à-dire qu'ils ont une taille maximal fixer et qu'ils s'écrivent sur plusieurs fichiers\footnote{Sur trois fichiers actuellement}.
+
 
 \subsection{Serveur de stockage de données}
 \paragraph*{}
@@ -267,8 +270,11 @@ Le serveur de compilation, comme son nom l'indique permet de compiler le projet 
  \item Renvoi au serveur de données du log et du fichier PDF
 \end{enumerate}
 
-\paragraph{}
+\paragraph*{}
 Ce service est la aussi développé en Python et les communications sont basé sur des socket TCP. De même que pour le service de routage et d'ordonnancement, le service de compilation peut gérer plusieurs connexion en simultané.
+
+\paragraph*{}
+Ici aussi des logs sont générer afin de facilité l'exploitation de ce service de compilation.
 
 
 \newpage
@@ -348,6 +354,10 @@ La gestion des mots de passes oubliés n'est pas encore implémentée puisqu'ell
 \subsection{Utilisation d'autre support de stockage}
 \paragraph*{}
 Il serait possible d'utiliser plusieurs gestionnaire de version différents, des systèmes de fichiers,etc. pour stocker les données des utilisateurs. Pour l'instant seul SubVersion est géré, mais grâce a une interface générique, il est possible de développer rapidement des connecteurs pour n'importe quel gestionnaire de version. Grâce à cette interface, il suffit juste de développer une classe fille de cette interface sur un serveur de stockage de données et faire les appels spécifique au gestionnaire de version voulu.
+
+\subsection{Sécurisation des transferts de données}
+\paragraph*{}
+Tous les échanges entre socket ne sont pas sécurisé. Plus précisément ils ne sont pas crypté et donc vulnérable au écoute sur le réseau\footnote{Attaque communément appelé sniffing}. Pour sécurisé ceci, il suffit d'utilisé un cryptage type SSL/TLS\footnote{Technique utilisé pour les transferts HTTPS}. Cette solution est très simple à mettre en place en python, il suffit de remplacer les objets socket par des objets SSLSocket\footnote{Il faut bien sur au préalable généré les certificats SSL}.
 
 \newpage
 
