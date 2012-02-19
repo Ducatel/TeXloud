@@ -15,7 +15,7 @@ class Logger(object):
     Class permettant de générer des logs avec rotation
     '''
 
-    def __init__(self,logDir=os.getcwd(),filename='TeXloudFrontal.log',tailleLog=50000,nbFileLog=3):
+    def __init__(self,logDir=os.getcwd(),filename='TeXloudCompilation.log',tailleLog=50000,nbFileLog=3):
         '''
         Constructeur de la class Loggeur
         @param logDir: chemin absolu vers le dossier ou vous voulez voir les fichiers de log
