@@ -25,13 +25,13 @@
 \contentsline {subsubsection}{\numberline {3.2.2}Cr\IeC {\'e}ation de compte}{14}{subsubsection.3.2.2}
 \contentsline {subsubsection}{\numberline {3.2.3}Cr\IeC {\'e}ation de projet}{14}{subsubsection.3.2.3}
 \contentsline {subsubsection}{\numberline {3.2.4}Synchronisation}{14}{subsubsection.3.2.4}
-\contentsline {subsubsection}{\numberline {3.2.5}Compilation}{14}{subsubsection.3.2.5}
-\contentsline {subsubsection}{\numberline {3.2.6}Fonctions annexes}{14}{subsubsection.3.2.6}
-\contentsline {section}{\numberline {4}Perspective d'\IeC {\'e}volution}{15}{section.4}
-\contentsline {subsection}{\numberline {4.1}Support des images}{15}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Gestion des groupes}{15}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Coloration syntaxique sur Android}{15}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Mot de passe oubli\IeC {\'e}}{15}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Utilisation d'autre support de stockage}{15}{subsection.4.5}
-\contentsline {subsection}{\numberline {4.6}S\IeC {\'e}curisation des transferts de donn\IeC {\'e}es}{16}{subsection.4.6}
-\contentsline {section}{\numberline {5}Conclusion}{17}{section.5}
+\contentsline {subsubsection}{\numberline {3.2.5}Compilation}{15}{subsubsection.3.2.5}
+\contentsline {subsubsection}{\numberline {3.2.6}Fonctions annexes}{15}{subsubsection.3.2.6}
+\contentsline {section}{\numberline {4}Perspective d'\IeC {\'e}volution}{16}{section.4}
+\contentsline {subsection}{\numberline {4.1}Support des images}{16}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Gestion des groupes}{16}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Coloration syntaxique sur Android}{16}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Mot de passe oubli\IeC {\'e}}{16}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Utilisation d'autre support de stockage}{16}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}S\IeC {\'e}curisation des transferts de donn\IeC {\'e}es}{17}{subsection.4.6}
+\contentsline {section}{\numberline {5}Conclusion}{18}{section.5}
