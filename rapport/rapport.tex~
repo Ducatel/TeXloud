@@ -97,7 +97,7 @@ Coté client, deux types d'applications seront développés :
 
 \begin{itemize}
  \item Un service Web permettra l'accès au service à partir de n'importe
-quelle machine (desktop, tablette non-Android) pourvue d'un navigateur
+quelle machine (desktop, tablette de tout OS) pourvue d'un navigateur
 Web et d'une connexion internet
 
  \item Une application Android, permettra une certaine autonomie avec le
@@ -402,7 +402,6 @@ Une fois son inscription terminé, l'utilisateur est redirigé vers la page d'ac
 
 \subsubsection{Page d'accueil}
 
-
 \subsubsection{Création de compte}
 \paragraph*{}
 
@@ -410,6 +409,7 @@ Une fois son inscription terminé, l'utilisateur est redirigé vers la page d'ac
 \paragraph*{}
 
 \subsubsection{Synchronisation}
+\paragraph*{}
 
 \subsubsection{Compilation}
 \paragraph*{}
