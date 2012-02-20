@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  20 FEB 2012 13:50
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  20 FEB 2012 15:37
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -514,7 +514,14 @@ Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix
 \c@FancyVerbLine=\count112
 \FV@StepNumber=\count113
 \FV@OutFile=\write3
-) (./rapport.aux)
+) (./rapport.aux
+
+LaTeX Warning: Label `compilation' multiply defined.
+
+
+LaTeX Warning: Label `compilation' multiply defined.
+
+)
 \openout1 = `rapport.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
@@ -534,8 +541,7 @@ LaTeX Font Info:    ... okay on input line 37.
 LaTeX Info: Redefining \degres on input line 37.
 LaTeX Info: Redefining \dots on input line 37.
 LaTeX Info: Redefining \up on input line 37.
-
-(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
+ (/usr/share/texmf-texlive/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
 (/etc/texmf/tex/latex/config/color.cfg
@@ -705,54 +711,83 @@ eenshot/MenuTextuel.png>]
 <./images/screenshot/Suite_Creation_Fichier.png, id=315, 961.34157pt x 204.765p
 t>
 File: ./images/screenshot/Suite_Creation_Fichier.png Graphic file (type png)
- <use ./images/screenshot/Suite_Creation_Fichier.png>
-<./images/screenshot/Compiler.png, id=316, 962.84718pt x 431.36156pt>
-File: ./images/screenshot/Compiler.png Graphic file (type png)
-
-<use ./images/screenshot/Compiler.png> [13
+ <use ./images/screenshot/Suite_Creation_Fichier.png> [13
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
 as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.411 \end{itemize}
-                   pdfTeX warning (ext4): destination with the same identifier 
-(name{figure.11}) has been already used, duplicate ignored
+l.390 \clearpage
+                 <./images/screenshot/Suite_Creation_Fichier.png>]
+<./images/screenshot/Compiler.png, id=324, 962.84718pt x 431.36156pt>
+File: ./images/screenshot/Compiler.png Graphic file (type png)
+
+<use ./images/screenshot/Compiler.png> [14
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) h
+as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.411 \end{itemize}
-                    <./images/screenshot/Suite_Creation_Fichier.png> <./images/
-screenshot/Compiler.png>] [14] [15] [16] [17] (./rapport.lof)
+l.405 \clearpage
+                 <./images/screenshot/Compiler.png>]
+<./images/screenshot/CompileLog.png, id=333, 956.82469pt x 640.64343pt>
+File: ./images/screenshot/CompileLog.png Graphic file (type png)
+
+<use ./images/screenshot/CompileLog.png> [15
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) h
+as been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.419 \clearpage
+                 <./images/screenshot/CompileLog.png>]
+<./images/screenshot/pdfjs.png, id=341, 959.83594pt x 231.11343pt>
+File: ./images/screenshot/pdfjs.png Graphic file (type png)
+
+<use ./images/screenshot/pdfjs.png> [16
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.13}) h
+as been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.466  \item S
+              uppression de dossier/fichier <./images/screenshot/pdfjs.png>]
+[17] [18] [19] [20] (./rapport.lof)
 \tf@lof=\write6
 \openout6 = `rapport.lof'.
 
- [18]
-(./rapport.aux) ) 
+ [21] (./rapport.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 6819 strings out of 495061
- 94494 string characters out of 1182622
- 168826 words of memory out of 3000000
- 9697 multiletter control sequences out of 15000+50000
+ 6838 strings out of 495061
+ 94890 string characters out of 1182622
+ 168874 words of memory out of 3000000
+ 9705 multiletter control sequences out of 15000+50000
  24426 words of font info for 70 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,8n,36p,680b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
- </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti12
-00.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk
-> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </home
-/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/hanniba
-l/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/hannibal/.texmf
--var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/hannibal/.texmf-var/fon
-ts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/hannibal/.texmf-var/fonts/pk/lj
-four/jknappen/ec/ecbx1728.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jkn
-appen/ec/eccc1440.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec
-/ecbx2074.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx248
-8.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk>
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on rapport.pdf (19 pages, 636494 bytes).
+ 38i,8n,36p,680b,410s stack positions out of 5000i,500n,10000p,200000b,50000s
+ </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </hom
+e/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/hannib
+al/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </home/hannibal/.texm
+f-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/hannibal/.texmf-var/fo
+nts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/hannibal/.texmf-var/fonts/pk/l
+jfour/jknappen/ec/ecbx1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jk
+nappen/ec/ecrm1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/e
+c/ecbx1728.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc14
+40.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk
+> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home
+/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk></usr/share/tex
+mf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on rapport.pdf (22 pages, 784661 bytes).
 PDF statistics:
- 809 PDF objects out of 1000 (max. 8388607)
- 140 named destinations out of 1000 (max. 500000)
- 312 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 840 PDF objects out of 1000 (max. 8388607)
+ 149 named destinations out of 1000 (max. 500000)
+ 322 words of extra memory for PDF output out of 10000 (max. 10000000)
 
