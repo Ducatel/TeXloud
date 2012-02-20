@@ -429,26 +429,30 @@ En réalité, nous n'utilisons pas directement l'action de téléchargement du p
 \end{figure}
 
 
-\begin{itemize}
- \item Lancement compilation
- \item log
- \item visu du pdf
- \item telechargement du pdf
-\end{itemize}
-
-
 \subsubsection{Fonctions annexes}
 \paragraph*{}
-\begin{itemize}
- \item Suppression de dossier/fichier
- \item Rename dossier/fichier
- \item Info supp sur user
-\end{itemize}
+L'application inclus également de fonctionnalités secondaires notamment en ce qui concerne la gestion et les modifications de documents.
+
+\paragraph{Suppression de dossiers et de fichiers}~\\
+Les utilisateurs peuvent supprimer les fichiers et les dossiers \emph{via} le menu contextuel sur l'arbre de navigation de gauche.
+Les requêtes de suppressions sont effectués en base de donnée et la requête est envoyée au serveur de donnée correspondant qui met à jour le dépôt de version.
+
+\paragraph{Renommage des documents}~\\
+\`A la manière de la suppression de document, le renommage s'effectue par l'arbre de navigation et remonte les ordres en base de données et au serveurs de stockage.
+
+\paragraph{Information sur les utilisateurs\\}
+Les utilisateurs peuvent compléter les informations sur leur profils afin pouvoir s'identifier dans la communauté (non implémentée).
 
 \subsection{Application Android}
 
 \subsubsection{Page d'accueil}
-
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/android_accueil.png}
+\end{center}
+  \caption{Compilation, application web}
+  \label{compilation}
+\end{figure}
 \subsubsection{Création de compte}
 \paragraph*{}
 

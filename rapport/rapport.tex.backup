@@ -387,6 +387,7 @@ Une fois ceci fait, l'utilisateur doit entrer le nom de son fichier \emph{avec s
 A la création d'un nouveau fichier, le document courant reste en cours d'édition (à la connexion l'interface d'édition est désactivée), l'utilisateur clique donc sur le nouveau fichier qui sera rapatrié depuis le serveur de donnée et chargé dans l'interface.
 L'utilisateur peut compiler son projet en cliquant sur le lien \emph{compiler} et accède au menu contextuel de compilation proposant une liste des différents projets disponibles.
 
+\clearpage
 \paragraph*{}
 La sélection d'un projet dans la liste charge automatiquement la liste des différents fichiers disponibles dans laquelle l'utilisateur choisit le fichier principal, incluant éventuellement d'autres fichiers du projet.
 
@@ -401,25 +402,37 @@ La sélection d'un projet dans la liste charge automatiquement la liste des diff
 \paragraph*{}
 Enfin la soumission du formulaire lance la requête de compilation à proprement parlé au travers du réseau et rapatrie le fichier de log d'erreur et le fichier pdf si la compilation est un succès.
 
+\clearpage
 \paragraph*{}
-La terminaison de la requête retourne à l'interface web les informations sur la compilation (log) et affiche le pdf dans l'interface web.
-Au niveau de l'interface web, l'accès au pdf se fait systématiquement par la même url \emph{/ajax/getPdf}.
-En fait au niveau du serveur web le fichier pdf est écrit dans \emph{/tmp/texloud} et l'adresse du pdf est stocké en session, l'action \emph{getPdf} force le téléchargement du fichier.
+La terminaison de la requête retourne à l'interface web les informations sur la compilation (log) et affiche le pdf dans l'interface web si il existe.
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/CompileLog.png}
+\end{center}
+  \caption{Log d'erreur, application web}
+  \label{compilation}
+\end{figure}
 
-\paragraph{}
+L'accès au pdf se fait systématiquement par la même url \emph{/ajax/getPdf}.
+En fait au niveau du serveur le fichier pdf est écrit dans \emph{/tmp/texloud} et l'adresse du pdf est stocké en session, l'action \emph{getPdf} force le téléchargement du fichier.
 
-En réalité, nous n'utilisons pas directement l'action de téléchargement du pdf, en revanche, la librairie de visualisation de pdf \emph{pdfjs
+\clearpage
+\paragraph*{}
+En réalité, nous n'utilisons pas directement l'action de téléchargement du pdf, en revanche, la librairie de visualisation de pdf \emph{pdfjs} fait un appel sur l'url de téléchargement puis convertie le pdf pour un affichage dans des canvas HTML5.
 
-\begin{itemize}
- \item Lancement compilation
- \item log
- \item visu du pdf
- \item telechargement du pdf
-\end{itemize}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/pdfjs.png}
+\end{center}
+  \caption{Visualisation du PDF, application web}
+  \label{compilation}
+\end{figure}
 
 
 \subsubsection{Fonctions annexes}
 \paragraph*{}
+L'application inclus également de fonctionnalités secondaires notamment en ce qui concerne la gestion et les modifications de documents.
+
 \begin{itemize}
  \item Suppression de dossier/fichier
  \item Rename dossier/fichier
@@ -429,7 +442,13 @@ En réalité, nous n'utilisons pas directement l'action de téléchargement du p
 \subsection{Application Android}
 
 \subsubsection{Page d'accueil}
-
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/android_accueil.png}
+\end{center}
+  \caption{Compilation, application web}
+  \label{compilation}
+\end{figure}
 \subsubsection{Création de compte}
 \paragraph*{}
 
