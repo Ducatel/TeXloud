@@ -2,22 +2,30 @@ package com.android.texloud;
 
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -55,25 +63,29 @@ import android.widget.Toast;
 import com.android.texloud.MyTreeManager.Node;
 
 public class MainActivity extends Activity implements ScrollViewListener{
-	/** Called when the activity is first created. */
 
-	private EditText main_text;
-	private String text;
-	private MyScrollView sv1, sv2;
-	private LinearLayout layout_lineCount;
-	private Button deconnect, save_file, compil, create, sync;
+	private EditText main_text; // EditText principal
+	private String text; 
+	private MyScrollView sv1, sv2; // Scrollview permettant le scroll du champ texte et des 
+	private LinearLayout layout_lineCount; // zone de comptage de ligne
+	private Button deconnect, save_file, compil, create, sync; 
 
-	private Dialog dialog_fileSaved, dialog_createProject;
+	private Dialog dialog_fileSaved, dialog_createProject, dialog, dialog_fail_compil;
 
-	private MyTreeManager mtm;
-	private ProgressDialog loading_dialog, compil_loading, sync_dialog;
+	private MyTreeManager mtm; // classe gérant la partie arborescence (voir MyTreeManager.java)
+
+	/*
+		Boite de dialogue réutilisée chaque fois qu'un affichage de chargement est nécessaire
+	*/
+	private ProgressDialog current_loading_dialog; 
+
+	/*TextView servant à déclencher le spinner - action nécessaire entre le clic et l'affichage du spinner (rechargement des projets JSON)*/
+	private TextView spinnerTV;
 
 
-	/*---------------TEST BASE 64---------------*/
-
-	//private String pdf64="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";
-
-	/* ----------------------------------------*/
+	/*
+	 * Declaration des constantes
+	 */
 
 	private static final int LOAD_OK = 0; // Chargement fichier OK
 	private static final int LOAD_ERR = 1;
@@ -82,16 +94,22 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	private static final int PDF_OK = 4; // Reception pdf ok
 	private static final int PDF_ERR = 5; // Erreur reception pdf
 	private static final int SYNC_OK = 6; // Synchro
-	private static final int SYNC_ERR = 7;
+	private static final int SYNC_ERR = 7; 
 	private static final int SYNC = 8;
+	private static final int UPDATE_TREE_OK = 9; 
+	private static final int UPDATE_TREE_ERROR = 10;
+	private static final int PDF_SAVED = 11;
+	private static final int CONNECTION_LOST = 12; // Connexion perdue
+	private static final int CONNECTION_FOUND = 13; // QUand la connexion a été retrouvée
 
-	protected Mode currentMode;
-	protected enum Mode{ONLINE, OFFLINE};
+
+	protected boolean isOnline; // acces reseau ou non
+	protected boolean itemSelected = false;
 
 	private String loaded_file = "";
 	private String tree_json;
 
-	private HashMap<String,String> projectsList;
+	private HashMap<String,String> projectsList; // HashMap<Nom de projet, ID du projet>
 
 	private int nb_projects;
 	private String current_fileId = ""; 
@@ -101,10 +119,14 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	private String [] projectsStringArray;
 	private HashMap<String, String> modifiedFiles;
 
-	private String lastText = "";
+	private String pdfName; // variable nécessaire pour l'enregistrement du fichier pdf. Par défaut, le nom du fichier pdf est le même que le nom du fichier en cours d'édition
+
+	private Thread checkConnection;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Log.i("onCreate", "onCreate");
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -118,10 +140,12 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		tree_json = b.getString("tree");
 
 		try {
-			traitementJson();
+			ArrayList<JSONObject> projects = traitementJson();
+			selectProject(projects.get(0).getString("projectName"));
+			updateProjectSpinner();
 		} catch (JSONException e) {e.printStackTrace();}
 
-		currentMode = (bl) ? Mode.ONLINE : Mode.OFFLINE;
+		isOnline = (bl) ? true : false;
 
 		layout_lineCount = (LinearLayout) (findViewById(R.id.layout_lineCount));
 		sv1 = (MyScrollView) (findViewById(R.id.scroll1));
@@ -132,11 +156,12 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 		compil.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
+
 				Log.i("compil1", "compil1");
 				if(current_fileId != ""){
 					Log.i("compil2", "compil2");
 					compil(current_fileId);
-					//testPDF();
+
 				}
 			}
 		});
@@ -168,7 +193,6 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		create.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
-				//Log.i("projet", "creation projet");
 				popDialogProject();
 			}
 
@@ -189,11 +213,10 @@ public class MainActivity extends Activity implements ScrollViewListener{
 					int x = (int)(main_text.getText().charAt(i));
 
 					if(x != 65279){
-						Log.i("text", Integer.toString((int)(main_text.getText().charAt(i))));
 						str += main_text.getText().charAt(i);
 					}
 				}
-				
+
 				str.trim();
 				modifiedFiles.put(current_fileId, str);	
 				ImageView iv = (ImageView) (findViewById(R.id.sync_icon));
@@ -205,8 +228,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 			}
 
-			public void onTextChanged(CharSequence s, int arg1, int arg2,
-					int arg3) {
+			public void onTextChanged(CharSequence s, int arg1, int arg2, int arg3) {
 
 			}
 
@@ -215,56 +237,99 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		sync = (Button) (findViewById(R.id.bouton_sync));
 		sync.setOnClickListener(new OnClickListener() {
 
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				sync();
-			}
+			public void onClick(View v) {sync();}
 		});
 
+
+		checkConnection = new Thread(new Runnable(){
+
+			public void run() {
+				while(true){
+					if(isOnline() != isOnline){
+						isOnline = isOnline();
+						Message msg;
+						if(!isOnline()){ // Perte de connexion
+							msg = mHandler.obtainMessage(CONNECTION_LOST);
+						}
+						else{
+							msg = mHandler.obtainMessage(CONNECTION_FOUND);
+						}
+
+						mHandler.sendMessage(msg);
+					}
+
+					try {
+						Thread.sleep(30000);
+					} catch (InterruptedException e) {e.printStackTrace();}
+				}
+			}
+
+		});
+		checkConnection.start();
+
+		spinnerTV = (TextView) (findViewById(R.id.spinner_tv));
+		spinnerTV.setOnClickListener(new OnClickListener(){
+
+			public void onClick(View v) {
+
+				// Création de la ProgressDialog de chargement
+				current_loading_dialog =  ProgressDialog.show(MainActivity.this, "Téléchargement", "Téléchargement de l'arborescence...", true);
+
+				// Les actions effectuées pendant le chargement sont lancées dans un Thread
+				new Thread(new Runnable(){
+
+					public void run() {
+						System.out.println("updt1");
+						tree_json = Comm.getJSON();
+						Message msg = mHandler.obtainMessage(UPDATE_TREE_OK);
+						mHandler.sendMessage(msg);
+						System.out.println("updt2");
+					}
+
+				}).start();
+			}
+
+		});
 
 		updateLineCount(0);
 	}
 
-	/*public void testPDF(){
-		Log.i("testPDF", "testPDF");
-		byte[] decoded = Base64.decode(pdf64, Base64.DEFAULT);
-		String s = new String(decoded);
-		Log.i("Base64 decoded", s);
-
-		File f = new File("/sdcard/TeXloudDocs/cdc.pdf");
-		OutputStream fos;
-		try {
-			fos = new FileOutputStream(f);
-			fos.write(decoded);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		File file = new File("/sdcard/TeXloudDocs/cdc.pdf");
-		intent.setDataAndType(Uri.fromFile(file), "application/pdf");// "http://192.168.0.2/android/getPdf"
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-		try {
-			startActivity(intent);
-		}
-		catch (ActivityNotFoundException e) {
-			Toast.makeText(MainActivity.this, 
-					"No Application Available to View PDF", 
-					Toast.LENGTH_SHORT).show();
-		}
 
 
-	}*/
+	@Override
+	protected void onPause(){
+		//TODO
+		//Comm.clearCookie();
+		Log.i("onPause", "onPause");
+		super.onPause();
+	}
+
+	@Override
+	protected void onStop(){
+		//TODO
+		//Comm.clearCookie();
+		Log.i("onStop", "onStop");
+		super.onStop();
+	}
+
+	@Override
+	protected void onResume(){
+		Log.i("onResume", "onResume");
+		super.onResume();
+	}
+
+	@Override
+	protected void onRestart(){
+		Log.i("onRestart", "onRestart");
+		super.onRestart();
+	}
 
 	public HashMap<String, String> getProjectsList() {
 		return projectsList;
 	}
 
 	public void sync(){
-		sync_dialog = ProgressDialog.show(MainActivity.this, "Synchronisation", "Synchro en cours...", true);
+		current_loading_dialog = ProgressDialog.show(MainActivity.this, "Synchronisation", "Synchro en cours...", true);
 
 		new Thread(new Runnable(){
 
@@ -310,32 +375,90 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		dialog_createProject.show();
 	}
 
-	public void compil(String fileId){
-		//Log.i("compil2b", "compil2b");
+	public String parseLog(String log){
 
-		compil_loading = ProgressDialog.show(MainActivity.this, "Compilation", "Compilation en cours...", true);
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+
+			InputStream stream = new ByteArrayInputStream(log.getBytes());
+
+			Document dom = db.parse(stream);
+			Element docEle = dom.getDocumentElement();
+			NodeList message = docEle.getElementsByTagName("message");
+
+			Log.i("message : ", message.item(0).toString());
+
+
+
+		} catch (ParserConfigurationException e) {e.printStackTrace();} 
+		catch (SAXException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();}
+
+
+		return null;
+	}
+
+	public void compil(String fileId){
+
+		current_loading_dialog = ProgressDialog.show(MainActivity.this, "Compilation", "Compilation en cours...", true);
 
 		new Thread(new Runnable(){
 			public void run(){
 				Message msg;
-				String url = Comm.compilRequest(current_fileId);
-				Log.i("url reçue : ", url);
-				msg = mHandler.obtainMessage(COMP_OK);
-				mHandler.sendMessage(msg);
+				String compilReturn = Comm.compilRequest(current_fileId);
 
-				InputStream is = Comm.pdfRequest();
+				String json = "";
 
-				//Log.i("compil3", "compil3");
-				/*try {
-					traitementPDF(is);
-				} catch (IOException e1) {e1.printStackTrace();}*/
+				//Eviter le caractere insécable
+				for(int i = 1; i<compilReturn.length(); i++){
+					json += compilReturn.charAt(i);
+				}
 
+				JSONObject jo;
 				try {
-					traitementPDF(url);
-				} catch (IOException e) {e.printStackTrace();}
+					Log.i("json", json);
+					jo = new JSONObject(json);
+					String url = jo.getString("url");
+					int status = jo.getInt("status");
+					String log = jo.getString("log");
 
-				msg = mHandler.obtainMessage(PDF_OK);
-				mHandler.sendMessage(msg);
+					//String parsedLog = parseLog(log);
+
+					Log.i("Log reçu : ", log);
+					Log.i("url reçue : ", url);
+
+
+					switch(status){
+					case 0:
+						dialog_fail_compil = new Dialog(MainActivity.this, R.style.noBorder);
+						dialog_fail_compil.setContentView(R.layout.compilfaillayout);
+
+						TextView tv = (TextView) (dialog_fail_compil.findViewById(R.id.failCompil_tv));
+						tv.setText(log);
+						dialog_fail_compil.show();
+
+						Button ok = (Button) (dialog_fail_compil.findViewById(R.id.button_ok_fail_compil));
+						ok.setOnClickListener(new OnClickListener(){
+
+							public void onClick(View arg0) {
+								dialog_fail_compil.dismiss();
+							}
+
+						});
+						break;
+
+					case 1:
+						msg = mHandler.obtainMessage(COMP_OK);
+						mHandler.sendMessage(msg);
+						traitementPDF(url);
+						msg = mHandler.obtainMessage(PDF_OK);
+						mHandler.sendMessage(msg);
+						break;
+					}
+
+
+				} catch (JSONException e1) {e1.printStackTrace();}catch (IOException e) {e.printStackTrace();}
+
 			}
 		}).start();
 
@@ -343,115 +466,38 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 	}
 
-	/*public void traitementPDF(String url) throws IOException{
-
-		byte[] buffer = new byte[16384];
-
-		Log.i("Chargement de l'url ", "http://" + url);
-		URL u = new URL("http://192.168.0.2/images/cahierDesCharges.pdf");
-
-		URLConnection uc = u.openConnection();
-
-		FileOutputStream fos2 = new FileOutputStream("/sdcard/TeXloudDocs/cdc.pdf");
-		InputStream myInput = uc.getInputStream();
-		//Log.i("InputStream", readInputStream(myInput));
-
-		int l = myInput.read(buffer);
-		while(l>0){
-			fos2.write(buffer, 0, l);
-			l = myInput.read(buffer);
-		}
-		fos2.flush();
-		fos2.close();
-
-
-		//Ouverture du fichier pdf
-
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		File file = new File("/sdcard/TeXloudDocs/cdc.pdf");
-		intent.setDataAndType(Uri.fromFile(file), "application/pdf");// "http://192.168.0.2/android/getPdf"
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-		try {
-			startActivity(intent);
-		}
-		catch (ActivityNotFoundException e) {
-			Toast.makeText(MainActivity.this, 
-					"No Application Available to View PDF", 
-					Toast.LENGTH_SHORT).show();
-		}
-		Log.i("compil6", "compil6");
-	}*/
 
 
 	public void traitementPDF(String url) throws IOException{
 		//Log.i("compil4", "compil4");
 
 
-		byte[] buffer = new byte[16384];
+		byte[] buffer = new byte[1024];
 
-		/* Methode 1*/
-		/*int bytesRead;
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		//Log.i("is.toString()", ":" + is.toString());
-		while ((bytesRead = is.read(buffer)) != -1)
-		{
-		baos.write(buffer, 0, bytesRead);
-		}*/
-
-
-		/* Base 64*/
-		/*Base64 b64;
-		String result = "";
-
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is,"UTF8"),30);
-		StringBuilder sb = new StringBuilder();
-		String line = null;
-		while ((line = reader.readLine()) != null) {
-			sb.append(line);
-		}
-		result=sb.toString();*/
-
-
-		/* Methode 2*/
-		/*File someFile = new File("/sdcard/TeXloudDocs/cdc.pdf"); 
-		OutputStream fos;
-		fos = new FileOutputStream(someFile);
-
-		int l;
-		while((l = is.read(buffer)) > 0)
-			fos.write(buffer, 0, l);
-
-		//fos.flush(); 
-		fos.close();
-		is.close();*/
 
 		String correctUrl = "http://";
 
-		for(int i = 1; i<url.length(); i++){
-			correctUrl += url.charAt(i);
+		for(int i = 0; i<url.length(); i++){
+			if((int)(url.charAt(i)) !=  65279){
+				correctUrl += url.charAt(i);
+				Log.i("url"+i, url.charAt(i) + "");
+			}
 		}
-
 
 		Log.i("compil5", "compil5");
 
-
-
-
-		/*Cahier des charges par URL directe*/
-
-		//URL u = new URL("http://192.168.0.2/pdf/4f352df8bfe7f.pdf");
-		//URL u = new URL("http://192.168.0.2/pdf/4f3529376f506.pdf");
 		URL u = new URL(correctUrl);
-		//URL u = new URL("http://192.168.0.2/android/getPdf");
+
 
 		URLConnection uc = u.openConnection();
 
-		FileOutputStream fos2 = new FileOutputStream("/sdcard/TeXloudDocs/cdc.pdf");
-		//FileWriter fw = new FileWriter("/sdcard/TeXloudDocs/cdc.pdf");
-		//PrintWriter pw = new PrintWriter(fw);
+		FileOutputStream fos2 = new FileOutputStream("/sdcard/TeXloudDocs/"+pdfName+".pdf");
+
+		Log.i("compil51", "compil51");
+
 		InputStream myInput = uc.getInputStream();
-		//Log.i("InputStream", readInputStream(myInput));
+
+		Log.i("compil52", "compil52");
 
 		int l = myInput.read(buffer);
 		Log.i("l", Integer.toString(l));
@@ -462,30 +508,13 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		fos2.flush();
 		fos2.close();
 
-		/*while(l>0){
-			pw.print(myInput.read(buffer));
-			l = myInput.read(buffer);
-			Log.i("coucou", "coucou");
-		}
-
-		pw.flush();
-		pw.close();*/
-
 		/*Ouverture du fichier pdf*/
 
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		File file = new File("/sdcard/TeXloudDocs/cdc.pdf");
-		intent.setDataAndType(Uri.fromFile(file), "application/pdf");// "http://192.168.0.2/android/getPdf"
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-		try {
-			startActivity(intent);
-		}
-		catch (ActivityNotFoundException e) {
-			Toast.makeText(MainActivity.this, 
-					"No Application Available to View PDF", 
-					Toast.LENGTH_SHORT).show();
-		}
+		Message msg = mHandler.obtainMessage(PDF_SAVED);
+		mHandler.sendMessage(msg);
+
+
 		Log.i("compil6", "compil6");
 
 	}
@@ -536,15 +565,16 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	public boolean isOnline() {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = cm.getActiveNetworkInfo();
-		if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+		if (netInfo != null && netInfo.isConnectedOrConnecting()) { // Test connectivité
 			return true;
 		}
 		return false;
 	}
 
 	public void fileClicked(String fileName, String fileId){
-		loading_dialog = ProgressDialog.show(this, "Chargement", "Chargement du fichier " + fileName + "...", true);
+		current_loading_dialog = ProgressDialog.show(this, "Chargement", "Chargement du fichier " + fileName + "...", true);
 		current_fileId = fileId;
+		pdfName = fileName.split(".tex")[0]; // Le nom qu'aura le pdf en cas de compilation (même nom que le fichier .tex)
 
 		new Thread(new Runnable(){
 
@@ -561,7 +591,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	public void saveFile(String file_content, String file_name){
 
 		if(loaded_file != ""){
-			File file = new File(Environment.getExternalStorageDirectory() + "/TeXloudDocs", file_name);
+			File file = new File(Environment.getExternalStorageDirectory() + "/TeXloudDocs", file_name); //TODO ajouter folder
 
 			try {
 				file.createNewFile();
@@ -591,10 +621,11 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 	}
 
-	public void traitementJson() throws JSONException{
+	public ArrayList<JSONObject> traitementJson() throws JSONException{
 		mtm = new MyTreeManager(this, "Workspace");
 		JSONArray jo = new JSONArray(tree_json);
 		nb_projects = jo.length();
+
 		//Log.i("nb_project", Integer.toString(nb_projects));
 		//Log.i("json1", jo.toString());
 
@@ -603,21 +634,20 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 		for(int i=0; i<nb_projects; i++){
 			projects.add(jo.getJSONObject(i));
+			Log.i(projects.get(i).getString("projectName"), projects.get(i).getString("projectId"));
 			projectsList.put(projects.get(i).getString("projectName"), projects.get(i).getString("projectId"));
 		}
 
-		selectProject(projects.get(0).getString("projectName"));
-		updateProjectSpinner();
+		return projects;
+
+		//selectProject(projects.get(0).getString("projectName"));
+		//updateProjectSpinner();
 	}
 
 	public void updateProjectSpinner(){
 		project_spinner = (Spinner) (findViewById(R.id.project_spinner));
 
 		projectsStringArray = new String[projectsList.size()];
-
-		/*for(int i=0; i<projectsList.size(); i++){
-			projectsStringArray[i] = projectsList.get(i);
-		}*/
 
 		int i=0;
 		for(String s : projectsList.keySet()){
@@ -628,26 +658,46 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item, projectsStringArray);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		project_spinner.setAdapter(adapter);
-		//TextView tv = (TextView) (project_spinner.findViewById(android.R.id.text1));
 
-		/*tv.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Log.i("test", "test");
-			}
-		});*/
-
-		project_spinner.setOnTouchListener(new OnTouchListener() {
+		/*project_spinner.setOnTouchListener(new OnTouchListener() {
 
 			public boolean onTouch(View v, MotionEvent event) {
-				updateJSONTree();
+				if(event.getAction() == MotionEvent.ACTION_UP){ // Seulement quand on relache le spinner (sinon méthode executée plusieurs fois)
+
+					current_loading_dialog =  ProgressDialog.show(MainActivity.this, "Téléchargement", "Téléchargement de l'arborescence...", true);
+
+					new Thread(new Runnable(){
+
+						public void run() {
+							System.out.println("updt1");
+							tree_json = Comm.getJSON();
+							Message msg = mHandler.obtainMessage(UPDATE_TREE_OK);
+							mHandler.sendMessage(msg);
+							System.out.println("updt2");
+						}
+
+					}).start();
+				}
 				return false;
+
 			}
-		});
+		});*/
 
 		project_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 				try {
-					selectProject(projectsStringArray[position]);
+					if(!itemSelected){
+						itemSelected = true;
+
+					}
+					else{
+
+						Log.i("projectsStringArray", projectsStringArray[position]);
+						selectProject(projectsStringArray[position]);
+						project_spinner.setVisibility(View.GONE);
+						itemSelected = false;
+					}
+
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -662,10 +712,19 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	}
 
 	public void updateJSONTree(){
-		tree_json = Comm.getJSON();
-		try {
-			traitementJson();
-		} catch (JSONException e) {e.printStackTrace();}
+
+		current_loading_dialog = ProgressDialog.show(MainActivity.this, "Mise à jour", "Mise à jour de l'arborescence...", true);
+
+		new Thread(new Runnable(){
+
+			public void run() {
+				tree_json = Comm.getJSON();
+				Message msg = mHandler.obtainMessage(UPDATE_TREE_OK);
+				mHandler.sendMessage(msg);
+			}
+
+		}).start();
+
 	}
 
 	public String getCurrentProject(){
@@ -675,7 +734,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	public void selectProject(String name_project) throws JSONException{
 		currentProject = name_project;
 		mtm.setTree(new ArrayList<Node>());
-		//Log.i("select", name_project);
+		Log.i("select", name_project);
 
 		JSONArray jo = new JSONArray(tree_json);
 		ArrayList<JSONObject> projects = new ArrayList<JSONObject>();
@@ -686,18 +745,17 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 
 		for(JSONObject project : projects){
-			//Log.i(name_project, project.getString("projectName"));
-
 
 			if(project.getString("projectName").trim().equals(name_project.trim())){
-				//Log.i("coucou", "test");
 				mtm = new MyTreeManager(this, project.getString("projectName"));
-				//mtm.getNode(0).setName(project.getString("projectName"));
 				JSONArray files = new JSONArray(project.getString("files"));
 
 				for(int i=0; i<files.length(); i++){
 					JSONObject object = files.getJSONObject(i);
-					//Log.i("file", object.getString("filename"));
+
+					Log.i("filename", object.getString("filename"));
+					Log.i("parentId", object.getString("parentId"));
+					Log.i("idFile", object.getString("id_file"));
 
 
 					if(object.getInt("is_dir") == 0){
@@ -726,7 +784,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 				updateText();
 				ImageView iv = (ImageView) (findViewById(R.id.sync_icon));
 				iv.setImageResource(R.drawable.valider);
-				loading_dialog.dismiss();
+				current_loading_dialog.dismiss();
 				break;
 
 			case LOAD_ERR:
@@ -734,28 +792,71 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 
 			case COMP_OK:
-				compil_loading.dismiss();
-				compil_loading = ProgressDialog.show(MainActivity.this, "Récupération PDF", "Récupération PDF en cours...", true);
+				current_loading_dialog.dismiss();
+				current_loading_dialog = ProgressDialog.show(MainActivity.this, "Récupération PDF", "Récupération PDF en cours...", true);
 				break;
 
 
 			case PDF_OK:
-				compil_loading.dismiss();
+				current_loading_dialog.dismiss();
 				break;
 
-			case SYNC:
+			case PDF_SAVED:
+				dialog = new Dialog(MainActivity.this, R.style.noBorder);
+				dialog.setContentView(R.layout.pdfsavedlayout);
+
+				dialog.show();
+
+				TextView tv = (TextView) (dialog.findViewById(R.id.pdf_tv));
+				tv.setText("PDF sauvegardé : " + "/sdcard/TeXloudDocs/" + pdfName + ".pdf");
+
+				Button button = (Button) dialog.findViewById(R.id.button_ok_pdf);
+				button.setOnClickListener(new OnClickListener(){
+					public void onClick(View v) {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						File file = new File("/sdcard/TeXloudDocs/"+pdfName+".pdf");
+						intent.setDataAndType(Uri.fromFile(file), "application/pdf");// "http://192.168.0.2/android/getPdf"
+						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+						try {
+							startActivity(intent);
+						}
+						catch (ActivityNotFoundException e) {
+							Toast.makeText(MainActivity.this, 
+									"No Application Available to View PDF", 
+									Toast.LENGTH_SHORT).show();
+						}
+						dialog.dismiss();
+
+					}
+				});
+
+				Button cancel = (Button) dialog.findViewById(R.id.button_cancel_pdf);
+				cancel.setOnClickListener(new OnClickListener(){
+					public void onClick(View v) {
+						dialog.dismiss();					
+					}
+				});
 
 				break;
 
 			case SYNC_OK:
-				sync_dialog.dismiss();
+				current_loading_dialog.dismiss();
 				ImageView iv2 = (ImageView) (findViewById(R.id.sync_icon));
 				iv2.setImageResource(R.drawable.valider);
 				break;
+
+
+			case UPDATE_TREE_OK:
+				current_loading_dialog.dismiss();
+				try {
+					traitementJson();
+					project_spinner.setVisibility(View.VISIBLE);
+					project_spinner.performClick();
+				} catch (JSONException e) {e.printStackTrace();}
+				break;
+
 			}
 		}
 	};
-
-
-
 }

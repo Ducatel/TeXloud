@@ -107,12 +107,24 @@
 
             <Spinner
                 android:id="@+id/project_spinner"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:drawSelectorOnTop="true"
+                android:prompt="@string/project_prompt"
+                android:visibility="gone"/>
+            
+            <TextView
+                android:id="@+id/spinner_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawSelectorOnTop="true"
-                android:prompt="@string/project_prompt"/>
+                android:padding="5dp"
+                android:text="Select project"
+                android:textColor="#699838"
+                android:textSize="18dp"
+                android:background="@drawable/backtv"/>
 
             <HorizontalScrollView
+                android:paddingTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 

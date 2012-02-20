@@ -31,14 +31,13 @@
         android:background="#FFFFFF"
         android:gravity="center" >
 
-        <TextView
+        <ImageView
             android:id="@+id/text_left_login"
             android:layout_width="600dp"
             android:layout_height="350dp"
             android:gravity="center_vertical|left"
             android:paddingRight="100dp"
-            android:text="@string/text_login_page"
-            android:textColor="#888888" />
+            android:src="@drawable/dessin" />
 
         <LinearLayout
             android:id="@+id/login_view"

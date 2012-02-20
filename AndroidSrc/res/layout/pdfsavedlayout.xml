@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:padding="15dip" >
+
+    <TextView
+        android:id="@+id/pdf_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:paddingBottom="10dip"
+        android:text="PDF sauvegardé : "
+        android:textColor="#699838"
+        android:textSize="18dp" />
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pdf_tv"
+        android:gravity="right" >
+
+        <Button
+            android:id="@+id/button_ok_pdf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:paddingRight="30dp"
+            android:text="Afficher le pdf"
+            android:textColor="#699838"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button_cancel_pdf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:text="Fermer"
+            android:textColor="#699838"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>
