@@ -1,15 +1,21 @@
 \select@language {french}
 \contentsline {figure}{\numberline {1}{\ignorespaces Diagramme de d\IeC {\'e}ploiement}}{3}{figure.1}
 \contentsline {figure}{\numberline {2}{\ignorespaces Diagramme MVC}}{5}{figure.2}
-\contentsline {figure}{\numberline {3}{\ignorespaces Acceuil, application web}}{9}{figure.3}
+\contentsline {figure}{\numberline {3}{\ignorespaces Accueil, application web}}{9}{figure.3}
 \contentsline {figure}{\numberline {4}{\ignorespaces Inscription, application web}}{10}{figure.4}
 \contentsline {figure}{\numberline {5}{\ignorespaces Premi\IeC {\`e}re page, application web}}{10}{figure.5}
 \contentsline {figure}{\numberline {6}{\ignorespaces Cr\IeC {\'e}ation projet, application web}}{11}{figure.6}
 \contentsline {figure}{\numberline {7}{\ignorespaces Cr\IeC {\'e}ation projet (nom du projet), application web}}{11}{figure.7}
 \contentsline {figure}{\numberline {8}{\ignorespaces Cr\IeC {\'e}ation projet termin\IeC {\'e}, application web}}{12}{figure.8}
 \contentsline {figure}{\numberline {9}{\ignorespaces Cr\IeC {\'e}ation de fichier, application web}}{12}{figure.9}
-\contentsline {figure}{\numberline {10}{\ignorespaces Cr\IeC {\'e}ation de fichier termin\IeC {\'e}, application web}}{13}{figure.10}
+\contentsline {figure}{\numberline {10}{\ignorespaces Cr\IeC {\'e}ation de fichier termin\IeC {\'e}e, application web}}{13}{figure.10}
 \contentsline {figure}{\numberline {11}{\ignorespaces Compilation, application web}}{14}{figure.11}
 \contentsline {figure}{\numberline {12}{\ignorespaces Log d'erreur, application web}}{15}{figure.12}
 \contentsline {figure}{\numberline {13}{\ignorespaces Visualisation du PDF, application web}}{16}{figure.13}
-\contentsline {figure}{\numberline {14}{\ignorespaces Compilation, application web}}{17}{figure.14}
+\contentsline {figure}{\numberline {14}{\ignorespaces Page d'accueil Android}}{17}{figure.14}
+\contentsline {figure}{\numberline {15}{\ignorespaces Inscription via Android}}{18}{figure.15}
+\contentsline {figure}{\numberline {16}{\ignorespaces Cr\IeC {\'e}ation de projet}}{19}{figure.16}
+\contentsline {figure}{\numberline {17}{\ignorespaces Fichier synchronis\IeC {\'e}}}{20}{figure.17}
+\contentsline {figure}{\numberline {18}{\ignorespaces Fichier non synchronis\IeC {\'e}}}{21}{figure.18}
+\contentsline {figure}{\numberline {19}{\ignorespaces Compilation via Android}}{22}{figure.19}
+\contentsline {figure}{\numberline {20}{\ignorespaces Compilation via Android}}{23}{figure.20}

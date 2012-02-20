@@ -117,7 +117,7 @@ L'équipe est composé de 5 personnes:
 
 \newpage
 \section{Choix techniques}
-\subsection{Architecture général}
+\subsection{Architecture générale}
 \paragraph*{}
 Le projet est divisé en 5 parties minimum:
 \begin{itemize}
@@ -137,7 +137,7 @@ Le projet est divisé en 5 parties minimum:
 \end{figure}
 
 \paragraph*{}
-Ce type d'architecture à été choisie car elle permet une extension du nombre de serveurs de compilation et de données théoriquement infinie. Aussi, elle permet de limité au maximum les échange "lourd"\footnote{Transfert de nombreux fichiers et donc potentiellement lourd pour le réseau}. L'ensemble des communications (sauf envoie de binaire) sont au format JSON.
+Ce type d'architecture à été choisi car il permet une extension du nombre de serveurs de compilation et de données théoriquement infinie. Aussi, elle permet de limiter au maximum les échanges "lourds"\footnote{Transfert de nombreux fichiers et donc potentiellement lourd pour le réseau}. L'ensemble des communications (sauf envoi de binaire) est au format JSON.
 
 \paragraph*{}
 Typiquement une compilation de documents passe par l'ensemble des serveurs:
@@ -153,23 +153,23 @@ Typiquement une compilation de documents passe par l'ensemble des serveurs:
 
 \subsection{Serveur web}
 \paragraph*{}
-Le serveur web inclue plusieurs services:
+Le serveur web inclut plusieurs services:
 \begin{itemize}
- \item La base de données de l'application. Le SGBD MySQL a été choisie pour supporté cette tâche.
- \item L'interface coté serveur a été développé en PHP5. Le serveur HTTP Apache2 est utilisé pour géré les connexions.
- \item L'interface cliente utilise les technologies HTML5, CSS3 et javascript (Via le frameworks JQuery).
+ \item La base de données de l'application. Le SGBD MySQL a été choisi pour supporter cette tâche.
+ \item L'interface coté serveur a été développée en PHP5. Le serveur HTTP Apache2 est utilisé pour gérer les connexions.
+ \item L'interface cliente utilise les technologies HTML5, CSS3 et javascript (Via le framework JQuery).
  \item L'interface de communication entre l'application Android et le reste de l'architecture.
 \end{itemize}
 
 \paragraph*{}
-Un modèle de conception MVC a été utilisé afin de rendre le code de l'application plus clair, plus facilement maintenable et évolutif. Les communications avec le serveur de routage et d'ordonnancement sont effectués grâce à des sockets TCP qui ont une durée de vie égale à une boucle entre tous les serveurs. Ceci permet de ne pas laisser en permanence de ports ouvert sur le serveur et ainsi limité les risques d'attaques sur ce service.
+Un modèle de conception MVC a été utilisé afin de rendre le code de l'application plus clair, plus facilement maintenable et évolutif. Les communications avec le serveur de routage et d'ordonnancement sont effectuées grâce à des sockets TCP qui ont une durée de vie égale à une boucle entre tous les serveurs. Ceci permet de ne pas laisser en permanence de ports ouvert sur le serveur et ainsi limiter les risques d'attaque sur ce service.
 
 \paragraph*{}
-L'application Web est divisé en trois parties:
+L'application Web est divisée en trois parties:
 \begin{enumerate}
- \item La partie développement, où l'utilisateur peut écrire sont code LaTex, consulter les logs d'erreurs/warning (s'il existe) après la compilation.
- \item La partie gestion des projets. L'utilisateur peut crée des projets, des dossier (sous dossiers) et des fichiers LaTex. il peut aussi renommer, supprimer un projet, un dossier ou un fichier.
- \item La barre supérieur, où l'utilisateur peut synchronisées les fichiers qui ont été modifier, les compilées, télécharger sous format de PDF. Éventuellement l'utilisateur peut modifier ces informations personnels ou changer son mot de passe.
+ \item La partie développement, où l'utilisateur peut écrire son code LaTex, consulter les logs d'erreurs/warning (s'il existe) après la compilation.
+ \item La partie gestion des projets. L'utilisateur peut créer des projets, des dossiers (sous dossiers) et des fichiers LaTex. il peut aussi renommer, supprimer un projet, un dossier ou un fichier.
+ \item La barre supérieure, où l'utilisateur peut synchroniser les fichiers qui ont été modifiés, les compiler, télécharger sous format de PDF. Éventuellement l'utilisateur peut modifier ses informations personnelles ou changer son mot de passe.
 \end{enumerate}
 
 \clearpage
@@ -186,7 +186,7 @@ L'application Web est divisé en trois parties:
 \paragraph*{}
 L'application Android comporte deux activités (écrans) principales.
 \begin{itemize}
- \item La première est l'écran d'authentification, qui permet à l'utilisateur de s'authentifier afin d'accéder à son espace personnel, ou de s'inscrire afin de rejoindre le service TeXloud.
+ \item La première est l'écran d'authentification, qui permet à l'utilisateur de s'authentifier pour accéder à son espace personnel, ou de s'inscrire afin de rejoindre le service TeXloud.
  \item La deuxième activité est lancée lorsque l'utilisateur est identifié. C'est l'écran principal de l'application.
 \end{itemize}
 \paragraph*{}
@@ -204,26 +204,26 @@ La partie de droite est la saisie de texte. Le contenu de cette zone de texte es
 
 \subsection{Serveur de routage et d'ordonnancement}
 \paragraph*{}
-Le serveur de routage et d'ordonnancement permet de géré les communications entre le serveur web et les différents serveur de données et de compilation. Ce service à été développé en python. Il fourni deux services:
+Le serveur de routage et d'ordonnancement permet de gérer les communications entre le serveur web et les différents serveurs de données et de compilation. Ce service à été développé en python. Il fournit deux services:
 \begin{enumerate}
  \item Un service de routage
  \item Un service d'ordonnancement
 \end{enumerate}
 
 \paragraph*{}
-Le service de routage permet de dirigé les requêtes vers les bon serveurs en fonctions de l'action voulu (compilation vers un serveurs de compilation,gestion des données vers le bon serveur de données). Le service d'ordonnancement permet de répartir la charge sur les différents serveurs en fonction de leurs charge propre. L'ordonnancement permet ainsi d'éviter d'avoir des serveurs totalement au repos et d'autres au maximum de leurs capacité.
+Le service de routage permet de diriger les requêtes vers les bons serveurs en fonction de l'action voulue (compilation vers un serveur de compilation,gestion des données vers le bon serveur de données). Le service d'ordonnancement permet de répartir la charge sur les différents serveurs en fonction de leur charge propre. L'ordonnancement permet ainsi d'éviter d'avoir des serveurs totalement au repos et d'autres au maximum de leur capacité.
 
 \paragraph*{}
-Ce service permet de gérer plusieurs connexion simultané. Il a été mit en charge avec plus de 1000 connexions simultané et aucun problème n'as été constaté.
+Ce service permet de gérer plusieurs connexion simultanées. Il a été mis en charge avec plus de 1000 connexions simultanées et aucun problème n'a été constaté.
 
 \paragraph*{}
-Les communications entre le serveur HTTP, les serveurs de compilation et les serveurs de données sont effectués la aussi grâce à des socket TCP.
+Les communications entre le serveur HTTP, les serveurs de compilation et les serveurs de données sont effectués là aussi grâce à des sockets TCP.
 
 \paragraph*{}
-L'ensemble des données sur les serveurs (adresse IP, port du service, type de service, charge maximal) sont stocké au sein d'un fichier XML sur ce serveur.
+L'ensemble des données sur les serveurs (adresse IP, port du service, type de service, charge maximal) sont stockés au sein d'un fichier XML sur ce serveur.
 
 \paragraph*{}
-Il faut aussi indiquer que ce serveur génère des logs afin que le suivit de l'exploitation de cette partie puisse être effectué le plus simplement possible. Les logs générer sont en rotation, c'est-à-dire qu'ils ont une taille maximal fixer et qu'ils s'écrivent sur plusieurs fichiers\footnote{Sur trois fichiers actuellement}.
+Il faut aussi indiquer que ce serveur génère des logs afin que le suivi de l'exploitation de cette partie puisse être effectué le plus simplement possible. Les logs générés sont en rotation, c'est-à-dire qu'ils ont une taille maximal fixée et qu'ils s'écrivent sur plusieurs fichiers\footnote{Sur trois fichiers actuellement}.
 
 
 \subsection{Serveur de stockage de données}
@@ -232,11 +232,11 @@ Lorsqu'un projet est crée sur TeXloud, un serveur de stockage lui est attribué
 Il s'agit en fait d'un parc de serveurs physiques disposant d'un démon serveur destiné à recevoir de la frontale des requêtes standardisées permettant de faire les traitements demandés.
 
 L'application serveur est développée en python et dispose d'une socket en écoute sur un port spécifique.
-La séparation des composant de l'application permet de donner un certaine scalabilité de l'application, les méthodes d'accès aux données peuvent donc différer selon le serveur concerné.
-De plus, le stockage des fichier se fait à l'aide de gestionnaires de versions afin de permettre le travail en équipe et une gestion de version éventuelle.
+La séparation des composants de l'application permet de donner un certaine scalabilité de l'application, les méthodes d'accès aux données peuvent donc différer selon le serveur concerné.
+De plus, le stockage des fichiers se fait à l'aide de gestionnaires de versions afin de permettre le travail en équipe et une gestion de version éventuelle.
 
 \paragraph{}
-Le service d'accès aux données se compose principalement de eux parties:
+Le service d'accès aux données se compose principalement de deux parties:
 
 \begin{itemize}
 \item Un démon serveur recevant les requêtes
@@ -247,16 +247,16 @@ Le service d'accès aux données se compose principalement de eux parties:
 Chacune de ces parties sont implémentées par héritage, les deux classes \emph{DataSocket} et \emph{GenericConnector} définissent les méthodes nécessaires pour le fonctionnement complet du système et font éventuellement les traitements non spécifiques au type de stockage.
 L'application est donc potentiellement capable d'ajouter des connecteurs spécifique pour un type de stockage différent en développant les fonctions nécessitant un traitement adapté à celui-ci.
 
-Les fonctions du connecteur subversion sont intégrés par l'utilisation de la librairie Python PySvn permettant de faire les opération proposé par le système de gestion de version telle que les \emph{commit}, les \emph{merge} et les \emph{updates}.
+Les fonctions du connecteur subversion sont intégrées par l'utilisation de la librairie Python PySvn permettant de faire les opérations proposées par le système de gestion de version telle que les \emph{commit}, les \emph{merge} et les \emph{updates}.
 
 \paragraph{}
 Le concept de \emph{copies de travail} est au centre du système de gestion des données.
 Les systèmes de gestions de versions permettent de récupérer une version d'un projet depuis un serveur distant en créant un \emph{miroir} du projet dans un état spécifique (généralement le dernier).
 
-Le répertoire ainsi crée correspond à une copie de travail, lorsque des modification sont faites sur le projet, elles sont ajoutées puis mise à jour sur le serveur, créant ainsi une nouvelle version du projet.
+Le répertoire ainsi créé correspond à une copie de travail, lorsque des modifications sont faites sur le projet, elles sont ajoutées puis mises à jour sur le serveur, créant ainsi une nouvelle version du projet.
 
 \paragraph{}
-\`A chaque connexion d'un utilisateur, une requête est envoyé par le serveur web jusqu'au serveur de donnée visé qui initialise une nouvelle copie de travail sur le serveur, il s'agit du répertoire de travail associé à l'utilisateur.
+\`A chaque connexion d'un utilisateur, une requête est envoyée par le serveur web jusqu'au serveur de donnée visé qui initialise une nouvelle copie de travail sur le serveur, il s'agit du répertoire de travail associé à l'utilisateur.
 Les modifications effectuées au cours de la session de l'utilisateur sont synchronisées sur ce répertoire par écrasement des fichiers puis sont transmises aux gestionnaire de version.
 
 \subsection{Serveur de compilation}
@@ -271,10 +271,10 @@ Le serveur de compilation, comme son nom l'indique permet de compiler le projet 
 \end{enumerate}
 
 \paragraph*{}
-Ce service est la aussi développé en Python et les communications sont basé sur des socket TCP. De même que pour le service de routage et d'ordonnancement, le service de compilation peut gérer plusieurs connexion en simultané.
+Ce service est là aussi développé en Python et les communications sont basées sur des socket TCP. De même que pour le service de routage et d'ordonnancement, le service de compilation peut gérer plusieurs connexions en simultané.
 
 \paragraph*{}
-Ici aussi des logs en rotation sont générer afin de facilité l'exploitation de ce service de compilation.
+Ici aussi des logs en rotation sont générés afin de faciliter l'exploitation de ce service de compilation.
 
 
 \newpage
@@ -282,26 +282,26 @@ Ici aussi des logs en rotation sont générer afin de facilité l'exploitation d
 \subsection{Application Web}
 \subsubsection{Création de compte}
 \paragraph*{}
-Pour commencer à utiliser le projet TeXloud un utilisateur doit forcement passer par l'inscription sur le service. Pour ce faire il doit ce rendre sur la page d'accueil du site et cliquer sur le lien "s'inscrire".
+Pour commencer à utiliser le projet TeXloud, un utilisateur doit forcément passer par l'inscription sur le service. Pour ce faire, il doit se rendre sur la page d'accueil du site et cliquer sur le lien "s'inscrire".
 
 \begin{figure}[!ht]
 \begin{center}
   \includegraphics[width=1\textwidth]{./images/screenshot/Acceuil.png}
 \end{center}
-  \caption{Acceuil, application web}
+  \caption{Accueil, application web}
   \label{acceuilWeb}
 \end{figure}
 
 \clearpage
 \paragraph*{}
-L'utilisateur est alors rediriger vers la page d'inscription qui lui demande quel information:
+L'utilisateur est alors redirigé vers la page d'inscription qui lui demande quelques informations :
 \begin{itemize}
  \item Un identifiant (Login)
  \item Un mot de passe 
  \item Une adresse email
 \end{itemize}
 \paragraph*{}
-Une fois ces informations renseigné, l'utilisateur peux validé sont inscription grâce au bouton prévue à cette effet. Si il y a une erreur sur c'est informations, l'utilisateur est rediriger sur la page d'inscription avec une indication sur la provenance de l'erreur.
+Une fois ces informations renseignées, l'utilisateur peut valider son inscription grâce au bouton prévu à cet effet. Si il y a une erreur sur ses informations, l'utilisateur est redirigé sur la page d'inscription avec une indication sur la provenance de l'erreur.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -312,7 +312,7 @@ Une fois ces informations renseigné, l'utilisateur peux validé sont inscriptio
 \end{figure}
 
 \paragraph*{}
-Une fois son inscription terminé, l'utilisateur est redirigé vers la page d'accueil ou il doit ce connecter à l'interface. La connexion redirige l'utilisateur vers l'interface principal l'application. A ce moment l'utilisateur ne dispose d'aucun projet. Nous allons voir par la suite comment faire pour créer un projet et des fichiers LaTex.
+Une fois son inscription terminée, l'utilisateur est redirigé vers la page d'accueil ou il doit se connecter à l'interface. La connexion redirige l'utilisateur vers l'interface principale de l'application. \'A ce moment, l'utilisateur ne dispose d'aucun projet. Nous allons voir par la suite comment faire pour créer un projet et des fichiers LaTex.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -325,7 +325,7 @@ Une fois son inscription terminé, l'utilisateur est redirigé vers la page d'ac
 \clearpage
 \subsubsection{Création de projet}
 \paragraph*{}
-La création d'un projet s'effectue via la partie de gauche de l'application, l'arbre. Pour créer un nouveau projet, il suffit de faire un clique droit sur la racine de l'arbre "workspace" et de choisir dans la popup "créer un projet".
+La création d'un projet s'effectue via la partie de gauche de l'application, l'arbre. Pour créer un nouveau projet, il suffit de faire un clic droit sur la racine de l'arbre "workspace" et de choisir dans la popup "créer un projet".
 
 \begin{figure}[!ht]
 \begin{center}
@@ -348,7 +348,7 @@ Une fois que l'utilisateur a cliqué sur "créer un projet", la popup change afi
 
 \clearpage
 \paragraph*{}
-Une fois que l'utilisateur a créé son projet, il peut le voir afficher dans l'arbre sous la racine "workspace". A partir de ce point l'utilisateur peut créer des fichiers latex et des sous dossier si il le souhaite.
+Une fois que l'utilisateur a créé son projet, il peut le voir afficher dans l'arbre sous la racine "workspace". A partir de ce point l'utilisateur peut créer des fichiers latex et des sous-dossiers s'il le souhaite.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -361,7 +361,7 @@ Une fois que l'utilisateur a créé son projet, il peut le voir afficher dans l'
 
 \subsubsection{Création de fichier}
 \paragraph*{}
-Nous avons vue dans la partie précédente comment créer un projet, donc nous allons voir maintenant comment faire pour créer un fichier latex. Pour ce faire, il suffit de faire un clique droit sur le projet et un popup apparaît. Dans celle-ci il suffit de choisir "créer un fichier". 
+Nous avons vu dans la partie précédente comment créer un projet, donc nous allons voir maintenant comment faire pour créer un fichier latex. Pour ce faire, il suffit de faire un clic droit sur le projet et un popup apparaît. Dans celle-ci, il suffit de choisir "créer un fichier". 
 \begin{figure}[!ht]
 \begin{center}
   \includegraphics[width=1\textwidth]{./images/screenshot/MenuTextuel.png}
@@ -373,18 +373,18 @@ Nous avons vue dans la partie précédente comment créer un projet, donc nous a
 \clearpage
 
 \paragraph*{}
-Une fois ceci fait, l'utilisateur doit entrer le nom de son fichier \emph{avec son extension .tex} puis valider. Enfin l'utilisateur vois apparaître sous son projet son nouveau fichier.tex.
+Une fois ceci fait, l'utilisateur doit entrer le nom de son fichier \emph{avec son extension .tex} puis valider. Enfin l'utilisateur voit apparaître sous son projet son nouveau fichier.tex.
 \begin{figure}[!ht]
 \begin{center}
   \includegraphics[width=1\textwidth]{./images/screenshot/Suite_Creation_Fichier.png}
 \end{center}
-  \caption{Création de fichier terminé, application web}
+  \caption{Création de fichier terminée, application web}
   \label{creationFichierFin}
 \end{figure}
 
 \subsubsection{Compilation}
 \paragraph*{}
-A la création d'un nouveau fichier, le document courant reste en cours d'édition (à la connexion l'interface d'édition est désactivée), l'utilisateur clique donc sur le nouveau fichier qui sera rapatrié depuis le serveur de donnée et chargé dans l'interface.
+\'A la création d'un nouveau fichier, le document courant reste en cours d'édition (à la connexion l'interface d'édition est désactivée), l'utilisateur clique donc sur le nouveau fichier qui sera rapatrié depuis le serveur de données et chargé dans l'interface.
 L'utilisateur peut compiler son projet en cliquant sur le lien \emph{compiler} et accède au menu contextuel de compilation proposant une liste des différents projets disponibles.
 
 \clearpage
@@ -400,7 +400,7 @@ La sélection d'un projet dans la liste charge automatiquement la liste des diff
 \end{figure}
 
 \paragraph*{}
-Enfin la soumission du formulaire lance la requête de compilation à proprement parlé au travers du réseau et rapatrie le fichier de log d'erreur et le fichier pdf si la compilation est un succès.
+Enfin, la soumission du formulaire lance la requête de compilation à proprement parler au travers du réseau et rapatrie le fichier de log d'erreur et le fichier pdf si la compilation est un succès.
 
 \clearpage
 \paragraph*{}
@@ -414,11 +414,11 @@ La terminaison de la requête retourne à l'interface web les informations sur l
 \end{figure}
 
 L'accès au pdf se fait systématiquement par la même url \emph{/ajax/getPdf}.
-En fait au niveau du serveur le fichier pdf est écrit dans \emph{/tmp/texloud} et l'adresse du pdf est stocké en session, l'action \emph{getPdf} force le téléchargement du fichier.
+En fait au niveau du serveur le fichier pdf est écrit dans \emph{/tmp/texloud} et l'adresse du pdf est stockée en session, l'action \emph{getPdf} force le téléchargement du fichier.
 
 \clearpage
 \paragraph*{}
-En réalité, nous n'utilisons pas directement l'action de téléchargement du pdf, en revanche, la librairie de visualisation de pdf \emph{pdfjs} fait un appel sur l'url de téléchargement puis convertie le pdf pour un affichage dans des canvas HTML5.
+En réalité, nous n'utilisons pas directement l'action de téléchargement du pdf, en revanche, la librairie de visualisation de pdf \emph{pdfjs} fait un appel sur l'url de téléchargement puis convertit le pdf pour un affichage dans des canvas HTML5.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -431,7 +431,7 @@ En réalité, nous n'utilisons pas directement l'action de téléchargement du p
 
 \subsubsection{Fonctions annexes}
 \paragraph*{}
-L'application inclus également de fonctionnalités secondaires notamment en ce qui concerne la gestion et les modifications de documents.
+L'application inclut également des fonctionnalités secondaires, notamment en ce qui concerne la gestion et les modifications de documents.
 
 \paragraph{Suppression de dossiers et de fichiers\\}
 Les utilisateurs peuvent supprimer les fichiers et les dossiers \emph{via} le menu contextuel sur l'arbre de navigation de gauche.
@@ -443,27 +443,93 @@ Les requêtes de suppressions sont effectués en base de donnée et la requête 
 \paragraph{Information sur les utilisateurs\\}
 Les utilisateurs peuvent compléter les informations sur leur profils afin pouvoir s'identifier dans la communauté (non implémentée).
 
+\newpage
 \subsection{Application Android}
+Le fonctionnement général de l'application Android est proche de celui de l'application web.
 
 \subsubsection{Page d'accueil}
+La page de login est assez intuitive. Après avoir tapé son identifiant et son mot de passe, une requête de vérification est envoyée, et si l'authentification échoue, un message en rouge apparaît sur la page. La page d'accueil permet également de s'inscrire.
 \begin{figure}[!ht]
 \begin{center}
   \includegraphics[width=1\textwidth]{./images/screenshot/android_accueil.png}
 \end{center}
-  \caption{Compilation, application web}
-  \label{compilation}
+  \caption{Page d'accueil Android}
+  \label{Page d'accueil Android}
 \end{figure}
+
 \subsubsection{Création de compte}
+Les champs obligatoires sont en italique.
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/inscription_android.png}
+\end{center}
+  \caption{Inscription via Android}
+  \label{Inscription via Android}
+\end{figure}
 \paragraph*{}
 
 \subsubsection{Création de projet}
+La création de projet est très simple puisqu'il suffit de toucher le bouton ``Créer projet'' et d'entrer un nom de projet. Le projet est ensuite immédiatement disponible dans la liste.
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/creation_projet.png}
+\end{center}
+  \caption{Création de projet}
+  \label{Création de projet}
+\end{figure}
 \paragraph*{}
 
+\subsubsection{Choisir un projet}
+A FAIRE
+
+
 \subsubsection{Synchronisation}
+
 \paragraph*{}
+La synchronisation est fondamentale dans l'application TeXloud, et il est très important pour l'utilisateur de savoir à tout moment où il en est. Une icône est située juste à côté du bouton de synchronisation. Par défaut, elle est verte et signale que tous les fichiers sont synchronisés.
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/synchro1_android.png}
+\end{center}
+  \caption{Fichier synchronisé}
+  \label{Fichier synchronisé}
+\end{figure}
+
+\paragraph*{}
+Cependant, dès qu'un fichier est modifié, le logo devient rouge, signalant qu'une synchronisation doit être faite pour que les modifications soient enregistrées. Lorsque la synchronisation est faite, tous les fichiers modifiés sont enregistrés.
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/synchro2_android.png}
+\end{center}
+  \caption{Fichier non synchronisé}
+  \label{Fichier non synchronisé}
+\end{figure}
+
 
 \subsubsection{Compilation}
 \paragraph*{}
+La compilation passe par le bouton situé dans le bandeau supérieur. Lorsque l'ordre est lancé, tous les fichiers sont synchronisés puis la compilation est traitée. Chaque étape est décrite par une boîte de dialogue signalant à l'utilisateur qu'une opération est en cours.
+Lorsque la compilation s'est déroulée avec succès, une boite de dialogue s'ouvre, affichant les warnings éventuels ainsi que le lien local du fichier PDF sur la tablette. Un bouton propose d'ouvrir immédiatement le PDF.
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/compil_android.png}
+\end{center}
+  \caption{Compilation via Android}
+  \label{Compilation via Android}
+\end{figure}
+
+Les erreurs de compilation apparaissent en rouge dans la boite de dialogue (bien évidemment, aucun fichier PDF n'est généré).
+
+\paragraph*{}
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/erreurCompil_android.png}
+\end{center}
+  \caption{Compilation via Android}
+  \label{Compilation via Android}
+\end{figure}
+
 \begin{itemize}
  \item Lancement compilation
  \item log
@@ -484,41 +550,40 @@ Les utilisateurs peuvent compléter les informations sur leur profils afin pouvo
 \section{Perspective d'évolution}
 \subsection{Support des images}
 \paragraph*{}
-Le supports des images dans l'application permettrai d'ajouter des images au sein des PDF généré. L'ajout de cette fonctionnalité est très simple et rapide à mettre en \oe uvre mais malheureusement, nous n'avons pas eu le temps de la mettre en place. Pour intégrer ce support, une légère modification de la frontale, du service web et de l'application Android sont nécessaire.
+Le supports des images dans l'application permettrait d'ajouter des images au sein des PDF générés. L'ajout de cette fonctionnalité est très simple et rapide à mettre en \oe uvre mais malheureusement, nous n'avons pas eu le temps de la mettre en place. Pour intégrer ce support, une légère modification de la frontale, du service web et de l'application Android sont nécessaires.
 
 \subsection{Gestion des groupes}
 \paragraph*{}
-La gestion des groupes dans l'application permettrai la modification simultané de document par plusieurs utilisateurs. Cette modification est possible à intégrer par la suite car la base de données et le stockage des informations ont été prévue a cette effet\footnote{Le stockage des données étant effectués sur des serveur SubVersion et la gestion des conflit étant implémenté, la gestion des groupe ne posera aucun problème}. Comme pour le support des images, les modifications de l'application pour supporté cette fonctionnalité sont minime. Il s'agit seulement de modifier légèrement l'application Web et l'application Android.
+La gestion des groupes dans l'application permettrait la modification simultanée de documents par plusieurs utilisateurs. Cette modification est possible à intégrer par la suite car la base de données et le stockage des informations ont été prévus a cet effet\footnote{Le stockage des données étant effectué sur des serveurs SubVersion et la gestion des conflits étant implémentée, la gestion des groupes ne posera aucun problème}. Comme pour le support des images, les modifications de l'application pour supporter cette fonctionnalité sont minimes. Il s'agit seulement de modifier légèrement l'application Web et l'application Android.
 
 \subsection{Coloration syntaxique sur Android}
 \paragraph*{}
-La coloration syntaxique sur tablette Android n'as pas été implémenté car nous n'avons pas trouvez de solution qui ne soit pas trop lourde en ressource pour une tablette. Ceci est sûrement possible si nous déclenchions la coloration syntaxique moins fréquemment, comme par exemple a chaque fin de ligne et juste sur la ligne en cour. Malheureusement nous n'avons pas eu le temps de mettre en place cette idée.
-
+La coloration syntaxique sur tablette Android n'a pas été implémentée car nous n'avons pas trouvé de solution simple qui ne soit pas trop lourde en ressource pour une tablette. Ceci est sûrement possible si nous déclenchions la coloration syntaxique moins fréquemment, comme par exemple a chaque fin de ligne et juste sur la ligne en cours. Malheureusement nous n'avons pas eu le temps de mettre en place cette idée.
 
 \subsection{Mot de passe oublié}
 \paragraph*{}
-La gestion des mots de passes oubliés n'est pas encore implémentée puisqu'elle dépend de la gestion des e-mails, et nous n'avons pas développé cette fonction. Cependant, le bouton et la boite de dialogue sont déjà implémentés sur l'interface Android. La gestion des e-mails n'as pas été possible car nous n'avions pas l'architecture physique nous permettant de faire fonctionné convenablement un serveur mail\footnote{Pour être dans de bonne condition, il aurai fallu que nous puissions avoir un accès vers internet afin de contacté les serveur SMTP ou POP de différents fournisseur d'adresse mail}.
+La gestion des mots de passe oubliés n'est pas encore implémentée puisqu'elle dépend de la gestion des e-mails, et nous n'avons pas développé cette fonction. Cependant, le bouton et la boite de dialogue sont déjà implémentés sur l'interface Android. La gestion des e-mails n'as pas été possible car nous n'avions pas l'architecture physique nous permettant de faire fonctionner convenablement un serveur mail\footnote{Pour être dans de bonne conditions, il aurait fallu que nous puissions avoir un accès vers internet afin de contacter les serveurs SMTP ou POP de différents fournisseurs d'adresses mail}.
 
-\subsection{Utilisation d'autre support de stockage}
+\subsection{Utilisation d'autres supports de stockage}
 \paragraph*{}
-Il serait possible d'utiliser plusieurs gestionnaire de version différents, des systèmes de fichiers,etc. pour stocker les données des utilisateurs. Pour l'instant seul SubVersion est géré, mais grâce a une interface générique, il est possible de développer rapidement des connecteurs pour n'importe quel gestionnaire de version. Grâce à cette interface, il suffit juste de développer une classe fille de cette interface sur un serveur de stockage de données et faire les appels spécifique au gestionnaire de version voulu.
+Il serait possible d'utiliser plusieurs gestionnaire de version différents, des systèmes de fichiers, etc. pour stocker les données des utilisateurs. Pour l'instant, seul SubVersion est géré, mais grâce a une interface générique, il est possible de développer rapidement des connecteurs pour n'importe quel gestionnaire de version. Grâce à cette interface, il suffit juste de développer une classe fille de cette interface sur un serveur de stockage de données et faire les appels spécifique au gestionnaire de version voulu.
 
 \subsection{Sécurisation des transferts de données}
 \paragraph*{}
-Tous les échanges entre socket ne sont pas sécurisé. Plus précisément ils ne sont pas crypté et donc vulnérable au écoute sur le réseau\footnote{Attaque communément appelé sniffing}. Pour sécurisé ceci, il suffit d'utilisé un cryptage type SSL/TLS\footnote{Technique utilisé pour les transferts HTTPS}. Cette solution est très simple à mettre en place en python, il suffit de remplacer les objets socket par des objets SSLSocket\footnote{Il faut bien sur au préalable généré les certificats SSL}.
+Tous les échanges entre socket ne sont pas sécurisés. Plus précisément ils ne sont pas cryptés et donc vulnérable aux écoutes sur le réseau\footnote{Attaque communément appelée sniffing}. Pour sécuriser ceci, il suffit d'utiliser un cryptage type SSL/TLS\footnote{Technique utilisée pour les transferts HTTPS}. Cette solution est très simple à mettre en place en python, il suffit de remplacer les objets socket par des objets SSLSocket\footnote{Il faut bien sûr au préalable générer les certificats SSL}.
 
 \newpage
 
 \section{Conclusion}
 \paragraph*{}
 
-Le projet, bien qu'il ne soit pas totalement terminé, est stable, viable et utilisable. Ce projet nous a permit de nous familiariser avec de nouvelles technologies, notamment en PHP5 et en Python. Aussi cela nous a permit de nous impliquer dans des conceptions distribuées et ainsi nous formé sur une application réelle complexe et complète.
+Le projet, bien qu'il ne soit pas totalement terminé, est stable, viable et utilisable. Ce projet nous a permis de nous familiariser avec de nouvelles technologies, notamment en PHP5 et en Python. Aussi cela nous a permis de nous impliquer dans des conceptions distribuées et ainsi nous former sur une application réelle complexe et complète.
 
 \paragraph*{}
-Le projet a subit de fortes contraintes au niveau de l'architecture physique qui limitait grandement notre possibilité de travail. Ces contraintes nous ont forcer a travailler en local. Par conséquent nous avons du travailler sur les horaires d'ouverture de la faculté et lorsque la salle n'était pas occupé pour des cours. Aussi nous avons eu des problème quand a la formation de notre "cloud". En effet, nous avons du utilisé les PC de la salle A104 (Résultat 2 serveurs en moins par rapport a notre architecture de base). De plus ils nous a fallu trouvez un routeur WIFI afin de faire fonctionné la tablette avec notre "Cloud".
+Le projet a subi de fortes contraintes au niveau de l'architecture physique qui limitait grandement notre possibilité de travail. Ces contraintes nous ont forcé à travailler en local. Par conséquent, nous avons dû travailler sur les horaires d'ouverture de la faculté et lorsque la salle n'était pas occupée pour des cours. Aussi nous avons eu des problèmes quand à la formation de notre "cloud". En effet, nous avons dû utiliser les PC de la salle A104 (Résultat 2 serveurs en moins par rapport a notre architecture de base). De plus il nous a fallu trouver un routeur WIFI afin de faire fonctionner la tablette avec notre "Cloud".
 
 \paragraph*{}
-Pour finir nous pouvons dire que ce projet complexe et complet a été très intéressant a mettre en place. Aussi, nous avons prit un soin particulier à produire un code propre, compréhensible, documenté et donc facilement réutilisable afin que de nombreuse fonctionnalité puissent être facilement intégrable. 
+Pour finir nous pouvons dire que ce projet complexe a été très intéressant à mettre en place. Aussi, nous avons pris un soin particulier à produire un code propre, compréhensible, documenté et donc facilement réutilisable afin que de nombreuses fonctionnalités puissent être facilement intégrable. 
 
 
 \newpage
