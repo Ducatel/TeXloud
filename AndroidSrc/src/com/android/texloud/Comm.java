@@ -47,6 +47,8 @@ public class Comm{
 	public static final String URLpdf = "http://"+IP+"/android/getPdf";
 	public static final String URLconfirmPDF = "http://"+IP+"/android/deletePdfFile";
 	public static final String URLlogout = "http://"+IP+"/user/logout";
+	public static final String URLdeleteProject = "http://"+IP+"/android/deleteProject";
+	//public static final String URLrenameFile; 
 	
 	private String sessionID;
 	
@@ -63,6 +65,10 @@ public class Comm{
 	public Comm(BasicHttpContext bhc, CookieStore cs){
 		localContext = bhc;
 		cookieStore = cs;
+	}
+	
+	public static void clearCookie(){
+		cookieStore.clear();
 	}
 	
 
@@ -88,8 +94,6 @@ public class Comm{
 		nameValuePairs.add(new BasicNameValuePair("password", string_password));
 		
 		try{
-			
-		    
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(URLauth);
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -105,6 +109,7 @@ public class Comm{
 
 		}catch(Exception e){
 			Log.e("log_tag", "Error in http connection " + e.toString());
+			return "pb_connect";
 		}
 
 		BufferedReader reader;
@@ -118,12 +123,8 @@ public class Comm{
 			is.close();
 			tree=sb.toString();
 			Log.i("str", tree);
-
-			if(tree.equals("ko"))
-				return null;
-
-			else
-				return tree;
+			
+			return tree; // Vaut "ko" en cas de mauvais login
 			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -135,13 +136,18 @@ public class Comm{
 	}
 	
 	public static String getJSON(){
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
 		InputStream is = null;
 		String tree;
 		
 		try{
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(URLauth);
-				
+			HttpPost httppost = new HttpPost(URLgetJSON);
+			
 			System.out.println("executing request " + httppost.getURI());
 			HttpResponse response = httpclient.execute(httppost, localContext);
 			HttpEntity entity = response.getEntity();
@@ -224,15 +230,6 @@ public class Comm{
 		BufferedReader reader;
 		Writer writer = null;
 		try {
-			/*reader = new BufferedReader(new InputStreamReader(is,"UTF8"));
-			StringBuilder sb = new StringBuilder();
-			String line = null;
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n");
-			}
-			is.close();
-			result=sb.toString().trim();*/
-			
 			
 			writer = new StringWriter();
 
@@ -271,9 +268,9 @@ public class Comm{
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(URLcompil);
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-			Log.i("CompilRequest", "toto1");
+			
 			HttpResponse response = httpclient.execute(httppost, localContext);
-			Log.i("CompilRequest", "toto2");
+			
 			HttpEntity entity = response.getEntity();
 			is = entity.getContent();
 
@@ -289,7 +286,7 @@ public class Comm{
 				sb.append(line + "\n");
 			}
 			is.close();
-			result=sb.toString().trim();
+			result=sb.toString();
 			Log.i("Compil result", result);
 			
 		} catch (UnsupportedEncodingException e) {
@@ -297,7 +294,7 @@ public class Comm{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Log.i("CompilRequest", "end");
+	
 		return result;
 	}
 	
@@ -351,15 +348,12 @@ public class Comm{
 		
 		// Encodage Base64
 		String s = jo.toString();
-		byte[] bytes = s.getBytes();
-		byte[] b = Base64.encode(bytes, Base64.DEFAULT);
+		/*byte[] bytes = s.getBytes();
+		byte[] b = Base64.encode(bytes, Base64.DEFAULT);*/
 		
 		
 		
 		nameValuePairs.add(new BasicNameValuePair("files", s));
-		//Log.i("Sync avant encodage", s);
-		//Log.i("Sync apres encodage", new String(b));
-		//Log.i("Sync apres décodage", new String(Base64.decode(new String(b), Base64.DEFAULT)));
 		
 		try{
 			HttpClient httpclient = new DefaultHttpClient();
@@ -445,6 +439,49 @@ public class Comm{
 			result=sb.toString().trim();
 			Log.i("SignIn return", result);
 
+
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void deleteProject(int idProject){
+		InputStream is = null;
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("projectId", Integer.toString(idProject)));
+		
+		try{
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(URLdeleteProject);
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			
+			System.out.println("executing request " + httppost.getURI() + " - Delete project id:" + idProject );
+			HttpResponse response = httpclient.execute(httppost, localContext);
+			System.out.println("delete project executed");
+			HttpEntity entity = response.getEntity();
+			is = entity.getContent();
+			
+			for(Cookie ck : cookieStore.getCookies()){
+				Log.i("cookie", ck.toString());
+			}
+
+		}catch(Exception e){
+			Log.e("log_tag", "Error in http connection " + e.toString());
+		}
+		BufferedReader reader;
+		String result = "";
+		try {
+			reader = new BufferedReader(new InputStreamReader(is,"UTF8"),30);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			is.close();
+			result=sb.toString().trim();
+			Log.i("deleteProject return", result);
 
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
