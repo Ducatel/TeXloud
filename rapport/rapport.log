@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  20 FEB 2012 18:32
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.13)  20 FEB 2012 20:35
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -522,7 +522,7 @@ LaTeX Warning: Label `compilation' multiply defined.
 LaTeX Warning: Label `compilation' multiply defined.
 
 
-LaTeX Warning: Label `compilation' multiply defined.
+LaTeX Warning: Label `Compilation via Android' multiply defined.
 
 )
 \openout1 = `rapport.aux'.
@@ -750,58 +750,142 @@ l.419 \clearpage
 <./images/screenshot/pdfjs.png, id=341, 959.83594pt x 231.11343pt>
 File: ./images/screenshot/pdfjs.png Graphic file (type png)
 
-<use ./images/screenshot/pdfjs.png>
-<./images/screenshot/android_accueil.png, id=342, 1284.8pt x 803.0pt>
-File: ./images/screenshot/android_accueil.png Graphic file (type png)
-
-<use ./images/screenshot/android_accueil.png> [16
+<use ./images/screenshot/pdfjs.png> [16
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.13}) h
 as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.462 \subsubsection
-                    {Synchronisation} <./images/screenshot/pdfjs.png>] [17pdfTe
-X warning (ext4): destination with the same identifier (name{figure.14}) has be
-en already used, duplicate ignored
+l.446 \newpage
+               <./images/screenshot/pdfjs.png>]
+<./images/screenshot/android_accueil.png, id=353, 1284.8pt x 803.0pt>
+File: ./images/screenshot/android_accueil.png Graphic file (type png)
+
+<use ./images/screenshot/android_accueil.png>
+<./images/screenshot/inscription_android.png, id=354, 1284.8pt x 803.0pt>
+File: ./images/screenshot/inscription_android.png Graphic file (type png)
+
+<use ./images/screenshot/inscription_android.png>
+<./images/screenshot/creation_projet.png, id=355, 1284.8pt x 803.0pt>
+File: ./images/screenshot/creation_projet.png Graphic file (type png)
+
+<use ./images/screenshot/creation_projet.png> [17pdfTeX warning (ext4): destina
+tion with the same identifier (name{figure.14}) has been already used, duplicat
+e ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.483 \newpage
-               <./images/screenshot/android_accueil.png (PNG copy)>] [18]
-[19] [20] (./rapport.lof)
+l.480 \paragraph
+                *{} <./images/screenshot/android_accueil.png (PNG copy)>]
+<./images/screenshot/synchro1_android.png, id=362, 1284.8pt x 803.0pt>
+File: ./images/screenshot/synchro1_android.png Graphic file (type png)
+
+<use ./images/screenshot/synchro1_android.png>
+<./images/screenshot/synchro2_android.png, id=363, 1284.8pt x 803.0pt>
+File: ./images/screenshot/synchro2_android.png Graphic file (type png)
+
+<use ./images/screenshot/synchro2_android.png> [18pdfTeX warning (ext4): destin
+ation with the same identifier (name{figure.15}) has been already used, duplica
+te ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.507 
+       <./images/screenshot/inscription_android.png (PNG copy)>]
+<./images/screenshot/compil_android.png, id=372, 1284.8pt x 803.0pt>
+File: ./images/screenshot/compil_android.png Graphic file (type png)
+
+<use ./images/screenshot/compil_android.png>
+
+LaTeX Warning: File `./images/screenshot/erreurCompil_android.png' not found on
+ input line 527.
+
+
+! Package pdftex.def Error: File `./images/screenshot/erreurCompil_android.png'
+ not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.527 ...ages/screenshot/erreurCompil_android.png}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 527.
+
+(/usr/share/texmf-texlive/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+) [19pdfTeX warning (ext4): destination with the same identifier (name{figure.1
+6}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.544  \item S
+              uppression de dossier/fichier <./images/screenshot/creation_proje
+t.png (PNG copy)>] [20pdfTeX warning (ext4): destination with the same identifi
+er (name{figure.17}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.549 \newpage
+               <./images/screenshot/synchro1_android.png (PNG copy)>] [21pdfTeX
+ warning (ext4): destination with the same identifier (name{figure.18}) has bee
+n already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.559 \subsection
+                 {Coloration syntaxique sur Android} <./images/screenshot/synch
+ro2_android.png (PNG copy)>] [22pdfTeX warning (ext4): destination with the sam
+e identifier (name{figure.19}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.567 \subsection
+                 {Utilisation d'autres supports de stockage} <./images/screensh
+ot/compil_android.png (PNG copy)>] [23pdfTeX warning (ext4): destination with t
+he same identifier (name{figure.20}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.570 
+      ] [24] [25] (./rapport.lof)
 \tf@lof=\write6
 \openout6 = `rapport.lof'.
 
- [21] (./rapport.aux)
+ [26] (./rapport.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6847 strings out of 495061
- 95126 string characters out of 1182622
- 168865 words of memory out of 3000000
- 9709 multiletter control sequences out of 15000+50000
- 24426 words of font info for 70 fonts, out of 3000000 for 9000
+ 6912 strings out of 495061
+ 97002 string characters out of 1182620
+ 169162 words of memory out of 3000000
+ 9750 multiletter control sequences out of 15000+50000
+ 24739 words of font info for 71 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,8n,36p,680b,373s stack positions out of 5000i,500n,10000p,200000b,50000s
- </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </hom
-e/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/hannib
-al/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </home/hannibal/.texm
-f-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/hannibal/.texmf-var/fo
-nts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/hannibal/.texmf-var/fonts/pk/l
-jfour/jknappen/ec/ecbx1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jk
-nappen/ec/ecrm1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/e
-c/ecbx1728.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc14
-40.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk
-> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home
-/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk></usr/share/tex
-mf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on rapport.pdf (22 pages, 890897 bytes).
+ 38i,8n,36p,685b,416s stack positions out of 5000i,500n,10000p,200000b,50000s
+ </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </home/
+adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </home/adrien/.te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/adrien/.texmf-var/fo
+nts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </home/adrien/.texmf-var/fonts/pk/ljf
+our/jknappen/ec/eccc1200.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknapp
+en/ec/ecbx1440.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx
+1200.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk
+> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/a
+drien/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1440.600pk> </home/adrien/.tex
+mf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/adrien/.texmf-var/fon
+ts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/adrien/.texmf-var/fonts/pk/ljfo
+ur/jknappen/ec/ecrm1440.600pk></usr/share/texmf-texlive/fonts/type1/public/amsf
+onts/cm/cmsy10.pfb>
+Output written on rapport.pdf (27 pages, 1510571 bytes).
 PDF statistics:
- 850 PDF objects out of 1000 (max. 8388607)
- 153 named destinations out of 1000 (max. 500000)
- 327 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 920 PDF objects out of 1000 (max. 8388607)
+ 167 named destinations out of 1000 (max. 500000)
+ 352 words of extra memory for PDF output out of 10000 (max. 10000000)
 
