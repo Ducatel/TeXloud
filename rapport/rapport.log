@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  20 FEB 2012 11:34
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  20 FEB 2012 13:50
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -601,7 +601,7 @@ l.82 \newpage
               [1
 
 ] [2]
-<./images/DiagrammeDeploiement.jpg, id=173, 1782.66pt x 1154.3125pt>
+<./images/DiagrammeDeploiement.jpg, id=188, 1782.66pt x 1154.3125pt>
 File: ./images/DiagrammeDeploiement.jpg Graphic file (type jpg)
 
 <use ./images/DiagrammeDeploiement.jpg> [3pdfTeX warning (ext4): destination wi
@@ -612,7 +612,7 @@ d
                                                   \fi \fi 
 l.139 \paragraph
                 *{} <./images/DiagrammeDeploiement.jpg>] [4]
-<./images/MVC.png, id=203, 331.2375pt x 261.22594pt>
+<./images/MVC.png, id=218, 331.2375pt x 261.22594pt>
 File: ./images/MVC.png Graphic file (type png)
  <use ./images/MVC.png>
 [5
@@ -624,132 +624,135 @@ s been already used, duplicate ignored
                                                   \fi \fi 
 l.201 \paragraph
                 *{} <./images/MVC.png>] [6] [7] [8]
-<./images/screenshot/Acceuil.png, id=254, 958.3303pt x 374.14781pt>
+<./images/screenshot/Acceuil.png, id=269, 958.3303pt x 374.14781pt>
 File: ./images/screenshot/Acceuil.png Graphic file (type png)
 
-<use ./images/screenshot/Acceuil.png>
-<./images/screenshot/Inscription.png, id=255, 963.6pt x 248.42813pt>
+<use ./images/screenshot/Acceuil.png> [9pdfTeX warning (ext4): destination with
+ the same identifier (name{figure.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.295 \clearpage
+                 <./images/screenshot/Acceuil.png>]
+<./images/screenshot/Inscription.png, id=277, 963.6pt x 248.42813pt>
 File: ./images/screenshot/Inscription.png Graphic file (type png)
 
 <use ./images/screenshot/Inscription.png>
-<./images/screenshot/PageEdition1.png, id=256, 962.84718pt x 134.75343pt>
+<./images/screenshot/PageEdition1.png, id=278, 962.84718pt x 134.75343pt>
 File: ./images/screenshot/PageEdition1.png Graphic file (type png)
 
-<use ./images/screenshot/PageEdition1.png>
-<./images/screenshot/CreeProjet.png, id=257, 963.6pt x 201.00093pt>
+<use ./images/screenshot/PageEdition1.png> [10
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
+s been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.325 \clearpage
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{figure.5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.325 \clearpage
+                 <./images/screenshot/Inscription.png> <./images/screenshot/Pag
+eEdition1.png>]
+<./images/screenshot/CreeProjet.png, id=290, 963.6pt x 201.00093pt>
 File: ./images/screenshot/CreeProjet.png Graphic file (type png)
 
 <use ./images/screenshot/CreeProjet.png>
-<./images/screenshot/Suite_Creation_Projet.png, id=258, 962.09438pt x 194.97844
+<./images/screenshot/Suite_Creation_Projet.png, id=291, 962.09438pt x 194.97844
 pt>
 File: ./images/screenshot/Suite_Creation_Projet.png Graphic file (type png)
- <use ./images/screenshot/Suite_Creation_Projet.png>
-<./images/screenshot/Suite2_Creation_Projet.png, id=259, 963.6pt x 195.73125pt>
+ <use ./images/screenshot/Suite_Creation_Projet.png> [11
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
+s been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.349 \clearpage
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{figure.7}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.349 \clearpage
+                 <./images/screenshot/CreeProjet.png> <./images/screenshot/Suit
+e_Creation_Projet.png>]
+<./images/screenshot/Suite2_Creation_Projet.png, id=302, 963.6pt x 195.73125pt>
 File: ./images/screenshot/Suite2_Creation_Projet.png Graphic file (type png)
 <use ./images/screenshot/Suite2_Creation_Projet.png>
-<./images/screenshot/MenuTextuel.png, id=260, 962.09438pt x 271.0125pt>
+<./images/screenshot/MenuTextuel.png, id=303, 962.09438pt x 271.0125pt>
 File: ./images/screenshot/MenuTextuel.png Graphic file (type png)
 
-<use ./images/screenshot/MenuTextuel.png>
-<./images/screenshot/Suite_Creation_Fichier.png, id=261, 961.34157pt x 204.765p
+<use ./images/screenshot/MenuTextuel.png> [12
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
+s been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.373 \clearpage
+                pdfTeX warning (ext4): destination with the same identifier (na
+me{figure.9}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.373 \clearpage
+                 <./images/screenshot/Suite2_Creation_Projet.png> <./images/scr
+eenshot/MenuTextuel.png>]
+<./images/screenshot/Suite_Creation_Fichier.png, id=315, 961.34157pt x 204.765p
 t>
 File: ./images/screenshot/Suite_Creation_Fichier.png Graphic file (type png)
- <use ./images/screenshot/Suite_Creation_Fichier.png> [9pdfTeX warning (ext4): 
-destination with the same identifier (name{figure.3}) has been already used, du
-plicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.373 \subsubsection
-                    {Compilation} <./images/screenshot/Acceuil.png>] [10pdfTeX 
-warning (ext4): destination with the same identifier (name{figure.4}) has been 
-already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.373 \subsubsection
-                    {Compilation}pdfTeX warning (ext4): destination with the sa
-me identifier (name{figure.5}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.373 \subsubsection
-                    {Compilation}pdfTeX warning (ext4): destination with the sa
-me identifier (name{figure.6}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.373 \subsubsection
-                    {Compilation}pdfTeX warning (ext4): destination with the sa
-me identifier (name{figure.7}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.373 \subsubsection
-                    {Compilation} <./images/screenshot/Inscription.png> <./imag
-es/screenshot/PageEdition1.png> <./images/screenshot/CreeProjet.png> <./images/
-screenshot/Suite_Creation_Projet.png>]
-<./images/screenshot/Compiler.png, id=285, 962.84718pt x 431.36156pt>
+ <use ./images/screenshot/Suite_Creation_Fichier.png>
+<./images/screenshot/Compiler.png, id=316, 962.84718pt x 431.36156pt>
 File: ./images/screenshot/Compiler.png Graphic file (type png)
 
-<use ./images/screenshot/Compiler.png> [11pdfTeX warning (ext4): destination wi
-th the same identifier (name{figure.8}) has been already used, duplicate ignore
-d
+<use ./images/screenshot/Compiler.png> [13
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
+as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.396  \item S
-              uppression de dossier/fichierpdfTeX warning (ext4): destination w
-ith the same identifier (name{figure.9}) has been already used, duplicate ignor
-ed
+l.411 \end{itemize}
+                   pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.11}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.396  \item S
-              uppression de dossier/fichierpdfTeX warning (ext4): destination w
-ith the same identifier (name{figure.10}) has been already used, duplicate igno
-red
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.396  \item S
-              uppression de dossier/fichier <./images/screenshot/Suite2_Creatio
-n_Projet.png> <./images/screenshot/MenuTextuel.png> <./images/screenshot/Suite_
-Creation_Fichier.png>] [12pdfTeX warning (ext4): destination with the same iden
-tifier (name{figure.11}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.423  \item I
-              nfo supp sur user <./images/screenshot/Compiler.png>] [13]
-[14] [15] [16] (./rapport.lof)
+l.411 \end{itemize}
+                    <./images/screenshot/Suite_Creation_Fichier.png> <./images/
+screenshot/Compiler.png>] [14] [15] [16] [17] (./rapport.lof)
 \tf@lof=\write6
 \openout6 = `rapport.lof'.
 
- [17] (./rapport.aux) ) 
+ [18]
+(./rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 6807 strings out of 495061
- 94312 string characters out of 1182622
- 167826 words of memory out of 3000000
- 9694 multiletter control sequences out of 15000+50000
+ 6819 strings out of 495061
+ 94494 string characters out of 1182622
+ 168826 words of memory out of 3000000
+ 9697 multiletter control sequences out of 15000+50000
  24426 words of font info for 70 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,8n,36p,680b,416s stack positions out of 5000i,500n,10000p,200000b,50000s
- </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/
-ecti1200.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000
-.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> 
-</home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/h
-annibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/hannibal/
-.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/hannibal/.texmf-v
-ar/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/hannibal/.texmf-var/fonts
-/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfo
-ur/jknappen/ec/eccc1440.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknap
-pen/ec/ecbx2074.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/e
-cbx2488.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.
-600pk></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on rapport.pdf (18 pages, 628327 bytes).
+ 38i,8n,36p,680b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
+ </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti12
+00.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk
+> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </home
+/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/hanniba
+l/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/hannibal/.texmf
+-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/hannibal/.texmf-var/fon
+ts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/hannibal/.texmf-var/fonts/pk/lj
+four/jknappen/ec/ecbx1728.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jkn
+appen/ec/eccc1440.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec
+/ecbx2074.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx248
+8.600pk> </home/hannibal/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk>
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on rapport.pdf (19 pages, 636494 bytes).
 PDF statistics:
- 773 PDF objects out of 1000 (max. 8388607)
- 131 named destinations out of 1000 (max. 500000)
- 288 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 809 PDF objects out of 1000 (max. 8388607)
+ 140 named destinations out of 1000 (max. 500000)
+ 312 words of extra memory for PDF output out of 10000 (max. 10000000)
 

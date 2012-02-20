@@ -12,13 +12,16 @@
 \BOOKMARK [2][-]{subsection.3.1}{Application Web}{section.3}
 \BOOKMARK [3][-]{subsubsection.3.1.1}{Cr\351ation de compte}{subsection.3.1}
 \BOOKMARK [3][-]{subsubsection.3.1.2}{Cr\351ation de projet}{subsection.3.1}
-\BOOKMARK [3][-]{subsubsection.3.1.3}{Compilation}{subsection.3.1}
-\BOOKMARK [3][-]{subsubsection.3.1.4}{Fonctions annexes}{subsection.3.1}
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Cr\351ation de fichier}{subsection.3.1}
+\BOOKMARK [3][-]{subsubsection.3.1.4}{Compilation}{subsection.3.1}
+\BOOKMARK [3][-]{subsubsection.3.1.5}{Fonctions annexes}{subsection.3.1}
 \BOOKMARK [2][-]{subsection.3.2}{Application Android}{section.3}
-\BOOKMARK [3][-]{subsubsection.3.2.1}{Cr\351ation de compte}{subsection.3.2}
-\BOOKMARK [3][-]{subsubsection.3.2.2}{Cr\351ation de projet}{subsection.3.2}
-\BOOKMARK [3][-]{subsubsection.3.2.3}{Compilation}{subsection.3.2}
-\BOOKMARK [3][-]{subsubsection.3.2.4}{Fonctions annexes}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Page d'accueil}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Cr\351ation de compte}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Cr\351ation de projet}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.4}{Synchronisation}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.5}{Compilation}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.6}{Fonctions annexes}{subsection.3.2}
 \BOOKMARK [1][-]{section.4}{Perspective d'\351volution}{}
 \BOOKMARK [2][-]{subsection.4.1}{Support des images}{section.4}
 \BOOKMARK [2][-]{subsection.4.2}{Gestion des groupes}{section.4}
