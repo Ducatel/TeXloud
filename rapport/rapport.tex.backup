@@ -223,7 +223,7 @@ Les communications entre le serveur HTTP, les serveurs de compilation et les ser
 L'ensemble des données sur les serveurs (adresse IP, port du service, type de service, charge maximal) sont stocké au sein d'un fichier XML sur ce serveur.
 
 \paragraph*{}
-Il faut aussi indiquer que ce serveur génère des logs afin que le suivit de l'exploitation de cette partie puisse etre effectué le plus simplement possible. Les logs générer sont en rotation, c'est-à-dire qu'ils ont une taille maximal fixer et qu'ils s'écrivent sur plusieurs fichiers\footnote{Sur trois fichiers actuellement}.
+Il faut aussi indiquer que ce serveur génère des logs afin que le suivit de l'exploitation de cette partie puisse être effectué le plus simplement possible. Les logs générer sont en rotation, c'est-à-dire qu'ils ont une taille maximal fixer et qu'ils s'écrivent sur plusieurs fichiers\footnote{Sur trois fichiers actuellement}.
 
 
 \subsection{Serveur de stockage de données}
@@ -270,8 +270,11 @@ Le serveur de compilation, comme son nom l'indique permet de compiler le projet 
  \item Renvoi au serveur de données du log et du fichier PDF
 \end{enumerate}
 
-\paragraph{}
+\paragraph*{}
 Ce service est la aussi développé en Python et les communications sont basé sur des socket TCP. De même que pour le service de routage et d'ordonnancement, le service de compilation peut gérer plusieurs connexion en simultané.
+
+\paragraph*{}
+Ici aussi des logs en rotation sont générer afin de facilité l'exploitation de ce service de compilation.
 
 
 \newpage
@@ -279,12 +282,106 @@ Ce service est la aussi développé en Python et les communications sont basé s
 \subsection{Application Web}
 \subsubsection{Création de compte}
 \paragraph*{}
+Pour commencer à utiliser le projet TeXloud un utilisateur doit forcement passer par l'inscription sur le service. Pour ce faire il doit ce rendre sur la page d'accueil du site et cliquer sur le lien "s'inscrire".
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/Acceuil.png}
+\end{center}
+  \caption{Acceuil, application web}
+  \label{acceuilWeb}
+\end{figure}
+
+
+\paragraph*{}
+L'utilisateur est alors rediriger vers la page d'inscription qui lui demande quel information:
+\begin{itemize}
+ \item Un identifiant (Login)
+ \item Un mot de passe 
+ \item Une adresse email
+\end{itemize}
+\paragraph*{}
+Une fois ces informations renseigné, l'utilisateur peux validé sont inscription grâce au bouton prévue à cette effet. Si il y a une erreur sur c'est informations, l'utilisateur est rediriger sur la page d'inscription avec une indication sur la provenance de l'erreur.
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/Inscription.png}
+\end{center}
+  \caption{Inscription, application web}
+  \label{inscriptionWeb}
+\end{figure}
+
+\paragraph*{}
+Une fois son inscription terminé, l'utilisateur est redirigé vers la page d'accueil ou il doit ce connecter à l'interface. La connexion redirige l'utilisateur vers l'interface principal l'application. A ce moment l'utilisateur ne dispose d'aucun projet. Nous allons voir par la suite comment faire pour créer un projet et des fichiers LaTex.
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/PageEdition1.png}
+\end{center}
+  \caption{Première page, application web}
+  \label{firstPageWeb}
+\end{figure}
 
 \subsubsection{Création de projet}
 \paragraph*{}
 
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/CreeProjet.png}
+\end{center}
+  \caption{Création projet, application web}
+  \label{createProjectWeb}
+\end{figure}
+
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/Suite_Creation_Projet.png}
+\end{center}
+  \caption{Création projet (nom du projet), application web}
+  \label{suiteCreationProjet}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/Suite2_Creation_Projet.png}
+\end{center}
+  \caption{Création projet terminé, application web}
+  \label{suite2CreationProjet}
+\end{figure}
+
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/MenuTextuel.png}
+\end{center}
+  \caption{Création de fichier, application web}
+  \label{creationFichier}
+\end{figure}
+
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/Suite_Creation_Fichier.png}
+\end{center}
+  \caption{Création de fichier terminé, application web}
+  \label{creationFichierFin}
+\end{figure}
+
+
 \subsubsection{Compilation}
 \paragraph*{}
+
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/Compiler.png}
+\end{center}
+  \caption{Compilation, application web}
+  \label{compilation}
+\end{figure}
+
 \begin{itemize}
  \item Lancement compilation
  \item log
@@ -340,9 +437,6 @@ La gestion des groupes dans l'application permettrai la modification simultané 
 \paragraph*{}
 La coloration syntaxique sur tablette Android n'as pas été implémenté car nous n'avons pas trouvez de solution qui ne soit pas trop lourde en ressource pour une tablette. Ceci est sûrement possible si nous déclenchions la coloration syntaxique moins fréquemment, comme par exemple a chaque fin de ligne et juste sur la ligne en cour. Malheureusement nous n'avons pas eu le temps de mettre en place cette idée.
 
-\subsection{Intégration de PDFJS}
-\paragraph*{}
-La librairie PDFJS\footnote{PDFJS est un librairie permettant d'afficher un PDF dans un canvas HTML5 grâce à du JavaScript} étant pour l'instant en version de développement, il nous a été impossible de l'intégrer directement au sein d'une page de TeXloud. Nous avons cherché pendant plus de 10 Heures pour l'intégrer mais le code ne contient aucune documentation et évolue de jour en jour.Le support serai possible mais demande des modifications très lourde des script de PDFJS. De ce fait nous pensons que lorsque une release stable sera produit par l'équipe de Mozilla, il sera plus simple de l'intégrer au sein de notre design.
 
 \subsection{Mot de passe oublié}
 \paragraph*{}

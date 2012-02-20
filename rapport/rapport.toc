@@ -16,19 +16,19 @@
 \contentsline {section}{\numberline {3}Utilisation des applications}{9}{section.3}
 \contentsline {subsection}{\numberline {3.1}Application Web}{9}{subsection.3.1}
 \contentsline {subsubsection}{\numberline {3.1.1}Cr\IeC {\'e}ation de compte}{9}{subsubsection.3.1.1}
-\contentsline {subsubsection}{\numberline {3.1.2}Cr\IeC {\'e}ation de projet}{9}{subsubsection.3.1.2}
-\contentsline {subsubsection}{\numberline {3.1.3}Compilation}{9}{subsubsection.3.1.3}
-\contentsline {subsubsection}{\numberline {3.1.4}Fonctions annexes}{11}{subsubsection.3.1.4}
+\contentsline {subsubsection}{\numberline {3.1.2}Cr\IeC {\'e}ation de projet}{10}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}Compilation}{11}{subsubsection.3.1.3}
+\contentsline {subsubsection}{\numberline {3.1.4}Fonctions annexes}{12}{subsubsection.3.1.4}
 \contentsline {subsection}{\numberline {3.2}Application Android}{12}{subsection.3.2}
 \contentsline {subsubsection}{\numberline {3.2.1}Cr\IeC {\'e}ation de compte}{12}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}Cr\IeC {\'e}ation de projet}{12}{subsubsection.3.2.2}
 \contentsline {subsubsection}{\numberline {3.2.3}Compilation}{12}{subsubsection.3.2.3}
 \contentsline {subsubsection}{\numberline {3.2.4}Fonctions annexes}{12}{subsubsection.3.2.4}
-\contentsline {section}{\numberline {4}Perspective d'\IeC {\'e}volution}{13}{section.4}
-\contentsline {subsection}{\numberline {4.1}Support des images}{13}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Gestion des groupes}{13}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Coloration syntaxique sur Android}{13}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Mot de passe oubli\IeC {\'e}}{13}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Utilisation d'autre support de stockage}{13}{subsection.4.5}
-\contentsline {subsection}{\numberline {4.6}S\IeC {\'e}curisation des transferts de donn\IeC {\'e}es}{14}{subsection.4.6}
-\contentsline {section}{\numberline {5}Conclusion}{15}{section.5}
+\contentsline {section}{\numberline {4}Perspective d'\IeC {\'e}volution}{14}{section.4}
+\contentsline {subsection}{\numberline {4.1}Support des images}{14}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Gestion des groupes}{14}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Coloration syntaxique sur Android}{14}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Mot de passe oubli\IeC {\'e}}{14}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Utilisation d'autre support de stockage}{14}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}S\IeC {\'e}curisation des transferts de donn\IeC {\'e}es}{15}{subsection.4.6}
+\contentsline {section}{\numberline {5}Conclusion}{16}{section.5}
