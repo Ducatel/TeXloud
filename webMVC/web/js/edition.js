@@ -25,7 +25,7 @@ $(function(){
 		 	{'files' : FILES_CONTENT},
 			function(data){
 
-					$('#popup_wrapper').fadeOut().remove();
+					$('#loadingDiv').fadeOut().remove();
 			});	
 	});
 	
