@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  20 FEB 2012 15:37
+=======
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.13)  20 FEB 2012 14:43
+>>>>>>> 4028e28b2681c84e344280191612d07802be5080
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -518,9 +522,12 @@ Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix
 
 LaTeX Warning: Label `compilation' multiply defined.
 
+<<<<<<< HEAD
 
 LaTeX Warning: Label `compilation' multiply defined.
 
+=======
+>>>>>>> 4028e28b2681c84e344280191612d07802be5080
 )
 \openout1 = `rapport.aux'.
 
@@ -754,6 +761,7 @@ as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
+<<<<<<< HEAD
 l.466  \item S
               uppression de dossier/fichier <./images/screenshot/pdfjs.png>]
 [17] [18] [19] [20] (./rapport.lof)
@@ -761,11 +769,33 @@ l.466  \item S
 \openout6 = `rapport.lof'.
 
  [21] (./rapport.aux)
+=======
+l.411 \end{itemize}
+                    <./images/screenshot/Suite_Creation_Fichier.png> <./images/
+screenshot/Compiler.png>]
+<./images/screenshot/android_accueil.png, id=328, 1284.8pt x 803.0pt>
+File: ./images/screenshot/android_accueil.png Graphic file (type png)
+
+<use ./images/screenshot/android_accueil.png> [14pdfTeX warning (ext4): destina
+tion with the same identifier (name{figure.12}) has been already used, duplicat
+e ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.435  \item L
+              ancement compilation <./images/screenshot/android_accueil.png (PN
+G copy)>] [15] [16] [17] [18] (./rapport.lof)
+\tf@lof=\write6
+\openout6 = `rapport.lof'.
+
+ [19] (./rapport.aux)
+>>>>>>> 4028e28b2681c84e344280191612d07802be5080
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
+<<<<<<< HEAD
  6838 strings out of 495061
  94890 string characters out of 1182622
  168874 words of memory out of 3000000
@@ -790,4 +820,30 @@ PDF statistics:
  840 PDF objects out of 1000 (max. 8388607)
  149 named destinations out of 1000 (max. 500000)
  322 words of extra memory for PDF output out of 10000 (max. 10000000)
+=======
+ 6826 strings out of 495061
+ 94704 string characters out of 1182620
+ 168865 words of memory out of 3000000
+ 9701 multiletter control sequences out of 15000+50000
+ 24426 words of font info for 70 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 38i,8n,36p,680b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
+ </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </home/
+adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/adrien/.te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </home/adrien/.texmf-var/fo
+nts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/adrien/.texmf-var/fonts/pk/ljf
+our/jknappen/ec/ecbx1440.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknapp
+en/ec/ecbx1200.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
+1200.600pk> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk
+> </home/adrien/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1440.600pk> </home/a
+drien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/adrien/.tex
+mf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/adrien/.texmf-var/fon
+ts/pk/ljfour/jknappen/ec/ecrm1440.600pk></usr/share/texmf-texlive/fonts/type1/p
+ublic/amsfonts/cm/cmsy10.pfb>
+Output written on rapport.pdf (20 pages, 741314 bytes).
+PDF statistics:
+ 816 PDF objects out of 1000 (max. 8388607)
+ 142 named destinations out of 1000 (max. 500000)
+ 317 words of extra memory for PDF output out of 10000 (max. 10000000)
+>>>>>>> 4028e28b2681c84e344280191612d07802be5080
 
