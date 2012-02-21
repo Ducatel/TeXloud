@@ -2,13 +2,13 @@ package com.android.texloud;
 
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -24,7 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import android.app.Activity;
@@ -76,11 +76,12 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 	/*
 		Boite de dialogue réutilisée chaque fois qu'un affichage de chargement est nécessaire
-	*/
+	 */
 	private ProgressDialog current_loading_dialog; 
 
 	/*TextView servant à déclencher le spinner - action nécessaire entre le clic et l'affichage du spinner (rechargement des projets JSON)*/
-	private TextView spinnerTV;
+	/* Problème d'implémentation*/
+	//private TextView spinnerTV;
 
 
 	/*
@@ -108,6 +109,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 	private String loaded_file = "";
 	private String tree_json;
+	private String log_compil_error = "";
 
 	private HashMap<String,String> projectsList; // HashMap<Nom de projet, ID du projet>
 
@@ -122,6 +124,8 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	private String pdfName; // variable nécessaire pour l'enregistrement du fichier pdf. Par défaut, le nom du fichier pdf est le même que le nom du fichier en cours d'édition
 
 	private Thread checkConnection;
+
+	private HashMap<String, String> errorLog;
 
 
 	@Override
@@ -161,7 +165,6 @@ public class MainActivity extends Activity implements ScrollViewListener{
 				if(current_fileId != ""){
 					Log.i("compil2", "compil2");
 					compil(current_fileId);
-
 				}
 			}
 		});
@@ -209,15 +212,26 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 				String str = "";
 
+				//TODO à tester
+
+				/*if((int)(main_text.getText().charAt(0)) == 65279){
+					str = main_text.getText().delete(0, 1).toString();
+				}*/
+
+
 				for(int i=0; i<main_text.getText().length(); i++){
 					int x = (int)(main_text.getText().charAt(i));
 
 					if(x != 65279){
 						str += main_text.getText().charAt(i);
 					}
-				}
+				} 
+
+
+
 
 				str.trim();
+				Log.i("afterTextChanged", str);
 				modifiedFiles.put(current_fileId, str);	
 				ImageView iv = (ImageView) (findViewById(R.id.sync_icon));
 				iv.setImageResource(R.drawable.annuler);
@@ -267,7 +281,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		});
 		checkConnection.start();
 
-		spinnerTV = (TextView) (findViewById(R.id.spinner_tv));
+		/*spinnerTV = (TextView) (findViewById(R.id.spinner_tv));
 		spinnerTV.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View v) {
@@ -289,7 +303,37 @@ public class MainActivity extends Activity implements ScrollViewListener{
 				}).start();
 			}
 
+		});*/
+
+		project_spinner = (Spinner) (findViewById(R.id.project_spinner));
+		project_spinner.setOnTouchListener(new OnTouchListener() {
+
+			public boolean onTouch(View v, MotionEvent event) {
+
+				if(event.getAction() == MotionEvent.ACTION_UP){
+					// Création de la ProgressDialog de chargement
+					current_loading_dialog =  ProgressDialog.show(MainActivity.this, "Téléchargement", "Téléchargement de l'arborescence...", true);
+
+					// Les actions effectuées pendant le chargement sont lancées dans un Thread
+					new Thread(new Runnable(){
+
+						public void run() {
+							System.out.println("updt1");
+							tree_json = Comm.getJSON();
+							Message msg = mHandler.obtainMessage(UPDATE_TREE_OK);
+							mHandler.sendMessage(msg);
+							System.out.println("updt2");
+						}
+
+					}).start();
+				}
+
+				return false;
+			}
 		});
+
+
+		errorLog = new HashMap<String, String>();
 
 		updateLineCount(0);
 	}
@@ -375,28 +419,34 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		dialog_createProject.show();
 	}
 
-	public String parseLog(String log){
+	public void parseLog(String log){
+
 
 		try {
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
+			DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document doc = parser.parse(new InputSource(new StringReader(log)));
 
-			InputStream stream = new ByteArrayInputStream(log.getBytes());
+			Element message = (Element) doc.getElementsByTagName("message").item(0);
+			Element type = (Element) doc.getElementsByTagName("type").item(0);
+			Element line = (Element) doc.getElementsByTagName("line").item(0);
 
-			Document dom = db.parse(stream);
-			Element docEle = dom.getDocumentElement();
-			NodeList message = docEle.getElementsByTagName("message");
+			if(message != null)
+				errorLog.put("log", message.getTextContent());
 
-			Log.i("message : ", message.item(0).toString());
+			if(type != null)
+				errorLog.put("type", type.getTextContent());
 
+			if(line != null)
+				errorLog.put("line", line.getTextContent());
 
 
 		} catch (ParserConfigurationException e) {e.printStackTrace();} 
 		catch (SAXException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();}
 
 
-		return null;
 	}
+
+
 
 	public void compil(String fileId){
 
@@ -418,36 +468,29 @@ public class MainActivity extends Activity implements ScrollViewListener{
 				try {
 					Log.i("json", json);
 					jo = new JSONObject(json);
-					String url = jo.getString("url");
+
 					int status = jo.getInt("status");
-					String log = jo.getString("log");
-
-					//String parsedLog = parseLog(log);
-
-					Log.i("Log reçu : ", log);
-					Log.i("url reçue : ", url);
-
 
 					switch(status){
 					case 0:
-						dialog_fail_compil = new Dialog(MainActivity.this, R.style.noBorder);
-						dialog_fail_compil.setContentView(R.layout.compilfaillayout);
+						log_compil_error = jo.getString("log");
+						Log.i("Log reçu : ", log_compil_error);
 
-						TextView tv = (TextView) (dialog_fail_compil.findViewById(R.id.failCompil_tv));
-						tv.setText(log);
-						dialog_fail_compil.show();
+						parseLog(log_compil_error);
 
-						Button ok = (Button) (dialog_fail_compil.findViewById(R.id.button_ok_fail_compil));
-						ok.setOnClickListener(new OnClickListener(){
-
-							public void onClick(View arg0) {
-								dialog_fail_compil.dismiss();
-							}
-
-						});
+						msg = mHandler.obtainMessage(COMP_ERR);
+						mHandler.sendMessage(msg);
 						break;
 
 					case 1:
+
+						log_compil_error = jo.getString("log");
+						Log.i("Log reçu : ", log_compil_error);
+
+						parseLog(log_compil_error);
+
+						String url = jo.getString("url");
+						Log.i("url reçue : ", url);
 						msg = mHandler.obtainMessage(COMP_OK);
 						mHandler.sendMessage(msg);
 						traitementPDF(url);
@@ -461,12 +504,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 			}
 		}).start();
-
-
-
 	}
-
-
 
 	public void traitementPDF(String url) throws IOException{
 		//Log.i("compil4", "compil4");
@@ -588,6 +626,12 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		}).start();
 	}
 
+	public String getCurrent_fileId() {
+		return current_fileId;
+	}
+
+
+
 	public void saveFile(String file_content, String file_name){
 
 		if(loaded_file != ""){
@@ -631,17 +675,20 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 		ArrayList<JSONObject> projects = new ArrayList<JSONObject>();
 
+		projectsList.clear();
 
 		for(int i=0; i<nb_projects; i++){
 			projects.add(jo.getJSONObject(i));
-			Log.i(projects.get(i).getString("projectName"), projects.get(i).getString("projectId"));
+			//Log.i(projects.get(i).getString("projectName"), projects.get(i).getString("projectId"));
 			projectsList.put(projects.get(i).getString("projectName"), projects.get(i).getString("projectId"));
 		}
+
+		updateProjectSpinner();
 
 		return projects;
 
 		//selectProject(projects.get(0).getString("projectName"));
-		//updateProjectSpinner();
+
 	}
 
 	public void updateProjectSpinner(){
@@ -659,45 +706,13 @@ public class MainActivity extends Activity implements ScrollViewListener{
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		project_spinner.setAdapter(adapter);
 
-		/*project_spinner.setOnTouchListener(new OnTouchListener() {
-
-			public boolean onTouch(View v, MotionEvent event) {
-				if(event.getAction() == MotionEvent.ACTION_UP){ // Seulement quand on relache le spinner (sinon méthode executée plusieurs fois)
-
-					current_loading_dialog =  ProgressDialog.show(MainActivity.this, "Téléchargement", "Téléchargement de l'arborescence...", true);
-
-					new Thread(new Runnable(){
-
-						public void run() {
-							System.out.println("updt1");
-							tree_json = Comm.getJSON();
-							Message msg = mHandler.obtainMessage(UPDATE_TREE_OK);
-							mHandler.sendMessage(msg);
-							System.out.println("updt2");
-						}
-
-					}).start();
-				}
-				return false;
-
-			}
-		});*/
 
 		project_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 				try {
-					if(!itemSelected){
-						itemSelected = true;
-
-					}
-					else{
-
-						Log.i("projectsStringArray", projectsStringArray[position]);
-						selectProject(projectsStringArray[position]);
-						project_spinner.setVisibility(View.GONE);
-						itemSelected = false;
-					}
-
+					Log.i("projectsStringArray", projectsStringArray[position]);
+					selectProject(projectsStringArray[position]);
+					
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -753,9 +768,9 @@ public class MainActivity extends Activity implements ScrollViewListener{
 				for(int i=0; i<files.length(); i++){
 					JSONObject object = files.getJSONObject(i);
 
-					Log.i("filename", object.getString("filename"));
+					/*Log.i("filename", object.getString("filename"));
 					Log.i("parentId", object.getString("parentId"));
-					Log.i("idFile", object.getString("id_file"));
+					Log.i("idFile", object.getString("id_file"));*/
 
 
 					if(object.getInt("is_dir") == 0){
@@ -768,7 +783,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 			}
 		}
 
-		mtm.updateTree();
+		mtm.updateTree(true);
 	}
 
 	public void dismissDialogFileSaved(){
@@ -796,6 +811,34 @@ public class MainActivity extends Activity implements ScrollViewListener{
 				current_loading_dialog = ProgressDialog.show(MainActivity.this, "Récupération PDF", "Récupération PDF en cours...", true);
 				break;
 
+			case COMP_ERR:
+				Log.i("comp_err", "comp_err");
+				dialog_fail_compil = new Dialog(MainActivity.this, R.style.noBorder);
+				dialog_fail_compil.setContentView(R.layout.compilfaillayout);
+
+				dialog_fail_compil.show();
+
+				Button ok = (Button) (dialog_fail_compil.findViewById(R.id.button_ok_fail_compil));
+				ok.setOnClickListener(new OnClickListener(){
+					public void onClick(View arg0) {
+						dialog_fail_compil.dismiss();
+					}
+				});
+
+				current_loading_dialog.dismiss();
+
+
+				TextView tv_type = (TextView) (dialog_fail_compil.findViewById(R.id.failCompil_tv_type));
+				TextView tv_log = (TextView) (dialog_fail_compil.findViewById(R.id.failCompil_tv_log));
+				TextView tv_line = (TextView) (dialog_fail_compil.findViewById(R.id.failCompil_tv_lineNumber));
+
+				//tv_type.setText(errorLog.get("type"));
+				tv_log.setText(errorLog.get("log") + " ");
+				tv_line.setText(errorLog.get("line") + " ");
+
+				break;
+
+
 
 			case PDF_OK:
 				current_loading_dialog.dismiss();
@@ -807,8 +850,8 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 				dialog.show();
 
-				TextView tv = (TextView) (dialog.findViewById(R.id.pdf_tv));
-				tv.setText("PDF sauvegardé : " + "/sdcard/TeXloudDocs/" + pdfName + ".pdf");
+				TextView pdf_tv = (TextView) (dialog.findViewById(R.id.pdf_tv));
+				pdf_tv.setText("PDF sauvegardé : " + "/sdcard/TeXloudDocs/" + pdfName + ".pdf");
 
 				Button button = (Button) dialog.findViewById(R.id.button_ok_pdf);
 				button.setOnClickListener(new OnClickListener(){
@@ -838,6 +881,16 @@ public class MainActivity extends Activity implements ScrollViewListener{
 					}
 				});
 
+
+				//TextView tv_type2 = (TextView) (dialog.findViewById(R.id.successCompil_tv_type));
+				TextView tv_log2 = (TextView) (dialog.findViewById(R.id.successCompil_tv_log));
+				TextView tv_line2 = (TextView) (dialog.findViewById(R.id.successCompil_tv_lineNumber));
+
+				//tv_type2.setText(errorLog.get("type"));
+				tv_log2.setText(errorLog.get("log") + " ");
+				tv_line2.setText(errorLog.get("line") + " ");
+
+
 				break;
 
 			case SYNC_OK:
@@ -858,5 +911,6 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 			}
 		}
+
 	};
 }

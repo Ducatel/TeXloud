@@ -16,14 +16,21 @@
             android:background="#699838"
             android:gravity="center|left" >
 
+            <ImageView
+            android:id="@+id/texloud_logo"
+            android:layout_width="50dp"
+            android:layout_height="fill_parent"
+            android:src="@drawable/logotexloud"
+             />
             <Button
                 android:id="@+id/texloud"
-                android:layout_width="150dp"
+                android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:background="@layout/buttonshape"
                 android:text="TeXloud"
                 android:textColor="#FFFFFF"
                 android:textSize="24dp"
+                android:gravity="left|center"
                 android:textStyle="bold" />
 
             <Button
@@ -107,13 +114,12 @@
 
             <Spinner
                 android:id="@+id/project_spinner"
-                android:layout_width="1dp"
-                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:drawSelectorOnTop="true"
-                android:prompt="@string/project_prompt"
-                android:visibility="gone"/>
+                android:prompt="@string/project_prompt"/>
             
-            <TextView
+            <!--<TextView
                 android:id="@+id/spinner_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,7 +127,7 @@
                 android:text="Select project"
                 android:textColor="#699838"
                 android:textSize="18dp"
-                android:background="@drawable/backtv"/>
+                android:background="@drawable/backtv"/>-->
 
             <HorizontalScrollView
                 android:paddingTop="10dp"

@@ -470,7 +470,9 @@ Les champs obligatoires sont en italique. L'application Android, contrairement �
 
 \newpage
 \subsubsection{Création de projet}
-La création de projet est très simple puisqu'il suffit de toucher le bouton ``Créer projet'' et d'entrer un nom de projet. Le projet est ensuite immédiatement disponible dans la liste.
+La création de projet est très simple puisqu'il suffit de toucher le bouton ``Créer projet'' et d'entrer un nom de projet. Le projet est ensuite immédiatement disponible dans la liste. C'est la première étape pour un nouvel utilisateur, puisqu'il est impossible 
+de créer des fichiers tex qui ne seraient dans aucun projet.
+
 \begin{figure}[!ht]
 \begin{center}
   \includegraphics[width=1\textwidth]{./images/screenshot/creation_projet.png}
@@ -480,6 +482,7 @@ La création de projet est très simple puisqu'il suffit de toucher le bouton ``
 \end{figure}
 \paragraph*{}
 
+\newpage
 \subsubsection{Choisir un projet}
 La selection de projet se fait par un objet Spinner (ou liste déroulante) en haut de la partie gauche. Le spinner contient le nom du projet en cours, et lorsqu'on appuie dessus, un écran de choix apparaît au milieu de l'écran.
 \begin{figure}[!ht]
@@ -514,7 +517,7 @@ Cependant, dès qu'un fichier est modifié, le logo devient rouge, signalant qu'
   \label{Fichier non synchronisé}
 \end{figure}
 
-
+\newpage
 \subsubsection{Compilation}
 \paragraph*{}
 La compilation passe par le bouton situé dans le bandeau supérieur. Lorsque l'ordre est lancé, tous les fichiers sont synchronisés puis la compilation est traitée. Chaque étape est décrite par une boîte de dialogue signalant à l'utilisateur qu'une opération est en cours.
@@ -565,7 +568,7 @@ Toutes ces actions Android transitionnent avec une boite de dialogue, indiquant 
 \end{figure}
 
 \newpage
-\section{Perspective d'évolution}
+\section{Perspectives d'évolution}
 \subsection{Support des images}
 \paragraph*{}
 Le supports des images dans l'application permettrait d'ajouter des images au sein des PDF générés. L'ajout de cette fonctionnalité est très simple et rapide à mettre en \oe uvre mais malheureusement, nous n'avons pas eu le temps de la mettre en place. Pour intégrer ce support, une légère modification de la frontale, du service web et de l'application Android sont nécessaires.
@@ -590,6 +593,7 @@ Il serait possible d'utiliser plusieurs gestionnaire de version différents, des
 \paragraph*{}
 Tous les échanges entre socket ne sont pas sécurisés. Plus précisément ils ne sont pas cryptés et donc vulnérable aux écoutes sur le réseau\footnote{Attaque communément appelée sniffing}. Pour sécuriser ceci, il suffit d'utiliser un cryptage type SSL/TLS\footnote{Technique utilisée pour les transferts HTTPS}. Cette solution est très simple à mettre en place en python, il suffit de remplacer les objets socket par des objets SSLSocket\footnote{Il faut bien sûr au préalable générer les certificats SSL}.
 
+\subsection{Mode offline pour Android}
 \newpage
 
 \section{Conclusion}
