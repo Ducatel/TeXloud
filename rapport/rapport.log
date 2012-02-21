@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.13)  21 FEB 2012 16:04
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.13)  21 FEB 2012 16:10
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -768,7 +768,7 @@ e ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.459 \newpage
+l.460 \newpage
                <./images/screenshot/android_accueil.png (PNG copy)>]
 <./images/screenshot/inscription_android.png, id=374, 1284.8pt x 803.0pt>
 File: ./images/screenshot/inscription_android.png Graphic file (type png)
@@ -779,7 +779,7 @@ icate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.471 \newpage
+l.473 \newpage
                <./images/screenshot/inscription_android.png (PNG copy)>]
 <./images/screenshot/creation_projet.png, id=381, 1284.8pt x 803.0pt>
 File: ./images/screenshot/creation_projet.png Graphic file (type png)
@@ -790,7 +790,7 @@ e ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.485 \newpage
+l.488 \newpage
                <./images/screenshot/creation_projet.png (PNG copy)>]
 <./images/screenshot/android_selectProject.png, id=388, 963.6pt x 602.25pt>
 File: ./images/screenshot/android_selectProject.png Graphic file (type png)
@@ -801,7 +801,7 @@ plicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.496 \newpage
+l.500 \newpage
                <./images/screenshot/android_selectProject.png>]
 <./images/screenshot/synchro1_android.png, id=395, 575.14874pt x 253.69781pt>
 File: ./images/screenshot/synchro1_android.png Graphic file (type png)
@@ -816,13 +816,13 @@ te ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.520 \newpage
+l.524 \newpage
               pdfTeX warning (ext4): destination with the same identifier (name
 {figure.19}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.520 \newpage
+l.524 \newpage
                <./images/screenshot/synchro1_android.png> <./images/screenshot/
 synchro2_android.png>]
 <./images/screenshot/compil_android.png, id=407, 1284.8pt x 803.0pt>
@@ -834,7 +834,7 @@ ion with the same identifier (name{figure.20}) has been already used, duplicate
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.533 \clearpage
+l.538 \clearpage
                  <./images/screenshot/compil_android.png (PNG copy)>]
 <./images/screenshot/errorCompil_android.png, id=414, 1284.8pt x 803.0pt>
 File: ./images/screenshot/errorCompil_android.png Graphic file (type png)
@@ -846,7 +846,7 @@ as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.545 \newpage
+l.550 \newpage
                <./images/screenshot/errorCompil_android.png (PNG copy)>]
 <./images/screenshot/visuPdf_Android.png, id=421, 1284.8pt x 803.0pt>
 File: ./images/screenshot/visuPdf_Android.png Graphic file (type png)
@@ -861,13 +861,13 @@ te ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.570 \newpage
+l.575 \newpage
               pdfTeX warning (ext4): destination with the same identifier (name
 {figure.23}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.570 \newpage
+l.575 \newpage
                <./images/screenshot/visuPdf_Android.png (PNG copy)> <./images/s
 creenshot/loading1_Android.png>] [25] [26]
 <./images/logoTexloud.png, id=456, 256.96pt x 256.96pt>
@@ -903,7 +903,7 @@ drien/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/adrien/.tex
 mf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/adrien/.texmf-var/fon
 ts/pk/ljfour/jknappen/ec/ecrm1440.600pk></usr/share/texmf-texlive/fonts/type1/p
 ublic/amsfonts/cm/cmsy10.pfb>
-Output written on rapport.pdf (29 pages, 1587482 bytes).
+Output written on rapport.pdf (29 pages, 1587477 bytes).
 PDF statistics:
  940 PDF objects out of 1000 (max. 8388607)
  173 named destinations out of 1000 (max. 500000)
