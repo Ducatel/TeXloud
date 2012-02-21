@@ -456,9 +456,10 @@ La page de login est assez intuitive. Après avoir tapé son identifiant et son 
   \caption{Page d'accueil Android}
   \label{Page d'accueil Android}
 \end{figure}
-
+\newpage
 \subsubsection{Création de compte}
-Les champs obligatoires sont en italique.
+Les champs obligatoires sont en italique. L'application Android, contrairement à l'application Web, n'implémente pas encore de moyen de pouvoir modifier son compte ultérieurement. L'utilisateur doit donc aller sur l'interface web s'il souhaite modifier un 
+élément de son profil. 
 \begin{figure}[!ht]
 \begin{center}
   \includegraphics[width=1\textwidth]{./images/screenshot/inscription_android.png}
@@ -466,10 +467,12 @@ Les champs obligatoires sont en italique.
   \caption{Inscription via Android}
   \label{Inscription via Android}
 \end{figure}
-\paragraph*{}
 
+\newpage
 \subsubsection{Création de projet}
-La création de projet est très simple puisqu'il suffit de toucher le bouton ``Créer projet'' et d'entrer un nom de projet. Le projet est ensuite immédiatement disponible dans la liste.
+La création de projet est très simple puisqu'il suffit de toucher le bouton ``Créer projet'' et d'entrer un nom de projet. Le projet est ensuite immédiatement disponible dans la liste. C'est la première étape pour un nouvel utilisateur, puisqu'il est impossible 
+de créer des fichiers tex qui ne seraient dans aucun projet.
+
 \begin{figure}[!ht]
 \begin{center}
   \includegraphics[width=1\textwidth]{./images/screenshot/creation_projet.png}
@@ -479,27 +482,36 @@ La création de projet est très simple puisqu'il suffit de toucher le bouton ``
 \end{figure}
 \paragraph*{}
 
+\newpage
 \subsubsection{Choisir un projet}
-A FAIRE
+La selection de projet se fait par un objet Spinner (ou liste déroulante) en haut de la partie gauche. Le spinner contient le nom du projet en cours, et lorsqu'on appuie dessus, un écran de choix apparaît au milieu de l'écran.
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/android_selectProject.png}
+\end{center}
+  \caption{Selection de projet}
+  \label{Selection de projet}
+\end{figure}
 
-
+\newpage
 \subsubsection{Synchronisation}
 
 \paragraph*{}
 La synchronisation est fondamentale dans l'application TeXloud, et il est très important pour l'utilisateur de savoir à tout moment où il en est. Une icône est située juste à côté du bouton de synchronisation. Par défaut, elle est verte et signale que tous les fichiers sont synchronisés.
 \begin{figure}[!ht]
 \begin{center}
-  \includegraphics[width=1\textwidth]{./images/screenshot/synchro1_android.png}
+  \includegraphics[width=10cm]{./images/screenshot/synchro1_android.png}
 \end{center}
   \caption{Fichier synchronisé}
   \label{Fichier synchronisé}
 \end{figure}
 
+
 \paragraph*{}
 Cependant, dès qu'un fichier est modifié, le logo devient rouge, signalant qu'une synchronisation doit être faite pour que les modifications soient enregistrées. Lorsque la synchronisation est faite, tous les fichiers modifiés sont enregistrés.
 \begin{figure}[!ht]
 \begin{center}
-  \includegraphics[width=1\textwidth]{./images/screenshot/synchro2_android.png}
+  \includegraphics[width=10cm]{./images/screenshot/synchro2_android.png}
 \end{center}
   \caption{Fichier non synchronisé}
   \label{Fichier non synchronisé}
@@ -518,32 +530,42 @@ Lorsque la compilation s'est déroulée avec succès, une boite de dialogue s'ou
   \caption{Compilation via Android}
   \label{Compilation via Android}
 \end{figure}
-
+\clearpage
 Les erreurs de compilation apparaissent en rouge dans la boite de dialogue (bien évidemment, aucun fichier PDF n'est généré).
+
 \paragraph*{}
 \begin{figure}[!ht]
 \begin{center}
-  \includegraphics[width=1\textwidth]{./images/screenshot/erreurCompil_android.png}
+  \includegraphics[width=1\textwidth]{./images/screenshot/errorCompil_android.png}
 \end{center}
   \caption{Compilation via Android}
   \label{Compilation via Android}
 \end{figure}
 
-\begin{itemize}
- \item Lancement compilation
- \item log
- \item visu du pdf
- \item telechargement du pdf
-\end{itemize}
+\newpage
+\subsubsection{Ouverture des PDF}
+L'ouverture des PDF est gérée par un programme tiers propre à l'environnement présent sur la tablette. Quand l'utilisateur clique sur ``Afficher le PDF'' après avoir compilé le fichier, l'application TeXloud signale à la tablette qu'il faut ouvrir un fichier PDF, 
+et la tablette peut ensuite ouvrir le programme par défaut.
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/visuPdf_Android.png}
+\end{center}
+  \caption{Visualisation PDF}
+  \label{Visualisation PDF}
+\end{figure}
 
 
-\subsubsection{Fonctions annexes}
-\paragraph*{}
-\begin{itemize}
- \item Suppression de dossier/fichier
- \item Rename dossier/fichier
- \item Info supp sur user
-\end{itemize}
+\subsubsection{Fenetres de chargement}
+Toutes ces actions Android transitionnent avec une boite de dialogue, indiquant à l'utilisateur qu'une action est en cours :
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=8cm]{./images/screenshot/loading1_Android.png}
+\end{center}
+  \caption{Exemples de chargement}
+  \label{Exemples de chargement}
+\end{figure}
 
 \newpage
 \section{Perspective d'évolution}
