@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.13)  20 FEB 2012 20:35
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.10.13)  21 FEB 2012 14:50
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -610,7 +610,7 @@ l.82 \newpage
               [1
 
 ] [2]
-<./images/DiagrammeDeploiement.jpg, id=188, 1782.66pt x 1154.3125pt>
+<./images/DiagrammeDeploiement.jpg, id=193, 1782.66pt x 1154.3125pt>
 File: ./images/DiagrammeDeploiement.jpg Graphic file (type jpg)
 
 <use ./images/DiagrammeDeploiement.jpg> [3pdfTeX warning (ext4): destination wi
@@ -621,7 +621,7 @@ d
                                                   \fi \fi 
 l.139 \paragraph
                 *{} <./images/DiagrammeDeploiement.jpg>] [4]
-<./images/MVC.png, id=218, 331.2375pt x 261.22594pt>
+<./images/MVC.png, id=223, 331.2375pt x 261.22594pt>
 File: ./images/MVC.png Graphic file (type png)
  <use ./images/MVC.png>
 [5
@@ -633,7 +633,7 @@ s been already used, duplicate ignored
                                                   \fi \fi 
 l.201 \paragraph
                 *{} <./images/MVC.png>] [6] [7] [8]
-<./images/screenshot/Acceuil.png, id=269, 958.3303pt x 374.14781pt>
+<./images/screenshot/Acceuil.png, id=274, 958.3303pt x 374.14781pt>
 File: ./images/screenshot/Acceuil.png Graphic file (type png)
 
 <use ./images/screenshot/Acceuil.png> [9pdfTeX warning (ext4): destination with
@@ -643,11 +643,11 @@ File: ./images/screenshot/Acceuil.png Graphic file (type png)
                                                   \fi \fi 
 l.295 \clearpage
                  <./images/screenshot/Acceuil.png>]
-<./images/screenshot/Inscription.png, id=277, 963.6pt x 248.42813pt>
+<./images/screenshot/Inscription.png, id=282, 963.6pt x 248.42813pt>
 File: ./images/screenshot/Inscription.png Graphic file (type png)
 
 <use ./images/screenshot/Inscription.png>
-<./images/screenshot/PageEdition1.png, id=278, 962.84718pt x 134.75343pt>
+<./images/screenshot/PageEdition1.png, id=283, 962.84718pt x 134.75343pt>
 File: ./images/screenshot/PageEdition1.png Graphic file (type png)
 
 <use ./images/screenshot/PageEdition1.png> [10
@@ -666,11 +666,11 @@ me{figure.5}) has been already used, duplicate ignored
 l.325 \clearpage
                  <./images/screenshot/Inscription.png> <./images/screenshot/Pag
 eEdition1.png>]
-<./images/screenshot/CreeProjet.png, id=290, 963.6pt x 201.00093pt>
+<./images/screenshot/CreeProjet.png, id=295, 963.6pt x 201.00093pt>
 File: ./images/screenshot/CreeProjet.png Graphic file (type png)
 
 <use ./images/screenshot/CreeProjet.png>
-<./images/screenshot/Suite_Creation_Projet.png, id=291, 962.09438pt x 194.97844
+<./images/screenshot/Suite_Creation_Projet.png, id=296, 962.09438pt x 194.97844
 pt>
 File: ./images/screenshot/Suite_Creation_Projet.png Graphic file (type png)
  <use ./images/screenshot/Suite_Creation_Projet.png> [11
@@ -689,10 +689,10 @@ me{figure.7}) has been already used, duplicate ignored
 l.349 \clearpage
                  <./images/screenshot/CreeProjet.png> <./images/screenshot/Suit
 e_Creation_Projet.png>]
-<./images/screenshot/Suite2_Creation_Projet.png, id=302, 963.6pt x 195.73125pt>
+<./images/screenshot/Suite2_Creation_Projet.png, id=307, 963.6pt x 195.73125pt>
 File: ./images/screenshot/Suite2_Creation_Projet.png Graphic file (type png)
 <use ./images/screenshot/Suite2_Creation_Projet.png>
-<./images/screenshot/MenuTextuel.png, id=303, 962.09438pt x 271.0125pt>
+<./images/screenshot/MenuTextuel.png, id=308, 962.09438pt x 271.0125pt>
 File: ./images/screenshot/MenuTextuel.png Graphic file (type png)
 
 <use ./images/screenshot/MenuTextuel.png> [12
@@ -711,7 +711,7 @@ me{figure.9}) has been already used, duplicate ignored
 l.373 \clearpage
                  <./images/screenshot/Suite2_Creation_Projet.png> <./images/scr
 eenshot/MenuTextuel.png>]
-<./images/screenshot/Suite_Creation_Fichier.png, id=315, 961.34157pt x 204.765p
+<./images/screenshot/Suite_Creation_Fichier.png, id=320, 961.34157pt x 204.765p
 t>
 File: ./images/screenshot/Suite_Creation_Fichier.png Graphic file (type png)
  <use ./images/screenshot/Suite_Creation_Fichier.png> [13
@@ -723,7 +723,7 @@ as been already used, duplicate ignored
                                                   \fi \fi 
 l.390 \clearpage
                  <./images/screenshot/Suite_Creation_Fichier.png>]
-<./images/screenshot/Compiler.png, id=324, 962.84718pt x 431.36156pt>
+<./images/screenshot/Compiler.png, id=329, 962.84718pt x 431.36156pt>
 File: ./images/screenshot/Compiler.png Graphic file (type png)
 
 <use ./images/screenshot/Compiler.png> [14
@@ -735,7 +735,7 @@ as been already used, duplicate ignored
                                                   \fi \fi 
 l.405 \clearpage
                  <./images/screenshot/Compiler.png>]
-<./images/screenshot/CompileLog.png, id=333, 956.82469pt x 640.64343pt>
+<./images/screenshot/CompileLog.png, id=338, 956.82469pt x 640.64343pt>
 File: ./images/screenshot/CompileLog.png Graphic file (type png)
 
 <use ./images/screenshot/CompileLog.png> [15
@@ -747,7 +747,7 @@ as been already used, duplicate ignored
                                                   \fi \fi 
 l.419 \clearpage
                  <./images/screenshot/CompileLog.png>]
-<./images/screenshot/pdfjs.png, id=341, 959.83594pt x 231.11343pt>
+<./images/screenshot/pdfjs.png, id=346, 959.83594pt x 231.11343pt>
 File: ./images/screenshot/pdfjs.png Graphic file (type png)
 
 <use ./images/screenshot/pdfjs.png> [16
@@ -759,15 +759,15 @@ as been already used, duplicate ignored
                                                   \fi \fi 
 l.446 \newpage
                <./images/screenshot/pdfjs.png>]
-<./images/screenshot/android_accueil.png, id=353, 1284.8pt x 803.0pt>
+<./images/screenshot/android_accueil.png, id=358, 1284.8pt x 803.0pt>
 File: ./images/screenshot/android_accueil.png Graphic file (type png)
 
 <use ./images/screenshot/android_accueil.png>
-<./images/screenshot/inscription_android.png, id=354, 1284.8pt x 803.0pt>
+<./images/screenshot/inscription_android.png, id=359, 1284.8pt x 803.0pt>
 File: ./images/screenshot/inscription_android.png Graphic file (type png)
 
 <use ./images/screenshot/inscription_android.png>
-<./images/screenshot/creation_projet.png, id=355, 1284.8pt x 803.0pt>
+<./images/screenshot/creation_projet.png, id=360, 1284.8pt x 803.0pt>
 File: ./images/screenshot/creation_projet.png Graphic file (type png)
 
 <use ./images/screenshot/creation_projet.png> [17pdfTeX warning (ext4): destina
@@ -778,11 +778,11 @@ e ignored
                                                   \fi \fi 
 l.480 \paragraph
                 *{} <./images/screenshot/android_accueil.png (PNG copy)>]
-<./images/screenshot/synchro1_android.png, id=362, 1284.8pt x 803.0pt>
+<./images/screenshot/synchro1_android.png, id=367, 1284.8pt x 803.0pt>
 File: ./images/screenshot/synchro1_android.png Graphic file (type png)
 
 <use ./images/screenshot/synchro1_android.png>
-<./images/screenshot/synchro2_android.png, id=363, 1284.8pt x 803.0pt>
+<./images/screenshot/synchro2_android.png, id=368, 1284.8pt x 803.0pt>
 File: ./images/screenshot/synchro2_android.png Graphic file (type png)
 
 <use ./images/screenshot/synchro2_android.png> [18pdfTeX warning (ext4): destin
@@ -793,7 +793,7 @@ te ignored
                                                   \fi \fi 
 l.507 
        <./images/screenshot/inscription_android.png (PNG copy)>]
-<./images/screenshot/compil_android.png, id=372, 1284.8pt x 803.0pt>
+<./images/screenshot/compil_android.png, id=377, 1284.8pt x 803.0pt>
 File: ./images/screenshot/compil_android.png Graphic file (type png)
 
 <use ./images/screenshot/compil_android.png>
@@ -863,10 +863,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6912 strings out of 495061
- 97002 string characters out of 1182620
+ 6913 strings out of 495061
+ 97023 string characters out of 1182620
  169162 words of memory out of 3000000
- 9750 multiletter control sequences out of 15000+50000
+ 9751 multiletter control sequences out of 15000+50000
  24739 words of font info for 71 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  38i,8n,36p,685b,416s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -883,9 +883,9 @@ mf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/adrien/.texmf-var/fon
 ts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/adrien/.texmf-var/fonts/pk/ljfo
 ur/jknappen/ec/ecrm1440.600pk></usr/share/texmf-texlive/fonts/type1/public/amsf
 onts/cm/cmsy10.pfb>
-Output written on rapport.pdf (27 pages, 1510571 bytes).
+Output written on rapport.pdf (27 pages, 1511050 bytes).
 PDF statistics:
- 920 PDF objects out of 1000 (max. 8388607)
+ 924 PDF objects out of 1000 (max. 8388607)
  167 named destinations out of 1000 (max. 500000)
- 352 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 360 words of extra memory for PDF output out of 10000 (max. 10000000)
 
