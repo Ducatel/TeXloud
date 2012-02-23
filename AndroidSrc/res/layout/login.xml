@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="80dp"
-                        android:text="Adrien" />
+                        android:text="tutu" />
                 </LinearLayout>
 
                 <LinearLayout

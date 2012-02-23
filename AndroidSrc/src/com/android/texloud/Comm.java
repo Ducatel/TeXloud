@@ -125,7 +125,7 @@ public class Comm{
 			}
 			is.close();
 			tree=sb.toString();
-			Log.i("str", tree);
+			Log.i("getAuth return", tree);
 			
 			return tree; // Vaut "ko" en cas de mauvais login
 			
@@ -483,7 +483,7 @@ public class Comm{
 
 	}
 	
-	public static void signIn(CharSequence firstName, CharSequence lastName, CharSequence userName, CharSequence mail, CharSequence password, CharSequence address, String gender, 
+	public static String signIn(CharSequence firstName, CharSequence lastName, CharSequence userName, CharSequence mail, CharSequence password, CharSequence password_conf, CharSequence address, String gender, 
 			CharSequence city, CharSequence country, CharSequence zip, CharSequence year, String month, CharSequence day){
 
 		InputStream is = null;
@@ -492,6 +492,7 @@ public class Comm{
 		nameValuePairs.add(new BasicNameValuePair("username", userName.toString()));
 		nameValuePairs.add(new BasicNameValuePair("email", mail.toString()));
 		nameValuePairs.add(new BasicNameValuePair("password", password.toString()));
+		nameValuePairs.add(new BasicNameValuePair("password_conf", password_conf.toString()));
 
 		// Champs optionnels :
 		nameValuePairs.add(new BasicNameValuePair("firstname", firstName.toString()));
@@ -528,13 +529,15 @@ public class Comm{
 			is.close();
 			result=sb.toString().trim();
 			Log.i("SignIn return", result);
-
+			return result;
 
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 	
 	

@@ -127,6 +127,8 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 	private HashMap<String, String> errorLog;
 
+	private boolean emptyProjectList = false; // Quand l'utilisateur n'a aucun projet
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -141,12 +143,23 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 		Bundle b = getIntent().getExtras();
 		boolean bl = b.getBoolean("isOnline");
-		tree_json = b.getString("tree");
+
+		if(b.getString("tree").equals("noTree"))
+			tree_json = null;
+		else
+			tree_json = b.getString("tree");
 
 		try {
 			ArrayList<JSONObject> projects = traitementJson();
-			selectProject(projects.get(0).getString("projectName"));
-			updateProjectSpinner();
+			if(projects != null){
+				selectProject(projects.get(0).getString("projectName"));
+				updateProjectSpinner();
+			}
+			else{
+				emptyProjectList = true;
+			}
+
+
 		} catch (JSONException e) {e.printStackTrace();}
 
 		isOnline = (bl) ? true : false;
@@ -227,9 +240,6 @@ public class MainActivity extends Activity implements ScrollViewListener{
 					}
 				} 
 
-
-
-
 				str.trim();
 				Log.i("afterTextChanged", str);
 				modifiedFiles.put(current_fileId, str);	
@@ -247,6 +257,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 			}
 
 		});
+		main_text.setEnabled(false);
 
 		sync = (Button) (findViewById(R.id.bouton_sync));
 		sync.setOnClickListener(new OnClickListener() {
@@ -311,21 +322,44 @@ public class MainActivity extends Activity implements ScrollViewListener{
 			public boolean onTouch(View v, MotionEvent event) {
 
 				if(event.getAction() == MotionEvent.ACTION_UP){
-					// Création de la ProgressDialog de chargement
-					current_loading_dialog =  ProgressDialog.show(MainActivity.this, "Téléchargement", "Téléchargement de l'arborescence...", true);
 
-					// Les actions effectuées pendant le chargement sont lancées dans un Thread
-					new Thread(new Runnable(){
+					if(emptyProjectList){
+						project_spinner.setEnabled(false);
+						dialog_createProject = new Dialog(MainActivity.this, R.style.noBorder);
+						dialog_createProject.setContentView(R.layout.noprojectlayout);
 
-						public void run() {
-							System.out.println("updt1");
-							tree_json = Comm.getJSON();
-							Message msg = mHandler.obtainMessage(UPDATE_TREE_OK);
-							mHandler.sendMessage(msg);
-							System.out.println("updt2");
-						}
+						Button ok = (Button) (dialog_createProject.findViewById(R.id.button_ok_noproject));
+						ok.setOnClickListener(new OnClickListener() {
 
-					}).start();
+							public void onClick(View v) {
+								dialog_createProject.dismiss();
+								project_spinner.setEnabled(true);
+							}
+						});
+
+						dialog_createProject.show();
+
+					}
+					else{
+					
+						// Création de la ProgressDialog de chargement
+						current_loading_dialog =  ProgressDialog.show(MainActivity.this, "Téléchargement", "Téléchargement de l'arborescence...", true);
+
+						// Les actions effectuées pendant le chargement sont lancées dans un Thread
+						new Thread(new Runnable(){
+
+							public void run() {
+								System.out.println("updt1");
+								tree_json = Comm.getJSON();
+								
+								Message msg = mHandler.obtainMessage(UPDATE_TREE_OK);
+								mHandler.sendMessage(msg);
+								System.out.println("updt2");
+							}
+
+						}).start();
+						
+					}
 				}
 
 				return false;
@@ -344,7 +378,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	protected void onPause(){
 		//TODO
 		//Comm.clearCookie();
-		Log.i("onPause", "onPause");
+		//Log.i("onPause", "onPause");
 		super.onPause();
 	}
 
@@ -352,19 +386,19 @@ public class MainActivity extends Activity implements ScrollViewListener{
 	protected void onStop(){
 		//TODO
 		//Comm.clearCookie();
-		Log.i("onStop", "onStop");
+		//Log.i("onStop", "onStop");
 		super.onStop();
 	}
 
 	@Override
 	protected void onResume(){
-		Log.i("onResume", "onResume");
+		//Log.i("onResume", "onResume");
 		super.onResume();
 	}
 
 	@Override
 	protected void onRestart(){
-		Log.i("onRestart", "onRestart");
+		//Log.i("onRestart", "onRestart");
 		super.onRestart();
 	}
 
@@ -402,9 +436,16 @@ public class MainActivity extends Activity implements ScrollViewListener{
 			public void onClick(View v) {
 				EditText editText = (EditText) (dialog_createProject.findViewById(R.id.et_newproject));
 				Comm.createProject(editText.getText().toString());
+				tree_json = Comm.getJSON();
+				
+				try {
+					traitementJson();
+				} catch (JSONException e) {e.printStackTrace();}
+				
 				dialog_createProject.dismiss();
 				main_text.setText("");
 				current_fileId = null;
+				emptyProjectList = false;
 
 			}
 		});
@@ -667,26 +708,32 @@ public class MainActivity extends Activity implements ScrollViewListener{
 
 	public ArrayList<JSONObject> traitementJson() throws JSONException{
 		mtm = new MyTreeManager(this, "Workspace");
-		JSONArray jo = new JSONArray(tree_json);
-		nb_projects = jo.length();
 
-		//Log.i("nb_project", Integer.toString(nb_projects));
-		//Log.i("json1", jo.toString());
 
-		ArrayList<JSONObject> projects = new ArrayList<JSONObject>();
+		if(tree_json != null ){
+			JSONArray jo = new JSONArray(tree_json);
+			nb_projects = jo.length();
 
-		projectsList.clear();
+			//Log.i("nb_project", Integer.toString(nb_projects));
+			//Log.i("json1", jo.toString());
 
-		for(int i=0; i<nb_projects; i++){
-			projects.add(jo.getJSONObject(i));
-			//Log.i(projects.get(i).getString("projectName"), projects.get(i).getString("projectId"));
-			projectsList.put(projects.get(i).getString("projectName"), projects.get(i).getString("projectId"));
+			ArrayList<JSONObject> projects = new ArrayList<JSONObject>();
+
+			projectsList.clear();
+
+			if(!tree_json.equals("noTree")){
+				for(int i=0; i<nb_projects; i++){
+					projects.add(jo.getJSONObject(i));
+					//Log.i(projects.get(i).getString("projectName"), projects.get(i).getString("projectId"));
+					projectsList.put(projects.get(i).getString("projectName"), projects.get(i).getString("projectId"));
+				}
+			}
+			updateProjectSpinner();
+
+			return projects;
 		}
 
-		updateProjectSpinner();
-
-		return projects;
-
+		return null;
 		//selectProject(projects.get(0).getString("projectName"));
 
 	}
@@ -712,7 +759,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 				try {
 					Log.i("projectsStringArray", projectsStringArray[position]);
 					selectProject(projectsStringArray[position]);
-					
+
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -800,6 +847,7 @@ public class MainActivity extends Activity implements ScrollViewListener{
 				ImageView iv = (ImageView) (findViewById(R.id.sync_icon));
 				iv.setImageResource(R.drawable.valider);
 				current_loading_dialog.dismiss();
+				main_text.setEnabled(true);
 				break;
 
 			case LOAD_ERR:
@@ -904,8 +952,9 @@ public class MainActivity extends Activity implements ScrollViewListener{
 				current_loading_dialog.dismiss();
 				try {
 					traitementJson();
-					project_spinner.setVisibility(View.VISIBLE);
-					project_spinner.performClick();
+					//project_spinner.setVisibility(View.VISIBLE);
+					//project_spinner.performClick();
+					
 				} catch (JSONException e) {e.printStackTrace();}
 				break;
 

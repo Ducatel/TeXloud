@@ -31,7 +31,7 @@ public class TeXloudActivity extends Activity {
 
 	private EditText login, passwd;
 	private Button connect, forgot, sign_in;
-	private Dialog dialog, signin_dialog, pb_connect_dialog;
+	private Dialog dialog, signin_dialog, pb_connect_dialog, signin_result_dialog;
 	
 	private static final int LOGIN_OK = 0;
 	private static final int ERR_LOGIN = 1;
@@ -39,6 +39,8 @@ public class TeXloudActivity extends Activity {
 	
 	private ProgressDialog connect_dialog;
 	private Spinner spinner_month, spinner_gender;
+	
+	public String signInReturn;
 	
 
 	@Override
@@ -104,8 +106,20 @@ public class TeXloudActivity extends Activity {
 							}
 							
 							Message msg = null;
-												
-							if(st != "ko" && st != "pb_connect"){
+							
+							
+							Log.i("st before log", st);
+							
+							if(st.equals("ko")){
+								Log.i("switch", "wrong");
+								msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
+							}
+							else if(st.equals("pb_connect")){
+								Log.i("switch", "pb_connect");
+								msg = mHandler.obtainMessage(TeXloudActivity.CONNECTION_PROBLEM);
+							}
+							else{
+								Log.i("ok", "connexion");
 								Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
 								intent.putExtra("isOnline", isOnline());
 								intent.putExtra("tree", st);
@@ -115,14 +129,6 @@ public class TeXloudActivity extends Activity {
 								msg = mHandler.obtainMessage(TeXloudActivity.LOGIN_OK);
 								
 							}
-							else if(st == "ko"){
-								Log.i("switch", "wrong");
-								msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
-							}
-							else if(st == "pb_connect")
-								msg = mHandler.obtainMessage(TeXloudActivity.CONNECTION_PROBLEM);
-							
-							
 							
 							mHandler.sendMessage(msg);
 						}
@@ -162,7 +168,7 @@ public class TeXloudActivity extends Activity {
 					
 					ok.setOnClickListener(new OnClickListener(){
 						public void onClick(View arg0) {
-							EditText firstName, lastName, userName, mail, password, address, city, country, zip, year, day;
+							EditText firstName, lastName, userName, mail, password, password_conf, address, city, country, zip, year, day;
 							
 							// Récupération de chaque champ
 							
@@ -171,6 +177,7 @@ public class TeXloudActivity extends Activity {
 							userName = (EditText) (signin_dialog.findViewById(R.id.username));
 							mail = (EditText) (signin_dialog.findViewById(R.id.mail_signin));
 							password = (EditText) (signin_dialog.findViewById(R.id.passwd_signin));
+							password_conf = (EditText) (signin_dialog.findViewById(R.id.passwd_conf_signin));
 							address = (EditText) (signin_dialog.findViewById(R.id.address));
 							city = (EditText) (signin_dialog.findViewById(R.id.city));
 							country = (EditText) (signin_dialog.findViewById(R.id.country));
@@ -182,10 +189,28 @@ public class TeXloudActivity extends Activity {
 							String gender = spinner_gender.getSelectedItem().toString();
 							
 							// Envoi de tous les champs
-							Comm.signIn(firstName.getText(), lastName.getText(), userName.getText(), mail.getText(), password.getText(), address.getText(), gender,
+							signInReturn = Comm.signIn(firstName.getText(), lastName.getText(), userName.getText(), mail.getText(), password.getText(), password_conf.getText(), address.getText(), gender,
 									city.getText(), country.getText(), zip.getText(), year.getText(), month, day.getText());
 							
-							signin_dialog.dismiss();
+							signin_result_dialog = new Dialog(TeXloudActivity.this, R.style.noBorder);
+							signin_result_dialog.setContentView(R.layout.signinresultdialog);
+							
+							TextView tv = (TextView) (signin_result_dialog.findViewById(R.id.tv_signinResult));
+							tv.setText(signInReturn);
+							
+							Button ok = (Button) (signin_result_dialog.findViewById(R.id.button_ok_signinResult));
+							ok.setOnClickListener(new OnClickListener() {
+								public void onClick(View v) {
+									
+									if(signInReturn.equals("Inscription reussie ! Vous etes maintenant membre de TeXloud.")){
+										signin_dialog.dismiss();
+									}
+									signin_result_dialog.dismiss();
+								}
+							});
+							
+							signin_result_dialog.show();
+							//signin_dialog.dismiss();
 						}
 					});
 					
