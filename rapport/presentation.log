@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  21 FEB 2012 14:00
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.1.8)  24 FEB 2012 09:57
 entering extended mode
  %&-line parsing enabled.
 **presentation.tex
@@ -1203,7 +1203,7 @@ Here is how much of TeX's memory you used:
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/sha
 re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-te
 xlive/fonts/type1/public/amsfonts/cm/cmss8.pfb>
-Output written on presentation.pdf (19 pages, 1131967 bytes).
+Output written on presentation.pdf (19 pages, 1136279 bytes).
 PDF statistics:
  395 PDF objects out of 1000 (max. 8388607)
  51 named destinations out of 1000 (max. 500000)

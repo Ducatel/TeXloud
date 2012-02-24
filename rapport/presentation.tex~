@@ -62,7 +62,7 @@
 \subsection{\LaTeX}
 \begin{frame}{Introduction -- \LaTeX}
 	\begin{itemize}
-	\item Langage de description de document.
+	\item Langage de description de documents.
 	\item Publications scientifiques.
 	\item Excellent rendu des équations et formules.
 	\item Convertible en PDF, PostScript, DVI, HTML , etc.
@@ -94,8 +94,8 @@
 	\end{block}
 \end{frame}
 
-\subsection{Architecture général}
-\begin{frame}{Introduction -- Architecture général}
+\subsection{Architecture générale}
+\begin{frame}{Introduction -- Architecture générale}
 	\includegraphics[width=\textwidth]{./images/diaBiha.png}
 \end{frame}
 
