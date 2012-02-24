@@ -11,7 +11,12 @@
         android:layout_height="39dp"
         android:background="#699838" >
 
-        
+        <ImageView
+            android:id="@+id/texloud_logo"
+            android:layout_width="50dp"
+            android:layout_height="fill_parent"
+            android:src="@drawable/logotexloud"
+             />
 
         <Button
             android:id="@+id/texloud"
@@ -20,6 +25,7 @@
             android:background="@layout/buttonshape"
             android:text="TeXloud"
             android:textColor="#FFFFFF"
+            android:gravity="left|center"
             android:textSize="24dp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -108,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
                         android:layout_marginRight="80dp"
-                        android:text="meva" />
+                        android:text="tutu" />
                 </LinearLayout>
 
                 <LinearLayout

@@ -456,9 +456,11 @@ La page de login est assez intuitive. Après avoir tapé son identifiant et son 
   \caption{Page d'accueil Android}
   \label{Page d'accueil Android}
 \end{figure}
-
+\newpage
 \subsubsection{Création de compte}
-Les champs obligatoires sont en italique.
+\bigskip
+Les champs obligatoires sont en italique. L'application Android, contrairement à l'application Web, n'implémente pas encore de moyen de pouvoir modifier son compte ultérieurement. L'utilisateur doit donc aller sur l'interface web s'il souhaite modifier un 
+élément de son profil. 
 \begin{figure}[!ht]
 \begin{center}
   \includegraphics[width=1\textwidth]{./images/screenshot/inscription_android.png}
@@ -466,10 +468,13 @@ Les champs obligatoires sont en italique.
   \caption{Inscription via Android}
   \label{Inscription via Android}
 \end{figure}
-\paragraph*{}
 
+\newpage
 \subsubsection{Création de projet}
-La création de projet est très simple puisqu'il suffit de toucher le bouton ``Créer projet'' et d'entrer un nom de projet. Le projet est ensuite immédiatement disponible dans la liste.
+\bigskip
+La création de projet est très simple puisqu'il suffit de toucher le bouton ``Créer projet'' et d'entrer un nom de projet. Le projet est ensuite immédiatement disponible dans la liste. C'est la première étape pour un nouvel utilisateur, puisqu'il est impossible 
+de créer des fichiers tex qui ne seraient dans aucun projet.
+
 \begin{figure}[!ht]
 \begin{center}
   \includegraphics[width=1\textwidth]{./images/screenshot/creation_projet.png}
@@ -479,38 +484,49 @@ La création de projet est très simple puisqu'il suffit de toucher le bouton ``
 \end{figure}
 \paragraph*{}
 
+\newpage
 \subsubsection{Choisir un projet}
-A FAIRE
+\bigskip
+La selection de projet se fait par un objet Spinner (ou liste déroulante) en haut de la partie gauche. Le spinner contient le nom du projet en cours, et lorsqu'on appuie dessus, un écran de choix apparaît au milieu de l'écran.
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/android_selectProject.png}
+\end{center}
+  \caption{Selection de projet}
+  \label{Selection de projet}
+\end{figure}
 
-
+\newpage
 \subsubsection{Synchronisation}
 
 \paragraph*{}
 La synchronisation est fondamentale dans l'application TeXloud, et il est très important pour l'utilisateur de savoir à tout moment où il en est. Une icône est située juste à côté du bouton de synchronisation. Par défaut, elle est verte et signale que tous les fichiers sont synchronisés.
 \begin{figure}[!ht]
 \begin{center}
-  \includegraphics[width=1\textwidth]{./images/screenshot/synchro1_android.png}
+  \includegraphics[width=10cm]{./images/screenshot/synchro1_android.png}
 \end{center}
   \caption{Fichier synchronisé}
   \label{Fichier synchronisé}
 \end{figure}
 
+
 \paragraph*{}
 Cependant, dès qu'un fichier est modifié, le logo devient rouge, signalant qu'une synchronisation doit être faite pour que les modifications soient enregistrées. Lorsque la synchronisation est faite, tous les fichiers modifiés sont enregistrés.
 \begin{figure}[!ht]
 \begin{center}
-  \includegraphics[width=1\textwidth]{./images/screenshot/synchro2_android.png}
+  \includegraphics[width=10cm]{./images/screenshot/synchro2_android.png}
 \end{center}
   \caption{Fichier non synchronisé}
   \label{Fichier non synchronisé}
 \end{figure}
 
-
+\newpage
 \subsubsection{Compilation}
 \paragraph*{}
 La compilation passe par le bouton situé dans le bandeau supérieur. Lorsque l'ordre est lancé, tous les fichiers sont synchronisés puis la compilation est traitée. Chaque étape est décrite par une boîte de dialogue signalant à l'utilisateur qu'une opération est en cours.
 Lorsque la compilation s'est déroulée avec succès, une boite de dialogue s'ouvre, affichant les warnings éventuels ainsi que le lien local du fichier PDF sur la tablette. Un bouton propose d'ouvrir immédiatement le PDF.
 
+\bigskip
 \begin{figure}[!ht]
 \begin{center}
   \includegraphics[width=1\textwidth]{./images/screenshot/compil_android.png}
@@ -518,35 +534,45 @@ Lorsque la compilation s'est déroulée avec succès, une boite de dialogue s'ou
   \caption{Compilation via Android}
   \label{Compilation via Android}
 \end{figure}
-
+\clearpage
 Les erreurs de compilation apparaissent en rouge dans la boite de dialogue (bien évidemment, aucun fichier PDF n'est généré).
+
 \paragraph*{}
 \begin{figure}[!ht]
 \begin{center}
-  \includegraphics[width=1\textwidth]{./images/screenshot/erreurCompil_android.png}
+  \includegraphics[width=1\textwidth]{./images/screenshot/errorCompil_android.png}
 \end{center}
   \caption{Compilation via Android}
   \label{Compilation via Android}
 \end{figure}
 
-\begin{itemize}
- \item Lancement compilation
- \item log
- \item visu du pdf
- \item telechargement du pdf
-\end{itemize}
+\newpage
+\subsubsection{Ouverture des PDF}
+L'ouverture des PDF est gérée par un programme tiers propre à l'environnement présent sur la tablette. Quand l'utilisateur clique sur ``Afficher le PDF'' après avoir compilé le fichier, l'application TeXloud signale à la tablette qu'il faut ouvrir un fichier PDF, 
+et la tablette peut ensuite ouvrir le programme par défaut.
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=1\textwidth]{./images/screenshot/visuPdf_Android.png}
+\end{center}
+  \caption{Visualisation PDF}
+  \label{Visualisation PDF}
+\end{figure}
 
 
-\subsubsection{Fonctions annexes}
-\paragraph*{}
-\begin{itemize}
- \item Suppression de dossier/fichier
- \item Rename dossier/fichier
- \item Info supp sur user
-\end{itemize}
+\subsubsection{Fenetres de chargement}
+Toutes ces actions Android transitionnent avec une boite de dialogue, indiquant à l'utilisateur qu'une action est en cours :
+
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=8cm]{./images/screenshot/loading1_Android.png}
+\end{center}
+  \caption{Exemples de chargement}
+  \label{Exemples de chargement}
+\end{figure}
 
 \newpage
-\section{Perspective d'évolution}
+\section{Perspectives d'évolution}
 \subsection{Support des images}
 \paragraph*{}
 Le supports des images dans l'application permettrait d'ajouter des images au sein des PDF générés. L'ajout de cette fonctionnalité est très simple et rapide à mettre en \oe uvre mais malheureusement, nous n'avons pas eu le temps de la mettre en place. Pour intégrer ce support, une légère modification de la frontale, du service web et de l'application Android sont nécessaires.
@@ -571,6 +597,9 @@ Il serait possible d'utiliser plusieurs gestionnaire de version différents, des
 \paragraph*{}
 Tous les échanges entre socket ne sont pas sécurisés. Plus précisément ils ne sont pas cryptés et donc vulnérable aux écoutes sur le réseau\footnote{Attaque communément appelée sniffing}. Pour sécuriser ceci, il suffit d'utiliser un cryptage type SSL/TLS\footnote{Technique utilisée pour les transferts HTTPS}. Cette solution est très simple à mettre en place en python, il suffit de remplacer les objets socket par des objets SSLSocket\footnote{Il faut bien sûr au préalable générer les certificats SSL}.
 
+\subsection{Mode offline pour Android}
+\paragraph*{}
+Le mode offline pour Android est, à l'heure actuelle, à un stade très prématuré. Cependant, il sera peut-être développé entre la date de rédaction de ce document et le moment de rendu du projet.
 \newpage
 
 \section{Conclusion}
@@ -582,9 +611,15 @@ Le projet, bien qu'il ne soit pas totalement terminé, est stable, viable et uti
 Le projet a subi de fortes contraintes au niveau de l'architecture physique qui limitait grandement notre possibilité de travail. Ces contraintes nous ont forcé à travailler en local. Par conséquent, nous avons dû travailler sur les horaires d'ouverture de la faculté et lorsque la salle n'était pas occupée pour des cours. Aussi nous avons eu des problèmes quand à la formation de notre "cloud". En effet, nous avons dû utiliser les PC de la salle A104 (Résultat 2 serveurs en moins par rapport a notre architecture de base). De plus il nous a fallu trouver un routeur WIFI afin de faire fonctionner la tablette avec notre "Cloud".
 
 \paragraph*{}
-Pour finir nous pouvons dire que ce projet complexe a été très intéressant à mettre en place. Aussi, nous avons pris un soin particulier à produire un code propre, compréhensible, documenté et donc facilement réutilisable afin que de nombreuses fonctionnalités puissent être facilement intégrable. 
+Pour finir nous pouvons dire que ce projet complexe a été très intéressant à mettre en place. Aussi, nous avons pris un soin particulier à produire un code propre, compréhensible, documenté et donc facilement réutilisable afin que de nombreuses fonctionnalités puissent être facilement intégrables. 
 
-
+\bigskip
+\bigskip
+\begin{figure}[!ht]
+\begin{center}
+  \includegraphics[width=6cm]{./images/logoTexloud.png}
+\end{center}
+\end{figure}
 \newpage
 \listoffigures
 

@@ -25,10 +25,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Base64;
 import android.util.Log;
 
 public class Comm{
@@ -48,7 +48,10 @@ public class Comm{
 	public static final String URLconfirmPDF = "http://"+IP+"/android/deletePdfFile";
 	public static final String URLlogout = "http://"+IP+"/user/logout";
 	public static final String URLdeleteProject = "http://"+IP+"/android/deleteProject";
-	//public static final String URLrenameFile; 
+	public static final String URLnewfolder = "http://"+IP+"/android/createFolder";
+	public static final String URLdeletefile = "http://"+IP+"/android/deleteFile";
+	public static final String URLdeletefolder = "http://"+IP+"/android/deleteFolder";
+	//public static final String URLrenameFile;
 	
 	private String sessionID;
 	
@@ -122,7 +125,7 @@ public class Comm{
 			}
 			is.close();
 			tree=sb.toString();
-			Log.i("str", tree);
+			Log.i("getAuth return", tree);
 			
 			return tree; // Vaut "ko" en cas de mauvais login
 			
@@ -192,6 +195,101 @@ public class Comm{
 	public String getSessionID() {
 		return sessionID;
 	}
+	
+	public static void deleteFolder(String fileId, ArrayList<String> children){
+		
+		JSONArray ja = new JSONArray(children);
+		
+		Log.i("To delete (JSON) : ", ja.toString());
+		
+		InputStream is = null;
+		
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("fileId", fileId));
+		nameValuePairs.add(new BasicNameValuePair("childrenJson", ja.toString()));
+		
+		try{
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(URLdeletefolder);
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			Log.i("suppression dossier", fileId);
+			HttpResponse response = httpclient.execute(httppost, localContext);
+			Log.i("Suppression dossier", "requete envoyée");
+			HttpEntity entity = response.getEntity();
+			is = entity.getContent();
+
+		}catch(Exception e){
+			Log.e("log_tag", "Error in http connection " + e.toString());
+		}
+		
+		
+		String result;
+		
+		try {
+			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is,"UTF8"),30);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			is.close();
+			result=sb.toString();
+			Log.i("deleteFolder result", result);
+            
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void deleteFile(String fileId){
+		InputStream is = null;
+		
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("fileId", fileId));
+		
+		
+		
+		try{
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(URLdeletefile);
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			Log.i("suppression fichier", fileId);
+			HttpResponse response = httpclient.execute(httppost, localContext);
+			Log.i("Suppression", "requete envoyée");
+			HttpEntity entity = response.getEntity();
+			is = entity.getContent();
+
+		}catch(Exception e){
+			Log.e("log_tag", "Error in http connection " + e.toString());
+		}
+		
+		
+		String result;
+		
+		try {
+			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is,"UTF8"),30);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			is.close();
+			result=sb.toString();
+			Log.i("deleteFile result", result);
+            
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	public static void deletePdfFile(){
 		InputStream is;
@@ -205,8 +303,9 @@ public class Comm{
 		}catch(Exception e){
 			Log.e("log_tag", "Error in http connection " + e.toString());
 		}
+		
+		
 	}
-
 	public static String getFile(String fileId){
 		String result = "";
 
@@ -335,23 +434,16 @@ public class Comm{
 
 	
 	public static void syncFile(HashMap<String, String> map){
-		
-		
 		InputStream is = null;
 		String result = "";
 		
 		JSONObject jo = new JSONObject(map);
-		
-		
-		
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		
 		// Encodage Base64
 		String s = jo.toString();
 		/*byte[] bytes = s.getBytes();
 		byte[] b = Base64.encode(bytes, Base64.DEFAULT);*/
-		
-		
 		
 		nameValuePairs.add(new BasicNameValuePair("files", s));
 		
@@ -391,9 +483,7 @@ public class Comm{
 
 	}
 	
-	
-	
-	public static void signIn(CharSequence firstName, CharSequence lastName, CharSequence userName, CharSequence mail, CharSequence password, CharSequence address, String gender, 
+	public static String signIn(CharSequence firstName, CharSequence lastName, CharSequence userName, CharSequence mail, CharSequence password, CharSequence password_conf, CharSequence address, String gender, 
 			CharSequence city, CharSequence country, CharSequence zip, CharSequence year, String month, CharSequence day){
 
 		InputStream is = null;
@@ -402,6 +492,7 @@ public class Comm{
 		nameValuePairs.add(new BasicNameValuePair("username", userName.toString()));
 		nameValuePairs.add(new BasicNameValuePair("email", mail.toString()));
 		nameValuePairs.add(new BasicNameValuePair("password", password.toString()));
+		nameValuePairs.add(new BasicNameValuePair("password_conf", password_conf.toString()));
 
 		// Champs optionnels :
 		nameValuePairs.add(new BasicNameValuePair("firstname", firstName.toString()));
@@ -438,14 +529,18 @@ public class Comm{
 			is.close();
 			result=sb.toString().trim();
 			Log.i("SignIn return", result);
-
+			return result;
 
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
+	
+	
 	
 	public static void deleteProject(int idProject){
 		InputStream is = null;
@@ -525,6 +620,52 @@ public class Comm{
 			is.close();
 			result=sb.toString().trim();
 			Log.i("createProject return", result);
+
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void createFolder(String name, String parentId, String projectId){
+		InputStream is = null;
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("fileName", name));
+		nameValuePairs.add(new BasicNameValuePair("parentId", parentId));
+		nameValuePairs.add(new BasicNameValuePair("projectId", projectId));
+		
+		Log.i("projectId", projectId);
+		
+		try{
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(URLnewfolder);
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			
+			System.out.println("executing request " + httppost.getURI());
+			HttpResponse response = httpclient.execute(httppost, localContext);
+			HttpEntity entity = response.getEntity();
+			is = entity.getContent();
+			
+			for(Cookie ck : cookieStore.getCookies()){
+				Log.i("cookie", ck.toString());
+			}
+
+		}catch(Exception e){
+			Log.e("log_tag", "Error in http connection " + e.toString());
+		}
+		BufferedReader reader;
+		String result = "";
+		try {
+			reader = new BufferedReader(new InputStreamReader(is,"UTF8"),30);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			is.close();
+			result=sb.toString().trim();
+			Log.i("createFolder return", result);
 
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

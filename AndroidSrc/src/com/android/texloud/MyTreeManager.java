@@ -3,6 +3,8 @@ package com.android.texloud;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.json.JSONArray;
+
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -109,10 +111,10 @@ public class MyTreeManager {
 	}
 
 	public void addNode(String node_name, int parent_id, int type, int id) {
-		Log.i("node_name", node_name);
+		/*Log.i("node_name", node_name);
 		Log.i("parent_id", Integer.toString(parent_id));
 		Log.i("type", Integer.toString(type));
-		Log.i("id", Integer.toString(id));
+		Log.i("id", Integer.toString(id));*/
 
 		Node n = getNode(parent_id);
 
@@ -380,9 +382,14 @@ public class MyTreeManager {
 				String s = text.getText().toString();
 
 				addNode(s, current_parent.getNodeId(), Node.FOLDER, 0);
-
-				updateTree();
+				Log.i("ajout dossier", "parent : " + Integer.toString(current_parent.getNodeId()));
+				
+				Comm.createFolder(s, Integer.toString(current_parent.getNodeId()), act.getProjectsList().get(act.getCurrentProject()));
+				
+				
 				modifItem_dialog.dismiss();
+				
+				act.updateJSONTree();
 
 			}
 		});
@@ -436,7 +443,7 @@ public class MyTreeManager {
 				String s = text.getText().toString();
 				current_parent.setName(s);
 
-				updateTree();
+				updateTree(true);
 				modifItem_dialog.dismiss();
 
 			}
@@ -463,7 +470,7 @@ public class MyTreeManager {
 
 				current_parent.setName(s);
 
-				updateTree();
+				updateTree(true);
 				modifItem_dialog.dismiss();
 
 			}
@@ -473,17 +480,23 @@ public class MyTreeManager {
 	public void deleteFolder(Node n) {
 
 		ArrayList<Node> tmp = new ArrayList<Node>();
-
+		ArrayList<String> str = new ArrayList<String>();
+		
 		for (Node node : tree)
-			if (hasToBeRemoved(node, n))
+			if (hasToBeRemoved(node, n)){
 				tmp.add(node);
+				str.add(Integer.toString(node.getNodeId()));
+			}
 
 		for (Node node : tmp)
 			tree.remove(node);
 
 		tmp.clear();
 		tmp = null;
-		updateTree();
+		
+		Comm.deleteFolder(Integer.toString(n.getNodeId()), str);
+		
+		updateTree(true);
 	}
 
 	public boolean hasToBeRemoved(Node n, Node parent) {
@@ -506,19 +519,25 @@ public class MyTreeManager {
 					.findViewById(R.id.tv_leaf));
 			tv.setTypeface(Typeface.DEFAULT, Typeface.NORMAL);
 		}
+		
+		Log.i("Suppression du noeud", Integer.toString(n.getNodeId()));
+		Comm.deleteFile(Integer.toString(n.getNodeId()));
+		
 		current_italic_view = null;
 		act.setText("");
 		act.updateText();
 		tree.remove(n);
-		updateTree();
+		
+		
+		updateTree(true);
 	}
 
-	public void updateTree() {
+	public void updateTree(boolean sort) {
 		LinearLayout layout_arbo;
 		layout_arbo = (LinearLayout) (act.findViewById(R.id.layout_arbo));
 		layout_arbo.removeAllViews();
 
-		printTree();
+		printTree(sort);
 	}
 
 	public ArrayList<Node> getTree() {
@@ -544,10 +563,10 @@ public class MyTreeManager {
 
 		if (node.type == Node.FOLDER || node.type == Node.ROOT) {
 			for (Node n : original) {
-				// Log.i("node name", n.getName() + " " + n.getType());
+				//Log.i("node name", n.getName() + " " + n.getType());
 				if (n.type != Node.ROOT) {
-					// Log.i("sort", n.getParentId() + " " + node.getNodeId() +
-					// " " + node.getName());
+					//Log.i("sort", n.getParentId() + " " + node.getNodeId() + " " + node.getName());
+					
 					if (n.getParentId() == node.getNodeId())
 						sortListRecursive(sorted, original, n);
 				}
@@ -555,13 +574,14 @@ public class MyTreeManager {
 		}
 	}
 
-	public void printTree() {
+	public void printTree(boolean sort) {
 
 		/*
 		 * for(Node n : tree){ Log.i("id", n.getNodeId()+""); }
 		 */
 
-		tree = sortList();
+		if(sort)
+			tree = sortList();
 
 		LinearLayout layout_arbo;
 		layout_arbo = (LinearLayout) (act.findViewById(R.id.layout_arbo));

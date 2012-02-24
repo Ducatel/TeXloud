@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:background="#FFFFFF"
-                android:text="Join TeXloud !"
+                android:text="Rejoignez TeXloud !"
                 android:textColor="#699838"
                 android:textSize="24dp"
                 android:textStyle="bold" />
@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:paddingBottom="10dip"
-                    android:text="User name "
+                    android:text="Nom d'utilisateur "
                     android:textColor="#699838"
                     android:textSize="18dp"
                     android:textStyle="italic" />
@@ -81,7 +81,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Password "
+                    android:text="Mot de passe "
                     android:textColor="#699838"
                     android:textSize="18dp"
                     android:textStyle="italic" />
@@ -107,7 +107,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Confirm passwd "
+                    android:text="Confirm "
                     android:textColor="#699838"
                     android:textSize="18dp"
                     android:textStyle="italic" />
@@ -160,7 +160,7 @@
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:paddingBottom="10dip"
-                    android:text="First name "
+                    android:text="Prénom "
                     android:textColor="#699838"
                     android:textSize="18dp" />
 
@@ -186,7 +186,7 @@
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:paddingBottom="10dip"
-                    android:text="Last name "
+                    android:text="Nom "
                     android:textColor="#699838"
                     android:textSize="18dp" />
 
@@ -240,7 +240,7 @@
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:paddingBottom="10dip"
-                    android:text="Address "
+                    android:text="Adresse "
                     android:textColor="#699838"
                     android:textSize="18dp" />
 
@@ -266,7 +266,7 @@
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:paddingBottom="10dip"
-                    android:text="City "
+                    android:text="Ville "
                     android:textColor="#699838"
                     android:textSize="18dp" />
 
@@ -292,7 +292,7 @@
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:paddingBottom="10dip"
-                    android:text="Country "
+                    android:text="Pays "
                     android:textColor="#699838"
                     android:textSize="18dp" />
 
@@ -349,7 +349,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dip"
-                        android:text="Date of birth "
+                        android:text="Date de naissance "
                         android:textColor="#699838"
                         android:textSize="18dp" />
                 </LinearLayout>
@@ -367,7 +367,7 @@
                             android:id="@+id/year"
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
-                            android:hint="Year"
+                            android:hint="Année"
                             android:numeric="integer" />
 
                         <Spinner
@@ -381,7 +381,7 @@
                             android:id="@+id/day"
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
-                            android:hint="Day"
+                            android:hint="Jour"
                             android:numeric="integer" />
                     </LinearLayout>
                 </LinearLayout>
