@@ -20,6 +20,7 @@ class userActions extends Actions {
 	
 	public function myAccountSuccess(){
 		$this->user = User::getCurrentUser();
+		$this->dontDisplayOptions = false;
 		
 		if($this->user){
 			$this->title= 'Modifier mon profil';

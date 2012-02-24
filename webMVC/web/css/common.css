@@ -107,3 +107,7 @@ section h1, footer h1, nav a
 	padding: 2em;
 	text-align: center;
 }
+
+#sync_tick {
+	margin-right: 6px;
+}

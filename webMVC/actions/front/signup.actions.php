@@ -3,6 +3,7 @@
 class signupActions extends Actions {
 	public function indexSuccess(){
 		$this->title= 'Inscription';
+		$this->dontDisplayOptions = false;
 		$this->addCss('signup');
 		$this->setTemplate('signup', $this);
 	}

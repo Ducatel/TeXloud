@@ -5,8 +5,8 @@ class androidActions extends Actions{
 		$login = $_POST['login'];
 		$password = $_POST['password'];
 
-		$login = "meva";
-		$password = "plop";
+		//$login = "meva";
+		//$password = "plop";
 		$query = new Query('unique_select', "SELECT id, salt, password FROM user WHERE username='$login'");
 		$result = $query->result;
 		
@@ -21,6 +21,12 @@ class androidActions extends Actions{
 			// recuperation de tous les project de l'utilisateur
 			$getProjects = new Query('select',"select P.id as id, P.name as name from user U,group_user GU, project P where U.username='".$login."' and U.id=GU.user_id and GU.ugroup_id=P.ugroup_id");
 			$i=0;
+
+			if(count($getProjects->result) == 0){
+				echo "noTree";
+				
+			}
+			else{
 			foreach($getProjects->result as $res){
 				$arboresence[$i]=array();
 				$arboresence[$i]['projectName']=$res->name;
@@ -43,6 +49,7 @@ class androidActions extends Actions{
 			}
 
 			echo json_encode($arboresence);
+			}
 		}
 	}
 	
@@ -53,6 +60,11 @@ class androidActions extends Actions{
 			// recuperation de tous les project de l'utilisateur
 			$getProjects = new Query('select',"select P.id as id, P.name as name from user U,group_user GU, project P where U.username='".$user->username."' and U.id=GU.user_id and GU.ugroup_id=P.ugroup_id");
 			$i=0;
+	
+			if(count($getProjects->result) == 0){
+				echo "noTree";
+				return;
+			}
 			foreach($getProjects->result as $res){
 				$arboresence[$i]=array();
 				$arboresence[$i]['projectName']=$res->name;
@@ -90,14 +102,18 @@ class androidActions extends Actions{
 	
 		$username = $_POST['username'];
 		$password = $_POST['password'];
+		$confirm_passwd = $_POST['password_conf'];
 		$email = $_POST['email'];
       
-	    if(!(isset($username) && !empty($username) && isset($password) && !empty($password) && isset($email) && !empty($email)))
-			die("Tout les champs doivent etre remplis !");
+	    if(!(isset($username) && !empty($username) && isset($password) && !empty($password) && isset($email) && !empty($email) && isset($confirm_passwd) && !empty($confirm_passwd)))
+			die("Tous les champs requis doivent etre remplis !");
 	    
 		if($username == $password)
 			die("Le mot de passe doit etre different du login");
-		  
+		
+		if($confirm_passwd != $password)
+			die("La confirmation du mot de passe ne correspond pas");
+ 
 	    // Si c'est bon on regarde dans la base de donnée si le nom de compte est déjà utilisé :
 	    $result = new Query('unique_select',"SELECT username FROM user WHERE  username='$username'");
  
@@ -105,7 +121,7 @@ class androidActions extends Actions{
 	 		die("Username deja utilise");
 
 		if(!(strlen($password < 60) && strlen($username < 60)))
-			die("username ou mot de passe trop long !");
+			die("Username ou mot de passe trop long !");
 
 		
 		$user=new User();
@@ -291,6 +307,41 @@ class androidActions extends Actions{
 	}
 	
 
+	public function createFolderSuccess(){
+		
+		$parentId=$_POST['parentId'];
+		if(!isset($parentId) || $parentId=="")
+			die("Erreur l'id parent est vide ou indefini");
+			
+		$fileName=$_POST['fileName'];
+		if(!isset($fileName) || empty($fileName))
+			die("Erreur le nom du fichier est vide ou indefini");
+			
+		$projectId=$_POST['projectId'];
+		if(!isset($projectId) || empty($projectId))
+			die("Erreur l'id du projet est vide ou indefini");
+
+		
+		$file = new File();
+		$file->is_dir = 1;
+		$file->project_id = $projectId;
+		$file->parent = $parentId;
+		
+		if($parentId == 0){
+			$file->path = $fileName;
+		}
+		else{
+			$parent = new File($parentId);
+			$file->path = $parent->path.'/'.$fileName;
+		}
+
+		$file->save();
+
+		
+
+		echo "ok";
+
+	}
 	
 	public function syncSuccess($affichage=true) {
 		$data=$_POST['files'];
@@ -389,18 +440,41 @@ class androidActions extends Actions{
 		//echo "recuperation du fichier termine";
 		echo $trame;
 	}
+
+	public function deleteFolderSuccess(){
+		
+		$fileId = $_POST['fileId'];	
+
+		if(!isset($_POST['childrenJson']) && empty($_POST['childrenJson'])){
+			die("Erreur sur le JSON, vide ou unset");
+		}
+
+		if(!isset($fileId) && empty($fileId))
+			die("Erreur sur l'id du dossier");
+
+		// Suppression côté Data
+		File::deleteFromData($fileId);
+
+		$children = json_decode($_POST['childrenJson'], true);
+
+		foreach($children as $id){
+			new Query('delete',"delete from file where id=".$id);
+			unset($_SESSION['workingCopyDir'][$id]);
+		}
+
+		echo "delete folder ok";
+
+	}
 		
 	//TODO a tester
 	public function deleteFileSuccess(){
-	
+		
 		$fileId=$_POST['fileId'];
 
 		if(!isset($fileId) && empty($fileId))
 			die("Erreur sur l'id du fichier");
 	
-		// creation de la socket de reception
-		$receiver=new ReceiverTextOnly("192.168.0.2");
-
+	
 		//creation de la requete d'emission
 		$frontalAddress = "192.168.0.6";
 		$frontalPort = 12800;
@@ -422,11 +496,9 @@ class androidActions extends Actions{
 
 		//envoie de la commande de suppression de file
 		$sender->sendRequest();
+			
 		unset($sender);
-
-		// Attente de recuperation des infos
-		$trame=$receiver->getReturn();
-
+	
 		// suppression du file dans la BDD
 		new Query('delete',"delete from file where id=".$file->id);
 
@@ -434,8 +506,7 @@ class androidActions extends Actions{
 		unset($_SESSION['workingCopyDir'][$file->id]);
 
 		echo "Suppression du file termine";
-	}
-		
+	}	
 	
 	public function processCompileSuccess(){
 		if($_POST['root_file_id']){

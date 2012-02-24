@@ -62,6 +62,10 @@ function addFileAction(element){
 					//console.log(editAreaLoader.getValue('codelatex'));
 					FILES_CONTENT[CURRENT_FILE_ID] = editAreaLoader.getValue('codelatex');
 					//$('textarea#textarea').val(content);
+
+					if($('#pending').filter(':hidden').length && $('#synchronized').filter(':hidden').length){
+						$('#synchronized').show();
+					}
 			});
 		}
 		else
@@ -282,8 +286,16 @@ function removeFile(file){
                 'id':$(file).attr('id'),
         },
         success:function(data){
-
-        	removeAction($(file));
+		if($(file).attr('id') == CURRENT_FILE_ID){
+			delete(FILES_CONTENT[CURRENT_FILE_ID]);
+			CURRENT_FILE_ID = null;
+			editAreaLoader.setValue('codelatex', '');
+			editAreaLoader.execCommand('codelatex', 'set_editable', false);
+			$('#frame_codelatex').contents().find('#result').css('background-color', '#ffede0');
+		}
+	
+        	
+		removeAction($(file));
         	$(file).remove();
 
         }
@@ -302,7 +314,19 @@ function removeFolder(folder){
 	        },
 	        success:function(data){
 	        	removeAction($(folder));
-	        	$(folder).next().children().remove();
+
+			$(folder).next().children().each(function(){
+				if($(this).attr('id') == CURRENT_FILE_ID){
+				        delete(FILES_CONTENT[CURRENT_FILE_ID]);
+				        CURRENT_FILE_ID = null;
+				        editAreaLoader.setValue('codelatex', '');
+				        editAreaLoader.execCommand('codelatex', 'set_editable', false);
+				        $('#frame_codelatex').contents().find('#result').css('background-color', '#ffede0');
+				}
+
+				$(this).remove();
+			});
+
 	        	$(folder).next().remove();
 	        	$(folder).remove();
 	        }
@@ -317,7 +341,19 @@ function removeFolder(folder){
 	        },
 	        success:function(data){
 	        	removeAction($(folder));
-	        	$(folder).next().children().remove();
+			
+			$(folder).next().children().each(function(){
+				if($(this).attr('id') == CURRENT_FILE_ID){
+				        delete(FILES_CONTENT[CURRENT_FILE_ID]);
+				        CURRENT_FILE_ID = null;
+				        editAreaLoader.setValue('codelatex', '');
+				        editAreaLoader.execCommand('codelatex', 'set_editable', false);
+				        $('#frame_codelatex').contents().find('#result').css('background-color', '#ffede0');
+				}
+
+				$(this).remove();
+			});
+
 	        	$(folder).next().remove();
 	        	$(folder).remove();
 	        }

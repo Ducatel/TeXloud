@@ -1,4 +1,4 @@
-
+<div id="formulaire">
 <article id="monForm">
 	<form action="/user/processEditAccount" method="post">
 		<fieldset>
@@ -286,3 +286,4 @@
 		</p>
 	</form>
 </article>
+</div>

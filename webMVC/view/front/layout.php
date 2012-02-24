@@ -48,11 +48,16 @@
 	
 			<nav id='menu'>
 				<ul>
-					<li><a id="refresh_cache">Effacer cache</a></li>
-					<li><a id="sync">Synchroniser</a></li>
+					<!--<li><a id="refresh_cache">Effacer cache</a></li>-->
+					<?php if(!isset($var->dontDisplayOptions)): ?>
+					<li>
+						<img src="/images/synchronized.png" alt="synchronized" class="sync_tick" id="synchronized" style="display: none;" /> 
+						<img src="/images/pending.png" alt="pending" id="pending" class="sync_tick" style="display: none; " /> 
+						<a id="sync">Synchroniser</a>
+					</li>
 					<li><a id="compile">Compiler</a></li>
-					<li><a href="js/pdfjs/web/viewer.html">Télécharger Projet</a></li>
-					<li><a id="show_viewer">Contact</a></li>
+					<?php endif; ?>
+					<li><a href="mailto:contact@texloud.org">Contact</a></li>
 				</ul>
 			</nav>
 		<?php endif; ?>

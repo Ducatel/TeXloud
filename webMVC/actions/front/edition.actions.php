@@ -3,13 +3,13 @@ class editionActions extends Actions {
 	public function indexSuccess() {
 		$this->title = 'Edition';
 		$this->addCss('edition');
-		$this->addJs('edition');
-		$this->addJs('arbre');
 
 		if(User::isLogged()){
 			$this->flash = 'Votre inscription a été prise en compte'; 
 			$this->addJs('edit_area/edit_area_full');
 			$this->addJs('langManager');
+			$this->addJs('edition');
+			$this->addJs('arbre');
 			$this->addJs('init');
 			
 			$user = User::getCurrentUser();

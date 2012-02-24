@@ -1,5 +1,6 @@
 .root {
 	list-style-image: url("/images/arbre/rootIcon.png");
+	cursor: pointer;
 }
 
 .folder {

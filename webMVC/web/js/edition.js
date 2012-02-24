@@ -1,3 +1,18 @@
+var langManager = new languageManager();
+langManager.load("en");  
+
+function init_EA(id){
+	$('#frame_' + id).contents().find('#result').css('background-color', '#ffede0');
+
+	$('#frame_' + id).contents().find('#textarea').keyup(function(){
+		if($('#pending').filter(':hidden').length){
+			$('#pending').show();
+			$('#synchronized').hide();
+		}
+	});
+
+}
+
 function convertToJSON(map){
 	mapJSON = "{";
 
@@ -10,24 +25,28 @@ function convertToJSON(map){
 	return mapJSON;
 }
 
-$(function(){
-	$('#sync').click(function(){
-		if(CURRENT_FILE_ID)
-			FILES_CONTENT[CURRENT_FILE_ID] = editAreaLoader.getValue('codelatex');
-		
-		files_json = convertToJSON(FILES_CONTENT);
-		var loadingDiv="<div id='loadingDiv' style='text-align:center;'><b>Synchronistation en cours</b><br/><br/><img src='/images/loading.gif' alt='loading gif' /></div>";
-		
-		$('#popup_wrapper').html(loadingDiv).css('top', ($(window).height()/2)-16 + 'px').css('left', ($(window).width()/2)-16 + 'px').css('position', 'fixed').fadeIn();
-		
-		
-		$.post('/ajax/sync',
-		 	{'files' : FILES_CONTENT},
-			function(data){
 
-					$('#loadingDiv').fadeOut().remove();
-			});	
-	});
+function sync(){
+	if(CURRENT_FILE_ID)
+		FILES_CONTENT[CURRENT_FILE_ID] = editAreaLoader.getValue('codelatex');
+		
+	files_json = convertToJSON(FILES_CONTENT);
+	var loadingDiv="<div id='loadingDiv' style='text-align:center;'><b>Synchronistation en cours</b><br/><br/><img src='/images/loading.gif' alt='loading gif' /></div>";
+		
+	$('#popup_wrapper').html(loadingDiv).css('top', ($(window).height()/2)-16 + 'px').css('left', ($(window).width()/2)-16 + 'px').css('position', 'fixed').fadeIn();
+	
+	$.post('/ajax/sync',
+		{'files' : FILES_CONTENT},
+		function(data){
+			$('#loadingDiv').fadeOut().remove();
+			FILES_CONTENT = {};
+			$('#pending').hide();
+			$('#synchronized').show();
+		});	
+}
+
+$(function(){
+	$('#sync').click(sync);
 	
 	$(window).keypress(function(event) {
 	  if (!(event.which == 115 && event.ctrlKey) && event.which!=19)
@@ -86,7 +105,9 @@ $(function(){
 											$.post('/ajax/parseXml',
 								      		 {'log' : data},
 								      		 function(xml){
-								      		 	if(xml!=""){
+								      		 	if(xml!=""){	
+								      				$('#divLog').remove();
+											        $('#frame_codelatex').css('height',$(window).height() - $('#titre_principal').height());
 										  		 	var divLog="<div id='divLog'><div id='divLogTopBar'><span id='closeDivLog'>fermer</span></div><div id='divLogContent'>"+xml+"</div></div>";
 
 										  			var heightEditor=stripPx($('#frame_codelatex').css('height'));
@@ -116,10 +137,10 @@ $(function(){
 													$('#back_edit').click(function(){
 														$('#viewer_frame').toggle();
 														$('#bloc_texloud').toggle();
-														if($(this).html()=="Voir le dernier PDF compilé")
-															$(this).html("Revenir");
+														if($('#back_edit').html()=="Voir le PDF")
+															$('#back_edit').html("Revenir");
 														else
-															$(this).html("Voir le dernier PDF compilé");
+															$('#back_edit').html("Voir le PDF");
 													});
 													}
 										  		 });	
@@ -148,8 +169,25 @@ $(function(){
 		}
 	);
 
+	setInterval(function(){
+		sync();
+	}, 60000);
+
 	$('#refresh_cache').click(function(){
 		FILES_CONTENT = {};
+	});
+	
+	editAreaLoader.init({
+		id : 'codelatex',
+		syntax: 'latex',
+		word_wrap: true,
+		start_highlight: true,
+		language: 'en',
+		toolbar: 'undo,redo',
+		allow_toggle: false,
+		min_height: $(window).height() - $('#titre_principal').height(),
+		is_editable: false,
+		EA_load_callback: 'init_EA',
 	});
 });
 
