@@ -78,19 +78,41 @@ var IDENTITY_MATRIX = [1, 0, 0, 1, 0, 0];
 
 var Util = (function UtilClosure() {
   function Util() {}
+
   Util.makeCssRgb = function makergb(r, g, b) {
     var ri = (255 * r) | 0, gi = (255 * g) | 0, bi = (255 * b) | 0;
     return 'rgb(' + ri + ',' + gi + ',' + bi + ')';
   };
+
   Util.makeCssCmyk = function makecmyk(c, m, y, k) {
     c = (new DeviceCmykCS()).getRgb([c, m, y, k]);
     var ri = (255 * c[0]) | 0, gi = (255 * c[1]) | 0, bi = (255 * c[2]) | 0;
     return 'rgb(' + ri + ',' + gi + ',' + bi + ')';
   };
+
+  // For 2d affine transforms
   Util.applyTransform = function apply(p, m) {
     var xt = p[0] * m[0] + p[1] * m[2] + m[4];
     var yt = p[0] * m[1] + p[1] * m[3] + m[5];
     return [xt, yt];
+  };
+
+  // Apply a generic 3d matrix M on a 3-vector v:
+  //   | a b c |   | X |
+  //   | d e f | x | Y |
+  //   | g h i |   | Z |
+  // M is assumed to be serialized as [a,b,c,d,e,f,g,h,i],
+  // with v as [X,Y,Z]
+  Util.apply3dTransform = function apply3d(m, v) {
+    return [
+      m[0] * v[0] + m[1] * v[1] + m[2] * v[2],
+      m[3] * v[0] + m[4] * v[1] + m[5] * v[2],
+      m[6] * v[0] + m[7] * v[1] + m[8] * v[2]
+    ];
+  }
+
+  Util.sign = function sign(num) {
+    return num < 0 ? -1 : 1;
   };
 
   return Util;
@@ -160,11 +182,11 @@ function isArray(v) {
   return v instanceof Array;
 }
 
-function isStream(v) {
+function isStream(v) {  
   return typeof v == 'object' && v != null && ('getChar' in v);
 }
 
-function isArrayBuffer(v) {
+function isArrayBuffer(v) { 
   return typeof v == 'object' && v != null && ('byteLength' in v);
 }
 
@@ -206,6 +228,8 @@ var Promise = (function PromiseClosure() {
    */
   function Promise(name, data) {
     this.name = name;
+    this.isRejected = false;
+    this.error = null;
     // If you build a promise and pass in some data it's already resolved.
     if (data != null) {
       this.isResolved = true;
@@ -216,6 +240,7 @@ var Promise = (function PromiseClosure() {
       this._data = EMPTY_PROMISE;
     }
     this.callbacks = [];
+    this.errbacks = [];
   };
   /**
    * Builds a promise that is resolved when all the passed in promises are
@@ -252,8 +277,8 @@ var Promise = (function PromiseClosure() {
         return;
       }
       if (this._data !== EMPTY_PROMISE) {
-        throw 'Promise ' + this.name +
-                                ': Cannot set the data of a promise twice';
+        error('Promise ' + this.name +
+              ': Cannot set the data of a promise twice');
       }
       this._data = value;
       this.hasData = true;
@@ -265,7 +290,7 @@ var Promise = (function PromiseClosure() {
 
     get data() {
       if (this._data === EMPTY_PROMISE) {
-        throw 'Promise ' + this.name + ': Cannot get data that isn\'t set';
+        error('Promise ' + this.name + ': Cannot get data that isn\'t set');
       }
       return this._data;
     },
@@ -280,11 +305,14 @@ var Promise = (function PromiseClosure() {
 
     resolve: function promiseResolve(data) {
       if (this.isResolved) {
-        throw 'A Promise can be resolved only once ' + this.name;
+        error('A Promise can be resolved only once ' + this.name);
+      }
+      if (this.isRejected) {
+        error('The Promise was already rejected ' + this.name);
       }
 
       this.isResolved = true;
-      this.data = data;
+      this.data = data || null;
       var callbacks = this.callbacks;
 
       for (var i = 0, ii = callbacks.length; i < ii; i++) {
@@ -292,17 +320,39 @@ var Promise = (function PromiseClosure() {
       }
     },
 
-    then: function promiseThen(callback) {
+    reject: function proimseReject(reason) {
+      if (this.isRejected) {
+        error('A Promise can be rejected only once ' + this.name);
+      }
+      if (this.isResolved) {
+        error('The Promise was already resolved ' + this.name);
+      }
+
+      this.isRejected = true;
+      this.error = reason || null;
+      var errbacks = this.errbacks;
+
+      for (var i = 0, ii = errbacks.length; i < ii; i++) {
+        errbacks[i].call(null, reason);
+      }
+    },
+
+    then: function promiseThen(callback, errback) {
       if (!callback) {
-        throw 'Requiring callback' + this.name;
+        error('Requiring callback' + this.name);
       }
 
       // If the promise is already resolved, call the callback directly.
       if (this.isResolved) {
         var data = this.data;
         callback.call(null, data);
+      } else if (this.isRejected && errorback) {
+        var error = this.error;
+        errback.call(null, error);
       } else {
         this.callbacks.push(callback);
+        if (errback)
+          this.errbacks.push(errback);
       }
     }
   };

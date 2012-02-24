@@ -2,13 +2,11 @@
 class androidActions extends Actions{
 
 	public function loginSuccess(){
-
 		$login = $_POST['login'];
 		$password = $_POST['password'];
-		
-		$login = 'meva';
-		$password = 'plop';
 
+		//$login = "meva";
+		//$password = "plop";
 		$query = new Query('unique_select', "SELECT id, salt, password FROM user WHERE username='$login'");
 		$result = $query->result;
 		
@@ -17,11 +15,18 @@ class androidActions extends Actions{
 		}
 		else{
 			$_SESSION['user_id'] = $result->id;
+
 			$arboresence=array();
 
 			// recuperation de tous les project de l'utilisateur
 			$getProjects = new Query('select',"select P.id as id, P.name as name from user U,group_user GU, project P where U.username='".$login."' and U.id=GU.user_id and GU.ugroup_id=P.ugroup_id");
 			$i=0;
+
+			if(count($getProjects->result) == 0){
+				echo "noTree";
+				
+			}
+			else{
 			foreach($getProjects->result as $res){
 				$arboresence[$i]=array();
 				$arboresence[$i]['projectName']=$res->name;
@@ -42,8 +47,46 @@ class androidActions extends Actions{
 				}
 				$i++;
 			}
+
 			echo json_encode($arboresence);
+			}
 		}
+	}
+	
+	public function getJsonTreeSuccess(){
+			$arboresence=array();
+
+			$user=User::getCurrentUser();
+			// recuperation de tous les project de l'utilisateur
+			$getProjects = new Query('select',"select P.id as id, P.name as name from user U,group_user GU, project P where U.username='".$user->username."' and U.id=GU.user_id and GU.ugroup_id=P.ugroup_id");
+			$i=0;
+	
+			if(count($getProjects->result) == 0){
+				echo "noTree";
+				return;
+			}
+			foreach($getProjects->result as $res){
+				$arboresence[$i]=array();
+				$arboresence[$i]['projectName']=$res->name;
+				$arboresence[$i]['projectId']=$res->id;
+
+	
+				$getFilesInProject= new Query('select',"select F.* from file F, project P where P.id=".$res->id." and F.project_id=P.id");
+				$j=0;
+				$arboresence[$i]['files']=array();
+				foreach($getFilesInProject->result as $file){
+					$tmp=explode('/',$file->path);
+					$arboresence[$i]['files'][$j]=array();
+					$arboresence[$i]['files'][$j]['parentId']=$file->parent;
+					$arboresence[$i]['files'][$j]['filename']=$tmp[count($tmp)-1];
+					$arboresence[$i]['files'][$j]['is_dir']=$file->is_dir;
+					$arboresence[$i]['files'][$j]['id_file']=$file->id;
+					$j++;
+				}
+				$i++;
+			}
+
+			echo json_encode($arboresence);
 	}
 	
 	public function createAccountSuccess(){
@@ -59,14 +102,18 @@ class androidActions extends Actions{
 	
 		$username = $_POST['username'];
 		$password = $_POST['password'];
+		$confirm_passwd = $_POST['password_conf'];
 		$email = $_POST['email'];
       
-	    if(!(isset($username) && !empty($username) && isset($password) && !empty($password) && isset($email) && !empty($email)))
-			die("Tout les champs doivent etre remplis !");
+	    if(!(isset($username) && !empty($username) && isset($password) && !empty($password) && isset($email) && !empty($email) && isset($confirm_passwd) && !empty($confirm_passwd)))
+			die("Tous les champs requis doivent etre remplis !");
 	    
 		if($username == $password)
 			die("Le mot de passe doit etre different du login");
-		  
+		
+		if($confirm_passwd != $password)
+			die("La confirmation du mot de passe ne correspond pas");
+ 
 	    // Si c'est bon on regarde dans la base de donnée si le nom de compte est déjà utilisé :
 	    $result = new Query('unique_select',"SELECT username FROM user WHERE  username='$username'");
  
@@ -74,7 +121,7 @@ class androidActions extends Actions{
 	 		die("Username deja utilise");
 
 		if(!(strlen($password < 60) && strlen($username < 60)))
-			die("username ou mot de passe trop long !");
+			die("Username ou mot de passe trop long !");
 
 		
 		$user=new User();
@@ -103,22 +150,30 @@ class androidActions extends Actions{
 	}	
 	
 		
-	//TODO a tester
 	public function createProjectSuccess(){
-		$projectName=$_POST['projectName'];
+
+		$projectName=utf8_encode($_POST['projectName']);
 		
-		if(!isset($projetName) && empty($projectName))
+		if(!isset($projectName) || empty($projectName))
 			die("Erreur sur le nom du projet");
 			
 		$user=User::getCurrentUser();
+	
+		$groups = $user->getCreatedGroups();
+		
+		$project = new Project();
+		$project->ugroup_id = $groups[0]->id;
+		$project->name = $projectName;
+		
 		
 		// creation de la socket de reception
-		$receiver=new ReceiverTextOnly("192.168.0.2");
+		$receiver=new ReceiverTextOnly(HTTP_IP);
 		
 		//creation de la requete d'emission
-		$frontalAddress = "192.168.0.6";
-		$frontalPort = 12800;
+		$frontalAddress = FRONTAL_IP;
+		$frontalPort = FRONTAL_PORT;
 		$sender= new Sender($frontalAddress,$frontalPort);
+
 
 		$requete=array(
 			'label'=>'create',
@@ -126,90 +181,54 @@ class androidActions extends Actions{
 			'projectName'=>$projectName,
 			'httpPort'=>$receiver->getPort(),
 		);
+		
 		$sender->setRequest($requete);
 		
-		//envoie de la commande de creation de projet
+		///envoie de la commande de creation de projet
 		$sender->sendRequest();
 		unset($sender);
 		
 		// Attente de recuperation des infos
 		$trame=$receiver->getReturn();
 		
-		// Creation du projet dans la BDD
-		$req=new Query('insert',"INSERT INTO project VALUES ('','".$projectName."','".$trame['serverUrl']."',(select GU.ugroup_id from user U , group_user GU where U.id='".$user->id."' and GU.user_id=U.id limit 0,1))");
+		$project->server_url = $receiver->getRemoteIp().':'.$trame->port;
+		$project->repo = $trame->projectName;
+		$project->save();
+	
+		if(!is_array($_SESSION['workingCopyDir']))
+			$_SESSION['workingCopyDir']=array();
+
+		$_SESSION['workingCopyDir'][$project->id]=$trame->workingCopyDir;
 		
-		
-		$_SESSION['workingCopyDir']=array();
-		$_SESSION['workingCopyDir'][$req->last_id]=$trame['workingCopyDir'];
-		
-		echo "Creation du projet termine";
+		$_SESSION['project_id'] = $project->id;	
+
+		echo $project->id . '_project';
 	}
 	
-	//TODO a tester
-	public function getProjectSuccess(){
-		
-		$projectId=$_POST['projectId'];
-		
-		if(!isset($projectId) && empty($projectId))
-			die('Erreur dans le chargement de projet ');
-			$user=User::getCurrentUser();
-
-		// creation de la socket de reception
-		$receiver=new ReceiverTextOnly("192.168.0.2");
-
-		//creation de la requete d'emission
-		$frontalAddress = "192.168.0.6";
-		$frontalPort = 12800;
-		$sender= new Sender($frontalAddress,$frontalPort);
-
-		$project=new Project($projectId);
-		$dataUrl=explode(':',$project->serverUrl);
-		$dataIp=$dataUrl[0];
-		$dataPort=$dataUrl[1];
-		
-		$requete=array(
-			'label'=>'getProject',
-			'path'=>$_SESSION['workingCopyDir'][$project->id],
-			'servDataIp'=>$dataIp,
-			'servDataPort'=>$dataPort,
-			'httpPort'=>$receiver->getPort(),
-		);
-		$sender->setRequest($requete);
-
-		//envoie de la commande de chargement de projet
-		$sender->sendRequest();
-		unset($sender);
-
-		// Attente de recuperation des infos
-		$trame=$receiver->getReturn();
-
-		unset($_SESSION['workingCopyDir'][$project->id]);
-
-		echo "recuperation du projet termine";
-	}
-	
-	
-		
 	//TODO a tester
 	public function deleteProjectSuccess(){
-	
 		$projectId=$_POST['projectId'];
 
-		if(!isset($projetId) && empty($projectId))
+		if(!isset($projectId) || empty($projectId))
 			die("Erreur sur l'id du projet");
 	
 		$user=User::getCurrentUser();
 
-		// creation de la socket de reception
-		$receiver=new ReceiverTextOnly("192.168.0.2");
+		$project=new Project($projectId);
+
+		if(!$project->id)
+			die('pas de projet correspondant');
+
+		if(!$_SESSION['workingCopyDir'][$project->id]){
+			Common::getProject($project);
+		}
 
 		//creation de la requete d'emission
 		$frontalAddress = "192.168.0.6";
 		$frontalPort = 12800;
 		$sender= new Sender($frontalAddress,$frontalPort);
 
-		$project=new Project($projectId);
-		$dataUrl=explode(':',$project->serverUrl);
+		$dataUrl=explode(':',$project->server_url);
 		$dataIp=$dataUrl[0];
 		$dataPort=$dataUrl[1];
 		
@@ -218,7 +237,7 @@ class androidActions extends Actions{
 			'path'=>$_SESSION['workingCopyDir'][$project->id],
 			'servDataIp'=>$dataIp,
 			'servDataPort'=>$dataPort,
-			'httpPort'=>$receiver->getPort(),
+			'httpPort'=>'',
 		);
 		$sender->setRequest($requete);
 
@@ -226,115 +245,236 @@ class androidActions extends Actions{
 		$sender->sendRequest();
 		unset($sender);
 
-		// Attente de recuperation des infos
-		$trame=$receiver->getReturn();
-
 		// suppression du projet dans la BDD
-		Project::delete($project->id);
-
+		$project->_delete();
 
 		unset($_SESSION['workingCopyDir'][$project->id]);
 
 		echo "Suppression du projet termine";			
 	}
 	
-	//TODO a tester
-	public function syncSuccess($affichage=true) {
 	
-		$files=$_POST['files'];
-		
-		if(!isset($files) && empty($files))
-			die("Erreur sur le chargement du fichier");
+	public function createTextFileSuccess(){
+		$parentId=$_POST['parentId'];
+		if(!isset($parentId) || $parentId=="")
+			die("Erreur l'id parent est vide ou indefini");
 			
-		$user=User::getCurrentUser();
+		$fileName=$_POST['fileName'];
+		if(!isset($fileName) || empty($fileName))
+			die("Erreur le nom du fichier est vide ou indefini");
+			
+		$projectId=$_POST['projectId'];
+		if(!isset($projectId) || empty($projectId))
+			die("Erreur l'id du projet est vide ou indefini");
+			
+			
+		$file = new File();
+		$file->is_dir = 0;
+		$file->project_id=$projectId;
+		$file->parent=$parentId;
 		
-		// creation de la socket de reception
-		$receiver=new ReceiverTextOnly("192.168.0.2");
+		if($parentId==0)
+			$file->path=$fileName;	
+		else{
+			$parent=new File($parentId);
+			$file->path=$parent->path."/".$fileName;
+		}
+		$file->save();	
 		
-		//creation de la requete d'emission
-		$frontalAddress = "192.168.0.6";
-		$frontalPort = 12800;
-		$sender= new Sender($frontalAddress,$frontalPort);
+		$request = array('label' => 'sync');
+		$files = array();
+		$files[] = array('filename' => $file->path, 'content' => '');
 		
-		$file=new File($fileId);
+		$project = new Project($file->project_id);
+		$sender= new Sender(FRONTAL_IP, FRONTAL_PORT);
+		$request['httpPort'] = '';
 		
-		$requete=array(
-			'label'=>'sync',
-			'path'=>$_SESSION['workingCopyDir'][$file->id],
-			'files'=>$files,
-			'httpPort'=>$receiver->getPort(),
-		);
-		$sender->setRequest($requete);
-		
-		//envoie de la commande de syncronisation du fichier
+		if(!$_SESSION['workingCopyDir'][$project->id]){
+			$project = new Project($file->project_id);
+			Common::getProject($project);
+		}
+	
+	        $request['path'] = $_SESSION['workingCopyDir'][$project->id];
+		$request['files'] = $files;
+		$data_addr = explode(':', $project->server_url);
+		$request['servDataIp'] = $data_addr[0];
+		$request['servDataPort'] = $data_addr[1];
+		$sender->setRequest($request);
+
 		$sender->sendRequest();
 		unset($sender);
-		
-		// Attente de recuperation des infos
-		$trame=$receiver->getReturn();
-				
-		if($affichage)
-			echo "Syncronisation du fichier termine";
-		
+		echo "ok";
 	}
 	
-	//TODO a tester
+
+	public function createFolderSuccess(){
+		
+		$parentId=$_POST['parentId'];
+		if(!isset($parentId) || $parentId=="")
+			die("Erreur l'id parent est vide ou indefini");
+			
+		$fileName=$_POST['fileName'];
+		if(!isset($fileName) || empty($fileName))
+			die("Erreur le nom du fichier est vide ou indefini");
+			
+		$projectId=$_POST['projectId'];
+		if(!isset($projectId) || empty($projectId))
+			die("Erreur l'id du projet est vide ou indefini");
+
+		
+		$file = new File();
+		$file->is_dir = 1;
+		$file->project_id = $projectId;
+		$file->parent = $parentId;
+		
+		if($parentId == 0){
+			$file->path = $fileName;
+		}
+		else{
+			$parent = new File($parentId);
+			$file->path = $parent->path.'/'.$fileName;
+		}
+
+		$file->save();
+
+		
+
+		echo "ok";
+
+	}
 	
-	public function getFileSuccess(){
-	
+	public function syncSuccess($affichage=true) {
+		$data=$_POST['files'];
+		
+		if(!isset($data) || empty($data))
+			die("Erreur sur le chargement du fichier");
+			
+
+		$data=json_decode($data,true);
+		$user = User::getCurrentUser();
+		$request = array('label' => 'sync');
+		$files = array();
+
+		if($user){
+			$fileId="";
+			
+			foreach($data as $id => $content){
+				if(empty($fileId))
+					$fileId=$id;
+				$files[] = array('filename' => File::getPath($id), 'content' => $content);
+			}
+			
+			$file = new File($fileId);
+			$project = new Project($file->project_id);
+			
+		
+			if(!$_SESSION['workingCopyDir'][$file->project_id]){
+				$project = new Project($file->project_id);
+				Common::getProject($project);
+			}
+			
+			$sender= new Sender(FRONTAL_IP, FRONTAL_PORT);
+			$request['httpPort'] = '';
+			$request['path'] = $_SESSION['workingCopyDir'][$_SESSION['project_id']];
+			$request['files'] = $files;
+
+			$data_addr = explode(':', $project->server_url);
+			$request['servDataIp'] = $data_addr[0];
+			$request['servDataPort'] = $data_addr[1];
+			$sender->setRequest($request);
+
+			$sender->sendRequest();
+			unset($sender);
+			
+			if($affichage)
+				echo "ok";
+		}
+		else
+			echo "ERROR";
+	}
+		
+	public function getFileSuccess(){	
 		$fileId = $_POST['fileId'];
 		
 		if(!isset($fileId) && empty($fileId))
 			die('Erreur sur l id du fichier');
+	
+		$file = new File($_POST['fileId']);
+
+		$_SESSION['project_id'] = $file->project_id;
+		
+		if(!$_SESSION['workingCopyDir'][$file->project_id]){
+			$project = new Project($file->project_id);
+			Common::getProject($project);
+		}
+			
+		if(!$file->id)
+			die('Erreur sur l\'id du fichier');
 		
 		// creation de la socket de reception
-		$receiver=new ReceiverTextOnly("192.168.0.2");
+		$receiver=new ReceiverTextOnly(HTTP_IP);
 
 		//creation de la requete d'emission
-		$frontalAddress = "192.168.0.6";
-		$frontalPort = 12800;
-		$sender= new Sender($frontalAddress,$frontalPort);
+		$sender= new Sender(FRONTAL_IP, FRONTAL_PORT);
 
-		$file=new File($filesId);
-		$dataUrl=explode(':',$file->serverUrl);
-		$dataIp=$dataUrl[0];
-		$dataPort=$dataUrl[1];
-		
 		$requete=array(
 			'label'=>'getFile',
-			'path'=>$_SESSION['workingCopyDir'][$file->id],
-			'servDataIp'=>$dataIp,
-			'servDataPort'=>$dataPort,
+			'path'=>$_SESSION['workingCopyDir'][$file->project_id],
+			'filename' => $file->path,
+			'servDataIp'=>DATA_IP,
+			'servDataPort'=>6668,
 			'httpPort'=>$receiver->getPort(),
 		);
 		$sender->setRequest($requete);
-
+		
 		//envoie de la commande de chargement de fichier
 		$sender->sendRequest();
 		unset($sender);
 
 		// Attente de recuperation des infos
-		$trame=$receiver->getReturn();
+		$trame=$receiver->getReturn(false);
 
 		// chargement du projet dans la BDD
 		new Query('select',"select id from file where id=".$file->id);
+		
+		//echo "recuperation du fichier termine";
+		echo $trame;
+	}
 
-		unset($_SESSION['workingCopyDir'][$file->id]);
+	public function deleteFolderSuccess(){
+		
+		$fileId = $_POST['fileId'];	
 
-		echo "recuperation du fichier termine";
+		if(!isset($_POST['childrenJson']) && empty($_POST['childrenJson'])){
+			die("Erreur sur le JSON, vide ou unset");
+		}
+
+		if(!isset($fileId) && empty($fileId))
+			die("Erreur sur l'id du dossier");
+
+		// Suppression côté Data
+		File::deleteFromData($fileId);
+
+		$children = json_decode($_POST['childrenJson'], true);
+
+		foreach($children as $id){
+			new Query('delete',"delete from file where id=".$id);
+			unset($_SESSION['workingCopyDir'][$id]);
+		}
+
+		echo "delete folder ok";
+
 	}
 		
 	//TODO a tester
 	public function deleteFileSuccess(){
-	
+		
 		$fileId=$_POST['fileId'];
 
 		if(!isset($fileId) && empty($fileId))
 			die("Erreur sur l'id du fichier");
 	
-		// creation de la socket de reception
-		$receiver=new ReceiverTextOnly("192.168.0.2");
-
+	
 		//creation de la requete d'emission
 		$frontalAddress = "192.168.0.6";
 		$frontalPort = 12800;
@@ -356,11 +496,9 @@ class androidActions extends Actions{
 
 		//envoie de la commande de suppression de file
 		$sender->sendRequest();
+			
 		unset($sender);
-
-		// Attente de recuperation des infos
-		$trame=$receiver->getReturn();
-
+	
 		// suppression du file dans la BDD
 		new Query('delete',"delete from file where id=".$file->id);
 
@@ -368,50 +506,80 @@ class androidActions extends Actions{
 		unset($_SESSION['workingCopyDir'][$file->id]);
 
 		echo "Suppression du file termine";
+	}	
+	
+	public function processCompileSuccess(){
+		if($_POST['root_file_id']){
+			$rootFile = new File($_POST['root_file_id']);
+			$project = new Project($rootFile->project_id);
+			
+			if(!$_SESSION['workingCopyDir'][$project->id]){
+				Common::getProject($project);
+			}
 		
+			$receiver=new ReceiverTextWithBinary(HTTP_IP);
+			$sender= new Sender(FRONTAL_IP, FRONTAL_PORT);
+			
+			$dataUrl=explode(':', $project->server_url);
+			$dataIp=$dataUrl[0];
+			$dataPort=$dataUrl[1];
+		
+			$request = array('label' => 'compile',
+					 'path' => $_SESSION['workingCopyDir'][$_SESSION['project_id']],
+					 'httpPort' => $receiver->getPort(),
+					 'rootFile' => $rootFile->path,
+					 'servDataIp' => $dataIp,
+					 'servDataPort' => $dataPort);
+			
+			$sender->setRequest($request);
+			$sender->sendRequest();
+			
+			unset($sender);
+
+			$receiver->getReturn($result_log, $pdf);
+			
+			if($pdf)
+				Common::writePdf($pdf, true);		
+
+			$result = array();
+			$result['status'] = $pdf?1:0;
+			$result['log'] = $result_log;
+			$result['url'] = $pdf?HTTP_IP . '/pdf/' . $_SESSION['pdf']:'';
+
+			echo json_encode($result);
+		}
 	}
-	
-	//TODO a tester
-	public function compileSuccess(){
-		$this->syncSuccess(false);
-	
-		$rootFile =  $_POST['rootFile'];
 
-		if(!isset($rootFile) && empty($rootFile))
-			die("Erreur sur l'id du fichier");
-
-
-		// creation de la socket de reception
-		$receiver=new ReceiverTextWithBinary("192.168.0.2");
-
-		//creation de la requete d'emission
-		$frontalAddress = "192.168.0.5";
-		$frontalPort = 12800;
-		$sender= new Sender($frontalAddress,$frontalPort);
-
-		$rootFile=new File($rootFile);
-		$dataUrl=explode(':',$rootFile->serverUrl);
-		$dataIp=$dataUrl[0];
-		$dataPort=$dataUrl[1];
+	public function deletePdfFileSuccess(){
+		$user = User::getCurrentUser();
 		
-		$tmp=explode('/',$rootFile->path);
-		
-		$requete=array(
-			'label'=>'compile',
-			'rootFile'=>$tmp[count($tmp)-1],
-			'path'=>$_SESSION['workingCopyDir'][$rootFile->id],
-			'servDataIp'=>$dataIp,
-			'servDataPort'=>$dataPort,
-			'httpPort'=>$receiver->getPort(),
-		);
-		$sender->setRequest($requete);
+		if($user && $_SESSION['pdf']){
+			unlink(PDF_ANDROID_TMP_DIR . $_SESSION['pdf']);
+		}	
+	}
 
-		//envoie de la commande de suppression de file
-		$sender->sendRequest();
-		unset($sender);	
-		
-		$receiver->getReturn($log,$binaryPdf);
-		//TODO voir comment retourner le binaire du pdf
+	public function getPdfSuccess(){
+		$user = User::getCurrentUser();
+		$path = $_SESSION['pdf'];
+			
+		if($user && $path && file_exists($path)){
+			$size = filesize($path);
+			
+			header('Content-Type: application/octet-stream');
+			header('Content-Transfer-Encoding: base64');
+			header('Content-Length: ' . $size);
+			header('Content-Disposition: attachement; filename="document.PDF"');
+			header('Expires: 0');
+			header('Cache-Control: no-cache, must-revalidate');
+			header('Pragma: no-cache');
+
+			readfile($path);
+
+			unlink($path);
+			unset($_SESSION['pdf']);
+			
+			exit;
+		}
 	}
 }
 new androidActions();

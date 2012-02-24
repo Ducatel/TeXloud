@@ -335,7 +335,7 @@ Nous avons besoin de 7 serveurs (virtualisation possible) et une tablette Androi
 Voici les environnements logiciels utilisés :
 \begin{itemize}
  \item Serveur http : Apache
- \item SGBD : PostgreSQL
+ \item SGBD : MySQL
  \item GIT et SVN pour le versioning et stockage de données
  \item Interpréteur PHP 5  
  \item Compilateur Latex
@@ -430,7 +430,7 @@ Ci-dessous se trouve la liste exhaustive des trames:
  \item label:getFile,path,httpPort
  \item label:deleteFile,path,httpPort
  \item label:deleteProject,path,httpPort
- \item label:sync,path,files(tableau de {filename: ,content: }),httpPort
+ \item label:sync,path,files(tableau de \{filename: ,content: \}),httpPort
 \end{itemize}
 
 \paragraph{Trame entre le serveur frontal et un serveur de compilation:}
@@ -556,6 +556,26 @@ angle=90]{./Ressources/macroPlanning.pdf}
 
 \newpage
 \section{Matrice de Traçabilité}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Les spécifications fonctionnelles détaillées (SPD) & Les spécifications techniques détaillées (STD) \\
+SFD0 & STD0\\
+SFD1 & STD1\\
+SFD2 & STD2\\
+SFD3 & STD3\\
+SFD4 & STD4\\
+SFD5 & STD5\\
+SFD6 & STD6\\
+SFD7 & STD7\\
+SFD8 & STD8\\
+SFD9 & STD9\\
+SFD10 & STD10\\
+SFD11 & STD11\\
+SFD12 & STD12\\
+SFD13 & STD13\\
+\end{tabular}
+\end{center}
 
 
 

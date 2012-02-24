@@ -1,4 +1,4 @@
-
+<div id="formulaire">
 <article id="monForm">
 	<form action="/user/processEditAccount" method="post">
 		<fieldset>
@@ -258,6 +258,25 @@
 					</optgroup>
 				</select>
 			</p>
+			
+			 <div id="updatePass">
+				Modifier mot de passe <input type="checkbox" id="chekp" value="1" name="editAccount[change_pwd]" />
+				<ul>
+				    <p>
+					    <label for="pwd">Mot de passe : </label> <input type="password"
+						    id="pwd" name="editAccount[pwd]" />
+				    </p>
+
+				    <p>
+					    <label for="pwd">Nouveau mot de passe : </label> <input type="password"
+						    id="pwd1" name="editAccount[pwd_check]" />
+				    </p>
+				    <p>
+					    <label for="pwd2">Confirmer le nouveau mot de passe: </label> <input
+						    type="password" id="pwd2" name="editAccount[pwd_check2]" />
+				    </p>
+				</ul>
+			 </div>
 		</fieldset>
 
 
@@ -267,3 +286,4 @@
 		</p>
 	</form>
 </article>
+</div>

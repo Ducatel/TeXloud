@@ -9,7 +9,8 @@ class ReceiverTextOnly{
 	 * Socket de connexion
 	 */
 	private $socket;
-	
+
+	private $remote_ip;	
 	
 	/**
 	 * Port de connexion
@@ -60,10 +61,15 @@ class ReceiverTextOnly{
 			$trame.=$buf;
 		}while(strlen($buf)>0);
 		
+		socket_getpeername($msgsock, $this->remote_ip);
 		socket_close($msgsock);
 		socket_close($this->socket);
 
 		return ($json)?json_decode($trame):$trame;
+	}
+
+	public function getRemoteIp(){
+		return $this->remote_ip;
 	}
 }
 

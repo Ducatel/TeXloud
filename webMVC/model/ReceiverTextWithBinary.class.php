@@ -36,7 +36,7 @@ class ReceiverTextWithBinary{
 		if ($this->socket === false) 
 			throw new Exception("socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n");
 		
-		if(socket_bind($this->socket, $ip,12800)===false)
+		if(socket_bind($this->socket, $ip,0)===false)
 			throw new Exception("socket_bind() failed: reason: " . socket_strerror(socket_last_error($this->socket)) . "\n");
 			
 		if (socket_listen($this->socket, 1) === false) 
@@ -44,8 +44,8 @@ class ReceiverTextWithBinary{
 			
 		socket_getsockname($this->socket, $socket_address, $this->port);
 		
-		$this->messageSeparator='+==\sep==+'
-        $this->messageEnd='+==\endTrame==+'
+		$this->messageSeparator = '+==\sep==+';
+	        $this->messageEnd = '+==\endTrame==+';
 	}
 	
 	/**
@@ -60,7 +60,7 @@ class ReceiverTextWithBinary{
 	 * Methode qui attend une connexion recupere le binaire envoyé et la trame
 	 * La fonction close la socket
 	 * /!\ Passage par reference, les variables $request et $binaryFile sont modifié par la fonction /!\
-	 * @param $request: variable qui va contenir un tableau associatif PHP représentant la requete
+	 * @param $request: variable qui va contenir le xml du log
 	 * @param $binaryFile: variable qui va contenir le binaire
 	 */
 	public function getReturn(&$request,&$binaryFile){
@@ -78,8 +78,13 @@ class ReceiverTextWithBinary{
 		
 		$tabTrame=explode($this->messageSeparator,$trame);
 
-		$request=json_decode($trame[0]);
-		$binaryFile=explode($this->messageEnd,$trame[1])[0];
+		$tabTrame[0]=str_replace('\\','\\\\\\\\',$tabTrame[0]);
+
+		$request=json_decode($tabTrame[0],true);
+		$request=$request['log'];
+		
+		$binaryFileArray=explode($this->messageEnd,$tabTrame[1]);
+		$binaryFile = $binaryFileArray[0];
 	}
 
 	/**

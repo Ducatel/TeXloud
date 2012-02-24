@@ -1,11 +1,3 @@
-<?php
-//define("IN_PHP", true);
-//require_once("common.php");
-
-//$rootName = "Workspace";
-//$treeElements = $treeManager->getElementList(null, "manageStructure.php");
-?>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8" />
@@ -20,10 +12,13 @@
 		echo '<title>TeXloud</title>';
 ?>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
 <link rel="stylesheet" type="text/css" href="/css/common.css" />
 <link rel="stylesheet" type="text/css" href="/js/edit_area/edit_area.css" />
 <link rel="stylesheet" type="text/css" href="/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/css/arbre.css" />
+<link rel="icon" type="image/png" href="/images/logoTexloud.png" />
+<!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="/images/logoTexloud.ico" /><![endif]-->
 
 <?php
 	foreach($var->css as $css)
@@ -42,6 +37,7 @@
 
 <body>
 	<header id="titre_principal">
+		<img src='/images/logoTexloud.png' alt='logo TeXloud' id='logoTexloud' />
 		<a href="/" id="titretexloud">TeXloud</a>
 		<?php if(User::isLogged()): ?>
 			<p id="session">
@@ -49,18 +45,25 @@
 				<a href="/user/logout" class="top_link">déconnexion</a>
 				<a href="/user/myAccount" class="top_link">mon compte</a>
 			</p>
+	
+			<nav id='menu'>
+				<ul>
+					<!--<li><a id="refresh_cache">Effacer cache</a></li>-->
+					<?php if(!isset($var->dontDisplayOptions)): ?>
+					<li>
+						<img src="/images/synchronized.png" alt="synchronized" class="sync_tick" id="synchronized" style="display: none;" /> 
+						<img src="/images/pending.png" alt="pending" id="pending" class="sync_tick" style="display: none; " /> 
+						<a id="sync">Synchroniser</a>
+					</li>
+					<li><a id="compile">Compiler</a></li>
+					<?php endif; ?>
+					<li><a href="mailto:contact@texloud.org">Contact</a></li>
+				</ul>
+			</nav>
 		<?php endif; ?>
-
-		<nav id='menu'>
-			<ul>
-				<li><a href="js/pdfjs/viewer.html" title="compiler">Compiler</a></li>
-				<li><a href="#" title="telecharger">Télécharger Projet</a></li>
-				<li><a href="#" title="contact">Contact</a></li>
-			</ul>
-
-		</nav>
 	</header>
 	<div id="bloc_texloud">
 	<?php echo $action_content; ?>
 	</div>
+	<div id="viewer_block"></div>
 </body>

@@ -172,7 +172,7 @@ class Ordonnanceur(object):
         """
         for i,serv in enumerate(self.listeServeur):
             if(serv==serveur):
-                serveur.decreaseCharge()
+                serv.decreaseCharge()
                 del self.listeServeur[i]
-                self.listeServeur.insert(i,serveur)
+                self.listeServeur.insert(i,serv)
                 

@@ -9,6 +9,10 @@
 
 
 // Fonction d'initialisation
+
+CURRENT_FILE_ID = null;
+FILES_CONTENT = {};
+
 $(function(){
 	$('.folder').each(function(){
 		addFolderAction($(this));
@@ -42,13 +46,30 @@ function addFileAction(element){
 	addFileMenu(element);
 	
 	$(element).click(function(){
-		$.post('/ajax/getFile/',
-			   {'id' : $(this).attr('id')},
-			   function(content){
-				editAreaLoader.setValue('codelatex', content);
-				console.log(editAreaLoader.getValue('codelatex'));
-				//$('textarea#textarea').val(content);
-		});
+		
+		CURRENT_FILE_ID = $(this).attr('id');
+		
+		$('.file').css('color','black');
+		$(this).css('color','red');	
+
+		if(!CURRENT_FILE_ID || !FILES_CONTENT[CURRENT_FILE_ID]){
+			$.post('/ajax/getFile/',
+				   {'id' : $(this).attr('id')},
+				   function(content){
+					editAreaLoader.setValue('codelatex', content);
+					editAreaLoader.execCommand('codelatex', 'set_editable', true);
+					$('#frame_codelatex').contents().find('#result').css('background-color', 'white');
+					//console.log(editAreaLoader.getValue('codelatex'));
+					FILES_CONTENT[CURRENT_FILE_ID] = editAreaLoader.getValue('codelatex');
+					//$('textarea#textarea').val(content);
+
+					if($('#pending').filter(':hidden').length && $('#synchronized').filter(':hidden').length){
+						$('#synchronized').show();
+					}
+			});
+		}
+		else
+			editAreaLoader.setValue('codelatex', FILES_CONTENT[CURRENT_FILE_ID]);
 	});
 }
 
@@ -265,8 +286,16 @@ function removeFile(file){
                 'id':$(file).attr('id'),
         },
         success:function(data){
-
-        	removeAction($(file));
+		if($(file).attr('id') == CURRENT_FILE_ID){
+			delete(FILES_CONTENT[CURRENT_FILE_ID]);
+			CURRENT_FILE_ID = null;
+			editAreaLoader.setValue('codelatex', '');
+			editAreaLoader.execCommand('codelatex', 'set_editable', false);
+			$('#frame_codelatex').contents().find('#result').css('background-color', '#ffede0');
+		}
+	
+        	
+		removeAction($(file));
         	$(file).remove();
 
         }
@@ -285,7 +314,19 @@ function removeFolder(folder){
 	        },
 	        success:function(data){
 	        	removeAction($(folder));
-	        	$(folder).next().children().remove();
+
+			$(folder).next().children().each(function(){
+				if($(this).attr('id') == CURRENT_FILE_ID){
+				        delete(FILES_CONTENT[CURRENT_FILE_ID]);
+				        CURRENT_FILE_ID = null;
+				        editAreaLoader.setValue('codelatex', '');
+				        editAreaLoader.execCommand('codelatex', 'set_editable', false);
+				        $('#frame_codelatex').contents().find('#result').css('background-color', '#ffede0');
+				}
+
+				$(this).remove();
+			});
+
 	        	$(folder).next().remove();
 	        	$(folder).remove();
 	        }
@@ -300,7 +341,19 @@ function removeFolder(folder){
 	        },
 	        success:function(data){
 	        	removeAction($(folder));
-	        	$(folder).next().children().remove();
+			
+			$(folder).next().children().each(function(){
+				if($(this).attr('id') == CURRENT_FILE_ID){
+				        delete(FILES_CONTENT[CURRENT_FILE_ID]);
+				        CURRENT_FILE_ID = null;
+				        editAreaLoader.setValue('codelatex', '');
+				        editAreaLoader.execCommand('codelatex', 'set_editable', false);
+				        $('#frame_codelatex').contents().find('#result').css('background-color', '#ffede0');
+				}
+
+				$(this).remove();
+			});
+
 	        	$(folder).next().remove();
 	        	$(folder).remove();
 	        }
@@ -330,6 +383,18 @@ function menuAddFile(posX, posY,folder){
 		addFile(fatherId,filename);
 		$('#menuAddFile').remove();
 
+	});
+	
+	$("#nameAddFile").keyup(function(e) {
+	  if(e.keyCode == 13){
+	    
+		var fatherId=$(folder).attr('id');
+		var filename=$("#nameAddFile").val();
+		addFile(fatherId,filename);
+		$('#menuAddFile').remove();
+	     
+	  }
+	  
 	});
 	
 }
@@ -381,6 +446,17 @@ function menuAddFolder(posX, posY,folder){
 		$('#menuAddFolder').remove();
 
 	});
+	
+	$("#nameAddFolder").keyup(function(e){
+		
+		var folderName=$("#nameAddFolder").val();
+		if(e.keyCode == 13){
+		addFolder(folderName,folder);
+		$('#menuAddFolder').remove();
+		  
+		}
+
+	});
 }
 
 function addFolder(folderName,folder){
@@ -427,6 +503,16 @@ function menuAddProject(posX, posY){
 		var projectName=$("#nameAddProject").val();
 		addProject(projectName);
 		$('#menuAddProject').remove();
+	});
+	
+	$("#nameAddProject").keyup(function(e){
+		
+		var projectName=$("#nameAddProject").val();
+		if(e.keyCode == 13){
+		    addProject(projectName);	
+		    $('#menuAddProject').remove();
+		}
+
 	});
 }
 

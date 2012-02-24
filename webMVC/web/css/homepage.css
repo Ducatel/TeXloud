@@ -25,8 +25,8 @@ article{
 
 #module_connexion{
 	display: block;
-	width: 30%;
-	margin-right: 9%;
+	min-width: 35%;
+	margin-right: 5%;
 	float: right;
 }
 
@@ -44,7 +44,6 @@ article{
 
 #design_search_contents table{
 	display: block;
-	width: 20%;
 	margin-left: 40px;
 	padding: 0 2% 2% 2%;
 }

@@ -189,7 +189,7 @@ groupe.
 
 \paragraph{SFD10 - Gestion des groupes d'utilisateurs\\}
 Plusieurs personnes peuvent travailler sur un même projet. Chaque projet a donc un ou plusieurs 
-utilisateurs qui ont le droit de modifier les fichiers. Le créateur du projet doit former le groupe.
+utilisateurs qui ont le droit de modifier les fichiers. Le créateur du projet doit former le groupe. (Exclue du projet)
 
 \paragraph{SFD11 - Gestion des erreurs\\}
 Le client doit pouvoir voir les différentes erreurs, afin de les corriger. Par exemple : erreur 
@@ -240,19 +240,17 @@ Aucune spécification technique particulière.
 On garde un historique des fichiers tex des utilisateurs.
 
 \paragraph{STD10 - Gestion des groupes d'utilisateurs\\}
---
+Exclue du projet.
 
 \paragraph{STD11 - Gestion des erreurs de compilation\\}
 Les erreurs de compilation seront parsées dans du XML via un script python, sur les serveurs de compilation. L'interpretation sera effectuée par un script PHP sur le serveur HTTP.
 
-\paragraph{STD12 - \\}
+\paragraph{STD12 - Unification des interfaces\\}
 Pas de spécification technique particulière.
 
-\paragraph{STD13 - \\}
+\paragraph{STD13 - Sauvegarde locale (travail offline)\\}
+Sur plateforme Android, on permet à l'utilisateur d'enregistrer ses documents en local. Cela se fait via la permission $WRITE\_EXTERNAL\_STORAGE$.
 
-
-
-\paragraph
 
 
 \newpage
@@ -337,7 +335,7 @@ Nous avons besoin de 7 serveurs (virtualisation possible) et une tablette Androi
 Voici les environnements logiciels utilisés :
 \begin{itemize}
  \item Serveur http : Apache
- \item SGBD : PostgreSQL
+ \item SGBD : MySQL
  \item GIT et SVN pour le versioning et stockage de données
  \item Interpréteur PHP 5  
  \item Compilateur Latex
@@ -420,7 +418,8 @@ Ci-dessous se trouve la liste exhaustive des trames:
  \item label:getFile,path,servDataIp,servDataPort,httpPort
  \item label:deleteFile,path,servDataIp,servDataPort,httpPort
  \item label:deleteProject,path,servDataIp,servDataPort,httpPort
- \item label:sync,path,servDataIp,servDataPort,currentFile,httpPort
+ \item label:sync,path,servDataIp,servDataPort,files(tableau de
+{filename: ,content: }),httpPort
 \end{itemize}
 
 \paragraph{Trame entre le serveur frontal et un serveur de données:}
@@ -431,7 +430,7 @@ Ci-dessous se trouve la liste exhaustive des trames:
  \item label:getFile,path,httpPort
  \item label:deleteFile,path,httpPort
  \item label:deleteProject,path,httpPort
- \item label:sync,path,currentFile,httpPort
+ \item label:sync,path,files(tableau de \{filename: ,content: \}),httpPort
 \end{itemize}
 
 \paragraph{Trame entre le serveur frontal et un serveur de compilation:}
@@ -443,6 +442,11 @@ Ci-dessous se trouve la liste exhaustive des trames:
 \begin{itemize}
  \item label:backCompile,log,httpPort
  \item label:compile,rootFile,returnIp,returnPort,httpPort
+\end{itemize}
+
+\paragraph{Trame entre le serveur HTTP et un serveur de données:}
+\begin{itemize}
+ \item repoUrl,workingCopyDir,serverUrl(address:port)
 \end{itemize}
 
 \subsection{Scénario}

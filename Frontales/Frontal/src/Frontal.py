@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*-coding:utf-8 -*
+# -*-coding:utf-8 -*-
 '''
 Created on 10 dec. 2011
 
@@ -11,8 +11,7 @@ import threading
 import json
 import Ordonnanceur
 import Serveur
-
-import sys
+import Logger
 
 class Frontal(object):
     '''
@@ -46,6 +45,7 @@ class Frontal(object):
         self._ordonnanceurData=Ordonnanceur.Ordonnanceur("./../fichierServeur.xml","data")
         self._ordonnanceurCompilation=Ordonnanceur.Ordonnanceur("./../fichierServeur.xml","compilation")
         self._messageEnd='+==\endTrame==+'
+        self._logger=Logger.Logger()
 
         
     def lanceServeur(self):
@@ -53,6 +53,8 @@ class Frontal(object):
         Methode qui lance la socket en ecoute
         Puis qui accepte les connexions et appelle pour chacune d'elle la methode voulu dans un nouveau thread
         """
+        self._logger.write('Frontal server start')
+
         self._sock=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._sock.bind((self._adresse, self._port))
         self._sock.listen(5)
@@ -87,9 +89,10 @@ class Frontal(object):
         '''
         
         requete=json.loads(requeteJSON)
+        self._logger.write('(In request) '+str(requete))
         
         if requete['label']=="endCompilation":    
-            adresseIP,port,req=self.requestEndCompilation(requete)
+            self.requestEndCompilation(requete)            
         else :
             if requete['label']=="create":
                 adresseIP,port,req=self.requestCreateNewUserDataSpace(requete)
@@ -105,6 +108,10 @@ class Frontal(object):
                 adresseIP,port,req=self.requestDeleteProject(requete)
             elif requete['label']=="sync":    
                 adresseIP,port,req=self.requestSync(requete)
+            elif requete['label']=='rename':
+                adresseIP,port,req=self.requestRename(requete)
+            elif requete['label']=='deleteWorkingCopy':
+                adresseIP,port,req=self.requestDeleteWorkingCopy(requete)
             
             self.sendRequestOfDataServer(adresseIP, port, req)
         
@@ -115,6 +122,8 @@ class Frontal(object):
         @param port: Le port de connexion sur le serveur de données
         @param req: la requete a envoyer (format JSON)
         '''
+        self._logger.write('(Out request) '+str(req))
+
         s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((adresseIP,port))
         s.send(json.dumps(req))
@@ -200,6 +209,28 @@ class Frontal(object):
     def requestSync(self,requete):
         """
         Méthode qui va demande au serveur de donnée de faire une synchro
+        @param requete: requete a reformater et a router (dico python)
+        """
+        
+        adresseIP=requete.pop('servDataIp')
+        port=requete.pop('servDataPort')
+        
+        return adresseIP,port,requete
+    
+    def requestRename(self,requete):
+        """
+        Méthode qui va demande au serveur de donnee de faire un rename de fichier
+        @param requete: requete a reformater et a router (dico python)
+        """
+        
+        adresseIP=requete.pop('servDataIp')
+        port=requete.pop('servDataPort')
+        
+        return adresseIP,port,requete
+    
+    def requestDeleteWorkingCopy(self,requete):
+        """
+        Méthode qui va demande au serveur de donnee de faire un delete de la copie de travail
         @param requete: requete a reformater et a router (dico python)
         """
         

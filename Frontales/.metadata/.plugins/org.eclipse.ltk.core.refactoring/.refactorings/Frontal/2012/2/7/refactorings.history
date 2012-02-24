@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Frontal/src/Logger&apos; to &apos;Logger.py&apos;" description="Rename resource &apos;Logger&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/Logger" name="Logger.py" stamp="1329686240774" updateReferences="true"/>
+</session>

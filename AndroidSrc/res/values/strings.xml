@@ -11,4 +11,5 @@
          sit amet euismod justo. Vestibulum vitae nisi quis enim consectetur dapibus. Integer quis quam</string>
     <string name="month_prompt">Month</string>
 	<string name="gender_prompt">M</string>
+	<string name="project_prompt">Selectionner projet</string>
 </resources>

@@ -164,7 +164,7 @@ pre{
 .editarea_popup{
 	border: solid 1px #888888;
 	background-color: #ECE9D8; 
-	width: 250px; 
+	width: 310px; 
 	padding: 4px; 
 	position: absolute;
 	visibility: hidden; 
@@ -199,7 +199,7 @@ pre{
 
 /* Area_search */
 div#area_search_replace{
-	/*width: 250px;*/
+	width: 310px;
 }
 
 div#area_search_replace img{

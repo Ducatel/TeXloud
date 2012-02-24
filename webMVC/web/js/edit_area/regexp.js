@@ -57,7 +57,7 @@
 				return "µ__"+ new_class +"__µ"+ arg;
 		}
 	};
-	
+
 /*
 	// apply special tags arround text to highlight
 	EditArea.prototype.custom_highlight= function(){
@@ -97,10 +97,18 @@
 	EditArea.prototype.apply_syntax= function(text, lang){
 		var sy;
 		this.current_code_lang=lang;
+
 	
 		if(!parent.editAreaLoader.syntax[lang])
 			return text;
-			
+		
+		
+		if (lang=="en"){ 
+			var replaceStr = toString(Math.random()); 
+			text = text.replace('\\\"', replaceStr + "a" + '\"'); 
+			text = text.replace("\\\'", replaceStr + "b" + "\'");
+		 }			
+		
 		sy = parent.editAreaLoader.syntax[lang];
 		if(sy["custom_regexp"]['before']){
 			for( var i in sy["custom_regexp"]['before']){
@@ -135,5 +143,9 @@
 			}
 		}
 			
+		if (lang == "en") { 
+			text = text.replace(replaceStr + '\"', '\\\"'); 
+			text = text.replace(replaceStr + "\'", "\\\'"); 
+		} 
 		return text;
 	};

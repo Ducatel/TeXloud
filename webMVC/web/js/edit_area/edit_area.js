@@ -103,7 +103,7 @@
 		t.tab_browsing_area	= _$("tab_browsing_area");
 		t.test_font_size	= _$("test_font_size");
 		a = t.textarea;
-		
+
 		if(!s['is_editable'])
 			t.set_editable(false);
 		
@@ -400,7 +400,7 @@
 	};
 	
 	EditArea.prototype.execCommand= function(cmd, param){
-		
+
 		for(var i in this.plugins){
 			if(typeof(this.plugins[i].execCommand)=="function"){
 				if(!this.plugins[i].execCommand(cmd, param))

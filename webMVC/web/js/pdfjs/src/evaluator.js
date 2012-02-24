@@ -118,7 +118,7 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
       var self = this;
       var xref = this.xref;
       var handler = this.handler;
-      var uniquePrefix = this.uniquePrefix;
+      var uniquePrefix = this.uniquePrefix || '';
 
       function insertDependency(depList) {
         fnArray.push('dependency');
@@ -159,6 +159,10 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
             // a Stream in the main thread.
             if (translated.file)
               translated.file = translated.file.getBytes();
+            if (translated.properties.file) {
+              translated.properties.file =
+                  translated.properties.file.getBytes();
+            }
 
             handler.send('obj', [
                 loadedName,
@@ -211,7 +215,8 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
         args = [objId, w, h];
 
         var softMask = dict.get('SMask', 'IM') || false;
-        if (!softMask && image instanceof JpegStream && image.isNative) {
+        if (!softMask && image instanceof JpegStream &&
+            image.isNativelySupported(xref, resources)) {
           // These JPEGs don't need any more processing so we can just send it.
           fn = 'paintJpegXObject';
           handler.send('obj', [objId, 'JpegStream', image.getIR()]);
@@ -234,7 +239,6 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
           }, handler, xref, resources, image, inline);
       }
 
-      uniquePrefix = uniquePrefix || '';
       if (!queue.argsArray) {
         queue.argsArray = [];
       }
@@ -292,8 +296,8 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
                   // Create an IR of the pattern code.
                   var depIdx = dependencyArray.length;
                   var queueObj = {};
-                  var codeIR = this.getIRQueue(pattern, dict.get('Resources'),
-                                               queueObj, dependencyArray);
+                  var codeIR = this.getIRQueue(pattern, dict.get('Resources') ||
+                      resources, queueObj, dependencyArray);
 
                   // Add the dependencies that are required to execute the
                   // codeIR.
@@ -336,8 +340,8 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
                 // This adds the IRQueue of the xObj to the current queue.
                 var depIdx = dependencyArray.length;
 
-                this.getIRQueue(xobj, xobj.dict.get('Resources'), queue,
-                                dependencyArray);
+                this.getIRQueue(xobj, xobj.dict.get('Resources') || resources,
+                    queue, dependencyArray);
 
                // Add the dependencies that are required to execute the
                // codeIR.
@@ -481,8 +485,10 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
           properties.cidToGidMap = this.readCidToGidMap(cidToGidMap);
       }
 
+      var flags = properties.flags;
       var differences = [];
-      var baseEncoding = Encodings.StandardEncoding;
+      var baseEncoding = !!(flags & FontFlags.Symbolic) ?
+                         Encodings.symbolsEncoding : Encodings.StandardEncoding;
       var hasEncoding = dict.has('Encoding');
       if (hasEncoding) {
         var encoding = xref.fetchIfRef(dict.get('Encoding'));
@@ -758,10 +764,18 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
           baseFontName = baseFontName.name.replace(/[,_]/g, '-');
           var metrics = this.getBaseFontMetrics(baseFontName);
 
+          // Simulating descriptor flags attribute
+          var fontNameWoStyle = baseFontName.split('-')[0];
+          var flags = (serifFonts[fontNameWoStyle] ||
+            (fontNameWoStyle.search(/serif/gi) != -1) ? FontFlags.Serif : 0) |
+            (symbolsFonts[fontNameWoStyle] ? FontFlags.Symbolic :
+            FontFlags.Nonsymbolic);
+
           var properties = {
             type: type.name,
             widths: metrics.widths,
             defaultWidth: metrics.defaultWidth,
+            flags: flags,
             firstChar: 0,
             lastChar: maxCharIndex
           };
@@ -773,11 +787,10 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
             properties: properties
           };
         }
-
       }
 
       // According to the spec if 'FontDescriptor' is declared, 'FirstChar',
-      // 'LastChar' and 'Widths' should exists too, but some PDF encoders seems
+      // 'LastChar' and 'Widths' should exist too, but some PDF encoders seem
       // to ignore this rule when a variant of a standart font is used.
       // TODO Fill the width array depending on which of the base font this is
       // a variant.

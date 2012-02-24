@@ -10,11 +10,12 @@
 		}
 		//res+=")( |\\.|:|\\{|\\(|\\)|\\[|\\]|\'|\"|\\r|\\n|\\t|$)";
 		res+=")(\\b)";
+
 		reg= new RegExp(res);
 		
 		return res;
 	};
-	
+
 	
 	EditAreaLoader.prototype.get_escaped_regexp= function(str){
 		return str.toString().replace(/(\.|\?|\*|\+|\\|\(|\)|\[|\]|\}|\{|\$|\^|\|)/g, "\\$1");

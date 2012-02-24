@@ -7,15 +7,7 @@ class Actions {
 		$this->js = array();
 		$this->css = array();
 		$this->user = user::isLogged();
-		if(!empty($_GET['p']) && file_exists('../actions/front/'.$_GET['p'].'.actions.php'))
-			$className = $_GET['p'].'Actions';
-		elseif($this->user) {
-			//$className = 'userActions';
-			$className = 'editionAction';
-		}
-		else {
-			$className = 'homepageActions';
-		}
+		
 		if(!empty($_GET['a']))
 			$function = $_GET['a'].'Success';
 		else{

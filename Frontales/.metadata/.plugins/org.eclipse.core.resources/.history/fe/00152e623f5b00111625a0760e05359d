@@ -1,0 +1,19 @@
+#!/usr/bin/python
+# -*-coding:utf-8 -*-
+'''
+Created on 19 févr. 2012
+
+@author: hannibal
+'''
+
+class Logger(object):
+    '''
+    Class permettant de générer des logs avec rotation
+    '''
+
+
+    def __init__(selfparams):
+        '''
+        Constructor
+        '''
+        

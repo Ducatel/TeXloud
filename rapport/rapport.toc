@@ -1,0 +1,43 @@
+\select@language {french}
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Rappel du sujet}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}L'\IeC {\'e}quipe}{2}{subsection.1.2}
+\contentsline {section}{\numberline {2}Choix techniques}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Architecture g\IeC {\'e}n\IeC {\'e}rale}{3}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Serveur web}{4}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Application Android}{5}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Serveur de routage et d'ordonnancement}{6}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Serveur de stockage de donn\IeC {\'e}es}{7}{subsection.2.5}
+\contentsline {paragraph}{}{7}{section*.23}
+\contentsline {paragraph}{}{7}{section*.24}
+\contentsline {paragraph}{}{7}{section*.25}
+\contentsline {paragraph}{}{7}{section*.26}
+\contentsline {subsection}{\numberline {2.6}Serveur de compilation}{8}{subsection.2.6}
+\contentsline {section}{\numberline {3}Utilisation des applications}{9}{section.3}
+\contentsline {subsection}{\numberline {3.1}Application Web}{9}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Cr\IeC {\'e}ation de compte}{9}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Cr\IeC {\'e}ation de projet}{11}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}Cr\IeC {\'e}ation de fichier}{12}{subsubsection.3.1.3}
+\contentsline {subsubsection}{\numberline {3.1.4}Compilation}{13}{subsubsection.3.1.4}
+\contentsline {subsubsection}{\numberline {3.1.5}Fonctions annexes}{16}{subsubsection.3.1.5}
+\contentsline {paragraph}{Suppression de dossiers et de fichiers\\}{16}{section*.45}
+\contentsline {paragraph}{Renommage des documents\\}{16}{section*.46}
+\contentsline {paragraph}{Information sur les utilisateurs\\}{16}{section*.47}
+\contentsline {subsection}{\numberline {3.2}Application Android}{17}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Page d'accueil}{17}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Cr\IeC {\'e}ation de compte}{18}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}Cr\IeC {\'e}ation de projet}{19}{subsubsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.4}Choisir un projet}{20}{subsubsection.3.2.4}
+\contentsline {subsubsection}{\numberline {3.2.5}Synchronisation}{21}{subsubsection.3.2.5}
+\contentsline {subsubsection}{\numberline {3.2.6}Compilation}{22}{subsubsection.3.2.6}
+\contentsline {subsubsection}{\numberline {3.2.7}Ouverture des PDF}{24}{subsubsection.3.2.7}
+\contentsline {subsubsection}{\numberline {3.2.8}Fenetres de chargement}{24}{subsubsection.3.2.8}
+\contentsline {section}{\numberline {4}Perspectives d'\IeC {\'e}volution}{25}{section.4}
+\contentsline {subsection}{\numberline {4.1}Support des images}{25}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Gestion des groupes}{25}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Coloration syntaxique sur Android}{25}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Mot de passe oubli\IeC {\'e}}{25}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Utilisation d'autres supports de stockage}{25}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}S\IeC {\'e}curisation des transferts de donn\IeC {\'e}es}{26}{subsection.4.6}
+\contentsline {subsection}{\numberline {4.7}Mode offline pour Android}{26}{subsection.4.7}
+\contentsline {section}{\numberline {5}Conclusion}{27}{section.5}

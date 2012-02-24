@@ -1,0 +1,39 @@
+<?php
+class editionActions extends Actions {
+	public function indexSuccess() {
+		$this->title = 'Edition';
+		$this->addCss('edition');
+		$this->addJs('edition');
+		$this->addJs('arbre');
+
+		if(User::isLogged()){
+			$this->flash = 'Votre inscription a été prise en compte'; 
+			$this->addJs('edit_area/edit_area_full');
+			$this->addJs('langManager');
+			$this->addJs('init');
+			$this->addJs('account');
+			
+			$user = User::getCurrentUser();
+			
+			if(!$_SESSION['tree']){
+				$this->tree = $user->getTree();
+				$_SESSION['tree']=serialize($this->tree);
+				//echo 'get tree<br />';
+			}
+			else{
+				$this->tree = unserialize($_SESSION['tree']);
+				//echo 'get tree from session<br />';
+			}
+			
+			$this->setTemplate('edition', $this);
+		}
+	}
+	
+	public function testSuccess(){
+
+	}
+}
+
+new editionActions();
+
+?>

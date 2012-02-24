@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="600dp"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:padding="15dip" >
+
+    <TextView
+        android:id="@+id/pbconnect_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:paddingBottom="10dip"
+        android:text="Le service est actuellement indisponible. Reessayez ultérieurement."
+        android:textColor="#699838"
+        android:textSize="18dp" />
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pbconnect_tv"
+        android:gravity="right" >
+
+        <Button
+            android:id="@+id/button_ok_pbconnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:paddingRight="30dp"
+            android:text="Ok"
+            android:textColor="#699838"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</RelativeLayout>

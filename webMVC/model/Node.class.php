@@ -53,8 +53,9 @@ class Node{
 	public function setName($name){
 		$file = new File($this->getId());
 		$filePath = explode('/', $file->path);
-		
+	
 		$this->name = $name;
+		$oldPath = $file->path;
 		
 		if(count($filePath)>1)
 			$newPath = substr($file->path, 0, -strlen($filePath[count($filePath)-1])) . $name;
@@ -65,6 +66,28 @@ class Node{
 		$file->save();
 		
 		$file->renameChildrenPath();
+		$project = new Project($file->project_id);	
+	
+		if(!$_SESSION['workingCopyDir'][$project->id]){
+			Common::getProject($project);
+		}
+	
+		$sender = new Sender(FRONTAL_IP, FRONTAL_PORT);
+			
+		$dataUrl=explode(':', $project->server_url);
+		$dataIp=$dataUrl[0];
+		$dataPort=$dataUrl[1];
+		
+		$request = array('label' => 'rename',
+				 'path' => $_SESSION['workingCopyDir'][$_SESSION['project_id']],
+				 'target' => $oldPath,
+				 'dest' => $newPath,
+                 'httpPort' => '',
+				 'servDataIp' => $dataIp,
+				 'servDataPort' => $dataPort);
+	
+		$sender->setRequest($request);
+		$sender->sendRequest();
 	}
 	
 	public function getParentId(){

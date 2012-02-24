@@ -6,7 +6,7 @@ Created on 23 janv. 2012
 import socket
 import json
 
-adresseIP="172.16.21.186"
+adresseIP="127.0.0.1"
 port=12800
 req=dict()
 

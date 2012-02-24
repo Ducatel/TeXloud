@@ -7,16 +7,26 @@ class userActions extends Actions {
 	}
 	
 	public function logoutSuccess() {
+		if($_SESSION['workingCopyDir'] ){	
+			foreach($_SESSION['workingCopyDir'] as $project_id => $path)
+				Common::deleteWorkingCopy($project_id, $path);
+		}
+		
 		session_destroy();
-		$this->redirect('/');
+		
+		if(!$_POST['android'])
+			$this->redirect('/');
 	}
 	
 	public function myAccountSuccess(){
 		$this->user = User::getCurrentUser();
+		$this->dontDisplayOptions = false;
 		
 		if($this->user){
 			$this->title= 'Modifier mon profil';
 			$this->addCss('signup');
+			$this->addJs('account');
+
 			$this->setTemplate('myAccount', $this);
 		}
 		else
@@ -25,7 +35,7 @@ class userActions extends Actions {
 	
 	public function processEditAccountSuccess(){
 		$userVars = $_POST['editAccount'];
-		
+
 		$user = User::getCurrentUser();
 		
 		if($user){
@@ -40,6 +50,12 @@ class userActions extends Actions {
 			$user->zip = $userVars['zip'];
 			$user->city = ucwords($userVars['city']);
 			$user->country = ucwords($userVars['country']);
+			
+			if($userVars['change_pwd'] && $user->password == sha1($user->salt.$userVars['pwd']) 
+			  && $userVars['pwd_check'] == $userVars['pwd_check2'])
+			    $user->password=sha1($user->salt.$userVars['pwd_check']);
+			   
+			    
 			
 			$user->save();
 			$this->redirect('/');

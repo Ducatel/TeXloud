@@ -1,0 +1,35 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}
+\BOOKMARK [2][-]{subsection.1.1}{Rappel du sujet}{section.1}
+\BOOKMARK [2][-]{subsection.1.2}{L'\351quipe}{section.1}
+\BOOKMARK [1][-]{section.2}{Choix techniques}{}
+\BOOKMARK [2][-]{subsection.2.1}{Architecture g\351n\351rale}{section.2}
+\BOOKMARK [2][-]{subsection.2.2}{Serveur web}{section.2}
+\BOOKMARK [2][-]{subsection.2.3}{Application Android}{section.2}
+\BOOKMARK [2][-]{subsection.2.4}{Serveur de routage et d'ordonnancement}{section.2}
+\BOOKMARK [2][-]{subsection.2.5}{Serveur de stockage de donn\351es}{section.2}
+\BOOKMARK [2][-]{subsection.2.6}{Serveur de compilation}{section.2}
+\BOOKMARK [1][-]{section.3}{Utilisation des applications}{}
+\BOOKMARK [2][-]{subsection.3.1}{Application Web}{section.3}
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Cr\351ation de compte}{subsection.3.1}
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Cr\351ation de projet}{subsection.3.1}
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Cr\351ation de fichier}{subsection.3.1}
+\BOOKMARK [3][-]{subsubsection.3.1.4}{Compilation}{subsection.3.1}
+\BOOKMARK [3][-]{subsubsection.3.1.5}{Fonctions annexes}{subsection.3.1}
+\BOOKMARK [2][-]{subsection.3.2}{Application Android}{section.3}
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Page d'accueil}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Cr\351ation de compte}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Cr\351ation de projet}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.4}{Choisir un projet}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.5}{Synchronisation}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.6}{Compilation}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.7}{Ouverture des PDF}{subsection.3.2}
+\BOOKMARK [3][-]{subsubsection.3.2.8}{Fenetres de chargement}{subsection.3.2}
+\BOOKMARK [1][-]{section.4}{Perspectives d'\351volution}{}
+\BOOKMARK [2][-]{subsection.4.1}{Support des images}{section.4}
+\BOOKMARK [2][-]{subsection.4.2}{Gestion des groupes}{section.4}
+\BOOKMARK [2][-]{subsection.4.3}{Coloration syntaxique sur Android}{section.4}
+\BOOKMARK [2][-]{subsection.4.4}{Mot de passe oubli\351}{section.4}
+\BOOKMARK [2][-]{subsection.4.5}{Utilisation d'autres supports de stockage}{section.4}
+\BOOKMARK [2][-]{subsection.4.6}{S\351curisation des transferts de donn\351es}{section.4}
+\BOOKMARK [2][-]{subsection.4.7}{Mode offline pour Android}{section.4}
+\BOOKMARK [1][-]{section.5}{Conclusion}{}

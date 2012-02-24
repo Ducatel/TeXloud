@@ -204,6 +204,7 @@ EditAreaLoader.prototype ={
 	},
 		
 	init : function(settings){
+
 		var t=this,s=settings,i;
 		
 		if(!s["id"])
@@ -240,6 +241,7 @@ EditAreaLoader.prototype ={
 		t.load_script(t.baseURL + "langs/"+ s["language"] + ".js");
 		
 		if(s["syntax"].length>0){
+
 			s["syntax"]=s["syntax"].toLowerCase();
 			t.load_script(t.baseURL + "reg_syntax/"+ s["syntax"] + ".js");
 		}

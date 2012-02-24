@@ -3,6 +3,7 @@
 class signupActions extends Actions {
 	public function indexSuccess(){
 		$this->title= 'Inscription';
+		$this->dontDisplayOptions = false;
 		$this->addCss('signup');
 		$this->setTemplate('signup', $this);
 	}
@@ -11,7 +12,8 @@ class signupActions extends Actions {
 		$userVars = $_POST['register'];
 		
 		if($userVars['username'] && $userVars['pwd'] && $userVars['pwd_check'] && $userVars['mail'] && 
-		   $userVars['pwd'] == $userVars['pwd_check'] && Common::isEmail($userVars['mail'])){
+		   $userVars['pwd'] == $userVars['pwd_check'] && $userVars['username']!= $userVars['pwd'] 
+		   && Common::isEmail($userVars['mail'])){
 			
 			$user = new User();
 			$user->username = $userVars['username'];

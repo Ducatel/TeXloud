@@ -31,15 +31,16 @@ public class TeXloudActivity extends Activity {
 
 	private EditText login, passwd;
 	private Button connect, forgot, sign_in;
-	private Dialog dialog, signin_dialog;
-
-	//private ProgressDialog loading_dialog;
+	private Dialog dialog, signin_dialog, pb_connect_dialog, signin_result_dialog;
 	
 	private static final int LOGIN_OK = 0;
 	private static final int ERR_LOGIN = 1;
+	private static final int CONNECTION_PROBLEM = 2;
 	
 	private ProgressDialog connect_dialog;
 	private Spinner spinner_month, spinner_gender;
+	
+	public String signInReturn;
 	
 
 	@Override
@@ -49,7 +50,9 @@ public class TeXloudActivity extends Activity {
 
 		setContentView(R.layout.login);
 
-		// Test connectivité
+		/*
+		 * Test connectivité : si la tablette est hors-ligne, on adapte l'écran d'accueil (pas de login)
+		 */
 		testConnectivite();
 	}
 	
@@ -94,40 +97,37 @@ public class TeXloudActivity extends Activity {
 					new Thread(new Runnable(){
 
 						public void run() {
-							Comm c = new Comm();
-							Comm.statement st = null;
-							
+													
+							String st = "";
 							try {
-								st = c.getAuth(login.getText(),passwd.getText());
-							} catch (JSONException e) {
-								// TODO Auto-generated catch block
+								st = Comm.getAuth(login.getText(),passwd.getText()); // Authentification
+							} catch (JSONException e){
 								e.printStackTrace();
 							}
-							//st = Comm.statement.SUCCESS;
 							
 							Message msg = null;
-							switch(st){
-							case SUCCESS:
-								Log.i("switch", "success");
+							
+							
+							Log.i("st before log", st);
+							
+							if(st.equals("ko")){
+								Log.i("switch", "wrong");
+								msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
+							}
+							else if(st.equals("pb_connect")){
+								Log.i("switch", "pb_connect");
+								msg = mHandler.obtainMessage(TeXloudActivity.CONNECTION_PROBLEM);
+							}
+							else{
+								Log.i("ok", "connexion");
 								Intent intent = new Intent(TeXloudActivity.this, MainActivity.class);
 								intent.putExtra("isOnline", isOnline());
-								intent.putExtra("tree", c.getTree());
+								intent.putExtra("tree", st);
+								
 								startActivity(intent);
 								finish();
 								msg = mHandler.obtainMessage(TeXloudActivity.LOGIN_OK);
 								
-								break;
-
-							case WRONG:
-								Log.i("switch", "wrong");
-								msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
-								
-								break;
-
-							default:
-								Log.i("switch", "error");
-								msg = mHandler.obtainMessage(TeXloudActivity.ERR_LOGIN);
-								break;
 							}
 							
 							mHandler.sendMessage(msg);
@@ -168,14 +168,16 @@ public class TeXloudActivity extends Activity {
 					
 					ok.setOnClickListener(new OnClickListener(){
 						public void onClick(View arg0) {
-							Comm c = new Comm();
-							EditText firstName, lastName, userName, mail, password, address, city, country, zip, year, day;
+							EditText firstName, lastName, userName, mail, password, password_conf, address, city, country, zip, year, day;
+							
+							// Récupération de chaque champ
 							
 							firstName = (EditText) (signin_dialog.findViewById(R.id.firstname));
 							lastName = (EditText) (signin_dialog.findViewById(R.id.lastname));
 							userName = (EditText) (signin_dialog.findViewById(R.id.username));
 							mail = (EditText) (signin_dialog.findViewById(R.id.mail_signin));
 							password = (EditText) (signin_dialog.findViewById(R.id.passwd_signin));
+							password_conf = (EditText) (signin_dialog.findViewById(R.id.passwd_conf_signin));
 							address = (EditText) (signin_dialog.findViewById(R.id.address));
 							city = (EditText) (signin_dialog.findViewById(R.id.city));
 							country = (EditText) (signin_dialog.findViewById(R.id.country));
@@ -186,10 +188,29 @@ public class TeXloudActivity extends Activity {
 							String month = getMonth(spinner_month.getSelectedItem().toString());
 							String gender = spinner_gender.getSelectedItem().toString();
 							
-							c.signIn(firstName.getText(), lastName.getText(), userName.getText(), mail.getText(), password.getText(), address.getText(), gender,
+							// Envoi de tous les champs
+							signInReturn = Comm.signIn(firstName.getText(), lastName.getText(), userName.getText(), mail.getText(), password.getText(), password_conf.getText(), address.getText(), gender,
 									city.getText(), country.getText(), zip.getText(), year.getText(), month, day.getText());
 							
-							signin_dialog.dismiss();
+							signin_result_dialog = new Dialog(TeXloudActivity.this, R.style.noBorder);
+							signin_result_dialog.setContentView(R.layout.signinresultdialog);
+							
+							TextView tv = (TextView) (signin_result_dialog.findViewById(R.id.tv_signinResult));
+							tv.setText(signInReturn);
+							
+							Button ok = (Button) (signin_result_dialog.findViewById(R.id.button_ok_signinResult));
+							ok.setOnClickListener(new OnClickListener() {
+								public void onClick(View v) {
+									
+									if(signInReturn.equals("Inscription reussie ! Vous etes maintenant membre de TeXloud.")){
+										signin_dialog.dismiss();
+									}
+									signin_result_dialog.dismiss();
+								}
+							});
+							
+							signin_result_dialog.show();
+							//signin_dialog.dismiss();
 						}
 					});
 					
@@ -214,10 +235,6 @@ public class TeXloudActivity extends Activity {
 			TextView tv_mdp = (TextView)(findViewById(R.id.tv_passwd));
 			tv_mdp.setTextColor(Color.LTGRAY);
 			
-			/*forgot.setTextColor(Color.LTGRAY);
-			sign_in.setTextColor(Color.LTGRAY);
-			connect.setTextColor(Color.LTGRAY);*/
-			
 			forgot.setVisibility(View.GONE);
 			sign_in.setVisibility(View.GONE);
 			connect.setText("Continuer en mode hors-ligne");
@@ -236,6 +253,9 @@ public class TeXloudActivity extends Activity {
 	}
 
 	public String getMonth(String s){
+		
+		// Conversion des mois (pour insertion dans la base) 
+		
 		if(s == "Janvier")
 			return "01";
 		if(s == "Fevrier")
@@ -263,14 +283,12 @@ public class TeXloudActivity extends Activity {
 		else
 			return "00";
 		
-		
-		
 	}
 	
 	public boolean isOnline() {
 	    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
-	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) { //Test connexion
 	        return true;
 	    }
 	    return false;
@@ -294,6 +312,7 @@ public class TeXloudActivity extends Activity {
 		connect_dialog.dismiss();
 	}
 	
+	// Methodes prévues pour le cryptage de mot de passe
 	public static String SHAsum(byte[] convertme) throws NoSuchAlgorithmException{
 	    MessageDigest md = MessageDigest.getInstance("SHA-1"); 
 	    return byteArray2Hex(md.digest(convertme));
@@ -308,7 +327,7 @@ public class TeXloudActivity extends Activity {
 	}
 	
 	
-	final Handler mHandler = new Handler() {
+	final Handler mHandler = new Handler(){
 		public void handleMessage(Message msg) {
 			dismissLoadingDialog();
 			switch(msg.what){
@@ -318,6 +337,21 @@ public class TeXloudActivity extends Activity {
 			
 			case LOGIN_OK:
 				setErrorTextViewVisibility(View.INVISIBLE);
+				break;
+				
+			case CONNECTION_PROBLEM:
+				Log.i("problem connection", "problem connection");
+				pb_connect_dialog = new Dialog(TeXloudActivity.this, R.style.noBorder);
+				pb_connect_dialog.setContentView(R.layout.connectproblemlayout);
+				
+				pb_connect_dialog.show();
+				
+				Button b = (Button)(pb_connect_dialog.findViewById(R.id.button_ok_pbconnect));
+				b.setOnClickListener(new OnClickListener() {
+					public void onClick(View v) {
+						pb_connect_dialog.dismiss();
+					}
+				});
 				break;
 			}
 		}

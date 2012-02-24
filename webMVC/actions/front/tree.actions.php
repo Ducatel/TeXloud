@@ -29,11 +29,39 @@ class treeActions extends Actions {
 		
 		$file->save();
 		
+		$project = new Project($file->project_id);
+		
+		if(!$_SESSION['workingCopyDir'][$file->project_id])
+			Common::getProject($project);
+		
 		$id=$tree->addNode($_POST['name'], $_POST['idParent'], false, $file->id);
 		
 		$_SESSION['tree']=serialize($tree);
+
+		$request = array('label' => 'sync');
+
+		$files = array();	
+		$files[] = array('filename' => $file->path, 'content' => '');
+
+		$sender= new Sender(FRONTAL_IP, FRONTAL_PORT);
 		
-		echo $id;
+		$data_addr = explode(':', $project->server_url);
+
+		$request['httpPort'] = '';
+		$request['path'] = $_SESSION['workingCopyDir'][$_SESSION['project_id']];
+//		$request['path'] = '82357dfb1a833466744dd6ce186d7336';
+		$request['servDataIp'] = $data_addr[0];
+		$request['servDataPort'] = $data_addr[1];
+		$request['files'] = $files;
+
+		$sender->setRequest($request);
+
+		$sender->sendRequest();
+		unset($sender);
+
+//		echo 'envoyé';	
+	
+		echo $file->id;
 	}
 	
 	public function addFolderSuccess(){
@@ -68,9 +96,6 @@ class treeActions extends Actions {
 		$tree=unserialize($_SESSION['tree']);
 		$tree->removeNode($_POST['id']);
 		
-		$file = new File($_POST['id']);
-		$file->_delete();
-		
 		$_SESSION['tree']=serialize($tree);
 	}
 	
@@ -78,13 +103,22 @@ class treeActions extends Actions {
 		$tree=unserialize($_SESSION['tree']);
 		$tree->removeNode($_POST['id']);
 		
-		File::delete($_POST['id']);
-		
 		$_SESSION['tree']=serialize($tree);
 	}
 	
 	public function removeProjectSuccess(){
 		$tree=unserialize($_SESSION['tree']);
+		
+		$id_splitted = explode('_', $_POST['id']);
+		$project = new Project($id_splitted[0]);
+
+		if($project){
+			$tree->removeNode($_POST['id']);
+
+			$project->_delete();
+		}
+
+		$_SESSION['tree']=serialize($tree);
 	}
 	
 	public function renameElementSuccess(){
@@ -103,7 +137,6 @@ class treeActions extends Actions {
 		$project = new Project();
 		$project->ugroup_id = $groups[0]->id;
 		$project->name = $_POST['name'];
-		$project->save();
 		
 		$user=User::getCurrentUser();
 		
@@ -116,10 +149,10 @@ class treeActions extends Actions {
 		$sender= new Sender($frontalAddress,$frontalPort);
 		
 		$requete=array(
-					'label'=>'create',
-					'username'=>$user->username,
-					'projectName'=>$projectName,
-					'httpPort'=>$receiver->getPort(),
+			'label'=>'create',
+			'username'=>$user->username,
+			'projectName'=>$project->name,
+			'httpPort'=>$receiver->getPort(),
 		);
 		
 		$sender->setRequest($requete);
@@ -131,17 +164,24 @@ class treeActions extends Actions {
 		// Attente de recuperation des infos
 		$trame=$receiver->getReturn();
 		
-		// Creation du projet dans la BDD
-		$req=new Query('insert',"INSERT INTO project VALUES ('','".$project->name."','".$trame['serverUrl']."',(select GU.ugroup_id from user U , group_user GU where U.id='".$user->id."' and GU.user_id=U.id limit 0,1))");
+		$project->server_url = $receiver->getRemoteIp().':'.$trame->port;
+		$project->repo = $trame->projectName;
+		$project->save();
+	
+		if(!is_array($_SESSION['workingCopyDir']))
+			$_SESSION['workingCopyDir']=array();
+
+		$_SESSION['workingCopyDir'][$project->id]=$trame->workingCopyDir;
 		
-		$_SESSION['workingCopyDir']=array();
-		$_SESSION['workingCopyDir'][$req->last_id]=$trame['workingCopyDir'];
+		$_SESSION['project_id'] = $project->id;	
+	
+	//	echo "Creation du projet termine";
 		
-		echo "Creation du projet termine";
-		
+		$id = $tree->addNode($project->name, $tree->getRoot()->getId(), true, $project->id . '_project');
+
 		$_SESSION['tree']=serialize($tree);
-		
-		echo $project->id . '_project';
+
+		echo $id;
 	}
 	
 	public function removeProject(){

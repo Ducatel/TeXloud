@@ -52,7 +52,6 @@ class Tree{
 	 * @return: true si supprimer, false sinon
 	 */
 	public function removeNode($id){
-		
 		if($id != $this->root->getId()){
 			foreach($this->arrayOfNode as $node){
 				if($node->getId()==$id){
@@ -71,7 +70,7 @@ class Tree{
 	 * Méthode qui supprime un dossier
 	 * @param $folder: objet Node qui représente le dossier a supprimer
 	 */
-	private function removeFolder($folder){
+	private function removeFolder($folder, $removeFromServer = true){
 		$tabSon=array();
 		foreach($this->arrayOfNode as $node){
 			if($node->getParentId()==$folder->getId()){
@@ -84,13 +83,19 @@ class Tree{
 				}
 			}
 		}
-		
+	
 		foreach($tabSon as $son){
 			File::delete($son->getId());
-			$this->removeFolder($son);
+			$this->removeFolder($son, false);
 		}
+	
 		
-		File::delete($folder->getId());
+		if(!Common::endsWith($folder->getId(), '_project')){
+			if($removeFromServer)
+				File::deleteFromData($folder->getId());
+			else
+				File::delete($folder->getId());
+		}
 		
 		unset($this->arrayOfNode[$folder->getId()]);
 	}
