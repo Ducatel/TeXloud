@@ -8,12 +8,17 @@ from connector.GenericConnector import GenericConnector
 import datetime
 import md5
 import pysvn
+import codecs
+import locale
 
 class SvnConnector(GenericConnector):
     '''
     Classe de connexion à un serveur SVN 
     '''   
     def __init__(self, url, login = '', passwd = '', wc_path = '', checkout = True):
+        language_code = 'en_US'
+        locale.setlocale(locale.LC_ALL, '%s.%s' % (language_code, 'UTF-8'))
+
         super(self.__class__,self).__init__(url, login, passwd)
         
         now = datetime.datetime.now()
@@ -46,7 +51,8 @@ class SvnConnector(GenericConnector):
             ''' Lance la copie avec les paramètres '''
             self.client.checkout(self.url, self.wc_dir)
             
-        print 'copie locale enregistrée dans ' + self.wc_dir
+        print 'copie locale enregistrée dans ' + str(self.wc_dir)
+#        print 'copie locale enregistrée ' + self.wc_dir
 
     def get_public_dir_name(self):
         return self.__public_dir_name
@@ -118,10 +124,16 @@ class SvnConnector(GenericConnector):
             conflict_list.append(self.client.info(path))
             
         return conflict_list
-    
+   
+    def rename(self, path, target, dest):
+	print 'move ' + self.wc_dir + '/' + target + ' to ' + self.wc_dir + '/' + dest
+        self.client.move(self.wc_dir + '/' + target, self.wc_dir + '/' + dest)
+        self.full_commit()
+ 
     def remove_file(self, path):
-        print self.wc_dir + '/' + path
+        print 'remove ' + self.wc_dir + '/' + path
         self.client.remove(self.wc_dir + '/' + path)
+        self.full_commit()
         
     def resolve_all(self):
         changes = self.client.status(self.get_wc_dir())
@@ -133,6 +145,7 @@ class SvnConnector(GenericConnector):
         
     def full_commit(self):
         self.add_all()
+        self.commit()
         self.client.checkout(self.url, self.wc_dir)
         self.resolve_all()
         self.commit()

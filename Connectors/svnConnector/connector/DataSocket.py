@@ -15,6 +15,12 @@ import re
 import socket
 import threading
 import zipfile
+import codecs
+import locale
+import re
+import datetime
+import md5
+import shutil
 
 class DataSocket(object):
     '''
@@ -22,6 +28,9 @@ class DataSocket(object):
     '''
 
     def __init__(self, address, port):
+        language_code = 'en_US'
+        locale.setlocale(locale.LC_ALL, '%s.%s' % (language_code, 'UTF-8'))
+        
         self._address = address
         self._port = port
         self._messageSeparator = '+==\sep==+'
@@ -30,14 +39,16 @@ class DataSocket(object):
         self._webserver_port = 6667
         self.wc_dir = '/tmp/'
         self.working_copy_user_index = '/tmp/texloud/users.conf'
-        self._repo_dir = '/tmp/texloud/repos/'
+        self._repo_dir = '/home/texloud/repos/'
+	self._working_copy_dir = '/tmp/texloud/'
         
+        if(not os.path.isdir(self._working_copy_dir)):
+            os.makedirs(self._working_copy_dir)
+
         if(not os.path.isdir(self._repo_dir)):
             os.makedirs(self._repo_dir)
             
-            if(not os.path.exists(self.working_copy_user_index)):
-                f = open(self.working_copy_user_index, 'w')
-                f.close()
+        os.system('touch ' + self.working_copy_user_index)
             
         
     def getUserProperty(self, wc_dir, prop):
@@ -122,12 +133,15 @@ class DataSocket(object):
         zfile.close()
         
         return filezip
+
+    def rename(self, path, target, dest, httpPort, client):
+        return NotImplemented 
         
     def compile(self, rootFile, servCompileIp, servCompilePort, path, httpPort, client):
         ''' Envoi d'un fichier binaire à un client '''
         if not '..' in path:
-            rootFileJSON = '{"label" : "compile", "rootFile" : "' + rootFile + '", "returnIp" : "' + self._address \
-                            + '", "returnPort" : "' + str(self._port) + '", "httpPort":"' +httpPort + '"}';
+            rootFileJSON = '{"label" : "compile", "rootFile" : "' + rootFile.encode('utf-8') + '", "returnIp" : "' + self._address \
+                            + '", "returnPort" : "' + str(self._port) + '", "httpPort":"' +str(httpPort) + '"}';
             
             fname = self.zip_dir(self.wc_dir + path);
             
@@ -145,15 +159,16 @@ class DataSocket(object):
             
             sock.close()
             
-            os.unlink(fname)
+            #os.unlink(fname)
             #os.system('rm ' + fname)
         
     def sendPdfToWebServer(self, log, pdf, httpPort):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((self._webserver_ip, int(httpPort)))
 
-        sock.send('{"log" : "' + log + '"}' + self._messageSeparator + pdf)
+        sock.send('{"log" : "' + log + '"}' + self._messageSeparator)
         sock.send(pdf)
+	sock.send(self._trameEnd)
         
         sock.close()
         #sock.send(self._messageSeparator)
@@ -162,7 +177,7 @@ class DataSocket(object):
     def sendAsciiMessage(self, request, ip, port):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((ip, int(port)))
-        sock.send(request)
+        sock.send(request.encode('utf-8'))
         sock.close()
         
     def launch(self):
@@ -203,7 +218,8 @@ class DataSocket(object):
         
                 if(label=='create'):
                     print 'create'
-                    self.createProject(requestInfo['projectName'], requestInfo['httpPort'], client)
+#                    self.createProject(re.sub('\s+', '_', requestInfo['projectName']), requestInfo['httpPort'], client)
+                    self.createProject(self.getRandName(), requestInfo['httpPort'], client)
                 #tested - work
                 elif(label=='getProject'):
                     print 'getProject'
@@ -235,13 +251,27 @@ class DataSocket(object):
                 elif(label=="backCompile"):
                     print 'send compiled file to server'
                     self.sendPdfToWebServer(requestInfo['log'], messageArray[1], requestInfo['httpPort'])
+                elif(label=="rename"):
+                    print 'rename folder ' + requestInfo['target'] + ' to ' + requestInfo['dest']
+                    self.rename(requestInfo['path'], requestInfo['target'], requestInfo['dest'], requestInfo['httpPort'], client)
+                elif(label=='deleteWorkingCopy'):
+                    print 'delete working copy'
+                    self.deleteWorkingCopy(requestInfo['path'], client)
                 else:
                     print 'failed to retrieve action'
                     
                 completeMessage = ""
         
         print 'fin de connexion'
-                
+             
+    def deleteRepo(self, path, client):
+        if not '..' in path:
+            shutil.rmtree(path)
+   
+    def deleteWorkingCopy(self, path, client):
+         if not '..' in path:
+             shutil.rmtree(self.wc_dir + path)
+             self.remove_user_prop(path)
       
     ''' synchronise plusieurs fichiers sur la copie locale puis commit '''
     def sync(self, path, files, httpPort, client):
@@ -253,9 +283,9 @@ class DataSocket(object):
                     filePath = '/' + fdata['filename'][:-len(fparts[-1])]
                     
                     if not os.path.isdir(self.wc_dir + path + filePath):
-                        os.system("mkdir -p " + self.wc_dir + path + filePath )
+                        os.makedirs(self.wc_dir + path + filePath)
                         
-                    f = open(self.wc_dir + path + '/' + fdata['filename'], 'w')
+                    f = codecs.open(self.wc_dir + path + '/' + fdata['filename'], 'w', 'utf-8')
                     f.write(fdata['content'])
                     f.close()
         #client.close()
@@ -270,11 +300,15 @@ class DataSocket(object):
     def getProject(self, path, username, password, httpPort, client):
         return NotImplemented
         
+    def getRandName(self):
+       now = datetime.datetime.now()
+       return md5.new(str(now)).hexdigest() 
+
     def createProject(self, projectName, httpPort, client):
         #print 'nom du dépot' + projectName
         
         if not '..' in projectName:
-            os.system('svnadmin create ' + self._repo_dir + projectName)
+            os.system('svnadmin create ' + self._repo_dir.encode('utf-8') + projectName.encode('utf-8'))
             print 'repo addr -> ' + "file://" + self._repo_dir + projectName
             self.getProject("file://" + self._repo_dir + projectName, '', '', httpPort, client)
     
@@ -297,8 +331,12 @@ class DataSocket(object):
     @abstractmethod
     def deleteProject(self, path, httpPort, client):
         if not '..' in path:
+            shutil.rmtree(self.wc_dir + path)
+            repo_dir = self.getUserProperty(path, 'repo')
+
+            shutil.rmtree(repo_dir.replace('file://', ''))
+
             self.remove_user_prop(path)
-            os.system('rm -rf ' + self.wc_dir + path)
     
     ''' Crée un fichier donc le contenu est passé dans file_content (prend les fichiers binaires) '''
     def createFile(self, path, filename, file_content, httpPort, client):
