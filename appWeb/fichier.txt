@@ -1,7 +1,0 @@
-		  \documentclass{article}
-		  \begin{document}
-		  Bonjour, j'\'edite en \LaTeX!
-		  \end{document}
-voila de de
- àdeiop
-		  
